@@ -6,14 +6,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="css/styles.css" />
     <script src="js/main.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/js/all.min.js"></script> <!-- Link do Font Awesome -->
     <title>Task Control</title>
   </head>
   <body>
-    <header>
-      <div class="logo">
+    <header> <!-- Cabeçalho do site -->
+       <div class="logo"> <!-- Logo do site -->
         <h1>Task Control</h1>
       </div>
-      <div class="menu">
+      <div class="menu"> <!-- Menu do site -->
         <a href="#">Ajuda</a>
         <a href="#">Contato</a>
         <a href="#">Sugestões</a>
@@ -21,5 +22,22 @@
         <a href="#">Entrar</a>
       </div>
     </header>
+    <main>
+       <div class="container"> <!-- Caixa principal do projeto -->
+        <div class="newTaskContainer"> <!-- Parte superior da caixa, onde serão informadas e enviadas as tarefas -->
+          <input type="text" name="newTaskField" id="newTaskField" placeholder="Digite a tarefa">
+          <input type="button" value="Adicionar" id="newTaskAdd">
+        </div>
+        <div class="tasksContainer"> <!-- Parte inferior da caixa, onde serão armazanadas as tarefas -->
+         <!-- <div class="task">
+            <p>Primeira tarefa!!</p>
+            <div class="icons">
+              <i class="fa-solid fa-circle-check"></i>
+              <i class="fa-solid fa-trash"></i>
+            </div>
+          </div> -->
+        </div> 
+      </div>
+    </main>
   </body>
 </html>
