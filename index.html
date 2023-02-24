@@ -6,15 +6,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="css/styles.css" />
     <script src="js/main.js" defer></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/js/all.min.js"></script> <!-- Link do Font Awesome -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/js/all.min.js"></script>
+    <!-- Link do Font Awesome -->
     <title>Task Control</title>
   </head>
   <body>
-    <header> <!-- Cabeçalho do site -->
-       <div class="logo"> <!-- Logo do site -->
+    <header>
+      <!-- Cabeçalho do site -->
+      <div class="logo">
+        <!-- Logo do site -->
         <h1>Task Control</h1>
       </div>
-      <div class="menu"> <!-- Menu do site -->
+      <div class="menu">
+        <!-- Menu do site -->
         <a href="#">Ajuda</a>
         <a href="#">Contato</a>
         <a href="#">Sugestões</a>
@@ -23,20 +27,32 @@
       </div>
     </header>
     <main>
-       <div class="container"> <!-- Caixa principal do projeto -->
-        <div class="newTaskContainer"> <!-- Parte superior da caixa, onde serão informadas e enviadas as tarefas -->
-          <input type="text" name="newTaskField" id="newTaskField" placeholder="Digite a tarefa">
-          <input type="button" value="Adicionar" id="newTaskAdd">
+      <div class="container">
+        <!-- Caixa principal do projeto -->
+        <div class="newTaskContainer">
+          <!-- Parte superior da caixa, onde serão informadas e enviadas as tarefas -->
+          <input
+            type="text"
+            name="newTaskField"
+            id="newTaskField"
+            placeholder="Digite a tarefa"
+          />
+          <input type="button" value="Adicionar" id="newTaskAdd" />
         </div>
-        <div class="tasksContainer"> <!-- Parte inferior da caixa, onde serão armazanadas as tarefas -->
-         <div class="taskField">
+        <div class="tasksContainer">
+          <!-- Parte inferior da caixa, onde serão armazanadas as tarefas -->
+          <div class="taskField">
             <p class="task">Tarefa teste</p>
             <div class="iconsField">
-              <span class="fa-regular fa-circle-check"></span>
-              <span class="fa-solid fa-trash"></span>
+              <button class="checkBtn">
+                <i class="fa-regular fa-circle-check"></i>
+              </button>
+              <button class="removeBtn">
+                <i class="fa-solid fa-trash"></i>
+              </button>
             </div>
           </div>
-        </div> 
+        </div>
       </div>
     </main>
   </body>
