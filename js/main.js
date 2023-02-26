@@ -1,31 +1,19 @@
-const newTaskField = document.querySelector("#newTaskField");
+const newTaskInput = document.querySelector("#newTaskInput");
 const newTaskBtn = document.querySelector("#newTaskAdd");
 
-const validateField = () => {
-  if (newTaskField.value.trim() == "") {
-    return false;
-  }
-  return true;
-};
+const validateField = () => newTaskInput.value.trim() != "";
 
 const tasksContainer = document.querySelector(".tasksContainer");
 
-let contador = 0
-
 newTaskBtn.addEventListener("click", () => {
   if (!validateField()) {
-    newTaskField.style.border = "2px solid red";
-    
+    console.log("Erro");
   } else {
-    contador += 1
-
     const taskField = document.createElement("div");
     taskField.classList.add("taskField");
-    taskField.classList.add('taskField' + contador);
 
-    const task = document.createElement("p");
-    task.innerText = newTaskField.value;
-    task.classList.add("task");
+    const taskContent = document.createElement("p");
+    taskContent.innerText = newTaskInput.value;
 
     const iconsField = document.createElement("div");
     iconsField.classList.add("iconsField");
@@ -35,46 +23,46 @@ newTaskBtn.addEventListener("click", () => {
     const checkIcon = document.createElement("i");
     checkIcon.classList.add("fa-regular");
     checkIcon.classList.add("fa-circle-check");
+    checkBtn.addEventListener("click", () =>
+      completeClick(taskField, taskContent)
+    );
 
     const removeBtn = document.createElement("button");
-    // removeBtn.setAttribute('onclick', 'remove()')
     removeBtn.classList.add("removeBtn");
-    removeBtn.classList.add('removeBtn' + contador);
     const removeIcon = document.createElement("i");
     removeIcon.classList.add("fa-solid");
     removeIcon.classList.add("fa-trash");
+    removeBtn.addEventListener("click", () =>
+      deleteClick(taskField, taskContent)
+    );
 
     tasksContainer.appendChild(taskField);
-    taskField.appendChild(task);
+    taskField.appendChild(taskContent);
     taskField.appendChild(iconsField);
     iconsField.appendChild(checkBtn);
     checkBtn.appendChild(checkIcon);
     iconsField.appendChild(removeBtn);
     removeBtn.appendChild(removeIcon);
 
-    newTaskField.focus();
-    newTaskField.value = "";
-    newTaskField.style.border = "2px solid black";
-
-    
-    let removeBtn2 = document.querySelector('.removeBtn' + contador)
-
-    console.log('Adicionou', contador, removeBtn2)
-
-    removeBtn2.addEventListener('click', () => {
-      document.querySelector('.taskField' + contador).remove()
-      console.log('Removeu', contador)
-    })
-    
+    newTaskInput.focus();
+    newTaskInput.value = "";
   }
 });
 
+const deleteClick = (taskField, taskContent) => {
+  const tasks = tasksContainer.childNodes;
+  for (const task of tasks) {
+    if (task.firstChild.isSameNode(taskContent)) {
+      taskField.remove();
+    }
+  }
+};
 
-// function remove() {
-//   
-//   console.log('Removeu', contador, removeBtn2)
-// }
-
-
-  
-
+const completeClick = (taskField, taskContent) => {
+  const tasks = tasksContainer.childNodes;
+  for (const task of tasks) {
+    if (task.firstChild.isSameNode(taskContent)) {
+      console.log("Completou");
+    }
+  }
+};
