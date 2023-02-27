@@ -1,9 +1,15 @@
 const newTaskInput = document.querySelector("#newTaskInput");
 const newTaskBtn = document.querySelector("#newTaskAdd");
+const tasksContainer = document.querySelector(".tasksContainer");
+const resetBtn = document.querySelector('#inputReset')
+
+resetBtn.addEventListener('click', () => {
+  newTaskInput.value = ''
+  newTaskInput.focus()
+})
 
 const validateField = () => newTaskInput.value.trim() != "";
 
-const tasksContainer = document.querySelector(".tasksContainer");
 
 newTaskBtn.addEventListener("click", () => {
   if (!validateField()) {
@@ -56,6 +62,7 @@ const deleteClick = (taskField, taskContent) => {
       taskField.remove();
     }
   }
+  newTaskInput.focus();
 };
 
 const completeClick = (taskField, taskContent) => {
@@ -65,4 +72,5 @@ const completeClick = (taskField, taskContent) => {
       console.log("Completou");
     }
   }
+  newTaskInput.focus();
 };
