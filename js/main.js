@@ -27,11 +27,23 @@ newTaskBtn.addEventListener("click", () => {
     const checkBtn = document.createElement("button");
     checkBtn.classList.add("checkBtn");
     const checkIcon = document.createElement("i");
-    checkIcon.classList.add("fa-regular");
-    checkIcon.classList.add("fa-circle-check");
+    checkIcon.classList.add("fa-solid");
+    checkIcon.classList.add("fa-check");
     checkBtn.addEventListener("click", () =>
       completeClick(taskField, taskContent)
     );
+    
+    const scheduleBtn = document.createElement("button");
+    scheduleBtn.classList.add("scheduleBtn");
+    const scheduleIcon = document.createElement("i");
+    scheduleIcon.classList.add("fa-solid");
+    scheduleIcon.classList.add("fa-calendar-days");
+    
+    const editBtn = document.createElement("button");
+    editBtn.classList.add("editBtn");
+    const editIcon = document.createElement("i");
+    editIcon.classList.add("fa-solid");
+    editIcon.classList.add("fa-file-pen");
 
     const removeBtn = document.createElement("button");
     removeBtn.classList.add("removeBtn");
@@ -47,6 +59,10 @@ newTaskBtn.addEventListener("click", () => {
     taskField.appendChild(iconsField);
     iconsField.appendChild(checkBtn);
     checkBtn.appendChild(checkIcon);
+    iconsField.appendChild(scheduleBtn);
+    scheduleBtn.appendChild(scheduleIcon)
+    iconsField.appendChild(editBtn)
+    editBtn.appendChild(editIcon)
     iconsField.appendChild(removeBtn);
     removeBtn.appendChild(removeIcon);
 
