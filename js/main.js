@@ -29,6 +29,7 @@ newTaskBtn.addEventListener("click", () => {
     const checkIcon = document.createElement("i");
     checkIcon.classList.add("fa-solid");
     checkIcon.classList.add("fa-check");
+    checkBtn.setAttribute('title', 'Concluir')
     checkBtn.addEventListener("click", () =>
       completeClick(taskField, taskContent)
     );
@@ -38,18 +39,21 @@ newTaskBtn.addEventListener("click", () => {
     const scheduleIcon = document.createElement("i");
     scheduleIcon.classList.add("fa-solid");
     scheduleIcon.classList.add("fa-calendar-days");
+    scheduleBtn.setAttribute('title', 'Agendar')
     
     const editBtn = document.createElement("button");
     editBtn.classList.add("editBtn");
     const editIcon = document.createElement("i");
     editIcon.classList.add("fa-solid");
     editIcon.classList.add("fa-file-pen");
+    editBtn.setAttribute('title', 'Editar')
 
     const removeBtn = document.createElement("button");
     removeBtn.classList.add("removeBtn");
     const removeIcon = document.createElement("i");
     removeIcon.classList.add("fa-solid");
     removeIcon.classList.add("fa-trash");
+    removeBtn.setAttribute('title', 'Excluir')
     removeBtn.addEventListener("click", () =>
       deleteClick(taskField, taskContent)
     );
