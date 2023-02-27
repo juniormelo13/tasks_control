@@ -1,7 +1,7 @@
 const newTaskInput = document.querySelector("#newTaskInput");
 const newTaskBtn = document.querySelector("#newTaskAdd");
 const tasksContainer = document.querySelector(".tasksContainer");
-const resetBtn = document.querySelector('#inputReset')
+const resetBtn = document.querySelector('#resetInput')
 
 resetBtn.addEventListener('click', () => {
   newTaskInput.value = ''

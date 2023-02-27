@@ -15,15 +15,15 @@
     <header>
       <!-- Logo do site -->
       <div class="logo">
-        <h1>Task Control</h1>
+        <h1>task control</h1>
       </div>
       <!-- Menu do site -->
       <div class="menu">
-        <a href="#">Ajuda</a>
-        <a href="#">Contato</a>
-        <a href="#">Sugestões</a>
-        <a href="#">Inscrever-se</a>
-        <a href="#">Entrar</a>
+        <a href="#">ajuda</a>
+        <a href="#">contato</a>
+        <a href="#">sugestões</a>
+        <a href="#">inscrever-se</a>
+        <a href="#">entrar</a>
       </div>
     </header>
     <main>
@@ -36,15 +36,39 @@
             type="text"
             name="newTaskInput"
             id="newTaskInput"
-            placeholder="Digite a tarefa"
+            placeholder="digite a tarefa"
           />
           <!-- Botão para adição da nova tarefa no campo -->
-          <input type="button" value="Adicionar" id="newTaskAdd" />
+          <input type="button" value="adicionar" id="newTaskAdd" />
           <!-- Botão para limpar o campo -->
-          <input type="button" value="Limpar" id="inputReset" />
+          <input type="button" value="limpar" id="resetInput" />
         </div>
         <!-- Campo onde as tarefas serão adicionadas -->
         <div class="tasksContainer"></div>
+        <!-- Campo de edição das tarefas -->
+        <div class="editField">
+          <!-- Parte de cima da edição das tarefas -->
+          <div class="editFieldHeader">
+            <!-- Título do campo de edição -->
+            <h1>editar tarefa</h1>
+            <!-- Botão para fechar o campo de edição -->
+            <button id="editFieldCloseBtn" class="closeEditField"><i class="fa-solid fa-xmark"></i></button>
+          </div>
+          <!-- Parte do centro do campo de edição -->
+          <div class="editFieldCenter">
+            <!-- Campo para digitar as informações para edição -->
+            <input type="text" name="editInput" id="editInput" placeholder="edite a tarefa">
+            <!-- Botão para limpar o campo de edição -->
+            <input type="button" value="limpar" id="resetEditInput">
+          </div>
+          <!-- Parte de baixo do campo de edição -->
+          <div class="editFieldFooter">
+            <!-- Botão para confirmar a edição -->
+            <input type="button" value="confirmar" id="confirmEditBtn">
+            <!-- Botão para fechar o campo de edição -->
+            <input type="button" value="cancelar" id="cancelEditBtn" class="closeEditField">
+          </div>
+        </div>
       </div>
     </main>
   </body>
