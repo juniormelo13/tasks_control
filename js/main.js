@@ -1,15 +1,18 @@
 const newTaskInput = document.querySelector("#newTaskInput");
-const newTaskBtn = document.querySelector("#newTaskAdd");
-const tasksContainer = document.querySelector(".tasksContainer");
-const resetBtn = document.querySelector('#resetInput')
+const newTaskBtn = document.querySelector("#newTaskBtn");
+const resetBtn = document.querySelector('#resetBtn')
 
 resetBtn.addEventListener('click', () => {
   newTaskInput.value = ''
   newTaskInput.focus()
 })
 
-const validateField = () => newTaskInput.value.trim() != "";
+const tasksContainer = document.querySelector(".tasksContainer");
+const editField = document.querySelector('.editField')
+const header = document.querySelector('#header')
+const mainContainer = document.querySelector('#mainContainer')
 
+const validateField = () => newTaskInput.value.trim() != "";
 
 newTaskBtn.addEventListener("click", () => {
   if (!validateField()) {
@@ -47,6 +50,7 @@ newTaskBtn.addEventListener("click", () => {
     editIcon.classList.add("fa-solid");
     editIcon.classList.add("fa-file-pen");
     editBtn.setAttribute('title', 'Editar')
+    editBtn.addEventListener('click', () => editClick(taskField, taskContent))
 
     const removeBtn = document.createElement("button");
     removeBtn.classList.add("removeBtn");
@@ -75,6 +79,35 @@ newTaskBtn.addEventListener("click", () => {
   }
 });
 
+const completeClick = (taskField, taskContent) => {
+  const tasks = tasksContainer.childNodes;
+  for (const task of tasks) {
+    if (task.firstChild.isSameNode(taskContent)) {
+      console.log("Completou");
+    }
+  }
+  newTaskInput.focus();
+};
+
+const editInput = document.querySelector('#editInput')
+
+const editClick = (taskField, taskContent) => {
+  editField.style.display = 'block'
+  header.style.pointerEvents = "none"
+  mainContainer.style.pointerEvents = "none"
+  editInput.focus()
+
+  const tasks = tasksContainer.childNodes
+
+  for (const task of tasks) {
+    if(task.firstChild.isSameNode(taskContent)) {
+      editInput.value = taskContent.innerText
+      
+    }
+  }
+  
+}
+
 const deleteClick = (taskField, taskContent) => {
   const tasks = tasksContainer.childNodes;
   for (const task of tasks) {
@@ -85,12 +118,5 @@ const deleteClick = (taskField, taskContent) => {
   newTaskInput.focus();
 };
 
-const completeClick = (taskField, taskContent) => {
-  const tasks = tasksContainer.childNodes;
-  for (const task of tasks) {
-    if (task.firstChild.isSameNode(taskContent)) {
-      console.log("Completou");
-    }
-  }
-  newTaskInput.focus();
-};
+
+const scheduleField = document.querySelector('.scheduleField')

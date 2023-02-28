@@ -16,7 +16,7 @@
   </head>
   <body>
     <!-- Cabeçalho do site -->
-    <header>
+    <header id="header">
       <!-- Logo do site -->
       <div class="logo">
         <h1>task control</h1>
@@ -30,7 +30,7 @@
         <a href="#">entrar</a>
       </div>
     </header>
-    <main>
+    <main id="mainContainer">
       <!-- Caixa principal do projeto -->
       <div class="container">
         <!-- Parte superior da caixa, onde serão informadas e enviadas as tarefas -->
@@ -43,36 +43,12 @@
             placeholder="digite a tarefa"
           />
           <!-- Botão para adição da nova tarefa no campo -->
-          <input type="button" value="adicionar" id="newTaskAdd" />
+          <input type="button" value="adicionar" id="newTaskBtn" />
           <!-- Botão para limpar o campo -->
-          <input type="button" value="limpar" id="resetInput" />
+          <input type="button" value="limpar" id="resetBtn" />
         </div>
         <!-- Campo onde as tarefas serão adicionadas -->
         <div class="tasksContainer"></div>
-        <!-- Campo de edição das tarefas -->
-        <div class="editField">
-          <!-- Parte de cima do campo de edição -->
-          <div class="editFieldHeader">
-            <!-- Título do campo de edição -->
-            <h1>editar tarefa</h1>
-            <!-- Botão para fechar o campo de edição -->
-            <button id="editFieldCloseBtn" class="closeEditField"><i class="fa-solid fa-xmark"></i></button>
-          </div>
-          <!-- Parte do centro do campo de edição -->
-          <div class="editFieldCenter">
-            <!-- Caixa de texto para digitar as informações para edição -->
-            <input type="text" name="editInput" id="editInput" placeholder="edite a tarefa">
-            <!-- Botão para limpar o campo de edição -->
-            <input type="button" value="limpar" id="resetEditInput">
-          </div>
-          <!-- Parte de baixo do campo de edição -->
-          <div class="editFieldFooter">
-            <!-- Botão para confirmar a edição -->
-            <input type="button" value="editar" id="confirmEditBtn">
-            <!-- Botão para fechar o campo de edição -->
-            <input type="button" value="cancelar" id="cancelEditBtn" class="closeEditField">
-          </div>
-        </div>
         <!-- Campo de agendamento das tarefas -->
         <div class="scheduleField">
           <!-- Parte de cima do campo de agendamento -->
@@ -103,5 +79,29 @@
         </div>
       </div>
     </main>
+    <!-- Campo de edição das tarefas -->
+    <div class="editField">
+      <!-- Parte de cima do campo de edição -->
+      <div class="editFieldHeader">
+        <!-- Título do campo de edição -->
+        <h1>editar tarefa</h1>
+        <!-- Botão para fechar o campo de edição -->
+        <button id="editFieldCloseBtn" class="closeEditField"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <!-- Parte do centro do campo de edição -->
+      <div class="editFieldCenter">
+        <!-- Caixa de texto para digitar as informações para edição -->
+        <input type="text" name="editInput" id="editInput" placeholder="edite a tarefa">
+        <!-- Botão para limpar o campo de edição -->
+        <input type="button" value="limpar" id="resetEditInput">
+      </div>
+      <!-- Parte de baixo do campo de edição -->
+      <div class="editFieldFooter">
+        <!-- Botão para confirmar a edição -->
+        <input type="button" value="editar" id="confirmEditBtn">
+        <!-- Botão para fechar o campo de edição -->
+        <input type="button" value="cancelar" id="cancelEditBtn" class="closeEditField">
+      </div>
+    </div>
   </body>
 </html>
