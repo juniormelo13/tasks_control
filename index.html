@@ -1,13 +1,17 @@
 <!DOCTYPE html>
+<!-- Linguagem do projeto -->
 <html lang="pt-br">
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Link da folha de estilo CSS do projeto -->
     <link rel="stylesheet" href="css/styles.css" />
     <!-- Link do Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
+    <!-- Link do arquivo de programação Javascript do projeto -->
     <script src="js/main.js" defer></script>
+    <!-- Título do site do projeto -->
     <title>Task Control</title>
   </head>
   <body>
@@ -31,7 +35,7 @@
       <div class="container">
         <!-- Parte superior da caixa, onde serão informadas e enviadas as tarefas -->
         <div class="newTaskContainer">
-          <!-- Campo para informar a nova tarefa -->
+          <!-- Caixa de texto para informar a nova tarefa -->
           <input
             type="text"
             name="newTaskInput"
@@ -47,7 +51,7 @@
         <div class="tasksContainer"></div>
         <!-- Campo de edição das tarefas -->
         <div class="editField">
-          <!-- Parte de cima da edição das tarefas -->
+          <!-- Parte de cima do campo de edição -->
           <div class="editFieldHeader">
             <!-- Título do campo de edição -->
             <h1>editar tarefa</h1>
@@ -56,7 +60,7 @@
           </div>
           <!-- Parte do centro do campo de edição -->
           <div class="editFieldCenter">
-            <!-- Campo para digitar as informações para edição -->
+            <!-- Caixa de texto para digitar as informações para edição -->
             <input type="text" name="editInput" id="editInput" placeholder="edite a tarefa">
             <!-- Botão para limpar o campo de edição -->
             <input type="button" value="limpar" id="resetEditInput">
@@ -64,17 +68,36 @@
           <!-- Parte de baixo do campo de edição -->
           <div class="editFieldFooter">
             <!-- Botão para confirmar a edição -->
-            <input type="button" value="confirmar" id="confirmEditBtn">
+            <input type="button" value="editar" id="confirmEditBtn">
             <!-- Botão para fechar o campo de edição -->
             <input type="button" value="cancelar" id="cancelEditBtn" class="closeEditField">
           </div>
         </div>
+        <!-- Campo de agendamento das tarefas -->
         <div class="scheduleField">
+          <!-- Parte de cima do campo de agendamento -->
           <div class="scheduleFieldHeader">
+            <!-- Título do campo de agendamento -->
             <h1>agendar tarefa</h1>
-            <button id="editFieldCloseBtn" class="closeEditField"><i class="fa-solid fa-xmark"></i></button>
+            <!-- Botão para fechar o campo de agendamento -->
+            <button id="scheduleFieldCloseBtn" class="closeScheduleField"><i class="fa-solid fa-xmark"></i></button>
+            <!-- Parte do centro do campo de agendamento -->
             <div class="scheduleFieldCenter">
-              <input type="time" name="" id="">
+              <!-- Campo dos botões de agendamento rápido -->
+              <div class="quickScheduleField">
+                <input type="button" value="30 min" id="quickScheduleBtn30m">
+                <input type="button" value="1 hora" id="quickScheduleBtn1h">
+                <input type="button" value="2 horas" id="quickScheduleBtn2h">
+              </div>
+              <!-- Campo de inserção das informações de agendamento (dia e hora) -->
+              <input type="datetime-local" name="scheduleInput" id="scheduleInput">
+              <!-- Parte de baixo do campo de agendamento -->
+              <div class="scheduleFieldFooter">
+                <!-- Botão para confirmar o agendamento -->
+                <input type="button" value="agendar" id="confirmScheduleBtn">
+                <!-- Botão para fechar o campo de agendamento -->
+                <input type="button" value="cancelar" id="cancelScheduletBtn" class="closeScheduleField">
+              </div>
             </div>
           </div>
         </div>
