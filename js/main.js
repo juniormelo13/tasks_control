@@ -8,13 +8,10 @@ resetBtn.addEventListener("click", () => {
 });
 
 const tasksContainer = document.querySelector(".tasksContainer");
-const editField = document.querySelector(".editField");
-const header = document.querySelector("#header");
-const mainContainer = document.querySelector("#mainContainer");
-
-const validateField = () => newTaskInput.value.trim() != "";
 
 newTaskBtn.addEventListener("click", () => {
+  const validateField = () => newTaskInput.value.trim() != "";
+
   if (!validateField()) {
     console.log("Erro");
   } else {
@@ -75,7 +72,7 @@ newTaskBtn.addEventListener("click", () => {
     removeBtn.appendChild(removeIcon);
 
     newTaskInput.focus();
-    newTaskInput.value = "";
+    newTaskInput.value = ""; 
   }
 });
 
@@ -89,7 +86,14 @@ const completeClick = (taskField, taskContent) => {
   newTaskInput.focus();
 };
 
+const header = document.querySelector("#header");
+const mainContainer = document.querySelector("#mainContainer");
+const editField = document.querySelector(".editField");
 const editInput = document.querySelector("#editInput");
+const confirmEditBtn = document.querySelector("#confirmEditBtn");
+const closeEditFieldBtn = document.querySelector("#closeEditFieldBtn");
+const cancelEditBtn = document.querySelector("#cancelEditBtn");
+const resetEditInputBtn = document.querySelector("#resetEditInputBtn");
 
 const editClick = (taskContent) => {
   editField.style.display = "block";
@@ -106,36 +110,35 @@ const editClick = (taskContent) => {
   }
 };
 
-const editFieldCloseBtn = document.querySelector('#editFieldCloseBtn')
-const cancelEditBtn = document.querySelector('#cancelEditBtn')
-const resetEditBtn = document.querySelector('#resetEditBtn')
+confirmEditBtn.addEventListener("click", () => {
+  const validateEditField = () => editInput.value.trim() != "";
+  if (!validateEditField()) {
+    console.log("Erro!");
+  } else {
+    // taskContent.innerText = editInput.value;
+    editField.style.display = "none";
+    header.style.pointerEvents = "auto";
+    mainContainer.style.pointerEvents = "auto";
+    console.log("editou");
+  }
+});
 
 const closeEditField = () => {
   editField.style.display = "none";
   header.style.pointerEvents = "auto";
   mainContainer.style.pointerEvents = "auto";
-}
+  console.log("fechou");
+};
 
-editFieldCloseBtn.addEventListener('click', closeEditField)
-cancelEditBtn.addEventListener('click', closeEditField)
+closeEditFieldBtn.addEventListener("click", closeEditField);
 
-resetEditBtn.addEventListener("click", () => {
+resetEditInputBtn.addEventListener("click", () => {
   editInput.value = "";
   editInput.focus();
+  console.log("limpou");
 });
 
-const validateEditField = () => editInput.value.trim() != "";
-
-const confirmEditBtn = document.querySelector('#confirmEditBtn')
-
-confirmEditBtn.addEventListener('click', () => {
-  if (!validateEditField()) {
-    console.log('Erro!')
-  } else {
-    
-  }
-  
-})
+cancelEditBtn.addEventListener("click", closeEditField);
 
 const deleteClick = (taskField, taskContent) => {
   const tasks = tasksContainer.childNodes;
@@ -146,5 +149,3 @@ const deleteClick = (taskField, taskContent) => {
   }
   newTaskInput.focus();
 };
-
-const scheduleField = document.querySelector(".scheduleField");
