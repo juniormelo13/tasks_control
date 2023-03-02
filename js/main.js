@@ -64,6 +64,7 @@ newTaskBtn.addEventListener("click", () => {
     scheduleIcon.classList.add("fa-solid");
     scheduleIcon.classList.add("fa-calendar-days");
     scheduleBtn.setAttribute("title", "Agendar");
+    scheduleBtn.addEventListener('click', () => scheduleClick(taskContent, taskField))
 
     //Botão para edição da tarefa
     const editBtn = document.createElement("button");
@@ -121,7 +122,6 @@ const editClick = (taskContent) => {
   editInput.select();
 
   taskContent.classList.add("task");
-
 };
 
 // Função responsável pelo fechamento da janela de edições
@@ -167,10 +167,21 @@ confirmEditBtn.addEventListener("click", () => {
 
     document.querySelector(".task").innerText = editInput.value;
     document.querySelector(".task").classList.remove("task");
+    newTaskInput.focus()
   }
 });
 
-// Configuração do botão de deleção da tarefa
+// Janela para agendamento de tarefas
+const scheduleField = document.querySelector('.scheduleField')
+
+// Função responsável pela abertura da janela de agendamento
+const scheduleClick = (taskContent, taskField) => {
+  scheduleField.style.display = "block";
+  header.style.pointerEvents = "none";
+  mainContainer.style.pointerEvents = "none";
+}
+
+// Configuração do botão de exclusão da tarefa
 const deleteClick = (taskField) => {
   taskField.remove();
   newTaskInput.focus();
