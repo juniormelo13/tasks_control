@@ -41,11 +41,12 @@
             name="newTaskInput"
             id="newTaskInput"
             placeholder="digite a tarefa"
+            onfocus="resetInput()"
           />
           <!-- Botão para adição da nova tarefa no campo -->
           <input type="button" value="adicionar" id="newTaskBtn" />
           <!-- Botão para limpar o campo -->
-          <input type="button" value="limpar" id="resetBtn" />
+          <input type="button" value="limpar" id="cleanInputBtn" />
         </div>
         <!-- Campo onde as tarefas serão adicionadas -->
         <div class="tasksContainer"></div>
@@ -91,9 +92,9 @@
       <!-- Parte do centro do campo de edição -->
       <div class="editFieldCenter">
         <!-- Caixa de texto para digitar as informações para edição -->
-        <input type="text" name="editInput" id="editInput" placeholder="edite a tarefa">
+        <input type="text" name="editInput" id="editInput" placeholder="edite a tarefa" onfocus="resetInput()">
         <!-- Botão para limpar o campo de edição -->
-        <input type="button" value="limpar" id="resetEditInputBtn">
+        <input type="button" value="limpar" id="cleanEditInputBtn">
       </div>
       <!-- Parte de baixo do campo de edição -->
       <div class="editFieldFooter">

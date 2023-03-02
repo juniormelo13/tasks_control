@@ -2,9 +2,14 @@
 const newTaskInput = document.querySelector("#newTaskInput");
 newTaskInput.focus();
 
+// Função para reiniciar input's inválidos
+function resetInput() {
+  newTaskInput.classList.remove('inputError')
+}
+
 // Botão para limpar o input principal
-const resetBtn = document.querySelector("#resetBtn");
-resetBtn.addEventListener("click", () => {
+const cleanInputBtn = document.querySelector("#cleanInputBtn");
+cleanInputBtn.addEventListener("click", () => {
   newTaskInput.value = "";
   newTaskInput.focus();
 });
@@ -19,7 +24,7 @@ newTaskBtn.addEventListener("click", () => {
   const validateField = () => newTaskInput.value.trim() != "";
   if (!validateField()) {
     // Caso o valor do input seja inválido: Será adicionado a class abaixo no input
-    newTaskInput.classList.add("newTaskInputError");
+    newTaskInput.classList.add("inputError");
   } else {
     // Caso o valor do input seja válido: Criação dos parágrafos e botões referentes a cada tarefa adicionada
 
@@ -76,8 +81,8 @@ newTaskBtn.addEventListener("click", () => {
     const removeBtn = document.createElement("button");
     iconsField.appendChild(removeBtn);
     removeBtn.classList.add("removeBtn");
-    removeBtn.appendChild(removeIcon);
     const removeIcon = document.createElement("i");
+    removeBtn.appendChild(removeIcon);
     removeIcon.classList.add("fa-solid");
     removeIcon.classList.add("fa-trash");
     removeBtn.setAttribute("title", "Excluir");
@@ -136,8 +141,8 @@ const cancelEditBtn = document.querySelector("#cancelEditBtn");
 cancelEditBtn.addEventListener("click", closeEditField);
 
 // Configuração do botão de limpar o input do campo de edição
-const resetEditInputBtn = document.querySelector("#resetEditInputBtn");
-resetEditInputBtn.addEventListener("click", () => {
+const cleanEditInputBtn = document.querySelector("#cleanEditInputBtn");
+cleanEditInputBtn.addEventListener("click", () => {
   editInput.value = "";
   editInput.focus();
 });
@@ -149,7 +154,7 @@ confirmEditBtn.addEventListener("click", () => {
   const validateEditField = () => editInput.value.trim() != "";
   if (!validateEditField()) {
     // Caso o valor do input seja inválido: Será adicionado a class abaixo no input
-    editInput.classList.add("editInputError");
+    editInput.classList.add("InputError");
   } else {
     // Caso o valor do input seja válido: Será realizado a edição da tarefa conforme config. abaixo
     editField.style.display = "none";
@@ -166,3 +171,5 @@ const deleteClick = (taskField) => {
   taskField.remove();
   newTaskInput.focus();
 };
+
+
