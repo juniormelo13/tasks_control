@@ -2,11 +2,6 @@
 const newTaskInput = document.querySelector("#newTaskInput");
 newTaskInput.focus();
 
-// Função para reiniciar input's inválidos
-function resetInput() {
-  newTaskInput.classList.remove('inputError')
-}
-
 // Botão para limpar o input principal
 const cleanInputBtn = document.querySelector("#cleanInputBtn");
 cleanInputBtn.addEventListener("click", () => {
@@ -25,6 +20,10 @@ newTaskBtn.addEventListener("click", () => {
   if (!validateField()) {
     // Caso o valor do input seja inválido: Será adicionado a class abaixo no input
     newTaskInput.classList.add("inputError");
+    // Evento de foco, para tirar o "erro" do input
+    newTaskInput.onfocus = () => {
+      newTaskInput.classList.remove("inputError");
+    }
   } else {
     // Caso o valor do input seja válido: Criação dos parágrafos e botões referentes a cada tarefa adicionada
 
@@ -122,6 +121,7 @@ const editClick = (taskContent) => {
   editInput.select();
 
   taskContent.classList.add("task");
+
 };
 
 // Função responsável pelo fechamento da janela de edições
@@ -129,7 +129,7 @@ const closeEditField = () => {
   editField.style.display = "none";
   header.style.pointerEvents = "auto";
   mainContainer.style.pointerEvents = "auto";
-
+  
   document.querySelector(".task").classList.remove("task");
 };
 
@@ -154,7 +154,11 @@ confirmEditBtn.addEventListener("click", () => {
   const validateEditField = () => editInput.value.trim() != "";
   if (!validateEditField()) {
     // Caso o valor do input seja inválido: Será adicionado a class abaixo no input
-    editInput.classList.add("InputError");
+    editInput.classList.add("inputError");
+    // Evento de foco, para tirar o "erro" do input
+    editInput.onfocus = () => {
+      editInput.classList.remove("inputError");
+    }
   } else {
     // Caso o valor do input seja válido: Será realizado a edição da tarefa conforme config. abaixo
     editField.style.display = "none";
