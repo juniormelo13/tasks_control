@@ -58,7 +58,7 @@
         <!-- Título do campo de agendamento -->
         <h1>agendar tarefa</h1>
         <!-- Botão para fechar o campo de agendamento -->
-        <button id="scheduleFieldCloseBtn" class="closeScheduleField"><i class="fa-solid fa-xmark"></i></button>
+        <button id="scheduleFieldCloseBtn"><i class="fa-solid fa-xmark"></i></button>
         <!-- Parte do centro do campo de agendamento -->
         <div class="scheduleFieldCenter">
           <!-- Campo dos botões de agendamento rápido -->
@@ -67,14 +67,18 @@
             <input type="button" value="1 hora" id="quickScheduleBtn1h">
             <input type="button" value="2 horas" id="quickScheduleBtn2h">
           </div>
-          <!-- Campo de inserção das informações de agendamento (dia e hora) -->
-          <input type="datetime-local" name="scheduleInput" id="scheduleInput">
+          <div class="scheduleInputField">
+            <!-- Campo de inserção das informações de agendamento (dia e hora) -->
+            <input type="datetime-local" name="scheduleInput" id="scheduleInput">
+            <!-- Botão para limpar input -->
+            <input type="button" value="limpar" id="cleanScheduleInputBtn">
+          </div>
           <!-- Parte de baixo do campo de agendamento -->
           <div class="scheduleFieldFooter">
             <!-- Botão para confirmar o agendamento -->
             <input type="button" value="agendar" id="confirmScheduleBtn">
             <!-- Botão para fechar o campo de agendamento -->
-            <input type="button" value="cancelar" id="cancelScheduletBtn" class="closeScheduleField">
+            <input type="button" value="cancelar" id="cancelScheduletBtn">
           </div>
         </div>
       </div>

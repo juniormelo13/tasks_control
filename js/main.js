@@ -174,12 +174,39 @@ confirmEditBtn.addEventListener("click", () => {
 // Janela para agendamento de tarefas
 const scheduleField = document.querySelector('.scheduleField')
 
+// Botões para fechar o campo de agendamento - "x" e "Cancelar"
+const scheduleFieldCloseBtn = document.querySelector('#scheduleFieldCloseBtn')
+const cancelScheduletBtn = document.querySelector('#cancelScheduletBtn')
+
+// Botões para agendamento rápido de tarefas
+const quickScheduleBtn30m = document.querySelector('#quickScheduleBtn30m')
+const quickScheduleBtn1h = document.querySelector('#quickScheduleBtn1h')
+const quickScheduleBtn2h = document.querySelector('#quickScheduleBtn2h')
+
+// Campo para colocar data e hora do agendamento
+const scheduleInput = document.querySelector('#scheduleInput')
+
+// Botão para limpar o campo de data e hora
+const cleanScheduleInputBtn = document.querySelector('#cleanScheduleInputBtn')
+
+// Botão para confirmação do agendamento
+const confirmScheduleBtn = document.querySelector('#confirmScheduleBtn')
+
 // Função responsável pela abertura da janela de agendamento
 const scheduleClick = (taskContent, taskField) => {
   scheduleField.style.display = "block";
   header.style.pointerEvents = "none";
   mainContainer.style.pointerEvents = "none";
 }
+
+const closeScheduleField = () => {
+  scheduleField.style.display = "none";
+  header.style.pointerEvents = "auto";
+  mainContainer.style.pointerEvents = "auto";
+}
+
+scheduleFieldCloseBtn.addEventListener('click', closeScheduleField)
+cancelScheduletBtn.addEventListener('click', closeScheduleField)
 
 // Configuração do botão de exclusão da tarefa
 const deleteClick = (taskField) => {
