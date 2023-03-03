@@ -22,7 +22,9 @@ newTaskBtn.addEventListener("click", () => {
     newTaskInput.classList.add("inputError");
     // Evento de foco, para tirar o "erro" do input
     newTaskInput.onfocus = () => {
-      newTaskInput.classList.remove("inputError");
+      if (newTaskInput.classList.contains("inputError")) {
+        newTaskInput.classList.remove("inputError");
+      }
     }
   } else {
     // Caso o valor do input seja válido: Criação dos parágrafos e botões referentes a cada tarefa adicionada
@@ -114,9 +116,13 @@ const editInput = document.querySelector("#editInput");
 
 // Função responsável pela abertura da janela de edição
 const editClick = (taskContent) => {
-  editField.style.display = "block";
   header.style.pointerEvents = "none";
   mainContainer.style.pointerEvents = "none";
+  editField.style.display = "block";
+
+  if (newTaskInput.classList.contains("inputError")) {
+    newTaskInput.classList.remove("inputError");
+  }
 
   editInput.value = taskContent.innerText;
   editInput.select();
@@ -126,9 +132,14 @@ const editClick = (taskContent) => {
 
 // Função responsável pelo fechamento da janela de edições
 const closeEditField = () => {
-  editField.style.display = "none";
   header.style.pointerEvents = "auto";
   mainContainer.style.pointerEvents = "auto";
+
+  if (editInput.classList.contains("inputError")) {
+    editInput.classList.remove("inputError");
+  }
+
+  editField.style.display = "none";
   
   document.querySelector(".task").classList.remove("task");
 };
@@ -157,7 +168,9 @@ confirmEditBtn.addEventListener("click", () => {
     editInput.classList.add("inputError");
     // Evento de foco, para tirar o "erro" do input
     editInput.onfocus = () => {
-      editInput.classList.remove("inputError");
+      if (editInput.classList.contains('inputError')) {
+        editInput.classList.remove("inputError");
+      }
     }
   } else {
     // Caso o valor do input seja válido: Será realizado a edição da tarefa conforme config. abaixo
@@ -178,6 +191,9 @@ const scheduleField = document.querySelector('.scheduleField')
 const scheduleFieldCloseBtn = document.querySelector('#scheduleFieldCloseBtn')
 const cancelScheduletBtn = document.querySelector('#cancelScheduletBtn')
 
+// Botão para limpar o campo de data e hora
+const cleanScheduleInputBtn = document.querySelector('#cleanScheduleInputBtn')
+
 // Botões para agendamento rápido de tarefas
 const quickScheduleBtn30m = document.querySelector('#quickScheduleBtn30m')
 const quickScheduleBtn1h = document.querySelector('#quickScheduleBtn1h')
@@ -186,27 +202,53 @@ const quickScheduleBtn2h = document.querySelector('#quickScheduleBtn2h')
 // Campo para colocar data e hora do agendamento
 const scheduleInput = document.querySelector('#scheduleInput')
 
-// Botão para limpar o campo de data e hora
-const cleanScheduleInputBtn = document.querySelector('#cleanScheduleInputBtn')
-
 // Botão para confirmação do agendamento
 const confirmScheduleBtn = document.querySelector('#confirmScheduleBtn')
 
 // Função responsável pela abertura da janela de agendamento
 const scheduleClick = (taskContent, taskField) => {
-  scheduleField.style.display = "block";
   header.style.pointerEvents = "none";
   mainContainer.style.pointerEvents = "none";
+  scheduleField.style.display = "block";
 }
 
+// Função responsável pelo fechamento da janela de agendamento
 const closeScheduleField = () => {
-  scheduleField.style.display = "none";
   header.style.pointerEvents = "auto";
   mainContainer.style.pointerEvents = "auto";
+
+  if (scheduleInput.classList.contains('inputError')) {
+    scheduleInput.classList.remove('inputError')
+  }
+  
+  scheduleField.style.display = "none";
 }
 
+// Colocando a função nos botões "x" e "Cancelar"
 scheduleFieldCloseBtn.addEventListener('click', closeScheduleField)
 cancelScheduletBtn.addEventListener('click', closeScheduleField)
+
+// Configuração do botão para limpar o input de data e hora
+cleanScheduleInputBtn.addEventListener('click', () => {
+  scheduleInput.value = ""
+  scheduleInput.focus()
+})
+
+// Configuração de botão de confirmação de agendamento
+confirmScheduleBtn.addEventListener('click', () => {
+  // Função de validação do input de data e hora
+  const validateScheduleInput = () => scheduleInput.value.trim() != ''
+  if (!validateScheduleInput()) {
+    // Configuração caso não seja válido
+    scheduleInput.classList.add('inputError')
+    scheduleInput.onfocus = () => {
+      scheduleInput.classList.remove('inputError')
+    }
+  } else {
+    // Configuração caso o valor do input seja válido
+    console.log(scheduleInput.value)
+  }
+})
 
 // Configuração do botão de exclusão da tarefa
 const deleteClick = (taskField) => {
