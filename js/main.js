@@ -205,11 +205,37 @@ const scheduleInput = document.querySelector('#scheduleInput')
 // Botão para confirmação do agendamento
 const confirmScheduleBtn = document.querySelector('#confirmScheduleBtn')
 
+// Funções responsáveis por coletar dia, mês, ano, hora e minutos atuais
+const now = new Date()
+
+let date = now.getDate()
+if (date < 10) {
+  date = '0'+ date
+}
+let month = now.getMonth() + 1
+if (month < 10) {
+  month = '0'+ month
+}
+const year = now.getFullYear()
+let hour = now.getHours()
+if (hour < 10) {
+  hour = '0'+ hour
+}
+let minute = now.getMinutes()
+if (minute < 10) {
+  minute = '0'+ minute
+}
+let second = now.getSeconds()
+
+const completedDate = year + '-' + month + '-' + date + 'T' + hour + ':' + minute + second
+
 // Função responsável pela abertura da janela de agendamento
 const scheduleClick = (taskContent, taskField) => {
   header.style.pointerEvents = "none";
   mainContainer.style.pointerEvents = "none";
   scheduleField.style.display = "block";
+  
+  console.log(completedDate)
 }
 
 // Função responsável pelo fechamento da janela de agendamento
@@ -241,8 +267,11 @@ confirmScheduleBtn.addEventListener('click', () => {
   if (!validateScheduleInput()) {
     // Configuração caso não seja válido
     scheduleInput.classList.add('inputError')
+    // Remoção do "erro" no input
     scheduleInput.onfocus = () => {
-      scheduleInput.classList.remove('inputError')
+      if(scheduleInput.classList.contains('inputError')) {
+        scheduleInput.classList.remove('inputError')
+      }
     }
   } else {
     // Configuração caso o valor do input seja válido
@@ -255,5 +284,7 @@ const deleteClick = (taskField) => {
   taskField.remove();
   newTaskInput.focus();
 };
+
+
 
 
