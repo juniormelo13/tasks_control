@@ -214,24 +214,26 @@ const scheduleClick = (taskContent, taskField) => {
 
   let date = now.getDate();
   if (date < 10) {
-    date = "0" + date
+    date = "0" + date;
   }
   let month = now.getMonth() + 1;
   if (month < 10) {
-    month = "0" + month
+    month = "0" + month;
   }
   const year = now.getFullYear();
   let hour = now.getHours();
   if (hour < 10) {
-    hour = "0" + hour
+    hour = "0" + hour;
   }
   let minute = now.getMinutes();
   if (minute < 10) {
-    minute = "0" + minute
+    minute = "0" + minute;
   }
 
-  scheduleInput.value = year + "-" + month + "-" + date + "T" + hour + ":" + minute
-  
+  scheduleInput.value =
+    year + "-" + month + "-" + date + "T" + hour + ":" + minute;
+
+  taskField.classList.add('readyForScheduling')
 };
 
 // Função responsável pelo fechamento da janela de agendamento
@@ -242,6 +244,8 @@ const closeScheduleField = () => {
   if (scheduleInput.classList.contains("inputError")) {
     scheduleInput.classList.remove("inputError");
   }
+
+  document.querySelector('.readyForScheduling').classList.remove('readyForScheduling')
 
   scheduleField.style.display = "none";
 };
@@ -265,9 +269,40 @@ confirmScheduleBtn.addEventListener("click", () => {
     };
   } else {
     // Configuração caso o valor do input seja válido
-    console.log(scheduleInput.value);
+    header.style.pointerEvents = "auto";
+    mainContainer.style.pointerEvents = "auto";
+
+    const schedulingInfo = document.createElement('div')
+    const schedulingTextContent = document.createElement('p')
+    const schedulingRemoveBtn = document.createElement('button')
+    const schedulingRemoveBtnIcon = document.createElement('i')
+
+    document.querySelector('.readyForScheduling').appendChild(schedulingInfo)
+    schedulingInfo.classList.add('schedulingInfo')
+
+    schedulingInfo.appendChild(schedulingTextContent)
+    schedulingTextContent.classList.add('schedulingTextContent')
+
+    schedulingInfo.appendChild(schedulingRemoveBtn)
+    schedulingRemoveBtn.classList.add('schedulingRemoveBtn')
+    schedulingRemoveBtn.setAttribute('title', 'Cancelar agendamento')
+    schedulingRemoveBtn.addEventListener('click', () => schedulingRemoveClick(schedulingInfo))
+
+    schedulingRemoveBtn.appendChild(schedulingRemoveBtnIcon)
+    schedulingRemoveBtnIcon.classList.add('fa-solid')
+    schedulingRemoveBtnIcon.classList.add('fa-calendar-xmark')
+
+    schedulingTextContent.innerText = 'Agendou'
+    
+    document.querySelector('.readyForScheduling').classList.remove('readyForScheduling')
+
+    scheduleField.style.display = "none";
   }
 });
+
+const schedulingRemoveClick = (schedulingInfo) => {
+  schedulingInfo.remove()
+}
 
 // Configuração do botão de exclusão da tarefa
 const deleteClick = (taskField) => {
