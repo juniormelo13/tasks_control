@@ -193,13 +193,9 @@ const scheduleField = document.querySelector(".scheduleField");
 const scheduleFieldCloseBtn = document.querySelector("#scheduleFieldCloseBtn");
 const cancelScheduletBtn = document.querySelector("#cancelScheduletBtn");
 
-// Botões para agendamento rápido de tarefas
-const quickScheduleBtn30m = document.querySelector("#quickScheduleBtn30m");
-const quickScheduleBtn1h = document.querySelector("#quickScheduleBtn1h");
-const quickScheduleBtn2h = document.querySelector("#quickScheduleBtn2h");
-
 // Campo para colocar data e hora do agendamento
-const scheduleInput = document.querySelector("#scheduleInput");
+const scheduleInputDate = document.querySelector("#scheduleInputDate");
+const scheduleInputTime = document.querySelector("#scheduleInputTime");
 
 // Botão para confirmação do agendamento
 const confirmScheduleBtn = document.querySelector("#confirmScheduleBtn");
@@ -230,8 +226,9 @@ const scheduleClick = (taskContent, taskField) => {
     minute = "0" + minute;
   }
 
-  scheduleInput.value =
-    year + "-" + month + "-" + date + "T" + hour + ":" + minute;
+  scheduleInputDate.value = year + "-" + month + "-" + date;
+  scheduleInputDate.setAttribute('min', scheduleInputDate.value)
+  scheduleInputTime.value = hour + ":" + minute;
 
   taskField.classList.add('readyForScheduling')
 };
@@ -241,8 +238,11 @@ const closeScheduleField = () => {
   header.style.pointerEvents = "auto";
   mainContainer.style.pointerEvents = "auto";
 
-  if (scheduleInput.classList.contains("inputError")) {
-    scheduleInput.classList.remove("inputError");
+  if (scheduleInputDate.classList.contains("inputError")) {
+    scheduleInputDate.classList.remove("inputError");
+  }
+  if (scheduleInputTime.classList.contains("inputError")) {
+    scheduleInputTime.classList.remove("inputError");
   }
 
   document.querySelector('.readyForScheduling').classList.remove('readyForScheduling')
@@ -254,17 +254,45 @@ const closeScheduleField = () => {
 scheduleFieldCloseBtn.addEventListener("click", closeScheduleField);
 cancelScheduletBtn.addEventListener("click", closeScheduleField);
 
+// Função de validação do input de data e hora
+const validateScheduleInputDate = () => {
+
+  const now = new Date();
+
+  let date = now.getDate();
+  if (date < 10) {
+    date = "0" + date;
+  }
+  let month = now.getMonth() + 1;
+  if (month < 10) {
+    month = "0" + month;
+  }
+  const year = now.getFullYear();
+  let hour = now.getHours();
+  if (hour < 10) {
+    hour = "0" + hour;
+  }
+  let minute = now.getMinutes();
+  if (minute < 10) {
+    minute = "0" + minute;
+  }
+
+  if (scheduleInputDate.value.trim() != "" || scheduleInputDate.value >= now) {
+    return true
+  }
+  return false
+}
+const validateScheduleInputTime = () => scheduleInputTime.value.trim() != "";
+
 // Configuração de botão de confirmação de agendamento
 confirmScheduleBtn.addEventListener("click", () => {
-  // Função de validação do input de data e hora
-  const validateScheduleInput = () => scheduleInput.value.trim() != "";
-  if (!validateScheduleInput()) {
+  if (!validateScheduleInputDate()) {
     // Configuração caso não seja válido
-    scheduleInput.classList.add("inputError");
+    scheduleInputDate.classList.add("inputError");
     // Remoção do "erro" no input
-    scheduleInput.onfocus = () => {
-      if (scheduleInput.classList.contains("inputError")) {
-        scheduleInput.classList.remove("inputError");
+    scheduleInputDate.onfocus = () => {
+      if (scheduleInputDate.classList.contains("inputError")) {
+        scheduleInputDate.classList.remove("inputError");
       }
     };
   } else {
