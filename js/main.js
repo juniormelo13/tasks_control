@@ -205,30 +205,39 @@ const scheduleClick = (taskContent, taskField) => {
   header.style.pointerEvents = "none";
   mainContainer.style.pointerEvents = "none";
   scheduleField.style.display = "block";
+  
+  const optionsForTimeInput = {
+   timeStyle: 'short'
+  }
 
   const now = new Date();
 
-  let date = now.getDate();
-  if (date < 10) {
-    date = "0" + date;
-  }
-  let month = now.getMonth() + 1;
-  if (month < 10) {
-    month = "0" + month;
-  }
-  const year = now.getFullYear();
-  let hour = now.getHours();
-  if (hour < 10) {
-    hour = "0" + hour;
-  }
-  let minute = now.getMinutes();
-  if (minute < 10) {
-    minute = "0" + minute;
-  }
+  const currentDateForInput = now.toLocaleDateString('fr-CA')
+  const currentTimeForInput = now.toLocaleString('pt-BR', optionsForTimeInput)
 
-  scheduleInputDate.value = year + "-" + month + "-" + date;
-  scheduleInputDate.setAttribute('min', scheduleInputDate.value)
-  scheduleInputTime.value = hour + ":" + minute;
+  // const currentDateBR = now.toLocaleString('pt-BR', options)
+
+  // let date = now.getDate();
+  // if (date < 10) {
+  //   date = "0" + date;
+  // }
+  // let month = now.getMonth() + 1;
+  // if (month < 10) {
+  //   month = "0" + month;
+  // }
+  // const year = now.getFullYear();
+  // let hour = now.getHours();
+  // if (hour < 10) {
+  //   hour = "0" + hour;
+  // }
+  // let minute = now.getMinutes();
+  // if (minute < 10) {
+  //   minute = "0" + minute;
+  // }
+
+  scheduleInputDate.value = currentDateForInput
+  scheduleInputDate.setAttribute('min', currentDateForInput)
+  scheduleInputTime.value = currentTimeForInput
 
   taskField.classList.add('readyForScheduling')
 };
@@ -277,7 +286,7 @@ const validateScheduleInputDate = () => {
     minute = "0" + minute;
   }
 
-  if (scheduleInputDate.value.trim() != "" || scheduleInputDate.value >= now) {
+  if (scheduleInputDate.value.trim() != "" || scheduleInputDate.value >= scheduleInputDate.value) {
     return true
   }
   return false
