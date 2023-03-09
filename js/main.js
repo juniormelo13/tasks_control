@@ -205,41 +205,25 @@ const scheduleClick = (taskContent, taskField) => {
   header.style.pointerEvents = "none";
   mainContainer.style.pointerEvents = "none";
   scheduleField.style.display = "block";
-  
-  const optionsForTimeInput = {
-   timeStyle: 'short'
-  }
 
   const now = new Date();
 
-  const currentDateForInput = now.toLocaleDateString('fr-CA')
-  const currentTimeForInput = now.toLocaleString('pt-BR', optionsForTimeInput)
+  const optionsForTimeInput = {
+    timeStyle: "short",
+  };
+  const options = {
+    dateStyle: "full",
+    timeStyle: "short",
+  };
 
-  // const currentDateBR = now.toLocaleString('pt-BR', options)
+  const currentDateForInput = now.toLocaleDateString("fr-CA");
+  const currentTimeForInput = now.toLocaleString("pt-BR", optionsForTimeInput);
 
-  // let date = now.getDate();
-  // if (date < 10) {
-  //   date = "0" + date;
-  // }
-  // let month = now.getMonth() + 1;
-  // if (month < 10) {
-  //   month = "0" + month;
-  // }
-  // const year = now.getFullYear();
-  // let hour = now.getHours();
-  // if (hour < 10) {
-  //   hour = "0" + hour;
-  // }
-  // let minute = now.getMinutes();
-  // if (minute < 10) {
-  //   minute = "0" + minute;
-  // }
+  scheduleInputDate.value = currentDateForInput;
+  scheduleInputDate.setAttribute("min", currentDateForInput);
+  scheduleInputTime.value = currentTimeForInput;
 
-  scheduleInputDate.value = currentDateForInput
-  scheduleInputDate.setAttribute('min', currentDateForInput)
-  scheduleInputTime.value = currentTimeForInput
-
-  taskField.classList.add('readyForScheduling')
+  taskField.classList.add("readyForScheduling");
 };
 
 // Função responsável pelo fechamento da janela de agendamento
@@ -254,7 +238,9 @@ const closeScheduleField = () => {
     scheduleInputTime.classList.remove("inputError");
   }
 
-  document.querySelector('.readyForScheduling').classList.remove('readyForScheduling')
+  document
+    .querySelector(".readyForScheduling")
+    .classList.remove("readyForScheduling");
 
   scheduleField.style.display = "none";
 };
@@ -264,82 +250,77 @@ scheduleFieldCloseBtn.addEventListener("click", closeScheduleField);
 cancelScheduletBtn.addEventListener("click", closeScheduleField);
 
 // Função de validação do input de data e hora
-const validateScheduleInputDate = () => {
-
-  const now = new Date();
-
-  let date = now.getDate();
-  if (date < 10) {
-    date = "0" + date;
-  }
-  let month = now.getMonth() + 1;
-  if (month < 10) {
-    month = "0" + month;
-  }
-  const year = now.getFullYear();
-  let hour = now.getHours();
-  if (hour < 10) {
-    hour = "0" + hour;
-  }
-  let minute = now.getMinutes();
-  if (minute < 10) {
-    minute = "0" + minute;
-  }
-
-  if (scheduleInputDate.value.trim() != "" || scheduleInputDate.value >= scheduleInputDate.value) {
-    return true
-  }
-  return false
-}
+const validateScheduleInputDate = () => scheduleInputDate.value.trim() != "";
 const validateScheduleInputTime = () => scheduleInputTime.value.trim() != "";
 
 // Configuração de botão de confirmação de agendamento
 confirmScheduleBtn.addEventListener("click", () => {
-  if (!validateScheduleInputDate()) {
-    // Configuração caso não seja válido
+  if (!validateScheduleInputDate() && !validateScheduleInputTime()) {
+    scheduleInputTime.classList.add("inputError");
     scheduleInputDate.classList.add("inputError");
-    // Remoção do "erro" no input
+  } else if (!validateScheduleInputDate()) {
+    scheduleInputDate.classList.add("inputError");
     scheduleInputDate.onfocus = () => {
       if (scheduleInputDate.classList.contains("inputError")) {
         scheduleInputDate.classList.remove("inputError");
       }
     };
+  } else if (!validateScheduleInputTime()) {
+    scheduleInputTime.classList.add("inputError");
+    scheduleInputTime.onfocus = () => {
+      if (scheduleInputTime.classList.contains("inputError")) {
+        scheduleInputTime.classList.remove("inputError");
+      }
+    } 
   } else {
-    // Configuração caso o valor do input seja válido
     header.style.pointerEvents = "auto";
     mainContainer.style.pointerEvents = "auto";
 
-    const schedulingInfo = document.createElement('div')
-    const schedulingTextContent = document.createElement('p')
-    const schedulingRemoveBtn = document.createElement('button')
-    const schedulingRemoveBtnIcon = document.createElement('i')
+    const schedulingInfo = document.createElement("div");
+    const schedulingTextContent = document.createElement("p");
+    const schedulingRemoveBtn = document.createElement("button");
+    const schedulingRemoveBtnIcon = document.createElement("i");
 
-    document.querySelector('.readyForScheduling').appendChild(schedulingInfo)
-    schedulingInfo.classList.add('schedulingInfo')
+    document.querySelector(".readyForScheduling").appendChild(schedulingInfo);
+    schedulingInfo.classList.add("schedulingInfo");
 
-    schedulingInfo.appendChild(schedulingTextContent)
-    schedulingTextContent.classList.add('schedulingTextContent')
+    schedulingInfo.appendChild(schedulingTextContent);
+    schedulingTextContent.classList.add("schedulingTextContent");
 
-    schedulingInfo.appendChild(schedulingRemoveBtn)
-    schedulingRemoveBtn.classList.add('schedulingRemoveBtn')
-    schedulingRemoveBtn.setAttribute('title', 'Cancelar agendamento')
-    schedulingRemoveBtn.addEventListener('click', () => schedulingRemoveClick(schedulingInfo))
+    schedulingInfo.appendChild(schedulingRemoveBtn);
+    schedulingRemoveBtn.classList.add("schedulingRemoveBtn");
+    schedulingRemoveBtn.setAttribute("title", "Cancelar agendamento");
+    schedulingRemoveBtn.addEventListener("click", () => schedulingRemoveClick(schedulingInfo));
 
-    schedulingRemoveBtn.appendChild(schedulingRemoveBtnIcon)
-    schedulingRemoveBtnIcon.classList.add('fa-solid')
-    schedulingRemoveBtnIcon.classList.add('fa-calendar-xmark')
+    schedulingRemoveBtn.appendChild(schedulingRemoveBtnIcon);
+    schedulingRemoveBtnIcon.classList.add("fa-solid");
+    schedulingRemoveBtnIcon.classList.add("fa-calendar-xmark");
 
-    schedulingTextContent.innerText = 'Agendou'
-    
-    document.querySelector('.readyForScheduling').classList.remove('readyForScheduling')
+    document.querySelector(".readyForScheduling").classList.add("scheduled");
+    document.querySelector(".readyForScheduling").classList.remove("readyForScheduling");
 
     scheduleField.style.display = "none";
+
+    const scheduleInputDateValue = scheduleInputDate.value;
+    const scheduleInputTimeValue = scheduleInputTime.value;
+
+    const setDateForScheduling = new Date(scheduleInputDateValue + " " + scheduleInputTimeValue);
+
+    const optionsSetDate = {
+      dateStyle: "full",
+      timeStyle: "short",
+    };
+
+    const dateForSchedulingTextContent = setDateForScheduling.toLocaleString("pt-BR", optionsSetDate);
+
+    schedulingTextContent.innerText = "Tarefa agendada para " + dateForSchedulingTextContent;
   }
 });
 
 const schedulingRemoveClick = (schedulingInfo) => {
-  schedulingInfo.remove()
-}
+  document.querySelector(".scheduled").classList.remove("scheduled");
+  schedulingInfo.remove();
+};
 
 // Configuração do botão de exclusão da tarefa
 const deleteClick = (taskField) => {
