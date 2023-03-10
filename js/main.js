@@ -211,10 +211,6 @@ const scheduleClick = (taskContent, taskField) => {
   const optionsForTimeInput = {
     timeStyle: "short",
   };
-  const options = {
-    dateStyle: "full",
-    timeStyle: "short",
-  };
 
   const currentDateForInput = now.toLocaleDateString("fr-CA");
   const currentTimeForInput = now.toLocaleString("pt-BR", optionsForTimeInput);
@@ -222,6 +218,18 @@ const scheduleClick = (taskContent, taskField) => {
   scheduleInputDate.value = currentDateForInput;
   scheduleInputDate.setAttribute("min", currentDateForInput);
   scheduleInputTime.value = currentTimeForInput;
+
+  scheduleInputDate.onfocus = () => {
+    if (scheduleInputDate.classList.contains("inputError")) {
+      scheduleInputDate.classList.remove("inputError");
+    }
+  };
+
+  scheduleInputTime.onfocus = () => {
+    if (scheduleInputTime.classList.contains("inputError")) {
+      scheduleInputTime.classList.remove("inputError");
+    }
+  }
 
   taskField.classList.add("readyForScheduling");
 };
@@ -238,9 +246,7 @@ const closeScheduleField = () => {
     scheduleInputTime.classList.remove("inputError");
   }
 
-  document
-    .querySelector(".readyForScheduling")
-    .classList.remove("readyForScheduling");
+  document.querySelector(".readyForScheduling").classList.remove("readyForScheduling");
 
   scheduleField.style.display = "none";
 };
@@ -249,29 +255,41 @@ const closeScheduleField = () => {
 scheduleFieldCloseBtn.addEventListener("click", closeScheduleField);
 cancelScheduletBtn.addEventListener("click", closeScheduleField);
 
-// Função de validação do input de data e hora
-const validateScheduleInputDate = () => scheduleInputDate.value.trim() != "";
-const validateScheduleInputTime = () => scheduleInputTime.value.trim() != "";
 
 // Configuração de botão de confirmação de agendamento
 confirmScheduleBtn.addEventListener("click", () => {
+  
+  const scheduleInputDateValue = scheduleInputDate.value;
+  const scheduleInputTimeValue = scheduleInputTime.value;
+  const currentDateForValidate = new Date().toLocaleDateString('fr-CA')
+  const optionsForCurrentTime = {
+    timeStyle: "short",
+  };
+  const currentTimeForValidate = new Date().toLocaleString('pt-BR', optionsForCurrentTime)
+
+  // Funções de validação dos input's de data e hora
+  const validateScheduleInputDate = () => scheduleInputDateValue.trim() != "" && scheduleInputDateValue >= currentDateForValidate
+  
+  const validateScheduleInputTime = () => {
+    if (scheduleInputTimeValue.trim() != "") {
+      if (scheduleInputDateValue >= currentDateForValidate) {
+        if (scheduleInputDateValue === currentDateForValidate) {
+          if (scheduleInputTimeValue > currentTimeForValidate) {
+            return true
+          }
+        }
+      } 
+    }
+      return false
+  } 
+
   if (!validateScheduleInputDate() && !validateScheduleInputTime()) {
     scheduleInputTime.classList.add("inputError");
     scheduleInputDate.classList.add("inputError");
   } else if (!validateScheduleInputDate()) {
     scheduleInputDate.classList.add("inputError");
-    scheduleInputDate.onfocus = () => {
-      if (scheduleInputDate.classList.contains("inputError")) {
-        scheduleInputDate.classList.remove("inputError");
-      }
-    };
   } else if (!validateScheduleInputTime()) {
     scheduleInputTime.classList.add("inputError");
-    scheduleInputTime.onfocus = () => {
-      if (scheduleInputTime.classList.contains("inputError")) {
-        scheduleInputTime.classList.remove("inputError");
-      }
-    } 
   } else {
     header.style.pointerEvents = "auto";
     mainContainer.style.pointerEvents = "auto";
@@ -300,9 +318,6 @@ confirmScheduleBtn.addEventListener("click", () => {
     document.querySelector(".readyForScheduling").classList.remove("readyForScheduling");
 
     scheduleField.style.display = "none";
-
-    const scheduleInputDateValue = scheduleInputDate.value;
-    const scheduleInputTimeValue = scheduleInputTime.value;
 
     const setDateForScheduling = new Date(scheduleInputDateValue + " " + scheduleInputTimeValue);
 
