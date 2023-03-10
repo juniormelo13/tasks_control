@@ -259,13 +259,14 @@ cancelScheduletBtn.addEventListener("click", closeScheduleField);
 // Configuração de botão de confirmação de agendamento
 confirmScheduleBtn.addEventListener("click", () => {
   
+  const currentDate = new Date()
   const scheduleInputDateValue = scheduleInputDate.value;
   const scheduleInputTimeValue = scheduleInputTime.value;
-  const currentDateForValidate = new Date().toLocaleDateString('fr-CA')
+  const currentDateForValidate = currentDate.toLocaleDateString('fr-CA')
   const optionsForCurrentTime = {
     timeStyle: "short",
   };
-  const currentTimeForValidate = new Date().toLocaleString('pt-BR', optionsForCurrentTime)
+  const currentTimeForValidate = currentDate.toLocaleString('pt-BR', optionsForCurrentTime)
 
   // Funções de validação dos input's de data e hora
   const validateScheduleInputDate = () => scheduleInputDateValue.trim() != "" && scheduleInputDateValue >= currentDateForValidate
@@ -319,13 +320,26 @@ confirmScheduleBtn.addEventListener("click", () => {
     const setDateForScheduling = new Date(scheduleInputDateValue + " " + scheduleInputTimeValue);
 
     const optionsSetDate = {
-      dateStyle: "full",
-      timeStyle: "short",
+      dateStyle: "long"
+    }
+    const optionsSetTime = {
+      timeStyle: "short"
+    }
+    const optionsSetDay = {
+      weekday: "long"
     };
 
     const dateForSchedulingTextContent = setDateForScheduling.toLocaleString("pt-BR", optionsSetDate);
+    const timeForSchedulingTextContent = setDateForScheduling.toLocaleString("pt-BR", optionsSetTime);
+    const dayForSchedulingTextContent = setDateForScheduling.toLocaleString("pt-BR", optionsSetDay);
 
-    schedulingTextContent.innerText = "Tarefa agendada para " + dateForSchedulingTextContent;
+    if (dateForSchedulingTextContent === currentDate.toLocaleString("pt-BR", optionsSetDate)) {
+      schedulingTextContent.innerText = "Tarefa agendada para hoje às " + timeForSchedulingTextContent
+    } else {
+      schedulingTextContent.innerText = "Tarefa agendada para " + dayForSchedulingTextContent + ', ' + dateForSchedulingTextContent + ' às ' + timeForSchedulingTextContent
+    }
+    console.log(setDateForScheduling.getDay())
+    console.log(currentDate.getDay())
   }
 });
 
