@@ -271,16 +271,13 @@ confirmScheduleBtn.addEventListener("click", () => {
   const validateScheduleInputDate = () => scheduleInputDateValue.trim() != "" && scheduleInputDateValue >= currentDateForValidate
   
   const validateScheduleInputTime = () => {
-    if (scheduleInputTimeValue.trim() != "") {
-      if (scheduleInputDateValue >= currentDateForValidate) {
-        if (scheduleInputDateValue === currentDateForValidate) {
-          if (scheduleInputTimeValue > currentTimeForValidate) {
-            return true
-          }
-        }
-      } 
+    if (scheduleInputTimeValue.trim() != "" && scheduleInputDateValue > currentDateForValidate) {
+      return true
     }
-      return false
+    if (scheduleInputDateValue === currentDateForValidate && scheduleInputTimeValue > currentTimeForValidate) {
+      return true
+    }
+    return false
   } 
 
   if (!validateScheduleInputDate() && !validateScheduleInputTime()) {
