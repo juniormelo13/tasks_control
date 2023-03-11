@@ -337,7 +337,7 @@ confirmScheduleBtn.addEventListener("click", () => {
     
     if (dateForSchedulingTextContent === currentDate.toLocaleString("pt-BR", optionsSetDate)) {
       schedulingTextContent.innerText = "Tarefa agendada para hoje às " + timeForSchedulingTextContent
-    } else if (setDateForScheduling.getDay() == 6 && currentDate.getDay() == 0) {
+    } else if (setDateForScheduling.getDay() == 0 && currentDate.getDay() == 6) {
       schedulingTextContent.innerText = "Tarefa agendada para amanhã às " + timeForSchedulingTextContent
     } else if (setDateForScheduling.getDay() - currentDate.getDay() == 1) {
       schedulingTextContent.innerText = "Tarefa agendada para amanhã às " + timeForSchedulingTextContent
