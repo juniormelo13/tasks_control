@@ -54,7 +54,7 @@ newTaskBtn.addEventListener("click", () => {
     checkIcon.classList.add("fa-check");
     checkBtn.setAttribute("title", "Concluir");
     checkBtn.addEventListener("click", () =>
-      completeClick(taskField, taskContent)
+      completeClick(taskField, taskContent, scheduleBtn, editBtn)
     );
 
     // Botão para agendamento da tarefa
@@ -98,9 +98,11 @@ newTaskBtn.addEventListener("click", () => {
 });
 
 // Configuração do botão para conclusão da tarefa
-const completeClick = (taskField, taskContent) => {
+const completeClick = (taskField, taskContent, scheduleBtn, editBtn) => {
   taskContent.classList.toggle("completed");
   taskField.classList.toggle("completed");
+  scheduleBtn.classList.toggle('disabled')
+  editBtn.classList.toggle('disabled')
   newTaskInput.focus();
 };
 
