@@ -1,8 +1,8 @@
-// Input principal para descrição das tarefas
+// Campo de texto principal para informar as tarefas que serão adicionadas
 const newTaskInput = document.querySelector("#newTaskInput");
 newTaskInput.focus();
 
-// Botão para limpar o input principal
+// Botão para limpar o campo de texto principal
 const cleanInputBtn = document.querySelector("#cleanInputBtn");
 cleanInputBtn.addEventListener("click", () => {
   newTaskInput.value = "";
@@ -122,13 +122,20 @@ const editInput = document.querySelector("#editInput");
 
 // Função responsável pela abertura da janela de edição
 const editClick = (taskContent) => {
-  header.style.pointerEvents = "none";
-  mainContainer.style.pointerEvents = "none";
-  editField.style.display = "block";
+  header.classList.add('hide')
+  mainContainer.classList.add('hide')
+  editField.classList.remove('hide')
 
   if (newTaskInput.classList.contains("inputError")) {
     newTaskInput.classList.remove("inputError");
   }
+
+  // Evento de foco, para tirar o "erro" do input
+  editInput.onfocus = () => {
+    if (editInput.classList.contains("inputError")) {
+      editInput.classList.remove("inputError");
+    }
+  };
 
   editInput.value = taskContent.innerText;
   editInput.select();
@@ -138,16 +145,16 @@ const editClick = (taskContent) => {
 
 // Função responsável pelo fechamento da janela de edições
 const closeEditField = () => {
-  header.style.pointerEvents = "auto";
-  mainContainer.style.pointerEvents = "auto";
+  header.classList.remove('hide')
+  mainContainer.classList.remove('hide')
 
   if (editInput.classList.contains("inputError")) {
     editInput.classList.remove("inputError");
   }
 
-  editField.style.display = "none";
-
   document.querySelector(".task").classList.remove("task");
+
+  editField.classList.add('hide')
 };
 
 // Adicionado a função de fechamento nos botões de fechar "X" e "Cancelar"
@@ -172,17 +179,11 @@ confirmEditBtn.addEventListener("click", () => {
   if (!validateEditField()) {
     // Caso o valor do input seja inválido: Será adicionado a class abaixo no input
     editInput.classList.add("inputError");
-    // Evento de foco, para tirar o "erro" do input
-    editInput.onfocus = () => {
-      if (editInput.classList.contains("inputError")) {
-        editInput.classList.remove("inputError");
-      }
-    };
   } else {
     // Caso o valor do input seja válido: Será realizado a edição da tarefa conforme config. abaixo
-    editField.style.display = "none";
-    header.style.pointerEvents = "auto";
-    mainContainer.style.pointerEvents = "auto";
+    editField.classList.add('hide')
+    header.classList.remove('hide')
+    mainContainer.classList.remove('hide')
 
     document.querySelector(".task").innerText = editInput.value;
     document.querySelector(".task").classList.remove("task");
@@ -206,18 +207,18 @@ const confirmScheduleBtn = document.querySelector("#confirmScheduleBtn");
 
 // Função responsável pela abertura da janela de agendamento
 const scheduleClick = (taskField, scheduleBtn) => {
-  header.style.pointerEvents = "none";
-  mainContainer.style.pointerEvents = "none";
-  scheduleField.style.display = "block";
+  header.classList.add('hide')
+  mainContainer.classList.add('hide')
+  scheduleField.classList.remove('hide')
 
-  const now = new Date();
+  const currentDate = new Date();
   
   const optionsForTimeInput = {
     timeStyle: "short",
   };
   
-  const currentDateForInput = now.toLocaleDateString("fr-CA");
-  const currentTimeForInput = now.toLocaleString("pt-BR", optionsForTimeInput);
+  const currentDateForInput = currentDate.toLocaleDateString("fr-CA");
+  const currentTimeForInput = currentDate.toLocaleString("pt-BR", optionsForTimeInput);
   
   scheduleInputDate.value = currentDateForInput;
   scheduleInputDate.setAttribute("min", currentDateForInput);
@@ -237,13 +238,12 @@ const scheduleClick = (taskField, scheduleBtn) => {
   
   scheduleBtn.classList.add('readyForSchedulingBtn')
   taskField.classList.add("readyForSchedulingTaskField");
-  
 };
 
 // Função responsável pelo fechamento da janela de agendamento
 const closeScheduleField = () => {
-  header.style.pointerEvents = "auto";
-  mainContainer.style.pointerEvents = "auto";
+  header.classList.remove('hide')
+  mainContainer.classList.remove('hide')
 
   if (scheduleInputDate.classList.contains("inputError")) {
     scheduleInputDate.classList.remove("inputError");
@@ -255,17 +255,16 @@ const closeScheduleField = () => {
   document.querySelector(".readyForSchedulingBtn").classList.remove("readyForSchedulingBtn");
   document.querySelector(".readyForSchedulingTaskField").classList.remove("readyForSchedulingTaskField");
 
-  scheduleField.style.display = "none";
+  scheduleField.classList.add('hide')
+  newTaskInput.focus()
 };
 
 // Colocando a função nos botões "x" e "Cancelar"
 scheduleFieldCloseBtn.addEventListener("click", closeScheduleField);
 cancelScheduletBtn.addEventListener("click", closeScheduleField);
 
-
 // Configuração de botão de confirmação de agendamento
 confirmScheduleBtn.addEventListener("click", () => {
-  
   const currentDate = new Date()
   const scheduleInputDateValue = scheduleInputDate.value;
   const scheduleInputTimeValue = scheduleInputTime.value;
@@ -296,9 +295,10 @@ confirmScheduleBtn.addEventListener("click", () => {
   } else if (!validateScheduleInputTime()) {
     scheduleInputTime.classList.add("inputError");
   } else {
-    header.style.pointerEvents = "auto";
-    mainContainer.style.pointerEvents = "auto";
+    header.classList.remove('hide')
+    mainContainer.classList.remove('hide')
 
+    // Criação do campo de informações sobre o agendamento
     const schedulingInfo = document.createElement("div");
     const schedulingTextContent = document.createElement("p");
     const schedulingRemoveBtn = document.createElement("button");
@@ -319,6 +319,7 @@ confirmScheduleBtn.addEventListener("click", () => {
     schedulingRemoveBtnIcon.classList.add("fa-solid");
     schedulingRemoveBtnIcon.classList.add("fa-calendar-xmark");
     
+    // Recebimento dos valores colocados nos inputs
     const setDateForScheduling = new Date(scheduleInputDateValue + " " + scheduleInputTimeValue);
     
     const optionsSetDate = {
@@ -335,6 +336,7 @@ confirmScheduleBtn.addEventListener("click", () => {
     const timeForSchedulingTextContent = setDateForScheduling.toLocaleString("pt-BR", optionsSetTime);
     const dayForSchedulingTextContent = setDateForScheduling.toLocaleString("pt-BR", optionsSetDay);
     
+    // Inclusão dos dados no campo de informações sobre o agendamento
     if (dateForSchedulingTextContent === currentDate.toLocaleString("pt-BR", optionsSetDate)) {
       schedulingTextContent.innerText = "Tarefa agendada para hoje às " + timeForSchedulingTextContent
     } else if (setDateForScheduling.getDay() == 0 && currentDate.getDay() == 6) {
@@ -349,10 +351,12 @@ confirmScheduleBtn.addEventListener("click", () => {
 
     document.querySelector(".readyForSchedulingBtn").classList.remove("readyForSchedulingBtn");
     document.querySelector(".readyForSchedulingTaskField").classList.remove("readyForSchedulingTaskField");
-    scheduleField.style.display = "none";
+    scheduleField.classList.add('hide')
+    newTaskInput.focus()
   }
 });
 
+// Configuração do botão de remoção do agendamento
 const schedulingRemoveClick = (schedulingInfo) => {
   const tasks = tasksContainer.childNodes
   for (const task of tasks) {
@@ -362,6 +366,7 @@ const schedulingRemoveClick = (schedulingInfo) => {
       const btnField = task.lastChild.childNodes
       const scheduleBtn = btnField[1]
       scheduleBtn.classList.remove('disabled')
+      newTaskInput.focus()
     }
   }
 };
