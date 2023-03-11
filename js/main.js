@@ -40,13 +40,13 @@ newTaskBtn.addEventListener("click", () => {
     taskContent.innerText = newTaskInput.value;
 
     // Campo dos botões/ícones
-    const iconsField = document.createElement("div");
-    taskField.appendChild(iconsField);
-    iconsField.classList.add("iconsField");
+    const btnField = document.createElement("div");
+    taskField.appendChild(btnField);
+    btnField.classList.add("btnField");
 
     // Botão para conclusão a tarefa
     const checkBtn = document.createElement("button");
-    iconsField.appendChild(checkBtn);
+    btnField.appendChild(checkBtn);
     checkBtn.classList.add("checkBtn");
     const checkIcon = document.createElement("i");
     checkBtn.appendChild(checkIcon);
@@ -59,7 +59,7 @@ newTaskBtn.addEventListener("click", () => {
 
     // Botão para agendamento da tarefa
     const scheduleBtn = document.createElement("button");
-    iconsField.appendChild(scheduleBtn);
+    btnField.appendChild(scheduleBtn);
     scheduleBtn.classList.add("scheduleBtn");
     const scheduleIcon = document.createElement("i");
     scheduleBtn.appendChild(scheduleIcon);
@@ -72,7 +72,7 @@ newTaskBtn.addEventListener("click", () => {
 
     //Botão para edição da tarefa
     const editBtn = document.createElement("button");
-    iconsField.appendChild(editBtn);
+    btnField.appendChild(editBtn);
     editBtn.classList.add("editBtn");
     const editIcon = document.createElement("i");
     editBtn.appendChild(editIcon);
@@ -83,7 +83,7 @@ newTaskBtn.addEventListener("click", () => {
 
     // Botão para exclusão da tarefa
     const removeBtn = document.createElement("button");
-    iconsField.appendChild(removeBtn);
+    btnField.appendChild(removeBtn);
     removeBtn.classList.add("removeBtn");
     const removeIcon = document.createElement("i");
     removeBtn.appendChild(removeIcon);
@@ -101,7 +101,9 @@ newTaskBtn.addEventListener("click", () => {
 const completeClick = (taskField, taskContent, scheduleBtn, editBtn) => {
   taskContent.classList.toggle("completed");
   taskField.classList.toggle("completed");
-  scheduleBtn.classList.toggle('disabled')
+  if (!taskField.classList.contains('scheduled')) {
+    scheduleBtn.classList.toggle('disabled')
+  }
   editBtn.classList.toggle('disabled')
   newTaskInput.focus();
 };
@@ -235,6 +237,7 @@ const scheduleClick = (taskField, scheduleBtn) => {
   
   scheduleBtn.classList.add('readyForSchedulingBtn')
   taskField.classList.add("readyForSchedulingTaskField");
+  
 };
 
 // Função responsável pelo fechamento da janela de agendamento
@@ -341,12 +344,26 @@ confirmScheduleBtn.addEventListener("click", () => {
     } else {
       schedulingTextContent.innerText = "Tarefa agendada para " + dayForSchedulingTextContent + ', ' + dateForSchedulingTextContent + ' às ' + timeForSchedulingTextContent
     }
+    document.querySelector(".readyForSchedulingBtn").classList.add('disabled')
+    document.querySelector(".readyForSchedulingTaskField").classList.add("scheduled");
+
+    document.querySelector(".readyForSchedulingBtn").classList.remove("readyForSchedulingBtn");
+    document.querySelector(".readyForSchedulingTaskField").classList.remove("readyForSchedulingTaskField");
     scheduleField.style.display = "none";
   }
 });
 
 const schedulingRemoveClick = (schedulingInfo) => {
-  schedulingInfo.remove();
+  const tasks = tasksContainer.childNodes
+  for (const task of tasks) {
+    if(task.lastChild.isSameNode(schedulingInfo)) {
+      schedulingInfo.remove();
+      task.classList.remove('scheduled')
+      const btnField = task.lastChild.childNodes
+      const scheduleBtn = btnField[1]
+      scheduleBtn.classList.remove('disabled')
+    }
+  }
 };
 
 // Configuração do botão de exclusão da tarefa
