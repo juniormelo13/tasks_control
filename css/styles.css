@@ -4,10 +4,22 @@
     box-sizing: border-box;
 }
 
-.editField {
+#header.hide {
+    pointer-events: none;
+}
+
+#mainContainer.hide {
+    pointer-events: none;
+}
+
+.editField.hide {
     display: none;
 }
 
-.scheduleField {
+.scheduleField.hide {
+    display: none;
+}
+
+#confirmRemoveTaskField.hide {
     display: none;
 }

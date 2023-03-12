@@ -372,7 +372,32 @@ const schedulingRemoveClick = (schedulingInfo) => {
 };
 
 // Configuração do botão de exclusão da tarefa
+const confirmRemoveTaskField = document.querySelector('#confirmRemoveTaskField')
+const btnYes = document.querySelector('#btnYes')
+const btnNo = document.querySelector('#btnNo')
+
 const deleteClick = (taskField) => {
-  taskField.remove();
-  newTaskInput.focus();
+  if (taskField.classList.contains('scheduled')) {    
+    header.classList.add('hide')
+    mainContainer.classList.add('hide')
+    confirmRemoveTaskField.classList.remove('hide')
+    
+    btnYes.onclick = () => {
+      header.classList.remove('hide')
+      mainContainer.classList.remove('hide')
+      confirmRemoveTaskField.classList.add('hide')
+
+      taskField.remove();
+      newTaskInput.focus();
+    } 
+    
+    btnNo.onclick = () => {
+      header.classList.remove('hide')
+      mainContainer.classList.remove('hide')
+      confirmRemoveTaskField.classList.add('hide')
+    }
+  } else {
+    taskField.remove();
+    newTaskInput.focus();
+  }
 };
