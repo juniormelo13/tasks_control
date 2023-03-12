@@ -105,6 +105,11 @@ const completeClick = (taskField, taskContent, scheduleBtn, editBtn) => {
     scheduleBtn.classList.toggle('disabled')
   }
   editBtn.classList.toggle('disabled')
+  if (taskField.classList.contains('completed')) {
+    tasksContainer.insertBefore(taskField, tasksContainer.childNodes[length - 1])
+  } else {
+    tasksContainer.insertBefore(taskField, tasksContainer.childNodes[0])
+  }
   newTaskInput.focus();
 };
 
