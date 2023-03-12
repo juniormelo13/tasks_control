@@ -31,7 +31,7 @@ newTaskBtn.addEventListener("click", () => {
 
     // Tarefa
     const taskField = document.createElement("div");
-    tasksContainer.appendChild(taskField);
+    tasksContainer.insertBefore(taskField, tasksContainer.childNodes[0]);
     taskField.classList.add("taskField");
 
     // Texto da tarefa
