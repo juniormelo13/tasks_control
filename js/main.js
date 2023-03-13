@@ -276,6 +276,11 @@ const confirmSchedule = (taskField, scheduleBtn) => {
   };
   const currentTimeForValidate = currentDate.toLocaleString('pt-BR', optionsForCurrentTime)
 
+  // Cálculo da semana atual
+  var oneJan = new Date(currentDate.getFullYear(),0,1);
+  var numberOfDays = Math.floor((currentDate - oneJan) / (24 * 60 * 60 * 1000));
+  var currentWeek = Math.ceil(( currentDate.getDay() + 1 + numberOfDays) / 7);
+
   // Funções de validação dos input's de data e hora
   const validateScheduleInputDate = () => scheduleInputDateValue.trim() != "" && scheduleInputDateValue >= currentDateForValidate
   
@@ -323,6 +328,11 @@ const confirmSchedule = (taskField, scheduleBtn) => {
     
     // Recebimento dos valores colocados nos inputs
     const setDateForScheduling = new Date(scheduleInputDateValue + " " + scheduleInputTimeValue);
+
+    // Cálculo da semana em que a tarefa será agendada
+    var oneJan = new Date(setDateForScheduling.getFullYear(),0,1);
+    var numberOfDays = Math.floor((setDateForScheduling - oneJan) / (24 * 60 * 60 * 1000));
+    var schedulingWeek = Math.ceil(( setDateForScheduling.getDay() + 1 + numberOfDays) / 7);
     
     const optionsSetDate = {
       dateStyle: "long"
@@ -341,9 +351,9 @@ const confirmSchedule = (taskField, scheduleBtn) => {
     // Inclusão dos dados no campo de informações sobre o agendamento
     if (dateForSchedulingTextContent === currentDate.toLocaleString("pt-BR", optionsSetDate)) {
       schedulingTextContent.innerText = "Tarefa agendada para hoje às " + timeForSchedulingTextContent
-    } else if (setDateForScheduling.getDay() == 0 && currentDate.getDay() == 6) {
+    } else if (schedulingWeek === currentWeek && setDateForScheduling.getDay() == 0 && currentDate.getDay() == 6) {
       schedulingTextContent.innerText = "Tarefa agendada para amanhã às " + timeForSchedulingTextContent
-    } else if (setDateForScheduling.getDay() - currentDate.getDay() == 1) {
+    } else if (schedulingWeek === currentWeek && setDateForScheduling.getDay() - currentDate.getDay() == 1) {
       schedulingTextContent.innerText = "Tarefa agendada para amanhã às " + timeForSchedulingTextContent
     } else {
       schedulingTextContent.innerText = "Tarefa agendada para " + dayForSchedulingTextContent + ', ' + dateForSchedulingTextContent + ' às ' + timeForSchedulingTextContent
@@ -352,12 +362,12 @@ const confirmSchedule = (taskField, scheduleBtn) => {
     const appointmentDate = document.createElement('span')
     appointmentDate.classList.add('appointmentDate')
     appointmentDate.classList.add('hide')
-    appointmentDate.innerText = dateForSchedulingTextContent
+    appointmentDate.innerText = scheduleInputDateValue
 
     const appointmentTime = document.createElement('span')
     appointmentTime.classList.add('appointmentTime')
     appointmentTime.classList.add('hide')
-    appointmentTime.innerText = timeForSchedulingTextContent
+    appointmentTime.innerText = scheduleInputTimeValue
 
     taskField.appendChild(appointmentDate)
     taskField.appendChild(appointmentTime)
@@ -373,27 +383,51 @@ const confirmSchedule = (taskField, scheduleBtn) => {
 setInterval(() => {
   const currentFullDate = new Date()
 
-  const optionsCurrentDate = {
-    dateStyle: "long"
-  }
-  const optionsCurrentTime = {
-    timeStyle: "short"
-  }
-  const optionsCurrentDay = {
-    weekday: "long"
+  const currentDate = currentFullDate.toLocaleDateString('fr-CA')
+  const optionsForCurrentTime = {
+    timeStyle: "short",
   };
-  
-  const currentDate = currentFullDate.toLocaleString("pt-BR", optionsCurrentDate);
-  const currentTime = currentFullDate.toLocaleString("pt-BR", optionsCurrentTime);
-  const currentDay = currentFullDate.toLocaleString("pt-BR", optionsCurrentDay);
+  const currentTime = currentFullDate.toLocaleString('pt-BR', optionsForCurrentTime)
+
+  var oneJan = new Date(currentFullDate.getFullYear(),0,1);
+  var numberOfDays = Math.floor((currentFullDate - oneJan) / (24 * 60 * 60 * 1000));
+  var currentWeek = Math.ceil(( currentFullDate.getDay() + 1 + numberOfDays) / 7);
 
   const tasks = tasksContainer.childNodes
   for (const task of tasks) {
     if (task.classList.contains('scheduled')) {
       const appointmentDate = task.childNodes[3].innerText
       const appointmentTime = task.childNodes[4].innerText
+      const schedulingDate = new Date(appointmentDate + " " + appointmentTime);
+
+      var oneJan = new Date(schedulingDate.getFullYear(),0,1);
+      var numberOfDays = Math.floor((schedulingDate - oneJan) / (24 * 60 * 60 * 1000));
+      var schedulingWeek = Math.ceil(( schedulingDate.getDay() + 1 + numberOfDays) / 7);
+      
+      const optionsForScheduleTime = {
+        timeStyle: "short"
+      }
+      const schedulingTimeForText = schedulingDate.toLocaleString("pt-BR", optionsForScheduleTime);
+      const schedulingInfo = task.childNodes[2]
+      const schedulingTextContent = schedulingInfo.firstChild
       if (currentDate === appointmentDate) {
-        task.childNodes[2].firstChild.innerText = 'Tarefa agendada para hoje às ' + appointmentTime
+        schedulingTextContent.innerText = 'Tarefa agendada para hoje às ' + schedulingTimeForText
+        console.log('hoje')
+        console.log()
+        console.log(schedulingTimeForText)
+        console.log()
+      } else if (currentWeek === schedulingWeek && schedulingDate.getDay() == 0 && currentFullDate.getDay() == 6) {
+        schedulingTextContent.innerText = "Tarefa agendada para amanhã às " + schedulingTimeForText
+        console.log('amanhã')
+      } else if (currentWeek === schedulingWeek && schedulingDate.getDay() - currentFullDate.getDay() == 1) {
+        schedulingTextContent.innerText = "Tarefa agendada para amanhã às " + schedulingTimeForText
+        console.log('amanhã')
+      }
+      if (currentDate === appointmentDate && currentTime >= appointmentTime) {
+        schedulingTextContent.innerText = 'Tarefa expirada'
+        schedulingInfo.classList.add('expiredTask')
+        task.classList.add('expiredTask')
+        console.log('expirou')
       }
     }
   }
@@ -401,11 +435,17 @@ setInterval(() => {
 
 // Configuração do botão de remoção do agendamento
 const schedulingRemoveClick = (schedulingInfo, taskField, scheduleBtn, appointmentDate, appointmentTime) => {
-  schedulingInfo.remove();
   appointmentDate.remove()
   appointmentTime.remove()
   taskField.classList.remove('scheduled')
+  if (taskField.classList.contains('expiredTask')) {
+    taskField.classList.remove('expiredTask')
+  }
+  if (schedulingInfo.classList.contains('expiredTask')) {
+    schedulingInfo.classList.remove('expiredTask')
+  }
   scheduleBtn.classList.remove('disabled')
+  schedulingInfo.remove();
   newTaskInput.focus()
 };
 
