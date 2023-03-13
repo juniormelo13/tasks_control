@@ -315,7 +315,7 @@ const confirmSchedule = (taskField, scheduleBtn) => {
     schedulingInfo.appendChild(schedulingRemoveBtn);
     schedulingRemoveBtn.classList.add("schedulingRemoveBtn");
     schedulingRemoveBtn.setAttribute("title", "Cancelar agendamento");
-    schedulingRemoveBtn.addEventListener("click", () => schedulingRemoveClick(schedulingInfo, taskField, scheduleBtn));
+    schedulingRemoveBtn.addEventListener("click", () => schedulingRemoveClick(schedulingInfo, taskField, scheduleBtn, appointmentDate, appointmentTime));
 
     schedulingRemoveBtn.appendChild(schedulingRemoveBtnIcon);
     schedulingRemoveBtnIcon.classList.add("fa-solid");
@@ -349,6 +349,19 @@ const confirmSchedule = (taskField, scheduleBtn) => {
       schedulingTextContent.innerText = "Tarefa agendada para " + dayForSchedulingTextContent + ', ' + dateForSchedulingTextContent + ' às ' + timeForSchedulingTextContent
     }
 
+    const appointmentDate = document.createElement('span')
+    appointmentDate.classList.add('appointmentDate')
+    appointmentDate.classList.add('hide')
+    appointmentDate.innerText = dateForSchedulingTextContent
+
+    const appointmentTime = document.createElement('span')
+    appointmentTime.classList.add('appointmentTime')
+    appointmentTime.classList.add('hide')
+    appointmentTime.innerText = timeForSchedulingTextContent
+
+    taskField.appendChild(appointmentDate)
+    taskField.appendChild(appointmentTime)
+    
     scheduleBtn.classList.add('disabled')
     taskField.classList.add("scheduled");
     scheduleField.classList.add('hide')
@@ -356,9 +369,41 @@ const confirmSchedule = (taskField, scheduleBtn) => {
   }
 };
 
+// Verificação do status do agendamento em tempo real
+setInterval(() => {
+  const currentFullDate = new Date()
+
+  const optionsCurrentDate = {
+    dateStyle: "long"
+  }
+  const optionsCurrentTime = {
+    timeStyle: "short"
+  }
+  const optionsCurrentDay = {
+    weekday: "long"
+  };
+  
+  const currentDate = currentFullDate.toLocaleString("pt-BR", optionsCurrentDate);
+  const currentTime = currentFullDate.toLocaleString("pt-BR", optionsCurrentTime);
+  const currentDay = currentFullDate.toLocaleString("pt-BR", optionsCurrentDay);
+
+  const tasks = tasksContainer.childNodes
+  for (const task of tasks) {
+    if (task.classList.contains('scheduled')) {
+      const appointmentDate = task.childNodes[3].innerText
+      const appointmentTime = task.childNodes[4].innerText
+      if (currentDate === appointmentDate) {
+        task.childNodes[2].firstChild.innerText = 'Tarefa agendada para hoje às ' + appointmentTime
+      }
+    }
+  }
+}, 1000);
+
 // Configuração do botão de remoção do agendamento
-const schedulingRemoveClick = (schedulingInfo, taskField, scheduleBtn) => {
+const schedulingRemoveClick = (schedulingInfo, taskField, scheduleBtn, appointmentDate, appointmentTime) => {
   schedulingInfo.remove();
+  appointmentDate.remove()
+  appointmentTime.remove()
   taskField.classList.remove('scheduled')
   scheduleBtn.classList.remove('disabled')
   newTaskInput.focus()
