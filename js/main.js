@@ -240,9 +240,8 @@ const scheduleClick = (taskField, scheduleBtn) => {
       scheduleInputTime.classList.remove("inputError");
     }
   }
-  
-  scheduleBtn.classList.add('readyForSchedulingBtn')
-  taskField.classList.add("readyForSchedulingTaskField");
+
+  confirmScheduleBtn.onclick = () => confirmSchedule(taskField, scheduleBtn)
 };
 
 // Função responsável pelo fechamento da janela de agendamento
@@ -253,12 +252,10 @@ const closeScheduleField = () => {
   if (scheduleInputDate.classList.contains("inputError")) {
     scheduleInputDate.classList.remove("inputError");
   }
+
   if (scheduleInputTime.classList.contains("inputError")) {
     scheduleInputTime.classList.remove("inputError");
   }
-
-  document.querySelector(".readyForSchedulingBtn").classList.remove("readyForSchedulingBtn");
-  document.querySelector(".readyForSchedulingTaskField").classList.remove("readyForSchedulingTaskField");
 
   scheduleField.classList.add('hide')
   newTaskInput.focus()
@@ -269,7 +266,7 @@ scheduleFieldCloseBtn.addEventListener("click", closeScheduleField);
 cancelScheduletBtn.addEventListener("click", closeScheduleField);
 
 // Configuração de botão de confirmação de agendamento
-confirmScheduleBtn.addEventListener("click", () => {
+const confirmSchedule = (taskField, scheduleBtn) => {
   const currentDate = new Date()
   const scheduleInputDateValue = scheduleInputDate.value;
   const scheduleInputTimeValue = scheduleInputTime.value;
@@ -309,7 +306,7 @@ confirmScheduleBtn.addEventListener("click", () => {
     const schedulingRemoveBtn = document.createElement("button");
     const schedulingRemoveBtnIcon = document.createElement("i");
 
-    document.querySelector(".readyForSchedulingTaskField").appendChild(schedulingInfo);
+    taskField.appendChild(schedulingInfo);
     schedulingInfo.classList.add("schedulingInfo");
 
     schedulingInfo.appendChild(schedulingTextContent);
@@ -318,7 +315,7 @@ confirmScheduleBtn.addEventListener("click", () => {
     schedulingInfo.appendChild(schedulingRemoveBtn);
     schedulingRemoveBtn.classList.add("schedulingRemoveBtn");
     schedulingRemoveBtn.setAttribute("title", "Cancelar agendamento");
-    schedulingRemoveBtn.addEventListener("click", () => schedulingRemoveClick(schedulingInfo));
+    schedulingRemoveBtn.addEventListener("click", () => schedulingRemoveClick(schedulingInfo, taskField, scheduleBtn));
 
     schedulingRemoveBtn.appendChild(schedulingRemoveBtnIcon);
     schedulingRemoveBtnIcon.classList.add("fa-solid");
@@ -351,29 +348,20 @@ confirmScheduleBtn.addEventListener("click", () => {
     } else {
       schedulingTextContent.innerText = "Tarefa agendada para " + dayForSchedulingTextContent + ', ' + dateForSchedulingTextContent + ' às ' + timeForSchedulingTextContent
     }
-    document.querySelector(".readyForSchedulingBtn").classList.add('disabled')
-    document.querySelector(".readyForSchedulingTaskField").classList.add("scheduled");
 
-    document.querySelector(".readyForSchedulingBtn").classList.remove("readyForSchedulingBtn");
-    document.querySelector(".readyForSchedulingTaskField").classList.remove("readyForSchedulingTaskField");
+    scheduleBtn.classList.add('disabled')
+    taskField.classList.add("scheduled");
     scheduleField.classList.add('hide')
     newTaskInput.focus()
   }
-});
+};
 
 // Configuração do botão de remoção do agendamento
-const schedulingRemoveClick = (schedulingInfo) => {
-  const tasks = tasksContainer.childNodes
-  for (const task of tasks) {
-    if(task.lastChild.isSameNode(schedulingInfo)) {
-      schedulingInfo.remove();
-      task.classList.remove('scheduled')
-      const btnField = task.lastChild.childNodes
-      const scheduleBtn = btnField[1]
-      scheduleBtn.classList.remove('disabled')
-      newTaskInput.focus()
-    }
-  }
+const schedulingRemoveClick = (schedulingInfo, taskField, scheduleBtn) => {
+  schedulingInfo.remove();
+  taskField.classList.remove('scheduled')
+  scheduleBtn.classList.remove('disabled')
+  newTaskInput.focus()
 };
 
 // Configuração do botão de exclusão da tarefa
@@ -386,7 +374,7 @@ const deleteClick = (taskField) => {
     header.classList.add('hide')
     mainContainer.classList.add('hide')
     confirmRemoveTaskField.classList.remove('hide')
-    
+
     btnYes.onclick = () => {
       header.classList.remove('hide')
       mainContainer.classList.remove('hide')
