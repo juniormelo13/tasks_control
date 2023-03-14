@@ -99,6 +99,7 @@ newTaskBtn.addEventListener("click", () => {
 
 // Variáveis da janela de confirmação
 const confirmField = document.querySelector('#confirmField')
+const confirmFieldText = document.querySelector('#confirmFieldText')
 const btnYes = document.querySelector('#btnYes')
 const btnNo = document.querySelector('#btnNo')
 
@@ -445,6 +446,7 @@ const deleteClick = (taskField) => {
   if (taskField.classList.contains('scheduled')) {    
     header.classList.add('hide')
     mainContainer.classList.add('hide')
+    confirmFieldText.innerText = 'Esta tarefa possui um agendamento, tem certeza que deseja removê-la?'
     confirmField.classList.remove('hide')
 
     btnYes.onclick = () => {
