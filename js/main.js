@@ -105,18 +105,76 @@ const btnNo = document.querySelector('#btnNo')
 
 // Configuração do botão para conclusão da tarefa
 const completeClick = (taskField, taskContent, scheduleBtn, editBtn) => {
-  taskContent.classList.toggle("completed");
-  taskField.classList.toggle("completed");
-  if (!taskField.classList.contains('scheduled')) {
+  if (taskField.classList.contains('scheduled')) {    
+    header.classList.add('hide')
+    mainContainer.classList.add('hide')
+    confirmFieldText.innerText = 'Esta tarefa possui um agendamento, tem certeza que deseja concluí-la?'
+    confirmField.classList.remove('hide')
+
+    btnYes.onclick = () => {
+      header.classList.remove('hide')
+      mainContainer.classList.remove('hide')
+      confirmField.classList.add('hide')
+
+      taskContent.classList.toggle("completed");
+      taskField.classList.toggle("completed");
+      taskField.classList.remove('scheduled')
+      editBtn.classList.toggle('disabled')
+
+      if (taskField.classList.contains('expireAlert')) {
+        taskField.classList.remove('expireAlert')
+      }
+
+      if (taskField.classList.contains('completed')) {
+        tasksContainer.insertBefore(taskField, tasksContainer.childNodes[length - 1])
+      } else {
+        tasksContainer.insertBefore(taskField, tasksContainer.childNodes[0])
+      }
+
+      const tasks = tasksContainer.childNodes
+      for (const task of tasks) {
+        if(task.firstChild.isSameNode(taskContent)) {
+          const schedulingInfo = task.childNodes[2]
+          const appointmentDate = task.childNodes[3]
+          const appointmentTime = task.childNodes[4]
+
+          appointmentTime.remove()
+          appointmentDate.remove()
+          schedulingInfo.remove()
+        }
+      }
+      
+      newTaskInput.focus();
+    }
+
+    btnNo.onclick = () => {
+      header.classList.remove('hide')
+      mainContainer.classList.remove('hide')
+      confirmField.classList.add('hide')
+
+      newTaskInput.focus();
+    }
+} else {
+    taskContent.classList.toggle("completed");
+    taskField.classList.toggle("completed");
+    editBtn.classList.toggle('disabled')
+    
+    if (!taskField.classList.contains('expiredTask')) {
     scheduleBtn.classList.toggle('disabled')
-  }
-  editBtn.classList.toggle('disabled')
-  if (taskField.classList.contains('completed')) {
-    tasksContainer.insertBefore(taskField, tasksContainer.childNodes[length - 1])
-  } else {
-    tasksContainer.insertBefore(taskField, tasksContainer.childNodes[0])
-  }
-  newTaskInput.focus();
+    }
+
+    if (taskField.classList.contains('expiredTask')) {
+      taskField.classList.remove('expiredTask')
+    }
+
+    if (taskField.classList.contains('completed')) {
+      tasksContainer.insertBefore(taskField, tasksContainer.childNodes[length - 1])
+    } else {
+      tasksContainer.insertBefore(taskField, tasksContainer.childNodes[0])
+    }
+
+    newTaskInput.focus();
+}
 };
 
 // Cabeçalho da aplicação
@@ -343,19 +401,9 @@ const confirmSchedule = (taskField, scheduleBtn) => {
     const dateForSchedulingTextContent = setDateForScheduling.toLocaleString("pt-BR", optionsSetDate);
     const timeForSchedulingTextContent = setDateForScheduling.toLocaleString("pt-BR", optionsSetTime);
     const dayForSchedulingTextContent = setDateForScheduling.toLocaleString("pt-BR", optionsSetDay);
-
-    const difTimeInDays = (setDateForScheduling.getTime() - currentDate.getTime()) / (1000 * 60 * 60 * 24)
     
     // Inclusão dos dados no campo de informações sobre o agendamento
-    if (dateForSchedulingTextContent === currentDate.toLocaleString("pt-BR", optionsSetDate)) {
-      schedulingTextContent.innerText = "Tarefa agendada para hoje às " + timeForSchedulingTextContent
-    } else if (difTimeInDays <= 1 && setDateForScheduling.getDay() == 0 && currentDate.getDay() == 6) {
-      schedulingTextContent.innerText = "Tarefa agendada para amanhã às " + timeForSchedulingTextContent
-    } else if (difTimeInDays <= 1 && setDateForScheduling.getDay() - currentDate.getDay() == 1) {
-      schedulingTextContent.innerText = "Tarefa agendada para amanhã às " + timeForSchedulingTextContent
-    } else {
-      schedulingTextContent.innerText = "Tarefa agendada para " + dayForSchedulingTextContent + ', ' + dateForSchedulingTextContent + ' às ' + timeForSchedulingTextContent
-    }
+    schedulingTextContent.innerText = "Tarefa agendada para " + dayForSchedulingTextContent + ', ' + dateForSchedulingTextContent + ' às ' + timeForSchedulingTextContent
 
     const appointmentDate = document.createElement('span')
     appointmentDate.classList.add('appointmentDate')
@@ -386,9 +434,9 @@ setInterval(() => {
 
   for (const task of tasks) {
     if (task.classList.contains('scheduled')) {
-      const appointmentDate = task.childNodes[3].innerText
-      const appointmentTime = task.childNodes[4].innerText
-      const schedulingDate = new Date(appointmentDate + " " + appointmentTime);
+      const appointmentDate = task.childNodes[3]
+      const appointmentTime = task.childNodes[4]
+      const schedulingDate = new Date(appointmentDate.innerText + " " + appointmentTime.innerText);
       
       const schedulingInfo = task.childNodes[2]
       const schedulingTextContent = schedulingInfo.firstChild
@@ -397,24 +445,26 @@ setInterval(() => {
       const difTimeInDays = difTimeInMinutes / (60 * 24)
 
     if (difTimeInSeconds <= 0) {
-      schedulingTextContent.innerText = 'Tarefa expirada - Expirou ' + schedulingDate.toLocaleDateString('pt-BR') + ' às ' + appointmentTime
+      schedulingTextContent.innerText = 'Tarefa expirada - Expirou ' + schedulingDate.toLocaleDateString('pt-BR') + ' às ' + appointmentTime.innerText
       schedulingInfo.classList.add('expiredTask')
       if (task.classList.contains('expireAlert')) {
         task.classList.remove('expireAlert')
       }
       task.classList.add('expiredTask')
       task.classList.remove('scheduled')
+      appointmentTime.remove()
+      appointmentDate.remove()
     } else if (difTimeInMinutes > 0 && difTimeInMinutes <= 30) {
-      schedulingTextContent.innerText = 'Tarefa agendada para hoje às ' + appointmentTime + ' - Expira em ' + Math.ceil(difTimeInMinutes) + ' min'
+      schedulingTextContent.innerText = 'Tarefa agendada para hoje às ' + appointmentTime.innerText + ' - Expira em ' + Math.ceil(difTimeInMinutes) + ' min'
       task.classList.add('expireAlert')
     } else if (difTimeInMinutes > 30 && difTimeInMinutes <= 60) {
-      schedulingTextContent.innerText = 'Tarefa agendada para hoje às ' + appointmentTime + ' - Expira em ' + Math.ceil(difTimeInMinutes) + ' min'
-    } else if (currentDate === appointmentDate && difTimeInMinutes > 60) {
-      schedulingTextContent.innerText = 'Tarefa agendada para hoje às ' + appointmentTime
+      schedulingTextContent.innerText = 'Tarefa agendada para hoje às ' + appointmentTime.innerText + ' - Expira em ' + Math.ceil(difTimeInMinutes) + ' min'
+    } else if (currentDate === appointmentDate.innerText && difTimeInMinutes > 60) {
+      schedulingTextContent.innerText = 'Tarefa agendada para hoje às ' + appointmentTime.innerText
     } else if (difTimeInDays <= 1 && schedulingDate.getDay() == 0 && currentFullDate.getDay() == 6) {
-      schedulingTextContent.innerText = "Tarefa agendada para amanhã às " + appointmentTime
+      schedulingTextContent.innerText = "Tarefa agendada para amanhã às " + appointmentTime.innerText
     } else if (difTimeInDays <= 1 && schedulingDate.getDay() - currentFullDate.getDay() == 1) {
-      schedulingTextContent.innerText = "Tarefa agendada para amanhã às " + appointmentTime
+      schedulingTextContent.innerText = "Tarefa agendada para amanhã às " + appointmentTime.innerText
     }
   }
 }
@@ -462,6 +512,8 @@ const deleteClick = (taskField) => {
       header.classList.remove('hide')
       mainContainer.classList.remove('hide')
       confirmField.classList.add('hide')
+
+      newTaskInput.focus();
     }
   } else {
     taskField.remove();

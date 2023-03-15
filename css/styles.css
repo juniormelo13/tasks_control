@@ -23,3 +23,11 @@
 #confirmField.hide {
     display: none;
 }
+
+.appointmentDate.hide {
+    display: none;
+}
+
+.appointmentTime.hide {
+    display: none;
+}
