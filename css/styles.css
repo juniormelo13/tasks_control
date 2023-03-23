@@ -83,6 +83,49 @@ body {
     background-color: var(--color5);
 }
 
+#mainContainer {
+    width: 100%;
+}
+
+#mainContainer .container {
+    padding: 0 10%;
+}
+
+#mainContainer .container .newTaskContainer {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 10px;
+    padding: 15px 0;
+    
+}
+
+#mainContainer .container .tasksContainer {
+    display: flex;
+    width: 100%;
+    /* height: calc(100vh - 100px - 30px); */
+    justify-content: flex-start;
+    /* flex-direction: column; */
+    flex-wrap: wrap;
+    background-color: aliceblue;
+    gap: 15px;
+}
+
+#mainContainer .container .tasksContainer .taskField {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    min-width: 410px;
+    height: 70px;
+    background-color: var(--color2);
+    border-radius: 8px;
+    
+}
+
+#mainContainer .container .tasksContainer .taskField p {
+    color: var(--color4);
+}
+
 #header.hide {
     pointer-events: none;
 }
