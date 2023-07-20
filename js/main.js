@@ -2,12 +2,24 @@
 const newTaskInput = document.querySelector("#newTaskInput");
 newTaskInput.focus();
 
+
 // Botão para limpar o campo de texto principal
 const cleanInputBtn = document.querySelector("#cleanInputBtn");
 cleanInputBtn.addEventListener("click", () => {
+  cleanInputBtn.style.display = "none"
   newTaskInput.value = "";
   newTaskInput.focus();
 });
+
+
+newTaskInput.onkeyup = () => {
+  const validateField = () => newTaskInput.value != "";
+  if (!validateField()) {
+    cleanInputBtn.style.display = "none"
+  } else {
+    cleanInputBtn.style.display = "inline"
+  }
+}
 
 // Campo onde as novas tarefas serão adicionadas
 const tasksContainer = document.querySelector(".tasksContainer");
@@ -91,7 +103,8 @@ newTaskBtn.addEventListener("click", () => {
     removeIcon.classList.add("fa-trash");
     removeBtn.setAttribute("title", "Excluir");
     removeBtn.addEventListener("click", () => deleteClick(taskField));
-
+    
+    cleanInputBtn.style.display = "none"
     newTaskInput.focus();
     newTaskInput.value = "";
   }

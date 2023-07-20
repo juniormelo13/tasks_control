@@ -39,18 +39,15 @@
         <!-- Parte superior da caixa, onde serão informadas e enviadas as tarefas -->
         <div class="newTaskContainer">
           <!-- Caixa de texto para informar a nova tarefa -->
-          <input
-            type="text"
-            name="newTaskInput"
-            id="newTaskInput"
-            placeholder="Digite a tarefa..."
-          />
+          <div class="newTaskContainerInput">
+            <!-- Campo onde as tarefas serão adicionadas -->
+            <input type="text" name="newTaskInput" id="newTaskInput" placeholder="Digite a tarefa..."/>
+            <!-- Botão para limpar o campo -->
+            <input type="button" value="X" id="cleanInputBtn" />
+          </div>
           <!-- Botão para adição da nova tarefa no campo -->
           <input type="button" value="adicionar" id="newTaskBtn" />
-          <!-- Botão para limpar o campo -->
-          <input type="button" value="limpar" id="cleanInputBtn" />
         </div>
-        <!-- Campo onde as tarefas serão adicionadas -->
         <div class="tasksContainer"></div>
       </div>
     </main>
