@@ -63,7 +63,8 @@ newTaskBtn.addEventListener("click", () => {
     const checkIcon = document.createElement("i");
     checkBtn.appendChild(checkIcon);
     checkIcon.classList.add("fa-solid");
-    checkIcon.classList.add("fa-check");
+    checkIcon.classList.add("fa-thumbs-up");
+    checkIcon.classList.add("fa-bounce");
     checkBtn.setAttribute("title", "Concluir");
     checkBtn.addEventListener("click", () =>
       completeClick(taskField, taskContent, scheduleBtn, editBtn)
