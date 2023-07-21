@@ -67,7 +67,7 @@ newTaskBtn.addEventListener("click", () => {
     checkIcon.classList.add("fa-bounce");
     checkBtn.setAttribute("title", "Concluir");
     checkBtn.addEventListener("click", () =>
-      completeClick(taskField, taskContent, scheduleBtn, editBtn, checkIcon)
+      completeClick(taskField, taskContent, scheduleBtn, editBtn, checkBtn, checkIcon)
     );
 
     // Botão para agendamento da tarefa
@@ -90,7 +90,7 @@ newTaskBtn.addEventListener("click", () => {
     const editIcon = document.createElement("i");
     editBtn.appendChild(editIcon);
     editIcon.classList.add("fa-solid");
-    editIcon.classList.add("fa-file-pen");
+    editIcon.classList.add("fa-pen");
     editBtn.setAttribute("title", "Editar");
     editBtn.addEventListener("click", () => editClick(taskContent));
 
@@ -118,7 +118,7 @@ const btnYes = document.querySelector('#btnYes')
 const btnNo = document.querySelector('#btnNo')
 
 // Configuração do botão para conclusão da tarefa
-const completeClick = (taskField, taskContent, scheduleBtn, editBtn, checkIcon) => {
+const completeClick = (taskField, taskContent, scheduleBtn, editBtn, checkBtn, checkIcon) => {
   if (taskField.classList.contains('scheduled')) {    
     header.classList.add('hide')
     mainContainer.classList.add('hide')
@@ -138,15 +138,17 @@ const completeClick = (taskField, taskContent, scheduleBtn, editBtn, checkIcon) 
       checkIcon.classList.toggle("fa-bounce");
       checkIcon.classList.toggle("fa-rotate");
       checkIcon.classList.toggle("fa-spin");
-
+      
       if (taskField.classList.contains('expireAlert')) {
         taskField.classList.remove('expireAlert')
       }
 
       if (taskField.classList.contains('completed')) {
         tasksContainer.insertBefore(taskField, tasksContainer.childNodes[length - 1])
+        checkBtn.setAttribute("title", "Restaurar");
       } else {
         tasksContainer.insertBefore(taskField, tasksContainer.childNodes[0])
+        checkBtn.setAttribute("title", "Concluir");
       }
 
       const tasks = tasksContainer.childNodes
@@ -179,11 +181,13 @@ const completeClick = (taskField, taskContent, scheduleBtn, editBtn, checkIcon) 
     checkIcon.classList.toggle("fa-bounce");
     checkIcon.classList.toggle("fa-rotate");
     checkIcon.classList.toggle("fa-spin");
-
+    
     if (taskField.classList.contains('completed')) {
       tasksContainer.insertBefore(taskField, tasksContainer.childNodes[length - 1])
+      checkBtn.setAttribute("title", "Restaurar");
     } else {
       tasksContainer.insertBefore(taskField, tasksContainer.childNodes[0])
+      checkBtn.setAttribute("title", "Concluir");
     }
 
     const tasks = tasksContainer.childNodes
@@ -206,11 +210,13 @@ const completeClick = (taskField, taskContent, scheduleBtn, editBtn, checkIcon) 
     checkIcon.classList.toggle("fa-bounce");
     checkIcon.classList.toggle("fa-rotate");
     checkIcon.classList.toggle("fa-spin");
-
+    
     if (taskField.classList.contains('completed')) {
       tasksContainer.insertBefore(taskField, tasksContainer.childNodes[length - 1])
+      checkBtn.setAttribute("title", "Restaurar");
     } else {
       tasksContainer.insertBefore(taskField, tasksContainer.childNodes[0])
+      checkBtn.setAttribute("title", "Concluir");
     }
 
     newTaskInput.focus();
