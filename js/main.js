@@ -76,7 +76,7 @@ newTaskBtn.addEventListener("click", () => {
     scheduleBtn.classList.add("scheduleBtn");
     const scheduleIcon = document.createElement("i");
     scheduleBtn.appendChild(scheduleIcon);
-    scheduleIcon.classList.add("fa-solid");
+    scheduleIcon.classList.add("fa-regular");
     scheduleIcon.classList.add("fa-calendar-days");
     scheduleBtn.setAttribute("title", "Agendar");
     scheduleBtn.addEventListener("click", () =>

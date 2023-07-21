@@ -15,7 +15,7 @@
     --color5: rgb(207, 219, 213);
     --color6: rgb(127, 252, 45);
     --color7: rgb(66, 144, 207);
-    --color8: rgb(209, 66, 66);
+    --color8: rgb(243, 53, 53);
 }
 
 body {
@@ -199,14 +199,14 @@ body {
     color: var(--color4);
     font-family: 'lato', 'sans-serif';
     overflow-x: hidden;
-    width: 80%;
+    width: 75%;
 }
 
 .btnField {
     width: 20%;
     display: flex;
     justify-content: flex-end;
-    gap: 6px;
+    gap: 8px;
 }
 
 .checkBtn, .scheduleBtn, .editBtn, .removeBtn {
@@ -215,28 +215,30 @@ body {
     border: none;
     outline: none;
     font-size: 16px;
-    transition: 0.3s;
     display: none;
+}
+
+.checkBtn {
+    color: var(--color6);
+}
+
+.scheduleBtn{
+    color: var(--color7);
+    font-size: 17px;
+    margin-bottom: 3.5px;
+}
+
+.editBtn {
+    color: var(--color3);
+}
+
+.removeBtn {
+    color: var(--color8);
 }
 
 .checkBtn:hover, .scheduleBtn:hover, .editBtn:hover, .removeBtn:hover {
     cursor: pointer;
-}
-
-.checkBtn:hover {
-    color: var(--color6);
-}
-
-.scheduleBtn:hover {
-    color: var(--color7);
-}
-
-.editBtn:hover {
-    color: var(--color3);
-}
-
-.removeBtn:hover {
-    color: var(--color8);
+    transform: scale(1.2);
 }
 
 #header.hide {
