@@ -67,7 +67,7 @@ newTaskBtn.addEventListener("click", () => {
     checkIcon.classList.add("fa-bounce");
     checkBtn.setAttribute("title", "Concluir");
     checkBtn.addEventListener("click", () =>
-      completeClick(taskField, taskContent, scheduleBtn, editBtn)
+      completeClick(taskField, taskContent, scheduleBtn, editBtn, checkIcon)
     );
 
     // Botão para agendamento da tarefa
@@ -118,7 +118,7 @@ const btnYes = document.querySelector('#btnYes')
 const btnNo = document.querySelector('#btnNo')
 
 // Configuração do botão para conclusão da tarefa
-const completeClick = (taskField, taskContent, scheduleBtn, editBtn) => {
+const completeClick = (taskField, taskContent, scheduleBtn, editBtn, checkIcon) => {
   if (taskField.classList.contains('scheduled')) {    
     header.classList.add('hide')
     mainContainer.classList.add('hide')
@@ -134,6 +134,10 @@ const completeClick = (taskField, taskContent, scheduleBtn, editBtn) => {
       taskField.classList.toggle("completed");
       taskField.classList.remove('scheduled')
       editBtn.classList.toggle('disabled')
+      checkIcon.classList.toggle("fa-thumbs-up");
+      checkIcon.classList.toggle("fa-bounce");
+      checkIcon.classList.toggle("fa-rotate");
+      checkIcon.classList.toggle("fa-spin");
 
       if (taskField.classList.contains('expireAlert')) {
         taskField.classList.remove('expireAlert')
@@ -171,6 +175,10 @@ const completeClick = (taskField, taskContent, scheduleBtn, editBtn) => {
     taskContent.classList.toggle("completed");
     taskField.classList.toggle("completed");
     editBtn.classList.toggle('disabled')
+    checkIcon.classList.toggle("fa-thumbs-up");
+    checkIcon.classList.toggle("fa-bounce");
+    checkIcon.classList.toggle("fa-rotate");
+    checkIcon.classList.toggle("fa-spin");
 
     if (taskField.classList.contains('completed')) {
       tasksContainer.insertBefore(taskField, tasksContainer.childNodes[length - 1])
@@ -194,6 +202,10 @@ const completeClick = (taskField, taskContent, scheduleBtn, editBtn) => {
     taskField.classList.toggle("completed");
     editBtn.classList.toggle('disabled')
     scheduleBtn.classList.toggle('disabled')
+    checkIcon.classList.toggle("fa-thumbs-up");
+    checkIcon.classList.toggle("fa-bounce");
+    checkIcon.classList.toggle("fa-rotate");
+    checkIcon.classList.toggle("fa-spin");
 
     if (taskField.classList.contains('completed')) {
       tasksContainer.insertBefore(taskField, tasksContainer.childNodes[length - 1])
