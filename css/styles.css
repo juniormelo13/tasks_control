@@ -194,27 +194,34 @@ body {
     border: 2px solid var(--color3);
 }
 
-.taskField.oneTask  {
-    width: calc(40% +  130px);
-    padding: 0 20px;
-}
-
-.taskField.twoTasks  {
-    width: 40%;
-    margin: 15px 1.66666%;
-    padding: 0 20px;
-}
-
-.taskField:hover .checkBtn,.taskField:hover .scheduleBtn,.taskField:hover .editBtn, .taskField:hover .removeBtn {
-    display: block;
-}
-
 .taskField p {
     font-size: 16px;
     color: var(--color4);
     font-family: 'lato', 'sans-serif';
     overflow-x: hidden;
     width: 75%;
+}
+
+.taskField.oneTask  {
+    width: calc(40% +  130px);
+    padding: 0 20px;
+}
+
+.taskField.oneTask p  {
+    width: calc(75% +  130px)
+}
+
+.taskField.twoTasks  {
+    width: 40%;
+    padding: 0 20px;
+}
+
+.taskField.twoTasks p {
+    width: calc(75% +  10px)
+}
+
+.taskField:hover .checkBtn,.taskField:hover .scheduleBtn,.taskField:hover .editBtn, .taskField:hover .removeBtn {
+    display: block;
 }
 
 .btnField {
