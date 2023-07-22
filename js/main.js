@@ -11,7 +11,6 @@ cleanInputBtn.addEventListener("click", () => {
   newTaskInput.focus();
 });
 
-
 newTaskInput.onkeyup = () => {
   const validateField = () => newTaskInput.value != "";
   if (!validateField()) {
@@ -45,6 +44,20 @@ newTaskBtn.addEventListener("click", () => {
     const taskField = document.createElement("div");
     tasksContainer.insertBefore(taskField, tasksContainer.childNodes[0]);
     taskField.classList.add("taskField");
+
+    if (tasksContainer.childNodes.length == 1) {
+      tasksContainer.classList.add("oneOrTwoTasks")
+      tasksContainer.childNodes[0].classList.add("oneTask")
+    } else if (tasksContainer.childNodes.length == 2) {
+      tasksContainer.childNodes[0].classList.add("twoTasks")
+      tasksContainer.childNodes[1].classList.remove("oneTask")
+      tasksContainer.childNodes[1].classList.add("twoTasks")
+    } else {
+      tasksContainer.classList.remove("oneOrTwoTasks")
+      tasksContainer.childNodes[0].classList.remove("twoTasks")
+      tasksContainer.childNodes[1].classList.remove("twoTasks")
+      tasksContainer.childNodes[2].classList.remove("twoTasks")
+    }
 
     // Texto da tarefa
     const taskContent = document.createElement("p");
@@ -562,7 +575,21 @@ const deleteClick = (taskField) => {
       newTaskInput.focus();
     }
   } else {
+    
     taskField.remove();
+    
+    if (tasksContainer.childNodes.length == 2) {
+      tasksContainer.classList.add("oneOrTwoTasks")
+      tasksContainer.childNodes[0].classList.add("twoTasks")
+      tasksContainer.childNodes[1].classList.add("twoTasks")
+    } else if (tasksContainer.childNodes.length == 1) {
+      tasksContainer.childNodes[0].classList.remove("twoTasks")
+      tasksContainer.childNodes[0].classList.add("oneTask")
+      tasksContainer.childNodes[1].classList.remove("twoTasks")
+    } else {
+      tasksContainer.classList.remove("oneOrTwoTasks")
+    }
+
     newTaskInput.focus();
   }
 };

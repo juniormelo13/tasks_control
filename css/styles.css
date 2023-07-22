@@ -92,11 +92,11 @@ body {
     
 }
 
-#mainContainer .container {
+.container {
     padding: 0 10%;
 }
 
-#mainContainer .container .newTaskContainer {
+.newTaskContainer {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -104,7 +104,7 @@ body {
     height: 15vh;
 }
 
-#mainContainer .container .newTaskContainer .newTaskContainerInput {
+.newTaskContainerInput {
     position: relative;
     border-radius: 5px;
     width: 40%;
@@ -176,6 +176,10 @@ body {
     flex-wrap: wrap;
 }
 
+.tasksContainer.oneOrTwoTasks {
+    justify-content: center;
+}
+
 .taskField {
     display: flex;
     justify-content: space-between;
@@ -188,6 +192,17 @@ body {
     margin: 15px 1.6666%;
     padding: 0 10px;
     border: 2px solid var(--color3);
+}
+
+.taskField.oneTask  {
+    width: calc(40% +  130px);
+    padding: 0 20px;
+}
+
+.taskField.twoTasks  {
+    width: 40%;
+    margin: 15px 1.66666%;
+    padding: 0 20px;
 }
 
 .taskField:hover .checkBtn,.taskField:hover .scheduleBtn,.taskField:hover .editBtn, .taskField:hover .removeBtn {
