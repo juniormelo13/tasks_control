@@ -266,6 +266,7 @@ const editClick = (taskContent) => {
 
   editInput.value = taskContent.innerText;
   editInput.select();
+  cleanEditInputBtn.style.display = "inline"
 
   taskContent.classList.add("task");
 };
@@ -297,7 +298,17 @@ const cleanEditInputBtn = document.querySelector("#cleanEditInputBtn");
 cleanEditInputBtn.addEventListener("click", () => {
   editInput.value = "";
   editInput.focus();
+  cleanEditInputBtn.style.display = "none"
 });
+
+editInput.onkeyup = () => {
+  const validateEditField = () => editInput.value != "";
+  if (!validateEditField()) {
+    cleanEditInputBtn.style.display = "none"
+  } else {
+    cleanEditInputBtn.style.display = "inline"
+  }
+}
 
 // Configuração do botão de confirmação da edição
 const confirmEditBtn = document.querySelector("#confirmEditBtn");
