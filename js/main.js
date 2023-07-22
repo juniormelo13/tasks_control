@@ -473,7 +473,7 @@ const confirmSchedule = (taskField, scheduleBtn) => {
     const dayForSchedulingTextContent = setDateForScheduling.toLocaleString("pt-BR", optionsSetDay);
     
     // Inclusão dos dados no campo de informações sobre o agendamento
-    schedulingTextContent.innerText = "Tarefa agendada para " + dayForSchedulingTextContent + ', ' + dateForSchedulingTextContent + ' às ' + timeForSchedulingTextContent
+    // schedulingTextContent.innerText = "Tarefa agendada para " + dayForSchedulingTextContent + ', ' + dateForSchedulingTextContent + ' às ' + timeForSchedulingTextContent
 
     const appointmentDate = document.createElement('span')
     appointmentDate.classList.add('appointmentDate')

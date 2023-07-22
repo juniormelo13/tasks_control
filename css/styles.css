@@ -180,6 +180,7 @@ body {
 }
 
 .taskField {
+    position: relative;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -537,6 +538,36 @@ body {
 
 .scheduleField.hide {
     display: none;
+}
+
+.schedulingInfo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    position: absolute;
+    border: 2px solid var(--color3);
+    border-radius: 5px;
+    padding: 5px 10px;
+    background-color: var(--color2);
+    left: 0;
+    top: 0;
+}
+
+.schedulingTextContent {
+    font-size: 16px;
+}
+
+.schedulingRemoveBtn {
+    background: none;
+    border: none;
+    color: var(--color8);
+    font-size: 16px;
+}
+
+.schedulingRemoveBtn:hover {
+    cursor: pointer;
+    transform: scale(1.2);
 }
 
 #confirmField {
