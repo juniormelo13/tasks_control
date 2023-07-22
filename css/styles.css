@@ -539,6 +539,79 @@ body {
     display: none;
 }
 
+#confirmField {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    background-color: var(--color2);
+    width: 450px;
+    height: 350px;
+    border: 2px solid var(--color3);
+    border-radius: 5px;
+    padding: 15px;
+}
+
+#confirmFieldText {
+    font-family: 'Lato', 'Sans-Serif';
+    font-size: 22px;
+    text-align: center;
+    margin-top: 60px;
+    color: var(--color4);
+}
+
+.btnFieldToConfirm {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    width: 100%;
+    height: 38px;
+    margin-top: 80px;
+}
+
+#btnYes {
+    font-family: 'lato', 'sans-serif';
+    font-size: 18px;
+    border-radius: 5px;
+    border: none;
+    outline: none;
+    height: 100%;
+    width: 120px;
+    text-transform: uppercase;
+    font-weight: bold;
+    background-color: var(--color3);
+    border: 2px solid var(--color3);
+    color: var(--color2);
+    transition: 0.2s;
+}
+
+#btnYes:hover {
+    cursor: pointer;
+    background-color: var(--color1);
+    color: var(--color3);
+}
+
+#btnNo {
+    font-family: 'lato', 'sans-serif';
+    font-size: 18px;
+    border-radius: 5px;
+    border: none;
+    outline: none;
+    height: 100%;
+    width: 120px;
+    text-transform: uppercase;
+    font-weight: bold;
+    background-color: var(--color4);
+    color: var(--color2);
+    transition: 0.2s;
+}
+
+#btnNo:hover {
+    cursor: pointer;
+    background-color: var(--color3);
+    color: var(--color2);
+}
+
 #confirmField.hide {
     display: none;
 }
