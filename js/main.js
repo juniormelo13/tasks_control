@@ -54,7 +54,6 @@ newTaskBtn.addEventListener("click", () => {
       tasksContainer.childNodes[1].classList.add("twoTasks")
     } else {
       tasksContainer.classList.remove("oneOrTwoTasks")
-      tasksContainer.childNodes[0].classList.remove("twoTasks")
       tasksContainer.childNodes[1].classList.remove("twoTasks")
       tasksContainer.childNodes[2].classList.remove("twoTasks")
     }
@@ -83,6 +82,17 @@ newTaskBtn.addEventListener("click", () => {
       completeClick(taskField, taskContent, scheduleBtn, editBtn, checkBtn, checkIcon)
     );
 
+    //Botão para edição da tarefa
+    const editBtn = document.createElement("button");
+    btnField.appendChild(editBtn);
+    editBtn.classList.add("editBtn");
+    const editIcon = document.createElement("i");
+    editBtn.appendChild(editIcon);
+    editIcon.classList.add("fa-solid");
+    editIcon.classList.add("fa-pen");
+    editBtn.setAttribute("title", "Editar");
+    editBtn.addEventListener("click", () => editClick(taskContent));
+    
     // Botão para agendamento da tarefa
     const scheduleBtn = document.createElement("button");
     btnField.appendChild(scheduleBtn);
@@ -95,17 +105,6 @@ newTaskBtn.addEventListener("click", () => {
     scheduleBtn.addEventListener("click", () =>
       scheduleClick(taskField, scheduleBtn)
     );
-
-    //Botão para edição da tarefa
-    const editBtn = document.createElement("button");
-    btnField.appendChild(editBtn);
-    editBtn.classList.add("editBtn");
-    const editIcon = document.createElement("i");
-    editBtn.appendChild(editIcon);
-    editIcon.classList.add("fa-solid");
-    editIcon.classList.add("fa-pen");
-    editBtn.setAttribute("title", "Editar");
-    editBtn.addEventListener("click", () => editClick(taskContent));
 
     // Botão para exclusão da tarefa
     const removeBtn = document.createElement("button");
