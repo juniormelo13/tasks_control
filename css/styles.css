@@ -304,12 +304,12 @@ body {
     outline: none;
     background: none;
     color: var(--color4);
-    transition: 0.3s;
+    transition: 0.2s;
 }
 
 #closeEditFieldBtn:hover {
     cursor: pointer;
-    transform: rotateZ(90deg);
+    color: var(--color8);
 }
 
 .editFieldCenter {
@@ -409,6 +409,130 @@ body {
 
 .editField.hide {
     display: none;
+}
+
+.scheduleField {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    background-color: var(--color2);
+    width: 450px;
+    height: 350px;
+    border: 2px solid var(--color3);
+    border-radius: 5px;
+    padding: 15px;
+}
+
+.scheduleFieldHeader {
+    display: flex;
+    justify-content: space-between;
+}
+
+.scheduleFieldHeader h1 {
+    font-family: 'Lato', 'Sans-Serif';
+    text-transform: uppercase;
+    font-size: 25px;
+    color: var(--color4);
+}
+
+#scheduleFieldCloseBtn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 30px;
+    border: none;
+    outline: none;
+    background: none;
+    color: var(--color4);
+    transition: 0.2s;
+}
+
+#scheduleFieldCloseBtn:hover {
+    cursor: pointer;
+    color: var(--color8);
+}
+
+.scheduleFieldCenter {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    width: 100%;
+    height: 38px;
+    margin-top: 80px;
+}
+
+#scheduleInputDate {
+    border-radius: 5px;
+    border: none;
+    outline: none;
+    padding: 5px 10px;
+    font-family: 'lato', 'sans-serif';
+    font-size: 18px;
+    font-weight: bold;
+    color: var(--color2);
+}
+
+#scheduleInputTime {
+    border-radius: 5px;
+    border: none;
+    outline: none;
+    padding: 5px 10px;
+    font-family: 'lato', 'sans-serif';
+    font-size: 18px;
+    font-weight: bold;
+    color: var(--color2);
+}
+
+.scheduleFieldFooter {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    height: 38px;
+    margin-top: 40px;
+}
+
+#confirmScheduleBtn {
+    font-family: 'lato', 'sans-serif';
+    font-size: 18px;
+    border-radius: 5px;
+    border: none;
+    outline: none;
+    height: 100%;
+    width: 120px;
+    text-transform: uppercase;
+    font-weight: bold;
+    background-color: var(--color3);
+    border: 2px solid var(--color3);
+    color: var(--color2);
+    transition: 0.2s;
+}
+
+#confirmScheduleBtn:hover {
+    cursor: pointer;
+    background-color: var(--color1);
+    color: var(--color3);
+}
+
+#cancelScheduletBtn {
+    font-family: 'lato', 'sans-serif';
+    font-size: 18px;
+    border-radius: 5px;
+    border: none;
+    outline: none;
+    height: 100%;
+    width: 120px;
+    text-transform: uppercase;
+    font-weight: bold;
+    background-color: var(--color4);
+    color: var(--color2);
+    transition: 0.2s;
+}
+
+#cancelScheduletBtn:hover {
+    cursor: pointer;
+    background-color: var(--color3);
+    color: var(--color2);
 }
 
 .scheduleField.hide {

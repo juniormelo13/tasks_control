@@ -374,7 +374,7 @@ const scheduleClick = (taskField, scheduleBtn) => {
       scheduleInputTime.classList.remove("inputError");
     }
   }
-
+  scheduleFieldCloseBtn.setAttribute('title', 'Fechar')
   confirmScheduleBtn.onclick = () => confirmSchedule(taskField, scheduleBtn)
 };
 
