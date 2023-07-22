@@ -286,6 +286,7 @@ const closeEditField = () => {
 
 // Adicionado a função de fechamento nos botões de fechar "X" e "Cancelar"
 const closeEditFieldBtn = document.querySelector("#closeEditFieldBtn");
+closeEditFieldBtn.setAttribute('title', 'Fechar')
 closeEditFieldBtn.addEventListener("click", closeEditField);
 
 const cancelEditBtn = document.querySelector("#cancelEditBtn");

@@ -89,7 +89,6 @@ body {
 
 #mainContainer {
     width: 100%;
-    
 }
 
 .container {
@@ -269,6 +268,57 @@ body {
 
 #mainContainer.hide {
     pointer-events: none;
+}
+
+.editField {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    background-color: var(--color2);
+    width: 450px;
+    height: 350px;
+    border: 2px solid var(--color3);
+    border-radius: 5px;
+    padding: 10px;
+}
+
+.editFieldHeader {
+    display: flex;
+    justify-content: space-between;
+}
+
+.editFieldHeader h1 {
+    font-family: 'Lato', 'Sans-Serif';
+    text-transform: uppercase;
+    font-size: 25px;
+    color: var(--color4);
+}
+
+#closeEditFieldBtn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50px;
+    font-size: 30px;
+    border: none;
+    outline: none;
+    background: none;
+    color: var(--color4);
+    transition: 0.3s;
+}
+
+#closeEditFieldBtn:hover {
+    cursor: pointer;
+    transform: rotateZ(90deg);
+}
+
+.editFieldCenter {
+    display: flex;
+}
+
+.editFieldFooter {
+    display: flex;
 }
 
 .editField.hide {
