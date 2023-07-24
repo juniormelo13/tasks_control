@@ -122,6 +122,7 @@ body {
     font-size: 18px;
     font-weight: bold;
     color: var(--color2);
+    transition: 0.2s;
 }
 
 #newTaskBtn {
@@ -327,6 +328,7 @@ body {
     font-size: 18px;
     font-weight: bold;
     color: var(--color2);
+    transition: 0.2s;
 }
 
 #cleanEditInputBtn {
@@ -468,6 +470,7 @@ body {
     font-size: 18px;
     font-weight: bold;
     color: var(--color2);
+    transition: 0.2s;
 }
 
 #scheduleInputTime {
@@ -479,6 +482,7 @@ body {
     font-size: 18px;
     font-weight: bold;
     color: var(--color2);
+    transition: 0.2s;
 }
 
 .scheduleFieldFooter {
@@ -651,18 +655,12 @@ body {
 
 #newTaskInput:focus, #editInput:focus, #scheduleInputDate:focus, #scheduleInputTime:focus {
     border: 2px solid var(--color3);
-    box-shadow: 0 0 1px var(--color3),
-    0 0 2px var(--color3),
-    0 0 4px var(--color3),
-    0 0 8px var(--color3);
+    box-shadow: 0 0 10px 2px var(--color3);
 }
 
 #newTaskInput.inputError, #editInput.inputError, #scheduleInputDate.inputError, #scheduleInputTime.inputError {
     border: 2px solid var(--color8);
-    box-shadow: 0 0 1px var(--color8),
-    0 0 2px var(--color8),
-    0 0 4px var(--color8),
-    0 0 8px var(--color8);
+    box-shadow: 0 0 10px 2px var(--color8);
 }
 
 #confirmField.hide {

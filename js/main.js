@@ -281,6 +281,7 @@ const closeEditField = () => {
 
   document.querySelector(".task").classList.remove("task");
 
+  newTaskInput.focus();
   editField.classList.add('hide')
 };
 
@@ -301,7 +302,7 @@ cleanEditInputBtn.addEventListener("click", () => {
 });
 
 editInput.onkeyup = () => {
-  const validateEditField = () => editInput.value.trim() != "";
+  const validateEditField = () => editInput.value != "";
   if (!validateEditField()) {
     cleanEditInputBtn.style.display = "none"
   } else {
@@ -361,6 +362,8 @@ const scheduleClick = (taskField, scheduleBtn) => {
   scheduleInputDate.value = currentDateForInput;
   scheduleInputDate.setAttribute("min", currentDateForInput);
   scheduleInputTime.value = currentTimeForInput;
+
+  scheduleInputTime.focus()
   
   scheduleInputDate.onfocus = () => {
     if (scheduleInputDate.classList.contains("inputError")) {
