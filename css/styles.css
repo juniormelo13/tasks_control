@@ -116,13 +116,19 @@ body {
     height: 100%;
     border-radius: 5px;
     outline: none;
-    border: 2px solid var(--color1);
+    border: 2px solid var(--color3);
+    background-color: var(--color2);
     padding: 5px 50px 5px 10px;
     font-family: 'lato', 'sans-serif';
     font-size: 18px;
     font-weight: bold;
-    color: var(--color2);
+    color: var(--color5);
     transition: 0.2s;
+}
+
+#newTaskInput::placeholder {
+    transition: 0.2s;
+    color: var(--color5);
 }
 
 #newTaskBtn {
@@ -141,7 +147,7 @@ body {
 
 #newTaskBtn:hover {
     cursor: pointer;
-    background-color: var(--color1);
+    background-color: var(--color2);
     color: var(--color3);
 }
 
@@ -322,13 +328,19 @@ body {
     height: 100%;
     border-radius: 5px;
     outline: none;
-    border: 2px solid var(--color2);
+    border: 2px solid var(--color3);
+    background-color: var(--color2);
+    color: var(--color4);
     padding: 5px 50px 5px 10px;
     font-family: 'lato', 'sans-serif';
     font-size: 18px;
     font-weight: bold;
-    color: var(--color2);
     transition: 0.2s;
+}
+
+#editInput::placeholder {
+    transition: 0.2s;
+    color: var(--color5);
 }
 
 #cleanEditInputBtn {
@@ -464,25 +476,37 @@ body {
 #scheduleInputDate {
     border-radius: 5px;
     outline: none;
-    border: 2px solid var(--color2);
+    border: 2px solid var(--color3);
+    background-color: var(--color2);
+    color: var(--color4);
     padding: 5px 10px;
     font-family: 'lato', 'sans-serif';
     font-size: 18px;
     font-weight: bold;
-    color: var(--color2);
     transition: 0.2s;
+}
+
+#scheduleInputDate::-webkit-calendar-picker-indicator {
+    cursor: pointer;
+    filter: invert(0.8) brightness(50%) sepia(100%) saturate(10000%) hue-rotate(60deg);
 }
 
 #scheduleInputTime {
     border-radius: 5px;
-    border: 2px solid var(--color2);
+    border: 2px solid var(--color3);
+    background-color: var(--color2);
+    color: var(--color4);
     outline: none;
     padding: 5px 10px;
     font-family: 'lato', 'sans-serif';
     font-size: 18px;
     font-weight: bold;
-    color: var(--color2);
     transition: 0.2s;
+}
+
+#scheduleInputTime::-webkit-calendar-picker-indicator {
+    cursor: pointer;
+    filter: invert(0.8) brightness(50%) sepia(100%) saturate(10000%) hue-rotate(60deg);
 }
 
 .scheduleFieldFooter {
@@ -661,6 +685,10 @@ body {
 #newTaskInput.inputError, #editInput.inputError, #scheduleInputDate.inputError, #scheduleInputTime.inputError {
     border: 2px solid var(--color8);
     box-shadow: 0 0 10px 2px var(--color8);
+}
+
+#newTaskInput:focus::placeholder, #editInput:focus::placeholder {
+    color: var(--color4);
 }
 
 #confirmField.hide {
