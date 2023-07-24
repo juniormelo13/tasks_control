@@ -60,27 +60,28 @@ body {
 #header .menu a {
     text-decoration: none;
     font-family: 'lato', 'sans-serif';
-    font-size: 18px;
-    text-transform: capitalize;
-    color: var(--color4);
-    border-bottom: 4px solid var(--color2);
-    padding-bottom: 5px;
+    font-size: 16px;
+    text-transform: uppercase;
+    color: var(--color5);
     transition: 0.2s;
+    font-weight: bold;
 }
 
 #header .menu a:hover {
-    border-bottom: 4px solid var(--color3);
+    color: white;
+    text-shadow: 0 0 4px var(--color4);
 }
 
 #header .menu a:last-child {
     background-color: var(--color3);
     padding: 10px 20px;
-    margin-bottom: 4px;
     color: var(--color2);
-    font-weight: bold;
+    text-shadow: none;
     text-transform: uppercase;
     border-radius: 5px;
     border: 2px solid var(--color3);
+    margin-left: 15px;
+    font-size: 18px;
 }
 
 #header .menu a:last-child:hover {
