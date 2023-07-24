@@ -46,14 +46,12 @@ newTaskBtn.addEventListener("click", () => {
     taskField.classList.add("taskField");
 
     if (tasksContainer.childNodes.length == 1) {
-      tasksContainer.classList.add("oneOrTwoTasks")
       tasksContainer.childNodes[0].classList.add("oneTask")
     } else if (tasksContainer.childNodes.length == 2) {
       tasksContainer.childNodes[0].classList.add("twoTasks")
       tasksContainer.childNodes[1].classList.remove("oneTask")
       tasksContainer.childNodes[1].classList.add("twoTasks")
     } else {
-      tasksContainer.classList.remove("oneOrTwoTasks")
       tasksContainer.childNodes[1].classList.remove("twoTasks")
       tasksContainer.childNodes[2].classList.remove("twoTasks")
     }
@@ -61,6 +59,7 @@ newTaskBtn.addEventListener("click", () => {
     // Texto da tarefa
     const taskContent = document.createElement("p");
     taskField.appendChild(taskContent);
+    taskContent.classList.add('taskContent')
     taskContent.innerText = newTaskInput.value;
 
     // Campo dos botões/ícones
@@ -302,7 +301,7 @@ cleanEditInputBtn.addEventListener("click", () => {
 });
 
 editInput.onkeyup = () => {
-  const validateEditField = () => editInput.value != "";
+  const validateEditField = () => editInput.value.trim() != "";
   if (!validateEditField()) {
     cleanEditInputBtn.style.display = "none"
   } else {
@@ -453,7 +452,7 @@ const confirmSchedule = (taskField, scheduleBtn) => {
 
     schedulingRemoveBtn.appendChild(schedulingRemoveBtnIcon);
     schedulingRemoveBtnIcon.classList.add("fa-solid");
-    schedulingRemoveBtnIcon.classList.add("fa-calendar-xmark");
+    schedulingRemoveBtnIcon.classList.add("fa-xmark");
     
     // Recebimento dos valores colocados nos inputs
     const setDateForScheduling = new Date(scheduleInputDateValue + " " + scheduleInputTimeValue);
@@ -473,7 +472,7 @@ const confirmSchedule = (taskField, scheduleBtn) => {
     const dayForSchedulingTextContent = setDateForScheduling.toLocaleString("pt-BR", optionsSetDay);
     
     // Inclusão dos dados no campo de informações sobre o agendamento
-    // schedulingTextContent.innerText = "Tarefa agendada para " + dayForSchedulingTextContent + ', ' + dateForSchedulingTextContent + ' às ' + timeForSchedulingTextContent
+    schedulingTextContent.innerText = "Agendado para " + dayForSchedulingTextContent + ', ' + dateForSchedulingTextContent + ' às ' + timeForSchedulingTextContent
 
     const appointmentDate = document.createElement('span')
     appointmentDate.classList.add('appointmentDate')
@@ -515,7 +514,7 @@ setInterval(() => {
       const difTimeInDays = difTimeInMinutes / (60 * 24)
 
     if (difTimeInSeconds <= 0) {
-      schedulingTextContent.innerText = 'Tarefa expirada - Expirou ' + schedulingDate.toLocaleDateString('pt-BR') + ' às ' + appointmentTime.innerText
+      schedulingTextContent.innerText = 'Expirou em ' + schedulingDate.toLocaleDateString('pt-BR') + ' às ' + appointmentTime.innerText
       schedulingInfo.classList.add('expiredTask')
       if (task.classList.contains('expireAlert')) {
         task.classList.remove('expireAlert')
@@ -525,16 +524,16 @@ setInterval(() => {
       appointmentTime.remove()
       appointmentDate.remove()
     } else if (difTimeInMinutes > 0 && difTimeInMinutes <= 30) {
-      schedulingTextContent.innerText = 'Tarefa agendada para hoje às ' + appointmentTime.innerText + ' - Expira em ' + Math.ceil(difTimeInMinutes) + ' min'
+      schedulingTextContent.innerText = 'Agendado para hoje às ' + appointmentTime.innerText + ' - Expira em ' + Math.ceil(difTimeInMinutes) + ' min'
       task.classList.add('expireAlert')
     } else if (difTimeInMinutes > 30 && difTimeInMinutes <= 60) {
-      schedulingTextContent.innerText = 'Tarefa agendada para hoje às ' + appointmentTime.innerText + ' - Expira em ' + Math.ceil(difTimeInMinutes) + ' min'
+      schedulingTextContent.innerText = 'Agendado para hoje às ' + appointmentTime.innerText + ' - Expira em ' + Math.ceil(difTimeInMinutes) + ' min'
     } else if (currentDate === appointmentDate.innerText && difTimeInMinutes > 60) {
-      schedulingTextContent.innerText = 'Tarefa agendada para hoje às ' + appointmentTime.innerText
+      schedulingTextContent.innerText = 'Agendado para hoje às ' + appointmentTime.innerText
     } else if (difTimeInDays <= 1 && schedulingDate.getDay() == 0 && currentFullDate.getDay() == 6) {
-      schedulingTextContent.innerText = "Tarefa agendada para amanhã às " + appointmentTime.innerText
+      schedulingTextContent.innerText = "Agendado para amanhã às " + appointmentTime.innerText
     } else if (difTimeInDays <= 1 && schedulingDate.getDay() - currentFullDate.getDay() == 1) {
-      schedulingTextContent.innerText = "Tarefa agendada para amanhã às " + appointmentTime.innerText
+      schedulingTextContent.innerText = "Agendado para amanhã às " + appointmentTime.innerText
     }
   }
 }
@@ -575,6 +574,16 @@ const deleteClick = (taskField) => {
       confirmField.classList.add('hide')
 
       taskField.remove();
+
+      if (tasksContainer.childNodes.length == 2) {
+        tasksContainer.childNodes[0].classList.add("twoTasks")
+        tasksContainer.childNodes[1].classList.add("twoTasks")
+      } else if (tasksContainer.childNodes.length == 1) {
+        tasksContainer.childNodes[0].classList.remove("twoTasks")
+        tasksContainer.childNodes[0].classList.add("oneTask")
+        tasksContainer.childNodes[1].classList.remove("twoTasks")
+      }
+
       newTaskInput.focus();
     } 
     
@@ -590,15 +599,12 @@ const deleteClick = (taskField) => {
     taskField.remove();
     
     if (tasksContainer.childNodes.length == 2) {
-      tasksContainer.classList.add("oneOrTwoTasks")
       tasksContainer.childNodes[0].classList.add("twoTasks")
       tasksContainer.childNodes[1].classList.add("twoTasks")
     } else if (tasksContainer.childNodes.length == 1) {
       tasksContainer.childNodes[0].classList.remove("twoTasks")
       tasksContainer.childNodes[0].classList.add("oneTask")
       tasksContainer.childNodes[1].classList.remove("twoTasks")
-    } else {
-      tasksContainer.classList.remove("oneOrTwoTasks")
     }
 
     newTaskInput.focus();
