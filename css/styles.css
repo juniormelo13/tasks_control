@@ -115,8 +115,8 @@ body {
     width: 100%;
     height: 100%;
     border-radius: 5px;
-    border: none;
     outline: none;
+    border: 2px solid var(--color1);
     padding: 5px 50px 5px 10px;
     font-family: 'lato', 'sans-serif';
     font-size: 18px;
@@ -320,8 +320,8 @@ body {
     width: 100%;
     height: 100%;
     border-radius: 5px;
-    border: none;
     outline: none;
+    border: 2px solid var(--color2);
     padding: 5px 50px 5px 10px;
     font-family: 'lato', 'sans-serif';
     font-size: 18px;
@@ -461,8 +461,8 @@ body {
 
 #scheduleInputDate {
     border-radius: 5px;
-    border: none;
     outline: none;
+    border: 2px solid var(--color2);
     padding: 5px 10px;
     font-family: 'lato', 'sans-serif';
     font-size: 18px;
@@ -472,7 +472,7 @@ body {
 
 #scheduleInputTime {
     border-radius: 5px;
-    border: none;
+    border: 2px solid var(--color2);
     outline: none;
     padding: 5px 10px;
     font-family: 'lato', 'sans-serif';
@@ -647,6 +647,22 @@ body {
     cursor: pointer;
     background-color: var(--color3);
     color: var(--color2);
+}
+
+#newTaskInput:focus, #editInput:focus, #scheduleInputDate:focus, #scheduleInputTime:focus {
+    border: 2px solid var(--color3);
+    box-shadow: 0 0 1px var(--color3),
+    0 0 2px var(--color3),
+    0 0 4px var(--color3),
+    0 0 8px var(--color3);
+}
+
+#newTaskInput.inputError, #editInput.inputError, #scheduleInputDate.inputError, #scheduleInputTime.inputError {
+    border: 2px solid var(--color8);
+    box-shadow: 0 0 1px var(--color8),
+    0 0 2px var(--color8),
+    0 0 4px var(--color8),
+    0 0 8px var(--color8);
 }
 
 #confirmField.hide {
