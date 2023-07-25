@@ -85,8 +85,9 @@ body {
 }
 
 #header .menu a:last-child:hover {
-    background-color: var(--color1);
+    background-color: var(--color2);
     color: var(--color3);
+    box-shadow: 0 0 10px 2px var(--color3);
 }
 
 #mainContainer {
@@ -101,7 +102,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 10px;
+    gap: 15px;
     height: 15vh;
 }
 
@@ -123,7 +124,7 @@ body {
     font-family: 'lato', 'sans-serif';
     font-size: 18px;
     font-weight: bold;
-    color: var(--color5);
+    color: var(--color4);
     transition: 0.2s;
 }
 
@@ -138,7 +139,7 @@ body {
     border-radius: 5px;
     border: 2px solid var(--color3);
     height: 30%;
-    width: 120px;
+    padding: 0 20px;
     text-transform: uppercase;
     font-weight: bold;
     background-color: var(--color3);
@@ -150,6 +151,7 @@ body {
     cursor: pointer;
     background-color: var(--color2);
     color: var(--color3);
+    box-shadow: 0 0 10px 2px var(--color3);
 }
 
 #cleanInputBtn {
@@ -165,7 +167,7 @@ body {
     background-color: rgba(150, 150, 150, 0.2);
     border-top-right-radius: 5px;
     border-bottom-right-radius: 5px;
-    transition: 0.3s;
+    transition: 0.2s;
     right: 0;
     display: none;
 }
@@ -173,7 +175,7 @@ body {
 #cleanInputBtn:hover {
     cursor: pointer;
     background-color: rgba(150, 150, 150, 0.3);
-    color: rgb(100, 100, 100);
+    color: rgb(200, 200, 200);
 }
 
 .tasksContainer {
@@ -237,7 +239,6 @@ body {
 
 .checkBtn, .scheduleBtn, .editBtn, .removeBtn {
     background: none;
-    color: var(--color5);
     border: none;
     outline: none;
     font-size: 16px;
@@ -265,14 +266,6 @@ body {
 .checkBtn:hover, .scheduleBtn:hover, .editBtn:hover, .removeBtn:hover {
     cursor: pointer;
     transform: scale(1.2);
-}
-
-#header.hide {
-    pointer-events: none;
-}
-
-#mainContainer.hide {
-    pointer-events: none;
 }
 
 .editField {
@@ -358,14 +351,14 @@ body {
     background-color: rgba(150, 150, 150, 0.2);
     border-top-right-radius: 5px;
     border-bottom-right-radius: 5px;
-    transition: 0.3s;
+    transition: 0.2s;
     display: none;
 }
 
 #cleanEditInputBtn:hover {
     cursor: pointer;
     background-color: rgba(150, 150, 150, 0.3);
-    color: rgb(100, 100, 100);
+    color: rgb(200, 200, 200);
 }
 
 .editFieldFooter {
@@ -394,8 +387,9 @@ body {
 
 #confirmEditBtn:hover {
     cursor: pointer;
-    background-color: var(--color1);
+    background-color: var(--color2);
     color: var(--color3);
+    box-shadow: 0 0 10px 2px var(--color3);
 }
 
 #cancelEditBtn {
@@ -536,8 +530,9 @@ body {
 
 #confirmScheduleBtn:hover {
     cursor: pointer;
-    background-color: var(--color1);
+    background-color: var(--color2);
     color: var(--color3);
+    box-shadow: 0 0 10px 2px var(--color3);
 }
 
 #cancelScheduletBtn {
@@ -593,7 +588,7 @@ body {
     position: absolute;
     right: 8px;
     background: none;
-    color: var(--color5);
+    color: var(--color4);
     border: none;
     font-size: 15px;
     transition: 0.2s;
@@ -653,8 +648,9 @@ body {
 
 #btnYes:hover {
     cursor: pointer;
-    background-color: var(--color1);
+    background-color: var(--color2);
     color: var(--color3);
+    box-shadow: 0 0 10px 2px var(--color3);
 }
 
 #btnNo {
@@ -690,6 +686,14 @@ body {
 
 #newTaskInput:focus::placeholder, #editInput:focus::placeholder {
     color: var(--color4);
+}
+
+#header.hide {
+    pointer-events: none;
+}
+
+#mainContainer.hide {
+    pointer-events: none;
 }
 
 #confirmField.hide {

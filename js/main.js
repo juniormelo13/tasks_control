@@ -5,6 +5,7 @@ newTaskInput.focus();
 
 // Botão para limpar o campo de texto principal
 const cleanInputBtn = document.querySelector("#cleanInputBtn");
+cleanInputBtn.setAttribute('title', 'Limpar')
 cleanInputBtn.addEventListener("click", () => {
   cleanInputBtn.style.display = "none"
   newTaskInput.value = "";
@@ -45,15 +46,18 @@ newTaskBtn.addEventListener("click", () => {
     tasksContainer.insertBefore(taskField, tasksContainer.childNodes[0]);
     taskField.classList.add("taskField");
 
-    if (tasksContainer.childNodes.length == 1) {
-      tasksContainer.childNodes[0].classList.add("oneTask")
-    } else if (tasksContainer.childNodes.length == 2) {
-      tasksContainer.childNodes[0].classList.add("twoTasks")
-      tasksContainer.childNodes[1].classList.remove("oneTask")
-      tasksContainer.childNodes[1].classList.add("twoTasks")
-    } else {
-      tasksContainer.childNodes[1].classList.remove("twoTasks")
-      tasksContainer.childNodes[2].classList.remove("twoTasks")
+    switch (tasksContainer.childNodes.length) {
+      case 1:
+        tasksContainer.childNodes[0].classList.add("oneTask")
+        break;
+      case 2:
+        tasksContainer.childNodes[0].classList.add("twoTasks")
+        tasksContainer.childNodes[1].classList.remove("oneTask")
+        tasksContainer.childNodes[1].classList.add("twoTasks")
+        break;
+      default:
+        tasksContainer.childNodes[1].classList.remove("twoTasks")
+        tasksContainer.childNodes[2].classList.remove("twoTasks")
     }
 
     // Texto da tarefa
@@ -295,6 +299,7 @@ cancelEditBtn.addEventListener("click", closeEditField);
 
 // Configuração do botão de limpar o input do campo de edição
 const cleanEditInputBtn = document.querySelector("#cleanEditInputBtn");
+cleanEditInputBtn.setAttribute('title', 'Limpar')
 cleanEditInputBtn.addEventListener("click", () => {
   editInput.value = "";
   editInput.focus();
@@ -577,17 +582,18 @@ const deleteClick = (taskField) => {
       confirmField.classList.add('hide')
 
       taskField.remove();
-
-      if (tasksContainer.childNodes.length == 2) {
-        tasksContainer.childNodes[0].classList.add("twoTasks")
-        tasksContainer.childNodes[1].classList.add("twoTasks")
-      } else if (tasksContainer.childNodes.length == 1) {
-        tasksContainer.childNodes[0].classList.remove("twoTasks")
-        tasksContainer.childNodes[0].classList.add("oneTask")
-        tasksContainer.childNodes[1].classList.remove("twoTasks")
-      }
-
       newTaskInput.focus();
+
+      switch (tasksContainer.childNodes.length) {
+        case 2:
+          tasksContainer.childNodes[0].classList.add("twoTasks")
+          tasksContainer.childNodes[1].classList.add("twoTasks")
+          break;
+        case 1:
+          tasksContainer.childNodes[0].classList.remove("twoTasks")
+          tasksContainer.childNodes[0].classList.add("oneTask")
+          tasksContainer.childNodes[1].classList.remove("twoTasks")
+      }
     } 
     
     btnNo.onclick = () => {
@@ -600,16 +606,17 @@ const deleteClick = (taskField) => {
   } else {
     
     taskField.remove();
-    
-    if (tasksContainer.childNodes.length == 2) {
-      tasksContainer.childNodes[0].classList.add("twoTasks")
-      tasksContainer.childNodes[1].classList.add("twoTasks")
-    } else if (tasksContainer.childNodes.length == 1) {
-      tasksContainer.childNodes[0].classList.remove("twoTasks")
-      tasksContainer.childNodes[0].classList.add("oneTask")
-      tasksContainer.childNodes[1].classList.remove("twoTasks")
-    }
-
     newTaskInput.focus();
+    
+    switch (tasksContainer.childNodes.length) {
+      case 2:
+        tasksContainer.childNodes[0].classList.add("twoTasks")
+        tasksContainer.childNodes[1].classList.add("twoTasks")
+        break;
+      case 1:
+        tasksContainer.childNodes[0].classList.remove("twoTasks")
+        tasksContainer.childNodes[0].classList.add("oneTask")
+        tasksContainer.childNodes[1].classList.remove("twoTasks")
+    }
   }
 };
