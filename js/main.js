@@ -444,8 +444,7 @@ const confirmSchedule = (taskField, scheduleBtn) => {
     // Criação do campo de informações sobre o agendamento
     const schedulingInfo = document.createElement("div");
     const schedulingTextContent = document.createElement("p");
-    const schedulingRemoveBtn = document.createElement("button");
-    const schedulingRemoveBtnIcon = document.createElement("i");
+    const schedulingRemoveBtn = document.createElement("input");
 
     taskField.appendChild(schedulingInfo);
     schedulingInfo.classList.add("schedulingInfo");
@@ -456,11 +455,9 @@ const confirmSchedule = (taskField, scheduleBtn) => {
     schedulingInfo.appendChild(schedulingRemoveBtn);
     schedulingRemoveBtn.classList.add("schedulingRemoveBtn");
     schedulingRemoveBtn.setAttribute("title", "Cancelar agendamento");
+    schedulingRemoveBtn.setAttribute("type", "button");
+    schedulingRemoveBtn.setAttribute("value", "X");
     schedulingRemoveBtn.addEventListener("click", () => schedulingRemoveClick(schedulingInfo, taskField, scheduleBtn, appointmentDate, appointmentTime));
-
-    schedulingRemoveBtn.appendChild(schedulingRemoveBtnIcon);
-    schedulingRemoveBtnIcon.classList.add("fa-solid");
-    schedulingRemoveBtnIcon.classList.add("fa-xmark");
     
     // Recebimento dos valores colocados nos inputs
     const setDateForScheduling = new Date(scheduleInputDateValue + " " + scheduleInputTimeValue);
