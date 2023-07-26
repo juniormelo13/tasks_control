@@ -130,7 +130,7 @@ body {
 
 #newTaskInput::placeholder {
     transition: 0.2s;
-    color: var(--color5);
+    color: rgb(155, 155, 155);
 }
 
 #newTaskBtn {
@@ -339,7 +339,7 @@ body {
 
 #editInput::placeholder {
     transition: 0.2s;
-    color: var(--color5);
+    color: rgb(155, 155, 155);
 }
 
 #cleanEditInputBtn {
