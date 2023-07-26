@@ -198,7 +198,15 @@ body {
     margin: 25px 1.6666%;
     padding: 0 10px;
     border: 2px solid var(--color4);
-    /* transition: 0.2s; */
+    transition: 0.3s
+}
+
+.taskField.completed {
+    border: 2px solid var(--color6);
+}
+
+.taskField.completed:hover {
+    box-shadow: 0 0 10px 2px var(--color6);
 }
 
 .taskContent {
@@ -207,6 +215,10 @@ body {
     font-family: 'lato', 'sans-serif';
     overflow-x: hidden;
     width: 75%;
+}
+
+.taskContent.completed {
+    text-decoration: line-through;
 }
 
 .taskField.oneTask  {
@@ -581,6 +593,7 @@ body {
     background-color: var(--color2);
     right: 5px;
     top: -25px;
+    transition: 0.3s;
 }
 
 .schedulingInfo:hover .schedulingRemoveBtn {
