@@ -215,7 +215,6 @@ body {
 
 .taskField.expireAlert:hover .schedulingInfo.expireAlert {
     box-shadow: 0 -3px 10px -1px var(--color3);
-    /* animation: expireAlert 1s; */
 }
 
 .taskField.expiredTask {
@@ -272,6 +271,10 @@ body {
 
 .taskField:hover .schedulingInfo {
     box-shadow: 0 -3px 10px -1px var(--color4);
+}
+
+.taskField:hover .completedTaskInfo {
+    box-shadow: 0 -3px 10px -1px var(--color6);
 }
 
 .taskField:hover .checkBtn,.taskField:hover .scheduleBtn,.taskField:hover .editBtn, .taskField:hover .removeBtn, .taskField:hover .schedulingRemoveBtn {
@@ -612,19 +615,35 @@ body {
     display: none;
 }
 
-.schedulingInfo {
+.schedulingInfo, .completedTaskInfo {
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 25px;
     position: absolute;
-    border: 2px solid var(--color4);
     border-radius: 5px;
     padding: 5px 20px 5px 20px;
     background-color: var(--color2);
     right: 5px;
     top: -25px;
     transition: 0.3s;
+}
+
+.completedTaskIcon {
+    color: var(--color6);
+}
+
+.schedulingInfo {
+    border: 2px solid var(--color4);
+    gap: 25px;
+}
+
+.completedTaskInfo {
+    border: 2px solid var(--color6);
+    gap: 10px;
+}
+
+.completedTaskInfo:hover {
+    box-shadow: 0 -3px 10px -1px var(--color6);
 }
 
 .schedulingInfo.expireAlert {
@@ -659,7 +678,7 @@ body {
     display: block;
 }
 
-.schedulingTextContent {
+.schedulingTextContent, .completedTaskTextContent {
     font-size: 13px;
     color: var(--color4);
     font-family: 'lato', 'sans-serif';
@@ -685,7 +704,17 @@ body {
     display: none;
 }
 
-.schedulingRemoveBtn:hover {
+.schedulingInfo.expireAlert .schedulingRemoveBtn {
+    border: 2px solid var(--color3);
+    color: var(--color3);
+}
+
+.schedulingInfo.expiredTask .schedulingRemoveBtn {
+    border: 2px solid var(--color8);
+    color: var(--color8);
+}
+
+.schedulingRemoveBtn:hover, .schedulingInfo.expireAlert .schedulingRemoveBtn:hover {
     cursor: pointer;
     color: var(--color8);
     border: 2px solid var(--color8);

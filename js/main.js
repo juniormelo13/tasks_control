@@ -134,6 +134,11 @@ const btnNo = document.querySelector('#btnNo')
 
 // Configuração do botão para conclusão da tarefa
 const completeClick = (taskField, taskContent, scheduleBtn, editBtn, checkBtn, checkIcon) => {
+
+  const completedTaskInfo = document.createElement("div");
+  const completedTaskTextContent = document.createElement("p");
+  const completedTaskIcon = document.createElement("i");
+
   if (taskField.classList.contains('scheduled')) {    
     header.classList.add('hide')
     mainContainer.classList.add('hide')
@@ -161,9 +166,16 @@ const completeClick = (taskField, taskContent, scheduleBtn, editBtn, checkBtn, c
       if (taskField.classList.contains('completed')) {
         tasksContainer.insertBefore(taskField, tasksContainer.childNodes[length - 1])
         checkBtn.setAttribute("title", "Restaurar");
-      } else {
-        tasksContainer.insertBefore(taskField, tasksContainer.childNodes[0])
-        checkBtn.setAttribute("title", "Concluir");
+        
+        taskField.appendChild(completedTaskInfo)
+        completedTaskInfo.classList.add("completedTaskInfo")
+        completedTaskInfo.appendChild(completedTaskTextContent)
+        completedTaskTextContent.classList.add("completedTaskTextContent")
+        completedTaskTextContent.innerText = "Tarefa Concluída"
+        completedTaskInfo.appendChild(completedTaskIcon)
+        completedTaskIcon.classList.add("completedTaskIcon")
+        completedTaskIcon.classList.add("fa-solid")
+        completedTaskIcon.classList.add("fa-check")
       }
 
       const tasks = tasksContainer.childNodes
@@ -200,9 +212,16 @@ const completeClick = (taskField, taskContent, scheduleBtn, editBtn, checkBtn, c
     if (taskField.classList.contains('completed')) {
       tasksContainer.insertBefore(taskField, tasksContainer.childNodes[length - 1])
       checkBtn.setAttribute("title", "Restaurar");
-    } else {
-      tasksContainer.insertBefore(taskField, tasksContainer.childNodes[0])
-      checkBtn.setAttribute("title", "Concluir");
+      
+      taskField.appendChild(completedTaskInfo)
+      completedTaskInfo.classList.add("completedTaskInfo")
+      completedTaskInfo.appendChild(completedTaskTextContent)
+      completedTaskTextContent.classList.add("completedTaskTextContent")
+      completedTaskTextContent.innerText = "Tarefa Concluída"
+      completedTaskInfo.appendChild(completedTaskIcon)
+      completedTaskIcon.classList.add("completedTaskIcon")
+      completedTaskIcon.classList.add("fa-solid")
+      completedTaskIcon.classList.add("fa-check")      
     }
 
     const tasks = tasksContainer.childNodes
@@ -229,9 +248,27 @@ const completeClick = (taskField, taskContent, scheduleBtn, editBtn, checkBtn, c
     if (taskField.classList.contains('completed')) {
       tasksContainer.insertBefore(taskField, tasksContainer.childNodes[length - 1])
       checkBtn.setAttribute("title", "Restaurar");
+      
+      taskField.appendChild(completedTaskInfo)
+      completedTaskInfo.classList.add("completedTaskInfo")
+      completedTaskInfo.appendChild(completedTaskTextContent)
+      completedTaskTextContent.classList.add("completedTaskTextContent")
+      completedTaskTextContent.innerText = "Tarefa Concluída"
+      completedTaskInfo.appendChild(completedTaskIcon)
+      completedTaskIcon.classList.add("completedTaskIcon")
+      completedTaskIcon.classList.add("fa-solid")
+      completedTaskIcon.classList.add("fa-check")
     } else {
       tasksContainer.insertBefore(taskField, tasksContainer.childNodes[0])
       checkBtn.setAttribute("title", "Concluir");
+
+      const tasks = tasksContainer.childNodes
+      for (const task of tasks) {
+        const completedTaskInfo = task.childNodes[2]
+      if(task.firstChild.isSameNode(taskContent)) {
+        completedTaskInfo.remove()
+        }
+      }
     }
 
     newTaskInput.focus();
