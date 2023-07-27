@@ -304,6 +304,10 @@ body {
     color: var(--color6);
 }
 
+.checkBtn i.fa-rotate {
+    color: var(--color4);
+}
+
 .scheduleBtn{
     color: var(--color7);
     font-size: 17px;
