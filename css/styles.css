@@ -205,16 +205,42 @@ body {
     border: 2px solid var(--color6);
 }
 
+.taskField.expireAlert {
+    border: 2px solid var(--color3);
+}
+
+.taskField.expireAlert:hover {
+    box-shadow: 0 0 10px 2px var(--color3);
+}
+
+.taskField.expireAlert:hover .schedulingInfo.expireAlert {
+    box-shadow: 0 -3px 10px -1px var(--color3);
+}
+
+.taskField.expiredTask {
+    border: 2px solid var(--color8);
+}
+
+.taskField.expiredTask:hover {
+    box-shadow: 0 0 10px 2px var(--color8);
+}
+
+.taskField.expiredTask:hover .schedulingInfo.expiredTask  {
+    box-shadow: 0 -3px 10px -1px var(--color8);
+}
+
 .taskField.completed:hover {
     box-shadow: 0 0 10px 2px var(--color6);
 }
 
 .taskContent {
-    font-size: 16px;
-    color: var(--color4);
     font-family: 'lato', 'sans-serif';
-    overflow-x: hidden;
+    font-size: 16px;
     width: 75%;
+    color: var(--color4);
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
 
 .taskContent.completed {
@@ -251,6 +277,10 @@ body {
     display: block;
 }
 
+.taskField:hover .disabled {
+    display: none;
+}
+
 .btnField {
     width: 20%;
     display: flex;
@@ -259,10 +289,10 @@ body {
 }
 
 .checkBtn, .scheduleBtn, .editBtn, .removeBtn {
+    font-size: 16px;
     background: none;
     border: none;
     outline: none;
-    font-size: 16px;
     display: none;
 }
 
@@ -594,6 +624,14 @@ body {
     right: 5px;
     top: -25px;
     transition: 0.3s;
+}
+
+.schedulingInfo.expireAlert {
+    border: 2px solid var(--color3);
+}
+
+.schedulingInfo.expiredTask {
+    border: 2px solid var(--color8);
 }
 
 .schedulingInfo:hover .schedulingRemoveBtn {

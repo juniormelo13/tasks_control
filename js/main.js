@@ -531,6 +531,7 @@ setInterval(() => {
     } else if (difTimeInMinutes > 0 && difTimeInMinutes <= 30) {
       schedulingTextContent.innerText = 'Agendado para hoje às ' + appointmentTime.innerText + ' - Expira em ' + Math.ceil(difTimeInMinutes) + ' min'
       task.classList.add('expireAlert')
+      schedulingInfo.classList.add('expireAlert')
     } else if (difTimeInMinutes > 30 && difTimeInMinutes <= 60) {
       schedulingTextContent.innerText = 'Agendado para hoje às ' + appointmentTime.innerText + ' - Expira em ' + Math.ceil(difTimeInMinutes) + ' min'
     } else if (currentDate === appointmentDate.innerText && difTimeInMinutes > 60) {
