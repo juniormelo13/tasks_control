@@ -171,7 +171,7 @@ const completeClick = (taskField, taskContent, scheduleBtn, editBtn, checkBtn, c
         completedTaskInfo.classList.add("completedTaskInfo")
         completedTaskInfo.appendChild(completedTaskTextContent)
         completedTaskTextContent.classList.add("completedTaskTextContent")
-        completedTaskTextContent.innerText = "Tarefa Concluída"
+        completedTaskTextContent.innerText = "Concluído"
         completedTaskInfo.appendChild(completedTaskIcon)
         completedTaskIcon.classList.add("completedTaskIcon")
         completedTaskIcon.classList.add("fa-solid")
@@ -217,7 +217,7 @@ const completeClick = (taskField, taskContent, scheduleBtn, editBtn, checkBtn, c
       completedTaskInfo.classList.add("completedTaskInfo")
       completedTaskInfo.appendChild(completedTaskTextContent)
       completedTaskTextContent.classList.add("completedTaskTextContent")
-      completedTaskTextContent.innerText = "Tarefa Concluída"
+      completedTaskTextContent.innerText = "Concluído"
       completedTaskInfo.appendChild(completedTaskIcon)
       completedTaskIcon.classList.add("completedTaskIcon")
       completedTaskIcon.classList.add("fa-solid")
@@ -253,7 +253,7 @@ const completeClick = (taskField, taskContent, scheduleBtn, editBtn, checkBtn, c
       completedTaskInfo.classList.add("completedTaskInfo")
       completedTaskInfo.appendChild(completedTaskTextContent)
       completedTaskTextContent.classList.add("completedTaskTextContent")
-      completedTaskTextContent.innerText = "Tarefa Concluída"
+      completedTaskTextContent.innerText = "Concluído"
       completedTaskInfo.appendChild(completedTaskIcon)
       completedTaskIcon.classList.add("completedTaskIcon")
       completedTaskIcon.classList.add("fa-solid")
