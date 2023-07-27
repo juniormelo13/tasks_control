@@ -524,6 +524,9 @@ setInterval(() => {
       if (task.classList.contains('expireAlert')) {
         task.classList.remove('expireAlert')
       }
+      if (schedulingInfo.classList.contains('expireAlert')) {
+        schedulingInfo.classList.remove('expireAlert')
+      }
       task.classList.add('expiredTask')
       task.classList.remove('scheduled')
       appointmentTime.remove()
