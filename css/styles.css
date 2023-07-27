@@ -718,10 +718,18 @@ body {
     color: var(--color8);
 }
 
-.schedulingRemoveBtn:hover, .schedulingInfo.expireAlert .schedulingRemoveBtn:hover {
+.schedulingRemoveBtn:hover, .schedulingInfo.expireAlert .schedulingRemoveBtn:hover, .schedulingInfo.expiredTask .schedulingRemoveBtn:hover {
     cursor: pointer;
+}
+
+.schedulingRemoveBtn:hover, .schedulingInfo.expireAlert .schedulingRemoveBtn:hover {
     color: var(--color8);
     border: 2px solid var(--color8);
+}
+
+.schedulingInfo.expiredTask .schedulingRemoveBtn:hover {
+    color: var(--color4);
+    border: 2px solid var(--color4);
 }
 
 #confirmField {

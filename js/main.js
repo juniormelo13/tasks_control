@@ -551,6 +551,7 @@ setInterval(() => {
       
       const schedulingInfo = task.childNodes[2]
       const schedulingTextContent = schedulingInfo.firstChild
+      const schedulingRemoveBtn = schedulingInfo.childNodes[1]
       const difTimeInSeconds = (schedulingDate.getTime() - currentFullDate.getTime()) / 1000
       const difTimeInMinutes = difTimeInSeconds / 60
       const difTimeInDays = difTimeInMinutes / (60 * 24)
@@ -566,6 +567,7 @@ setInterval(() => {
       }
       task.classList.add('expiredTask')
       task.classList.remove('scheduled')
+      schedulingRemoveBtn.setAttribute("title", "Restaurar")
       appointmentTime.remove()
       appointmentDate.remove()
     } else if (difTimeInMinutes > 0 && difTimeInMinutes <= 30) {
