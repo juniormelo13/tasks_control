@@ -229,6 +229,8 @@ const completeClick = (taskField, taskContent, scheduleBtn, editBtn, checkBtn, c
       const schedulingInfo = task.childNodes[2]
       if(task.firstChild.isSameNode(taskContent)) {
         schedulingInfo.remove()
+        appointmentTime.remove()
+        appointmentDate.remove()
       }
     }
 
@@ -556,8 +558,11 @@ setInterval(() => {
       const difTimeInMinutes = difTimeInSeconds / 60
       const difTimeInDays = difTimeInMinutes / (60 * 24)
 
+      const difSeconds = (currentFullDate.getTime() - schedulingDate.getTime()) / 1000
+      const difMinutes = difSeconds / 60
+      const difDays = difMinutes / (60 * 24)
+
     if (difTimeInSeconds <= 0) {
-      schedulingTextContent.innerText = 'Expirou em ' + schedulingDate.toLocaleDateString('pt-BR') + ' às ' + appointmentTime.innerText
       schedulingInfo.classList.add('expiredTask')
       if (task.classList.contains('expireAlert')) {
         task.classList.remove('expireAlert')
@@ -568,8 +573,17 @@ setInterval(() => {
       task.classList.add('expiredTask')
       task.classList.remove('scheduled')
       schedulingRemoveBtn.setAttribute("title", "Restaurar")
-      appointmentTime.remove()
-      appointmentDate.remove()
+
+      if (currentDate === appointmentDate.innerText) {
+        schedulingTextContent.innerText = 'Expirou hoje às ' + appointmentTime.innerText
+      } else if (difDays <= 1 && schedulingDate.getDay() == 6 && currentFullDate.getDay() == 0) {
+        schedulingTextContent.innerText = 'Expirou ontem às ' + appointmentTime.innerText
+      } else if (difDays <= 1 && currentFullDate.getDay() - schedulingDate.getDay() == 1) {
+        schedulingTextContent.innerText = "Expirou ontem às " + appointmentTime.innerText
+      } else {
+        schedulingTextContent.innerText = 'Expirou em ' + schedulingDate.toLocaleDateString('pt-BR') + ' às ' + appointmentTime.innerText
+      }
+
     } else if (difTimeInMinutes > 0 && difTimeInMinutes <= 30) {
       schedulingTextContent.innerText = 'Agendado para hoje às ' + appointmentTime.innerText + ' - Expira em ' + Math.ceil(difTimeInMinutes) + ' min'
       task.classList.add('expireAlert')
@@ -584,9 +598,9 @@ setInterval(() => {
       schedulingTextContent.innerText = "Agendado para amanhã às " + appointmentTime.innerText
     }
   }
+
 }
 }, 0);
-
 // Configuração do botão de remoção do agendamento
 const schedulingRemoveClick = (schedulingInfo, taskField, scheduleBtn, appointmentDate, appointmentTime) => {
   appointmentDate.remove()
