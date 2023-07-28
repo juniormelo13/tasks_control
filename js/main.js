@@ -576,9 +576,9 @@ setInterval(() => {
 
       if (currentDate === appointmentDate.innerText) {
         schedulingTextContent.innerText = 'Expirou hoje às ' + appointmentTime.innerText
-      } else if (difDays <= 1 && schedulingDate.getDay() == 6 && currentFullDate.getDay() == 0) {
+      } else if (difDays <= 2 && schedulingDate.getDay() == 6 && currentFullDate.getDay() == 0) {
         schedulingTextContent.innerText = 'Expirou ontem às ' + appointmentTime.innerText
-      } else if (difDays <= 1 && currentFullDate.getDay() - schedulingDate.getDay() == 1) {
+      } else if (difDays <= 2 && currentFullDate.getDay() - schedulingDate.getDay() == 1) {
         schedulingTextContent.innerText = "Expirou ontem às " + appointmentTime.innerText
       } else {
         schedulingTextContent.innerText = 'Expirou em ' + schedulingDate.toLocaleDateString('pt-BR') + ' às ' + appointmentTime.innerText
@@ -598,7 +598,6 @@ setInterval(() => {
       schedulingTextContent.innerText = "Agendado para amanhã às " + appointmentTime.innerText
     }
   }
-
 }
 }, 0);
 // Configuração do botão de remoção do agendamento
