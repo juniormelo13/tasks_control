@@ -106,7 +106,7 @@ newTaskBtn.addEventListener("click", () => {
     scheduleIcon.classList.add("fa-calendar-days");
     scheduleBtn.setAttribute("title", "Agendar");
     scheduleBtn.addEventListener("click", () =>
-      scheduleClick(taskField, scheduleBtn)
+      scheduleClick(taskField, scheduleBtn, editBtn)
     );
 
     // Botão para exclusão da tarefa
@@ -389,7 +389,7 @@ const scheduleInputTime = document.querySelector("#scheduleInputTime");
 const confirmScheduleBtn = document.querySelector("#confirmScheduleBtn");
 
 // Função responsável pela abertura da janela de agendamento
-const scheduleClick = (taskField, scheduleBtn) => {
+const scheduleClick = (taskField, scheduleBtn, editBtn) => {
   header.classList.add('hide')
   mainContainer.classList.add('hide')
   scheduleField.classList.remove('hide')
@@ -421,7 +421,7 @@ const scheduleClick = (taskField, scheduleBtn) => {
     }
   }
   scheduleFieldCloseBtn.setAttribute('title', 'Fechar')
-  confirmScheduleBtn.onclick = () => confirmSchedule(taskField, scheduleBtn)
+  confirmScheduleBtn.onclick = () => confirmSchedule(taskField, scheduleBtn, editBtn)
 };
 
 // Função responsável pelo fechamento da janela de agendamento
@@ -446,7 +446,7 @@ scheduleFieldCloseBtn.addEventListener("click", closeScheduleField);
 cancelScheduletBtn.addEventListener("click", closeScheduleField);
 
 // Configuração de botão de confirmação de agendamento
-const confirmSchedule = (taskField, scheduleBtn) => {
+const confirmSchedule = (taskField, scheduleBtn, editBtn) => {
   const currentDate = new Date()
   const scheduleInputDateValue = scheduleInputDate.value;
   const scheduleInputTimeValue = scheduleInputTime.value;
@@ -496,7 +496,7 @@ const confirmSchedule = (taskField, scheduleBtn) => {
     schedulingRemoveBtn.setAttribute("title", "Cancelar agendamento");
     schedulingRemoveBtn.setAttribute("type", "button");
     schedulingRemoveBtn.setAttribute("value", "X");
-    schedulingRemoveBtn.addEventListener("click", () => schedulingRemoveClick(schedulingInfo, taskField, scheduleBtn, appointmentDate, appointmentTime));
+    schedulingRemoveBtn.addEventListener("click", () => schedulingRemoveClick(schedulingInfo, taskField, scheduleBtn, appointmentDate, appointmentTime, editBtn));
     
     // Recebimento dos valores colocados nos inputs
     const setDateForScheduling = new Date(scheduleInputDateValue + " " + scheduleInputTimeValue);
@@ -554,6 +554,8 @@ setInterval(() => {
       const schedulingInfo = task.childNodes[2]
       const schedulingTextContent = schedulingInfo.firstChild
       const schedulingRemoveBtn = schedulingInfo.childNodes[1]
+      const btnField = task.childNodes[1]
+      const editBtn = btnField.childNodes[1]
       const difTimeInSeconds = (schedulingDate.getTime() - currentFullDate.getTime()) / 1000
       const difTimeInMinutes = difTimeInSeconds / 60
       const difTimeInDays = difTimeInMinutes / (60 * 24)
@@ -573,6 +575,7 @@ setInterval(() => {
       task.classList.add('expiredTask')
       task.classList.remove('scheduled')
       schedulingRemoveBtn.setAttribute("title", "Restaurar")
+      editBtn.classList.add('disabled')
 
       if (currentDate === appointmentDate.innerText) {
         schedulingTextContent.innerText = 'Expirou hoje às ' + appointmentTime.innerText
@@ -601,7 +604,7 @@ setInterval(() => {
 }
 }, 0);
 // Configuração do botão de remoção do agendamento
-const schedulingRemoveClick = (schedulingInfo, taskField, scheduleBtn, appointmentDate, appointmentTime) => {
+const schedulingRemoveClick = (schedulingInfo, taskField, scheduleBtn, appointmentDate, appointmentTime, editBtn) => {
   appointmentDate.remove()
   appointmentTime.remove()
   if (taskField.classList.contains('scheduled')) {
@@ -617,6 +620,7 @@ const schedulingRemoveClick = (schedulingInfo, taskField, scheduleBtn, appointme
     taskField.classList.remove('expireAlert')
   }
   scheduleBtn.classList.remove('disabled')
+  editBtn.classList.remove('disabled')
   schedulingInfo.remove();
   newTaskInput.focus()
 };
