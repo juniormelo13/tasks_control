@@ -203,7 +203,6 @@ const completeClick = (taskField, taskContent, scheduleBtn, editBtn, checkBtn, c
   } else if(taskField.classList.contains('expiredTask')) {
     taskContent.classList.toggle("completed");
     taskField.classList.toggle("completed");
-    editBtn.classList.toggle('disabled')
     checkIcon.classList.toggle("fa-thumbs-up");
     checkIcon.classList.toggle("fa-bounce");
     checkIcon.classList.toggle("fa-rotate");
@@ -227,6 +226,8 @@ const completeClick = (taskField, taskContent, scheduleBtn, editBtn, checkBtn, c
     const tasks = tasksContainer.childNodes
     for (const task of tasks) {
       const schedulingInfo = task.childNodes[2]
+      const appointmentDate = task.childNodes[3]
+      const appointmentTime = task.childNodes[4]
       if(task.firstChild.isSameNode(taskContent)) {
         schedulingInfo.remove()
         appointmentTime.remove()
@@ -235,7 +236,6 @@ const completeClick = (taskField, taskContent, scheduleBtn, editBtn, checkBtn, c
     }
 
     newTaskInput.focus();
-    taskField.classList.remove('expireAlert')
     taskField.classList.remove('expiredTask')
   } else {
     taskContent.classList.toggle("completed");
