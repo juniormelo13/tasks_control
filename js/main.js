@@ -153,7 +153,11 @@ const completeClick = (taskField, taskContent, scheduleBtn, editBtn, checkBtn, c
       taskContent.classList.toggle("completed");
       taskField.classList.toggle("completed");
       taskField.classList.remove('scheduled')
-      editBtn.classList.toggle('disabled')
+      switch (editBtn.classList.contains('disabled')) {
+        case false:
+          editBtn.classList.add('disabled')
+          break;
+      }
       checkIcon.classList.toggle("fa-thumbs-up");
       checkIcon.classList.toggle("fa-bounce");
       checkIcon.classList.toggle("fa-rotate");
@@ -189,7 +193,9 @@ const completeClick = (taskField, taskContent, scheduleBtn, editBtn, checkBtn, c
           schedulingInfo.remove()
         }
       }
-      
+      if (taskField.classList.contains('expiredTask')) {
+        taskField.classList.remove('expiredTask')
+      }
       newTaskInput.focus();
     }
 
@@ -649,7 +655,6 @@ const deleteClick = (taskField) => {
         case 1:
           tasksContainer.childNodes[0].classList.remove("twoTasks")
           tasksContainer.childNodes[0].classList.add("oneTask")
-          tasksContainer.childNodes[1].classList.remove("twoTasks")
       }
     } 
     
@@ -673,7 +678,6 @@ const deleteClick = (taskField) => {
       case 1:
         tasksContainer.childNodes[0].classList.remove("twoTasks")
         tasksContainer.childNodes[0].classList.add("oneTask")
-        tasksContainer.childNodes[1].classList.remove("twoTasks")
     }
   }
 };
