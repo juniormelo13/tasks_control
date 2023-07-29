@@ -691,9 +691,9 @@ body {
 
 .schedulingRemoveBtn {
     position: absolute;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    text-align: center;
+    line-height: 18px;
+    padding: 1px 1px 1px 1.5px;
     top: -8px;
     right: -8px;
     background-color: var(--color2);
