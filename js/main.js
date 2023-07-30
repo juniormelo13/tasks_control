@@ -26,12 +26,22 @@ const tasksContainer = document.querySelector(".tasksContainer");
 
 // Botão para adicionar a nova tarefa
 const newTaskBtn = document.querySelector("#newTaskBtn");
-newTaskBtn.addEventListener("click", () => {
+
+newTaskInput.addEventListener('keypress', (e) => {
+  if (e.key === "Enter") {
+    insertTask()
+  }    
+})
+
+newTaskBtn.addEventListener("click", insertTask)
+
+function insertTask() {
   // Validação do input principal
   const validateField = () => newTaskInput.value.trim() != "";
   if (!validateField()) {
     // Caso o valor do input seja inválido: Será adicionado a class abaixo no input
     newTaskInput.classList.add("inputError");
+    newTaskInput.blur()
     // Evento de foco, para tirar o "erro" do input
     newTaskInput.onfocus = () => {
       if (newTaskInput.classList.contains("inputError")) {
@@ -124,7 +134,7 @@ newTaskBtn.addEventListener("click", () => {
     newTaskInput.focus();
     newTaskInput.value = "";
   }
-});
+};
 
 // Variáveis da janela de confirmação
 const confirmField = document.querySelector('#confirmField')
@@ -145,23 +155,32 @@ const completeClick = (taskField, taskContent, scheduleBtn, editBtn, checkBtn, c
     confirmFieldText.innerText = 'Esta tarefa possui um agendamento, tem certeza que deseja concluí-la?'
     confirmField.classList.remove('hide')
 
-    btnYes.onclick = () => {
+    btnYes.addEventListener("click", confirmAction)
+    btnYes.focus()
+
+    btnYes.addEventListener('keypress', (e) => {
+      if (e.key === "Enter") {
+        confirmAction()
+      }    
+    })
+
+    function confirmAction() {
       header.classList.remove('hide')
       mainContainer.classList.remove('hide')
       confirmField.classList.add('hide')
 
-      taskContent.classList.toggle("completed");
-      taskField.classList.toggle("completed");
+      taskContent.classList.add("completed");
+      taskField.classList.add("completed");
       taskField.classList.remove('scheduled')
       switch (editBtn.classList.contains('disabled')) {
         case false:
           editBtn.classList.add('disabled')
-          break;
+        break;
       }
-      checkIcon.classList.toggle("fa-thumbs-up");
-      checkIcon.classList.toggle("fa-bounce");
-      checkIcon.classList.toggle("fa-rotate");
-      checkIcon.classList.toggle("fa-spin");
+      checkIcon.classList.remove("fa-thumbs-up");
+      checkIcon.classList.remove("fa-bounce");
+      checkIcon.classList.add("fa-rotate");
+      checkIcon.classList.add("fa-spin");
       
       if (taskField.classList.contains('expireAlert')) {
         taskField.classList.remove('expireAlert')
@@ -362,12 +381,22 @@ editInput.onkeyup = () => {
 
 // Configuração do botão de confirmação da edição
 const confirmEditBtn = document.querySelector("#confirmEditBtn");
-confirmEditBtn.addEventListener("click", () => {
+
+editInput.addEventListener('keypress', (e) => {
+  if (e.key === "Enter") {
+    editTask()
+  }    
+})
+
+confirmEditBtn.addEventListener("click", editTask)
+
+function editTask() {
   // Função para validar o input do campo de edição
   const validateEditField = () => editInput.value.trim() != "";
   if (!validateEditField()) {
     // Caso o valor do input seja inválido: Será adicionado a class abaixo no input
     editInput.classList.add("inputError");
+    editInput.blur()
   } else {
     // Caso o valor do input seja válido: Será realizado a edição da tarefa conforme config. abaixo
     editField.classList.add('hide')
@@ -378,7 +407,7 @@ confirmEditBtn.addEventListener("click", () => {
     document.querySelector(".task").classList.remove("task");
     newTaskInput.focus();
   }
-});
+};
 
 // Janela para agendamento de tarefas
 const scheduleField = document.querySelector(".scheduleField");
@@ -419,15 +448,27 @@ const scheduleClick = (taskField, scheduleBtn, editBtn) => {
     if (scheduleInputDate.classList.contains("inputError")) {
       scheduleInputDate.classList.remove("inputError");
     }
+    if (scheduleInputTime.classList.contains("inputError")) {
+      scheduleInputTime.classList.remove("inputError");
+    }
   };
   
   scheduleInputTime.onfocus = () => {
     if (scheduleInputTime.classList.contains("inputError")) {
       scheduleInputTime.classList.remove("inputError");
     }
+    if (scheduleInputDate.classList.contains("inputError")) {
+      scheduleInputDate.classList.remove("inputError");
+    }
   }
   scheduleFieldCloseBtn.setAttribute('title', 'Fechar')
   confirmScheduleBtn.onclick = () => confirmSchedule(taskField, scheduleBtn, editBtn)
+
+  scheduleField.addEventListener('keypress', (e) => {
+    if (e.key === "Enter") {
+      confirmSchedule(taskField, scheduleBtn, editBtn)
+    }    
+  })
 };
 
 // Função responsável pelo fechamento da janela de agendamento
@@ -478,10 +519,16 @@ const confirmSchedule = (taskField, scheduleBtn, editBtn) => {
   if (!validateScheduleInputDate() && !validateScheduleInputTime()) {
     scheduleInputTime.classList.add("inputError");
     scheduleInputDate.classList.add("inputError");
+    scheduleInputTime.blur()
+    scheduleInputDate.blur()
   } else if (!validateScheduleInputDate()) {
     scheduleInputDate.classList.add("inputError");
+    scheduleInputDate.blur()
+    scheduleInputTime.blur()
   } else if (!validateScheduleInputTime()) {
     scheduleInputTime.classList.add("inputError");
+    scheduleInputTime.blur()
+    scheduleInputDate.blur()
   } else {
     header.classList.remove('hide')
     mainContainer.classList.remove('hide')
@@ -638,8 +685,17 @@ const deleteClick = (taskField) => {
     mainContainer.classList.add('hide')
     confirmFieldText.innerText = 'Esta tarefa possui um agendamento, tem certeza que deseja removê-la?'
     confirmField.classList.remove('hide')
+    
+    btnYes.addEventListener("click", confirmAction)
+    btnYes.focus()
 
-    btnYes.onclick = () => {
+    btnYes.addEventListener('keypress', (e) => {
+      if (e.key === "Enter") {
+        confirmAction()
+      }    
+    })
+
+    function confirmAction() {
       header.classList.remove('hide')
       mainContainer.classList.remove('hide')
       confirmField.classList.add('hide')
