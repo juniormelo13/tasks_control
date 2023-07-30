@@ -144,61 +144,27 @@ const btnNo = document.querySelector('#btnNo')
 
 // Configuração do botão para conclusão da tarefa
 const completeClick = (taskField, taskContent, scheduleBtn, editBtn, checkBtn, checkIcon) => {
-
-  const completedTaskInfo = document.createElement("div");
-  const completedTaskTextContent = document.createElement("p");
-  const completedTaskIcon = document.createElement("i");
-
   if (taskField.classList.contains('scheduled')) {    
     header.classList.add('hide')
     mainContainer.classList.add('hide')
     confirmFieldText.innerText = 'Esta tarefa possui um agendamento, tem certeza que deseja concluí-la?'
     confirmField.classList.remove('hide')
 
-    btnYes.addEventListener("click", confirmAction)
+    btnYes.onclick = confirmCompletedAction
     btnYes.focus()
 
-    btnYes.addEventListener('keypress', (e) => {
-      if (e.key === "Enter") {
-        confirmAction()
-      }    
-    })
-
-    function confirmAction() {
+    function confirmCompletedAction() {
       header.classList.remove('hide')
       mainContainer.classList.remove('hide')
       confirmField.classList.add('hide')
 
-      taskContent.classList.add("completed");
-      taskField.classList.add("completed");
       taskField.classList.remove('scheduled')
-      switch (editBtn.classList.contains('disabled')) {
-        case false:
-          editBtn.classList.add('disabled')
-        break;
-      }
-      checkIcon.classList.remove("fa-thumbs-up");
-      checkIcon.classList.remove("fa-bounce");
-      checkIcon.classList.add("fa-rotate");
-      checkIcon.classList.add("fa-spin");
-      
+
       if (taskField.classList.contains('expireAlert')) {
         taskField.classList.remove('expireAlert')
       }
-
-      if (taskField.classList.contains('completed')) {
-        tasksContainer.insertBefore(taskField, tasksContainer.childNodes[length - 1])
-        checkBtn.setAttribute("title", "Restaurar");
-        
-        taskField.appendChild(completedTaskInfo)
-        completedTaskInfo.classList.add("completedTaskInfo")
-        completedTaskInfo.appendChild(completedTaskTextContent)
-        completedTaskTextContent.classList.add("completedTaskTextContent")
-        completedTaskTextContent.innerText = "Concluído"
-        completedTaskInfo.appendChild(completedTaskIcon)
-        completedTaskIcon.classList.add("completedTaskIcon")
-        completedTaskIcon.classList.add("fa-solid")
-        completedTaskIcon.classList.add("fa-check")
+      if (taskField.classList.contains('expiredTask')) {
+        taskField.classList.remove('expiredTask')
       }
 
       const tasks = tasksContainer.childNodes
@@ -212,9 +178,38 @@ const completeClick = (taskField, taskContent, scheduleBtn, editBtn, checkBtn, c
           schedulingInfo.remove()
         }
       }
-      if (taskField.classList.contains('expiredTask')) {
-        taskField.classList.remove('expiredTask')
+
+      checkIcon.classList.remove("fa-thumbs-up");
+      checkIcon.classList.remove("fa-bounce");
+
+      taskContent.classList.add("completed");
+      taskField.classList.add("completed");
+      switch (editBtn.classList.contains('disabled')) {
+        case false:
+          editBtn.classList.add('disabled')
+        break;
       }
+      
+      checkIcon.classList.add("fa-rotate");
+      checkIcon.classList.add("fa-spin");
+      
+      const completedTaskInfo = document.createElement("div");
+      const completedTaskTextContent = document.createElement("p");
+      const completedTaskIcon = document.createElement("i");
+
+      tasksContainer.insertBefore(taskField, tasksContainer.childNodes[length - 1])
+      checkBtn.setAttribute("title", "Restaurar");
+        
+      taskField.appendChild(completedTaskInfo)
+      completedTaskInfo.classList.add("completedTaskInfo")
+      completedTaskInfo.appendChild(completedTaskTextContent)
+      completedTaskTextContent.classList.add("completedTaskTextContent")
+      completedTaskTextContent.innerText = "Concluído"
+      completedTaskInfo.appendChild(completedTaskIcon)
+      completedTaskIcon.classList.add("completedTaskIcon")
+      completedTaskIcon.classList.add("fa-solid")
+      completedTaskIcon.classList.add("fa-check")
+
       newTaskInput.focus();
     }
 
@@ -225,43 +220,46 @@ const completeClick = (taskField, taskContent, scheduleBtn, editBtn, checkBtn, c
 
       newTaskInput.focus();
     }
-  } else if(taskField.classList.contains('expiredTask')) {
-    taskContent.classList.toggle("completed");
-    taskField.classList.toggle("completed");
-    checkIcon.classList.toggle("fa-thumbs-up");
-    checkIcon.classList.toggle("fa-bounce");
-    checkIcon.classList.toggle("fa-rotate");
-    checkIcon.classList.toggle("fa-spin");
+  } else if (taskField.classList.contains('expiredTask')) {
+    taskField.classList.remove('expiredTask')
+    checkIcon.classList.remove("fa-thumbs-up");
+    checkIcon.classList.remove("fa-bounce");
     
-    if (taskField.classList.contains('completed')) {
-      tasksContainer.insertBefore(taskField, tasksContainer.childNodes[length - 1])
-      checkBtn.setAttribute("title", "Restaurar");
-      
-      taskField.appendChild(completedTaskInfo)
-      completedTaskInfo.classList.add("completedTaskInfo")
-      completedTaskInfo.appendChild(completedTaskTextContent)
-      completedTaskTextContent.classList.add("completedTaskTextContent")
-      completedTaskTextContent.innerText = "Concluído"
-      completedTaskInfo.appendChild(completedTaskIcon)
-      completedTaskIcon.classList.add("completedTaskIcon")
-      completedTaskIcon.classList.add("fa-solid")
-      completedTaskIcon.classList.add("fa-check")      
-    }
-
     const tasks = tasksContainer.childNodes
     for (const task of tasks) {
       const schedulingInfo = task.childNodes[2]
       const appointmentDate = task.childNodes[3]
       const appointmentTime = task.childNodes[4]
-      if(task.firstChild.isSameNode(taskContent)) {
-        schedulingInfo.remove()
+      if (task.firstChild.isSameNode(taskContent)) {
         appointmentTime.remove()
         appointmentDate.remove()
+        schedulingInfo.remove()
       }
     }
 
+    taskContent.classList.add("completed");
+    taskField.classList.add("completed");
+    checkIcon.classList.add("fa-rotate");
+    checkIcon.classList.add("fa-spin");
+
+    const completedTaskInfo = document.createElement("div");
+    const completedTaskTextContent = document.createElement("p");
+    const completedTaskIcon = document.createElement("i");
+
+    tasksContainer.insertBefore(taskField, tasksContainer.childNodes[length - 1])
+    checkBtn.setAttribute("title", "Restaurar");
+      
+    taskField.appendChild(completedTaskInfo)
+    completedTaskInfo.classList.add("completedTaskInfo")
+    completedTaskInfo.appendChild(completedTaskTextContent)
+    completedTaskTextContent.classList.add("completedTaskTextContent")
+    completedTaskTextContent.innerText = "Concluído"
+    completedTaskInfo.appendChild(completedTaskIcon)
+    completedTaskIcon.classList.add("completedTaskIcon")
+    completedTaskIcon.classList.add("fa-solid")
+    completedTaskIcon.classList.add("fa-check")
+
     newTaskInput.focus();
-    taskField.classList.remove('expiredTask')
   } else {
     taskContent.classList.toggle("completed");
     taskField.classList.toggle("completed");
@@ -273,6 +271,10 @@ const completeClick = (taskField, taskContent, scheduleBtn, editBtn, checkBtn, c
     checkIcon.classList.toggle("fa-spin");
     
     if (taskField.classList.contains('completed')) {
+      const completedTaskInfo = document.createElement("div");
+      const completedTaskTextContent = document.createElement("p");
+      const completedTaskIcon = document.createElement("i");
+
       tasksContainer.insertBefore(taskField, tasksContainer.childNodes[length - 1])
       checkBtn.setAttribute("title", "Restaurar");
       
@@ -382,13 +384,13 @@ editInput.onkeyup = () => {
 // Configuração do botão de confirmação da edição
 const confirmEditBtn = document.querySelector("#confirmEditBtn");
 
-editInput.addEventListener('keypress', (e) => {
+editInput.onkeypress = (e) => {
   if (e.key === "Enter") {
     editTask()
   }    
-})
+}
 
-confirmEditBtn.addEventListener("click", editTask)
+confirmEditBtn.onclick = editTask
 
 function editTask() {
   // Função para validar o input do campo de edição
@@ -464,11 +466,11 @@ const scheduleClick = (taskField, scheduleBtn, editBtn) => {
   scheduleFieldCloseBtn.setAttribute('title', 'Fechar')
   confirmScheduleBtn.onclick = () => confirmSchedule(taskField, scheduleBtn, editBtn)
 
-  scheduleField.addEventListener('keypress', (e) => {
+  scheduleField.onkeypress = (e) => {
     if (e.key === "Enter") {
       confirmSchedule(taskField, scheduleBtn, editBtn)
     }    
-  })
+  }
 };
 
 // Função responsável pelo fechamento da janela de agendamento
@@ -685,17 +687,11 @@ const deleteClick = (taskField) => {
     mainContainer.classList.add('hide')
     confirmFieldText.innerText = 'Esta tarefa possui um agendamento, tem certeza que deseja removê-la?'
     confirmField.classList.remove('hide')
-    
-    btnYes.addEventListener("click", confirmAction)
+
+    btnYes.onclick = confirmDeleteAction
     btnYes.focus()
 
-    btnYes.addEventListener('keypress', (e) => {
-      if (e.key === "Enter") {
-        confirmAction()
-      }    
-    })
-
-    function confirmAction() {
+    function confirmDeleteAction() {
       header.classList.remove('hide')
       mainContainer.classList.remove('hide')
       confirmField.classList.add('hide')
