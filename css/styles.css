@@ -41,6 +41,7 @@ body {
 
 #header .logo img {
     width: 175px;
+    animation: fadeInFromTop 0.5s;
 }
 
 #header .menu {
@@ -48,6 +49,7 @@ body {
     gap: 15px;
     justify-content: center;
     align-items: center;
+    animation: fadeInFromTop 0.5s;
 }
 
 #header .menu a {
@@ -97,6 +99,7 @@ body {
     align-items: center;
     gap: 15px;
     height: 25vh;
+    animation: fadeInFromTop 0.5s;
 }
 
 .newTaskContainerInput {
@@ -469,10 +472,6 @@ body {
     color: var(--color2);
 }
 
-.editField.hide {
-    display: none;
-}
-
 .scheduleField {
     position: absolute;
     left: 50%;
@@ -615,9 +614,6 @@ body {
     color: var(--color2);
 }
 
-.scheduleField.hide {
-    display: none;
-}
 
 .schedulingInfo, .completedTaskInfo {
     display: flex;
@@ -820,16 +816,22 @@ body {
     color: var(--color4);
 }
 
-#header.hide {
-    pointer-events: none;
+/* Janelas e elementos em segundo plano */
+
+.editField.hide {
+    display: none;
 }
 
-#mainContainer.hide {
-    pointer-events: none;
+.scheduleField.hide {
+    display: none;
 }
 
 #confirmField.hide {
     display: none;
+}
+
+#header.hide {
+    pointer-events: none;
 }
 
 .appointmentDate.hide {
@@ -838,4 +840,89 @@ body {
 
 .appointmentTime.hide {
     display: none;
+}
+
+/* Animações */
+
+@keyframes fadeInFromTop {
+    0% {
+        transform: translateY(-10px);
+        opacity: 0; 
+    }
+    100% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes hide {
+    0% {
+        filter: blur(0);
+    }
+    100% {
+        filter: blur(5px) opacity(0.3);
+    }
+}
+
+#mainContainer.hide {
+    pointer-events: none;
+    animation: hide 0.3s forwards;
+}
+
+@keyframes mainContainerAppear {
+    0% {
+        filter: blur(5px) opacity(0.3);
+    }
+    100% {
+        filter: blur(0);
+    }
+}
+
+#mainContainer.mainContainerAppear {
+    animation: mainContainerAppear 0.3s;
+}
+
+@keyframes appear {
+    0% {
+        transform: translate(-50%, -50%) scale(0.5);
+        opacity: 0;
+    }
+    100% {
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 1;
+    }
+}
+
+.editField.appear {
+    animation: appear 0.3s;
+}
+
+@keyframes vanish {
+    0% {
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 1;
+    }
+    100% {
+        transform: translate(-50%, -50%) scale(0.5);
+        opacity: 0;
+    }
+}
+
+.editField.vanish {
+    animation: vanish 0.3s;
+}
+
+@keyframes increaseLetter {
+    0% {
+        font-size: 20px;
+        opacity: 0;
+    }
+    100% {
+        font-size: 17px;
+        opacity: 1;
+    }
+}
+
+.increaseLetter {
+    animation: increaseLetter 0.5s;
 }

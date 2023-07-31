@@ -320,6 +320,7 @@ const editInput = document.querySelector("#editInput");
 const editClick = (taskContent) => {
   header.classList.add('hide')
   mainContainer.classList.add('hide')
+  editField.classList.add("appear")
   editField.classList.remove('hide')
 
   if (newTaskInput.classList.contains("inputError")) {
@@ -342,17 +343,21 @@ const editClick = (taskContent) => {
 
 // Função responsável pelo fechamento da janela de edições
 const closeEditField = () => {
-  header.classList.remove('hide')
-  mainContainer.classList.remove('hide')
-
+  editField.classList.add('vanish')
+  editField.classList.remove("appear")
+  mainContainer.classList.add('mainContainerAppear')
+  setTimeout(() => {
+    editField.classList.remove("vanish")
+    editField.classList.add('hide')
+    header.classList.remove('hide')
+    mainContainer.classList.remove('mainContainerAppear')
+    mainContainer.classList.remove('hide')
+    newTaskInput.focus();
+  }, 300)
   if (editInput.classList.contains("inputError")) {
     editInput.classList.remove("inputError");
   }
-
   document.querySelector(".task").classList.remove("task");
-
-  newTaskInput.focus();
-  editField.classList.add('hide')
 };
 
 // Adicionado a função de fechamento nos botões de fechar "X" e "Cancelar"
@@ -401,13 +406,25 @@ function editTask() {
     editInput.blur()
   } else {
     // Caso o valor do input seja válido: Será realizado a edição da tarefa conforme config. abaixo
+    editField.classList.add('vanish')
+    editField.classList.remove("appear")
+    mainContainer.classList.add('mainContainerAppear')
+    document.querySelector(".editBtn").style.pointerEvents = "none"
+  setTimeout(() => {
+    editField.classList.remove("vanish")
     editField.classList.add('hide')
     header.classList.remove('hide')
+    mainContainer.classList.remove('mainContainerAppear')
     mainContainer.classList.remove('hide')
-
-    document.querySelector(".task").innerText = editInput.value;
-    document.querySelector(".task").classList.remove("task");
     newTaskInput.focus();
+    document.querySelector(".task").classList.add("increaseLetter");
+    document.querySelector(".task").innerText = editInput.value;
+  }, 300)
+  setTimeout(() => {
+    document.querySelector(".task").classList.remove("increaseLetter");
+    document.querySelector(".task").classList.remove("task");
+    document.querySelector(".editBtn").style.pointerEvents = "visible"
+  }, 800)
   }
 };
 
