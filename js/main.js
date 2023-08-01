@@ -610,9 +610,19 @@ const confirmSchedule = (taskField, scheduleBtn, editBtn) => {
     // Inclusão dos dados no campo de informações sobre o agendamento
     const difSeconds = (setDateForScheduling.getTime() - currentDate.getTime()) / 1000
     const difMinutes = difSeconds / 60
+    const difDaysOfTheWeek = setDateForScheduling.getDay() - currentDate.getDay()
 
-    if (difMinutes > 2.879) {
+    console.log(difMinutes)
+    console.log(difDaysOfTheWeek)
+
+    if (difMinutes > 2879) {
       schedulingTextContent.innerText = "Agendado para " + dayForSchedulingTextContent + ', ' + dateForSchedulingTextContent + ' às ' + timeForSchedulingTextContent
+    } else if (difMinutes > 1440 && difMinutes <= 2879 && difDaysOfTheWeek >= 2) {
+      schedulingTextContent.innerText = "Agendado para " + dayForSchedulingTextContent + ', ' + dateForSchedulingTextContent + ' às ' + timeForSchedulingTextContent
+    } else if (difMinutes > 1440 && difMinutes <= 2879 && difDaysOfTheWeek == -5) {
+      schedulingTextContent.innerText = "Agendado para " + dayForSchedulingTextContent + ', ' + dateForSchedulingTextContent + ' às ' + timeForSchedulingTextContent
+    } else {
+      schedulingTextContent.innerText = ''
     }
 
     const appointmentDate = document.createElement('span')
@@ -628,8 +638,7 @@ const confirmSchedule = (taskField, scheduleBtn, editBtn) => {
     taskField.appendChild(appointmentDate)
     taskField.appendChild(appointmentTime)
 
-    console.log(difSeconds)
-    console.log(difMinutes)
+
   }
 };
 
