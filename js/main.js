@@ -104,7 +104,7 @@ function insertTask() {
     editIcon.classList.add("fa-solid");
     editIcon.classList.add("fa-pen");
     editBtn.setAttribute("title", "Editar");
-    editBtn.addEventListener("click", () => editClick(taskContent));
+    editBtn.addEventListener("click", () => editClick(taskContent, editBtn));
     
     // Botão para agendamento da tarefa
     const scheduleBtn = document.createElement("button");
@@ -169,13 +169,13 @@ const completeClick = (taskField, taskContent, scheduleBtn, editBtn, checkBtn, c
 
       const tasks = tasksContainer.childNodes
       for (const task of tasks) {
-          const schedulingInfo = task.childNodes[2]
-          const appointmentDate = task.childNodes[3]
-          const appointmentTime = task.childNodes[4]
+          const schedulingInfo = task.childNodes[4]
+          const appointmentDate = task.childNodes[2]
+          const appointmentTime = task.childNodes[3]
         if(task.firstChild.isSameNode(taskContent)) {
+          schedulingInfo.remove()
           appointmentTime.remove()
           appointmentDate.remove()
-          schedulingInfo.remove()
         }
       }
 
@@ -227,13 +227,13 @@ const completeClick = (taskField, taskContent, scheduleBtn, editBtn, checkBtn, c
     
     const tasks = tasksContainer.childNodes
     for (const task of tasks) {
-      const schedulingInfo = task.childNodes[2]
-      const appointmentDate = task.childNodes[3]
-      const appointmentTime = task.childNodes[4]
+      const schedulingInfo = task.childNodes[4]
+      const appointmentDate = task.childNodes[2]
+      const appointmentTime = task.childNodes[3]
       if (task.firstChild.isSameNode(taskContent)) {
+        schedulingInfo.remove()
         appointmentTime.remove()
         appointmentDate.remove()
-        schedulingInfo.remove()
       }
     }
 
@@ -317,7 +317,7 @@ const editField = document.querySelector(".editField");
 const editInput = document.querySelector("#editInput");
 
 // Função responsável pela abertura da janela de edição
-const editClick = (taskContent) => {
+const editClick = (taskContent, editBtn) => {
   header.classList.add('hide')
   mainContainer.classList.add('hide')
   editField.classList.add("appear")
@@ -339,6 +339,7 @@ const editClick = (taskContent) => {
   cleanEditInputBtn.style.display = "inline"
 
   taskContent.classList.add("task");
+  editBtn.classList.add("editing")
 };
 
 // Função responsável pelo fechamento da janela de edições
@@ -353,11 +354,12 @@ const closeEditField = () => {
     mainContainer.classList.remove('mainContainerAppear')
     mainContainer.classList.remove('hide')
     newTaskInput.focus();
-  }, 300)
+  }, 200)
   if (editInput.classList.contains("inputError")) {
     editInput.classList.remove("inputError");
   }
   document.querySelector(".task").classList.remove("task");
+  document.querySelector(".editing").classList.remove("editing");
 };
 
 // Adicionado a função de fechamento nos botões de fechar "X" e "Cancelar"
@@ -409,7 +411,6 @@ function editTask() {
     editField.classList.add('vanish')
     editField.classList.remove("appear")
     mainContainer.classList.add('mainContainerAppear')
-    document.querySelector(".editBtn").style.pointerEvents = "none"
   setTimeout(() => {
     editField.classList.remove("vanish")
     editField.classList.add('hide')
@@ -417,14 +418,14 @@ function editTask() {
     mainContainer.classList.remove('mainContainerAppear')
     mainContainer.classList.remove('hide')
     newTaskInput.focus();
-    document.querySelector(".task").classList.add("increaseLetter");
+    document.querySelector(".task").classList.add("fadeInFromRight");
     document.querySelector(".task").innerText = editInput.value;
-  }, 300)
+  }, 200)
   setTimeout(() => {
-    document.querySelector(".task").classList.remove("increaseLetter");
+    document.querySelector(".task").classList.remove("fadeInFromRight");
     document.querySelector(".task").classList.remove("task");
-    document.querySelector(".editBtn").style.pointerEvents = "visible"
-  }, 800)
+    document.querySelector(".editing").classList.remove("editing");
+  }, 500)
   }
 };
 
@@ -446,6 +447,7 @@ const confirmScheduleBtn = document.querySelector("#confirmScheduleBtn");
 const scheduleClick = (taskField, scheduleBtn, editBtn) => {
   header.classList.add('hide')
   mainContainer.classList.add('hide')
+  scheduleField.classList.add("appear")
   scheduleField.classList.remove('hide')
 
   const currentDate = new Date();
@@ -492,9 +494,18 @@ const scheduleClick = (taskField, scheduleBtn, editBtn) => {
 
 // Função responsável pelo fechamento da janela de agendamento
 const closeScheduleField = () => {
-  header.classList.remove('hide')
-  mainContainer.classList.remove('hide')
-
+  scheduleField.classList.add('vanish')
+  scheduleField.classList.remove('appear')
+  mainContainer.classList.add('mainContainerAppear')
+  setTimeout(() => {
+    scheduleField.classList.remove('vanish')
+    scheduleField.classList.add('hide')
+    header.classList.remove('hide')
+    mainContainer.classList.remove('mainContainerAppear')
+    mainContainer.classList.remove('hide')
+    scheduleField.classList.add('hide')
+    newTaskInput.focus()
+  }, 200)
   if (scheduleInputDate.classList.contains("inputError")) {
     scheduleInputDate.classList.remove("inputError");
   }
@@ -502,9 +513,6 @@ const closeScheduleField = () => {
   if (scheduleInputTime.classList.contains("inputError")) {
     scheduleInputTime.classList.remove("inputError");
   }
-
-  scheduleField.classList.add('hide')
-  newTaskInput.focus()
 };
 
 // Colocando a função nos botões "x" e "Cancelar"
@@ -549,20 +557,32 @@ const confirmSchedule = (taskField, scheduleBtn, editBtn) => {
     scheduleInputTime.blur()
     scheduleInputDate.blur()
   } else {
-    header.classList.remove('hide')
-    mainContainer.classList.remove('hide')
-
+    scheduleField.classList.add('vanish')
+    scheduleField.classList.remove('appear')
+    mainContainer.classList.add('mainContainerAppear')
+    
+    setTimeout(() => {
+      scheduleField.classList.remove('vanish')
+      scheduleField.classList.add('hide')
+      header.classList.remove('hide')
+      mainContainer.classList.remove('mainContainerAppear')
+      mainContainer.classList.remove('hide')
+      scheduleField.classList.add('hide')
+      scheduleBtn.classList.add('disabled')
+      taskField.classList.add("scheduled");
+      newTaskInput.focus()
+      
+      taskField.appendChild(schedulingInfo);
+    }, 200)
+    
     // Criação do campo de informações sobre o agendamento
     const schedulingInfo = document.createElement("div");
     const schedulingTextContent = document.createElement("p");
     const schedulingRemoveBtn = document.createElement("input");
 
-    taskField.appendChild(schedulingInfo);
     schedulingInfo.classList.add("schedulingInfo");
-
-    schedulingInfo.appendChild(schedulingTextContent);
     schedulingTextContent.classList.add("schedulingTextContent");
-
+    schedulingInfo.appendChild(schedulingTextContent);
     schedulingInfo.appendChild(schedulingRemoveBtn);
     schedulingRemoveBtn.classList.add("schedulingRemoveBtn");
     schedulingRemoveBtn.setAttribute("title", "Cancelar agendamento");
@@ -588,7 +608,12 @@ const confirmSchedule = (taskField, scheduleBtn, editBtn) => {
     const dayForSchedulingTextContent = setDateForScheduling.toLocaleString("pt-BR", optionsSetDay);
     
     // Inclusão dos dados no campo de informações sobre o agendamento
-    schedulingTextContent.innerText = "Agendado para " + dayForSchedulingTextContent + ', ' + dateForSchedulingTextContent + ' às ' + timeForSchedulingTextContent
+    const difSeconds = (setDateForScheduling.getTime() - currentDate.getTime()) / 1000
+    const difMinutes = difSeconds / 60
+
+    if (difMinutes > 2.879) {
+      schedulingTextContent.innerText = "Agendado para " + dayForSchedulingTextContent + ', ' + dateForSchedulingTextContent + ' às ' + timeForSchedulingTextContent
+    }
 
     const appointmentDate = document.createElement('span')
     appointmentDate.classList.add('appointmentDate')
@@ -599,14 +624,12 @@ const confirmSchedule = (taskField, scheduleBtn, editBtn) => {
     appointmentTime.classList.add('appointmentTime')
     appointmentTime.classList.add('hide')
     appointmentTime.innerText = scheduleInputTimeValue
-
+    
     taskField.appendChild(appointmentDate)
     taskField.appendChild(appointmentTime)
-    
-    scheduleBtn.classList.add('disabled')
-    taskField.classList.add("scheduled");
-    scheduleField.classList.add('hide')
-    newTaskInput.focus()
+
+    console.log(difSeconds)
+    console.log(difMinutes)
   }
 };
 
@@ -619,11 +642,11 @@ setInterval(() => {
 
   for (const task of tasks) {
     if (task.classList.contains('scheduled')) {
-      const appointmentDate = task.childNodes[3]
-      const appointmentTime = task.childNodes[4]
+      const appointmentDate = task.childNodes[2]
+      const appointmentTime = task.childNodes[3]
       const schedulingDate = new Date(appointmentDate.innerText + " " + appointmentTime.innerText);
       
-      const schedulingInfo = task.childNodes[2]
+      const schedulingInfo = task.childNodes[4]
       const schedulingTextContent = schedulingInfo.firstChild
       const schedulingRemoveBtn = schedulingInfo.childNodes[1]
       const btnField = task.childNodes[1]
@@ -667,9 +690,9 @@ setInterval(() => {
       schedulingTextContent.innerText = 'Agendado para hoje às ' + appointmentTime.innerText + ' - Expira em ' + Math.ceil(difTimeInMinutes) + ' min'
     } else if (currentDate === appointmentDate.innerText && difTimeInMinutes > 60) {
       schedulingTextContent.innerText = 'Agendado para hoje às ' + appointmentTime.innerText
-    } else if (difTimeInDays <= 1 && schedulingDate.getDay() == 0 && currentFullDate.getDay() == 6) {
+    } else if (difTimeInDays <= 2 && schedulingDate.getDay() == 0 && currentFullDate.getDay() == 6) {
       schedulingTextContent.innerText = "Agendado para amanhã às " + appointmentTime.innerText
-    } else if (difTimeInDays <= 1 && schedulingDate.getDay() - currentFullDate.getDay() == 1) {
+    } else if (difTimeInDays <= 2 && schedulingDate.getDay() - currentFullDate.getDay() == 1) {
       schedulingTextContent.innerText = "Agendado para amanhã às " + appointmentTime.innerText
     }
   }

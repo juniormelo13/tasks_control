@@ -834,6 +834,10 @@ body {
     pointer-events: none;
 }
 
+.editBtn.editing {
+    pointer-events: none;
+}
+
 .appointmentDate.hide {
     display: none;
 }
@@ -866,7 +870,7 @@ body {
 
 #mainContainer.hide {
     pointer-events: none;
-    animation: hide 0.3s forwards;
+    animation: hide 0.2s ease-out forwards;
 }
 
 @keyframes mainContainerAppear {
@@ -879,7 +883,7 @@ body {
 }
 
 #mainContainer.mainContainerAppear {
-    animation: mainContainerAppear 0.3s;
+    animation: mainContainerAppear 0.2s ease-in forwards;
 }
 
 @keyframes appear {
@@ -893,8 +897,8 @@ body {
     }
 }
 
-.editField.appear {
-    animation: appear 0.3s;
+.editField.appear, .scheduleField.appear {
+    animation: appear 0.2s ease-out forwards;
 }
 
 @keyframes vanish {
@@ -908,21 +912,21 @@ body {
     }
 }
 
-.editField.vanish {
-    animation: vanish 0.3s;
+.editField.vanish, .scheduleField.vanish {
+    animation: vanish 0.2s ease-in forwards;
 }
 
-@keyframes increaseLetter {
+@keyframes fadeInFromRight {
     0% {
-        font-size: 20px;
+        transform: translateX(20px);
         opacity: 0;
     }
     100% {
-        font-size: 17px;
+        transform: translateX(0);
         opacity: 1;
     }
 }
 
-.increaseLetter {
-    animation: increaseLetter 0.5s;
+.fadeInFromRight {
+    animation: fadeInFromRight 0.3s ease-in;
 }
