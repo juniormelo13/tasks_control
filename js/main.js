@@ -612,9 +612,6 @@ const confirmSchedule = (taskField, scheduleBtn, editBtn) => {
     const difMinutes = difSeconds / 60
     const difDaysOfTheWeek = setDateForScheduling.getDay() - currentDate.getDay()
 
-    console.log(difMinutes)
-    console.log(difDaysOfTheWeek)
-
     if (difMinutes > 2879) {
       schedulingTextContent.innerText = "Agendado para " + dayForSchedulingTextContent + ', ' + dateForSchedulingTextContent + ' às ' + timeForSchedulingTextContent
     } else if (difMinutes > 1440 && difMinutes <= 2879 && difDaysOfTheWeek >= 2) {
@@ -637,8 +634,6 @@ const confirmSchedule = (taskField, scheduleBtn, editBtn) => {
     
     taskField.appendChild(appointmentDate)
     taskField.appendChild(appointmentTime)
-
-
   }
 };
 
@@ -683,25 +678,25 @@ setInterval(() => {
 
       if (currentDate === appointmentDate.innerText) {
         schedulingTextContent.innerText = 'Expirou hoje às ' + appointmentTime.innerText
-      } else if (difDays <= 2 && schedulingDate.getDay() == 6 && currentFullDate.getDay() == 0) {
+      } else if (difDays < 2 && schedulingDate.getDay() == 6 && currentFullDate.getDay() == 0) {
         schedulingTextContent.innerText = 'Expirou ontem às ' + appointmentTime.innerText
-      } else if (difDays <= 2 && currentFullDate.getDay() - schedulingDate.getDay() == 1) {
+      } else if (difDays < 2 && currentFullDate.getDay() - schedulingDate.getDay() == 1) {
         schedulingTextContent.innerText = "Expirou ontem às " + appointmentTime.innerText
       } else {
         schedulingTextContent.innerText = 'Expirou em ' + schedulingDate.toLocaleDateString('pt-BR') + ' às ' + appointmentTime.innerText
       }
 
-    } else if (difTimeInMinutes > 0 && difTimeInMinutes <= 30) {
+    } else if (difTimeInMinutes > 0 && difTimeInMinutes <= 30 && currentDate === appointmentDate.innerText) {
       schedulingTextContent.innerText = 'Agendado para hoje às ' + appointmentTime.innerText + ' - Expira em ' + Math.ceil(difTimeInMinutes) + ' min'
       task.classList.add('expireAlert')
       schedulingInfo.classList.add('expireAlert')
-    } else if (difTimeInMinutes > 30 && difTimeInMinutes <= 60) {
+    } else if (difTimeInMinutes > 30 && difTimeInMinutes <= 60 && currentDate === appointmentDate.innerText) {
       schedulingTextContent.innerText = 'Agendado para hoje às ' + appointmentTime.innerText + ' - Expira em ' + Math.ceil(difTimeInMinutes) + ' min'
     } else if (currentDate === appointmentDate.innerText && difTimeInMinutes > 60) {
       schedulingTextContent.innerText = 'Agendado para hoje às ' + appointmentTime.innerText
-    } else if (difTimeInDays <= 2 && schedulingDate.getDay() == 0 && currentFullDate.getDay() == 6) {
+    } else if (difTimeInDays < 2 && schedulingDate.getDay() == 0 && currentFullDate.getDay() == 6) {
       schedulingTextContent.innerText = "Agendado para amanhã às " + appointmentTime.innerText
-    } else if (difTimeInDays <= 2 && schedulingDate.getDay() - currentFullDate.getDay() == 1) {
+    } else if (difTimeInDays < 2 && schedulingDate.getDay() - currentFullDate.getDay() == 1) {
       schedulingTextContent.innerText = "Agendado para amanhã às " + appointmentTime.innerText
     }
   }
