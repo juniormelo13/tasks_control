@@ -224,7 +224,6 @@ body {
     box-shadow: 0 0 10px 2px var(--color7);
 }
 
-
 .taskField.scheduled:hover .schedulingInfo {
     box-shadow: 0 -3px 10px -1px var(--color7);
 }
@@ -280,20 +279,32 @@ body {
     box-shadow: 0 0 10px 2px var(--color4);
 }
 
-.taskField:hover .schedulingInfo {
-    box-shadow: 0 -3px 10px -1px var(--color4);
-}
-
 .taskField:hover .completedTaskInfo {
     box-shadow: 0 -3px 10px -1px var(--color6);
 }
 
-.taskField:hover .checkBtn,.taskField:hover .scheduleBtn,.taskField:hover .editBtn, .taskField:hover .removeBtn, .taskField:hover .schedulingRemoveBtn {
-    display: block;
+.taskField:hover .checkBtn,.taskField:hover .scheduleBtn,.taskField:hover .editBtn, .taskField:hover .removeBtn {
+    /* display: block; */
+}
+
+.taskField:hover .checkBtn {
+    animation-delay: 0.05s;
+}
+
+.taskField:hover .editBtn {
+    animation-delay: 0.1s;
+}
+
+.taskField:hover .scheduleBtn {
+    animation-delay: 0.15s;
+}
+
+.taskField:hover .removeBtn {
+    animation-delay: 0.2s;
 }
 
 .taskField:hover .disabled {
-    display: none;
+    /* display: none; */
 }
 
 .btnField {
@@ -308,29 +319,34 @@ body {
     background: none;
     border: none;
     outline: none;
-    display: none;
+    /* display: none; */
 }
 
 .checkBtn {
     color: var(--color6);
+    animation-delay: 0.2s;
 }
 
 .checkBtn i.fa-rotate {
     color: var(--color4);
+    animation-delay: 0.2s;
 }
 
 .scheduleBtn{
     color: var(--color7);
     font-size: 17px;
     margin-bottom: 3.5px;
+    animation-delay: 0.1s;
 }
 
 .editBtn {
     color: var(--color3);
+    animation-delay: 0.15s;
 }
 
 .removeBtn {
     color: var(--color8);
+    animation-delay: 0.05s;
 }
 
 .checkBtn:hover, .scheduleBtn:hover, .editBtn:hover, .removeBtn:hover {
@@ -702,7 +718,7 @@ body {
     position: absolute;
     text-align: center;
     line-height: 18px;
-    padding: 1px 1px 1px 1.5px;
+    padding: 1px 1px 1px 2px;
     top: -8px;
     right: -8px;
     background-color: var(--color2);
@@ -715,7 +731,11 @@ body {
     font-family: Arial, sans-serif;
     font-weight: bold;
     transition: 0.2s;
-    display: none;
+    /* display: none; */
+}
+
+.taskField:hover .schedulingRemoveBtn {
+    /* display: block; */
 }
 
 .schedulingInfo .schedulingRemoveBtn {
@@ -837,8 +857,29 @@ body {
 
 /* Janelas e elementos em segundo plano */
 
+#mainContainer.hide {
+    pointer-events: none;
+    animation: hide 0.2s ease-out forwards;
+}
+
+#mainContainer.mainContainerAppear {
+    animation: mainContainerAppear 0.2s ease-in forwards;
+}
+
 .editField.hide {
     display: none;
+}
+
+.editField.appear, .scheduleField.appear {
+    animation: appear 0.2s ease-out forwards;
+}
+
+.editField.vanish, .scheduleField.vanish {
+    animation: vanish 0.2s ease-in forwards;
+}
+
+.fadeInFromRight {
+    animation: fadeInFromRight 0.3s ease-in;
 }
 
 .scheduleField.hide {
@@ -887,11 +928,6 @@ body {
     }
 }
 
-#mainContainer.hide {
-    pointer-events: none;
-    animation: hide 0.2s ease-out forwards;
-}
-
 @keyframes mainContainerAppear {
     0% {
         filter: blur(5px) opacity(0.3);
@@ -899,10 +935,6 @@ body {
     100% {
         filter: blur(0);
     }
-}
-
-#mainContainer.mainContainerAppear {
-    animation: mainContainerAppear 0.2s ease-in forwards;
 }
 
 @keyframes appear {
@@ -916,10 +948,6 @@ body {
     }
 }
 
-.editField.appear, .scheduleField.appear {
-    animation: appear 0.2s ease-out forwards;
-}
-
 @keyframes vanish {
     0% {
         transform: translate(-50%, -50%) scale(1);
@@ -929,10 +957,6 @@ body {
         transform: translate(-50%, -50%) scale(0.5);
         opacity: 0;
     }
-}
-
-.editField.vanish, .scheduleField.vanish {
-    animation: vanish 0.2s ease-in forwards;
 }
 
 @keyframes fadeInFromRight {
@@ -946,6 +970,27 @@ body {
     }
 }
 
-.fadeInFromRight {
-    animation: fadeInFromRight 0.3s ease-in;
+@keyframes btnAnimationHover {
+    0% {
+        transform: translateX(50px);
+        opacity: 0;
+    }
+    100% {
+        transform: translateX(0);
+        opacity: 1;
+    }
 }
+
+@keyframes btnAnimationOut {
+    0% {
+        transform: translateX(0);
+        opacity: 1;
+    }
+    100% {
+        transform: translateX(50px);
+        opacity: 0;
+        display: none;
+    }
+}
+
+
