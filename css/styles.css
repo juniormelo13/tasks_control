@@ -285,6 +285,7 @@ body {
 
 .taskField:hover .checkBtn,.taskField:hover .scheduleBtn,.taskField:hover .editBtn, .taskField:hover .removeBtn {
     /* display: block; */
+    animation: btnAnimationHover 0.2s backwards ease-out;
 }
 
 .taskField:hover .checkBtn {
@@ -304,7 +305,7 @@ body {
 }
 
 .taskField:hover .disabled {
-    /* display: none; */
+    display: none;
 }
 
 .btnField {
@@ -320,7 +321,9 @@ body {
     border: none;
     outline: none;
     /* display: none; */
+    animation: btnAnimationOut 0.2s forwards ease-in;
 }
+
 
 .checkBtn {
     color: var(--color6);
@@ -972,7 +975,7 @@ body {
 
 @keyframes btnAnimationHover {
     0% {
-        transform: translateX(50px);
+        transform: translateX(10px);
         opacity: 0;
     }
     100% {
@@ -987,9 +990,8 @@ body {
         opacity: 1;
     }
     100% {
-        transform: translateX(50px);
+        transform: translateX(10px);
         opacity: 0;
-        display: none;
     }
 }
 
