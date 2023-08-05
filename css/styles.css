@@ -196,6 +196,7 @@ body {
     padding: 0 20px;
     border: 2px solid var(--color4);
     transition: box-shadow 0.3s;
+    animation: appearTask 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
 }
 
 .taskField.oneTask  {
@@ -284,8 +285,7 @@ body {
 }
 
 .taskField:hover .checkBtn,.taskField:hover .scheduleBtn,.taskField:hover .editBtn, .taskField:hover .removeBtn {
-    /* display: block; */
-    animation: btnAnimationHover 0.2s backwards ease-out;
+    animation: btnAnimationHover 0.2s ease-in;
 }
 
 .taskField:hover .checkBtn {
@@ -308,6 +308,10 @@ body {
     display: none;
 }
 
+.disabled {
+    display: none;
+}
+
 .btnField {
     width: 20%;
     display: flex;
@@ -320,36 +324,28 @@ body {
     background: none;
     border: none;
     outline: none;
-    /* display: none; */
-    animation: btnAnimationOut 0.2s forwards ease-in;
 }
-
 
 .checkBtn {
     color: var(--color6);
-    animation-delay: 0.2s;
 }
 
 .checkBtn i.fa-rotate {
     color: var(--color4);
-    animation-delay: 0.2s;
 }
 
 .scheduleBtn{
     color: var(--color7);
     font-size: 17px;
     margin-bottom: 3.5px;
-    animation-delay: 0.1s;
 }
 
 .editBtn {
     color: var(--color3);
-    animation-delay: 0.15s;
 }
 
 .removeBtn {
     color: var(--color8);
-    animation-delay: 0.05s;
 }
 
 .checkBtn:hover, .scheduleBtn:hover, .editBtn:hover, .removeBtn:hover {
@@ -984,14 +980,18 @@ body {
     }
 }
 
-@keyframes btnAnimationOut {
+@keyframes appearTask {
     0% {
-        transform: translateX(0);
+        opacity: 0;
+        transform: scale(1);
+    }
+    50% {
         opacity: 1;
+        transform: scale(1.1);
     }
     100% {
-        transform: translateX(10px);
-        opacity: 0;
+        opacity: 1;
+        transform: scale(1);
     }
 }
 

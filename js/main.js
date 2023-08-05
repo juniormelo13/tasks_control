@@ -645,7 +645,7 @@ setInterval(() => {
   const tasks = tasksContainer.childNodes
 
   for (const task of tasks) {
-    if (task.classList.contains('scheduled')) {
+    if (task.classList.contains('scheduled') || task.classList.contains('expiredTask')) {
       const appointmentDate = task.childNodes[2]
       const appointmentTime = task.childNodes[3]
       const schedulingDate = new Date(appointmentDate.innerText + " " + appointmentTime.innerText);
