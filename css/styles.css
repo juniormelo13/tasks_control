@@ -285,23 +285,8 @@ body {
 }
 
 .taskField:hover .checkBtn,.taskField:hover .scheduleBtn,.taskField:hover .editBtn, .taskField:hover .removeBtn {
-    animation: btnAnimationHover 0.2s ease-in;
-}
-
-.taskField:hover .checkBtn {
-    animation-delay: 0.05s;
-}
-
-.taskField:hover .editBtn {
-    animation-delay: 0.1s;
-}
-
-.taskField:hover .scheduleBtn {
-    animation-delay: 0.15s;
-}
-
-.taskField:hover .removeBtn {
-    animation-delay: 0.2s;
+    transform: translateX(0px);
+    opacity: 1;
 }
 
 .taskField:hover .disabled {
@@ -324,6 +309,9 @@ body {
     background: none;
     border: none;
     outline: none;
+    transform: translateX(10px);
+    opacity: 0;
+    transition: 0.2s;
 }
 
 .checkBtn {
@@ -334,14 +322,14 @@ body {
     color: var(--color4);
 }
 
+.editBtn {
+    color: var(--color3);
+}
+
 .scheduleBtn{
     color: var(--color7);
     font-size: 17px;
     margin-bottom: 3.5px;
-}
-
-.editBtn {
-    color: var(--color3);
 }
 
 .removeBtn {
@@ -350,7 +338,7 @@ body {
 
 .checkBtn:hover, .scheduleBtn:hover, .editBtn:hover, .removeBtn:hover {
     cursor: pointer;
-    transform: scale(1.2);
+    padding-bottom: 8px;
 }
 
 .editField {
@@ -717,7 +705,7 @@ body {
     position: absolute;
     text-align: center;
     line-height: 18px;
-    padding: 1px 1px 1px 2px;
+    padding: 1px 1px 1px 1.5px;
     top: -8px;
     right: -8px;
     background-color: var(--color2);
@@ -729,12 +717,14 @@ body {
     font-size: 10px;
     font-family: Arial, sans-serif;
     font-weight: bold;
+    transform: translateY(10px);
+    opacity: 0;
     transition: 0.2s;
-    /* display: none; */
 }
 
 .taskField:hover .schedulingRemoveBtn {
-    /* display: block; */
+    transform: translateY(0);
+    opacity: 1;
 }
 
 .schedulingInfo .schedulingRemoveBtn {
@@ -961,17 +951,6 @@ body {
 @keyframes fadeInFromRight {
     0% {
         transform: translateX(20px);
-        opacity: 0;
-    }
-    100% {
-        transform: translateX(0);
-        opacity: 1;
-    }
-}
-
-@keyframes btnAnimationHover {
-    0% {
-        transform: translateX(10px);
         opacity: 0;
     }
     100% {

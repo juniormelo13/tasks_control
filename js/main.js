@@ -89,7 +89,6 @@ function insertTask() {
     checkBtn.appendChild(checkIcon);
     checkIcon.classList.add("fa-solid");
     checkIcon.classList.add("fa-thumbs-up");
-    checkIcon.classList.add("fa-bounce");
     checkBtn.setAttribute("title", "Concluir");
     checkBtn.addEventListener("click", () =>
       completeClick(taskField, taskContent, scheduleBtn, editBtn, checkBtn, checkIcon)
@@ -180,7 +179,6 @@ const completeClick = (taskField, taskContent, scheduleBtn, editBtn, checkBtn, c
       }
 
       checkIcon.classList.remove("fa-thumbs-up");
-      checkIcon.classList.remove("fa-bounce");
 
       taskContent.classList.add("completed");
       taskField.classList.add("completed");
@@ -223,7 +221,6 @@ const completeClick = (taskField, taskContent, scheduleBtn, editBtn, checkBtn, c
   } else if (taskField.classList.contains('expiredTask')) {
     taskField.classList.remove('expiredTask')
     checkIcon.classList.remove("fa-thumbs-up");
-    checkIcon.classList.remove("fa-bounce");
     
     const tasks = tasksContainer.childNodes
     for (const task of tasks) {
@@ -266,7 +263,6 @@ const completeClick = (taskField, taskContent, scheduleBtn, editBtn, checkBtn, c
     editBtn.classList.toggle('disabled')
     scheduleBtn.classList.toggle('disabled')
     checkIcon.classList.toggle("fa-thumbs-up");
-    checkIcon.classList.toggle("fa-bounce");
     checkIcon.classList.toggle("fa-rotate");
     checkIcon.classList.toggle("fa-spin");
     
