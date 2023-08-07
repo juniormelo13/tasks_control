@@ -53,22 +53,24 @@ function insertTask() {
 
     // Tarefa
     const taskField = document.createElement("div");
-    tasksContainer.insertBefore(taskField, tasksContainer.childNodes[0]);
+    setTimeout(() => {
+      tasksContainer.insertBefore(taskField, tasksContainer.childNodes[0]);      
+      switch (tasksContainer.childNodes.length) {
+        case 1:
+          tasksContainer.childNodes[0].classList.add("oneTask")
+          break;
+        case 2:
+          tasksContainer.childNodes[0].classList.add("twoTasks")
+          tasksContainer.childNodes[1].classList.remove("oneTask")
+          tasksContainer.childNodes[1].classList.add("twoTasks")
+          break;
+        default:
+          tasksContainer.childNodes[1].classList.remove("twoTasks")
+          tasksContainer.childNodes[2].classList.remove("twoTasks")
+      }
+    }, 200);
     taskField.classList.add("taskField");
 
-    switch (tasksContainer.childNodes.length) {
-      case 1:
-        tasksContainer.childNodes[0].classList.add("oneTask")
-        break;
-      case 2:
-        tasksContainer.childNodes[0].classList.add("twoTasks")
-        tasksContainer.childNodes[1].classList.remove("oneTask")
-        tasksContainer.childNodes[1].classList.add("twoTasks")
-        break;
-      default:
-        tasksContainer.childNodes[1].classList.remove("twoTasks")
-        tasksContainer.childNodes[2].classList.remove("twoTasks")
-    }
 
     // Texto da tarefa
     const taskContent = document.createElement("p");
@@ -194,8 +196,9 @@ const completeClick = (taskField, taskContent, scheduleBtn, editBtn, checkBtn, c
       const completedTaskInfo = document.createElement("div");
       const completedTaskTextContent = document.createElement("p");
       const completedTaskIcon = document.createElement("i");
-
-      tasksContainer.insertBefore(taskField, tasksContainer.childNodes[length - 1])
+      setTimeout(() => {
+        tasksContainer.insertBefore(taskField, tasksContainer.childNodes[length - 1])        
+      }, 200);
       checkBtn.setAttribute("title", "Restaurar");
         
       taskField.appendChild(completedTaskInfo)
@@ -242,8 +245,9 @@ const completeClick = (taskField, taskContent, scheduleBtn, editBtn, checkBtn, c
     const completedTaskInfo = document.createElement("div");
     const completedTaskTextContent = document.createElement("p");
     const completedTaskIcon = document.createElement("i");
-
-    tasksContainer.insertBefore(taskField, tasksContainer.childNodes[length - 1])
+    setTimeout(() => {
+      tasksContainer.insertBefore(taskField, tasksContainer.childNodes[length - 1])      
+    }, 200);
     checkBtn.setAttribute("title", "Restaurar");
       
     taskField.appendChild(completedTaskInfo)
@@ -270,8 +274,9 @@ const completeClick = (taskField, taskContent, scheduleBtn, editBtn, checkBtn, c
       const completedTaskInfo = document.createElement("div");
       const completedTaskTextContent = document.createElement("p");
       const completedTaskIcon = document.createElement("i");
-
-      tasksContainer.insertBefore(taskField, tasksContainer.childNodes[length - 1])
+      setTimeout(() => {
+        tasksContainer.insertBefore(taskField, tasksContainer.childNodes[length - 1])        
+      }, 200);
       checkBtn.setAttribute("title", "Restaurar");
       
       taskField.appendChild(completedTaskInfo)
@@ -284,7 +289,9 @@ const completeClick = (taskField, taskContent, scheduleBtn, editBtn, checkBtn, c
       completedTaskIcon.classList.add("fa-solid")
       completedTaskIcon.classList.add("fa-check")
     } else {
-      tasksContainer.insertBefore(taskField, tasksContainer.childNodes[0])
+      setTimeout(() => {
+        tasksContainer.insertBefore(taskField, tasksContainer.childNodes[0])        
+      }, 200);
       checkBtn.setAttribute("title", "Concluir");
 
       const tasks = tasksContainer.childNodes
@@ -732,22 +739,24 @@ const deleteClick = (taskField) => {
     btnYes.focus()
 
     function confirmDeleteAction() {
-      header.classList.remove('hide')
-      mainContainer.classList.remove('hide')
-      confirmField.classList.add('hide')
-
-      taskField.remove();
-      newTaskInput.focus();
-
-      switch (tasksContainer.childNodes.length) {
-        case 2:
-          tasksContainer.childNodes[0].classList.add("twoTasks")
-          tasksContainer.childNodes[1].classList.add("twoTasks")
-          break;
-        case 1:
-          tasksContainer.childNodes[0].classList.remove("twoTasks")
-          tasksContainer.childNodes[0].classList.add("oneTask")
-      }
+      setTimeout(() => {
+        header.classList.remove('hide')
+        mainContainer.classList.remove('hide')
+        confirmField.classList.add('hide')
+  
+        taskField.remove();
+        newTaskInput.focus();
+        
+        switch (tasksContainer.childNodes.length) {
+          case 2:
+            tasksContainer.childNodes[0].classList.add("twoTasks")
+            tasksContainer.childNodes[1].classList.add("twoTasks")
+            break;
+          case 1:
+            tasksContainer.childNodes[0].classList.remove("twoTasks")
+            tasksContainer.childNodes[0].classList.add("oneTask")
+        }
+      }, 200);
     } 
     
     btnNo.onclick = () => {
@@ -758,18 +767,19 @@ const deleteClick = (taskField) => {
       newTaskInput.focus();
     }
   } else {
-    
-    taskField.remove();
-    newTaskInput.focus();
-    
-    switch (tasksContainer.childNodes.length) {
-      case 2:
-        tasksContainer.childNodes[0].classList.add("twoTasks")
-        tasksContainer.childNodes[1].classList.add("twoTasks")
-        break;
-      case 1:
-        tasksContainer.childNodes[0].classList.remove("twoTasks")
-        tasksContainer.childNodes[0].classList.add("oneTask")
-    }
+    setTimeout(() => {
+      taskField.remove();
+      newTaskInput.focus();
+      
+      switch (tasksContainer.childNodes.length) {
+        case 2:
+          tasksContainer.childNodes[0].classList.add("twoTasks")
+          tasksContainer.childNodes[1].classList.add("twoTasks")
+          break;
+        case 1:
+          tasksContainer.childNodes[0].classList.remove("twoTasks")
+          tasksContainer.childNodes[0].classList.add("oneTask")
+      }
+    }, 200);
   }
 };
