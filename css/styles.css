@@ -41,7 +41,7 @@ body {
 
 #header .logo img {
     width: 175px;
-    animation: fadeInFromTop 0.5s;
+    animation: fadeInFromTop 0.3s ease-in;
 }
 
 #header .menu {
@@ -49,7 +49,7 @@ body {
     gap: 15px;
     justify-content: center;
     align-items: center;
-    animation: fadeInFromTop 0.5s;
+    animation: fadeInFromTop 0.3s ease-in;
 }
 
 #header .menu a {
@@ -99,7 +99,7 @@ body {
     align-items: center;
     gap: 15px;
     height: 25vh;
-    animation: fadeInFromTop 0.5s;
+    animation: fadeInFromTop 0.3s ease-in;
 }
 
 .newTaskContainerInput {
@@ -196,7 +196,7 @@ body {
     padding: 0 20px;
     border: 2px solid var(--color4);
     transition: box-shadow 0.3s;
-    animation: appearTask 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+    animation: appearTask 0.2s ease-in forwards;
 }
 
 .taskField.oneTask  {
@@ -285,7 +285,7 @@ body {
 }
 
 .taskField:hover .checkBtn,.taskField:hover .scheduleBtn,.taskField:hover .editBtn, .taskField:hover .removeBtn {
-    transform: translateX(0px);
+    transform: translate3d(0px, 0, 0);
     opacity: 1;
 }
 
@@ -299,6 +299,7 @@ body {
 
 .btnField {
     width: 20%;
+    height: 30px;
     display: flex;
     justify-content: flex-end;
     gap: 8px;
@@ -309,9 +310,9 @@ body {
     background: none;
     border: none;
     outline: none;
-    transform: translateX(10px);
+    transform: translate3d(10px, 0, 0);
     opacity: 0;
-    transition: 0.2s;
+    transition: 0.3s;
 }
 
 .checkBtn {
@@ -328,8 +329,6 @@ body {
 
 .scheduleBtn{
     color: var(--color7);
-    font-size: 17px;
-    margin-bottom: 3.5px;
 }
 
 .removeBtn {
@@ -848,11 +847,15 @@ body {
 
 #mainContainer.hide {
     pointer-events: none;
-    animation: hide 0.2s ease-out forwards;
+    animation: hide 0.2s ease-in forwards;
 }
 
 #mainContainer.mainContainerAppear {
     animation: mainContainerAppear 0.2s ease-in forwards;
+}
+
+.taskField.removeTask {
+    animation: removeTask 0.2s ease-in forwards
 }
 
 .editField.hide {
@@ -860,7 +863,7 @@ body {
 }
 
 .editField.appear, .scheduleField.appear {
-    animation: appear 0.2s ease-out forwards;
+    animation: appear 0.2s ease-in forwards;
 }
 
 .editField.vanish, .scheduleField.vanish {
@@ -965,11 +968,26 @@ body {
         transform: scale(1);
     }
     50% {
-        opacity: 1;
+        opacity: 0.5;
         transform: scale(1.1);
     }
     100% {
         opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes removeTask {
+    0% {
+        opacity: 1;
+        transform: scale(1);
+    }
+    50% {
+        opacity: 0.5;
+        transform: scale(1.1);
+    }
+    100% {
+        opacity: 0;
         transform: scale(1);
     }
 }

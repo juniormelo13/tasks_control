@@ -53,6 +53,7 @@ function insertTask() {
 
     // Tarefa
     const taskField = document.createElement("div");
+    newTaskInput.blur();
     setTimeout(() => {
       tasksContainer.insertBefore(taskField, tasksContainer.childNodes[0]);      
       switch (tasksContainer.childNodes.length) {
@@ -68,6 +69,7 @@ function insertTask() {
           tasksContainer.childNodes[1].classList.remove("twoTasks")
           tasksContainer.childNodes[2].classList.remove("twoTasks")
       }
+      newTaskInput.focus();
     }, 200);
     taskField.classList.add("taskField");
 
@@ -132,7 +134,7 @@ function insertTask() {
     removeBtn.addEventListener("click", () => deleteClick(taskField));
     
     cleanInputBtn.style.display = "none"
-    newTaskInput.focus();
+    
     newTaskInput.value = "";
   }
 };
@@ -739,6 +741,7 @@ const deleteClick = (taskField) => {
     btnYes.focus()
 
     function confirmDeleteAction() {
+        taskField.classList.add("removeTask")
       setTimeout(() => {
         header.classList.remove('hide')
         mainContainer.classList.remove('hide')
@@ -767,6 +770,7 @@ const deleteClick = (taskField) => {
       newTaskInput.focus();
     }
   } else {
+    taskField.classList.add("removeTask")
     setTimeout(() => {
       taskField.remove();
       newTaskInput.focus();
