@@ -499,7 +499,6 @@ body {
     border: 2px solid var(--color4);
     border-radius: 5px;
     padding: 15px;
-    transition: border 0.3s, box-shadow 0.3s;
 }
 
 .scheduleFieldHeader {
@@ -642,7 +641,7 @@ body {
     background-color: var(--color2);
     right: 5px;
     top: -25px;
-    transition: box-shadow 0.3s;
+    transition: box-shadow 0.3s, border 0.3s;
 }
 
 .completedTaskIcon {
@@ -859,6 +858,15 @@ body {
     animation: removeTask 0.2s ease-in forwards
 }
 
+.schedulingInfo.appear {
+    animation: appearSchedulingInfo 0.2s ease-in forwards;
+    transition: none;
+}
+
+.schedulingInfo.vanish {
+    animation: vanishSchedulingInfo 0.2s ease-in forwards
+}
+
 .editField.hide {
     display: none;
 }
@@ -990,6 +998,30 @@ body {
     100% {
         opacity: 0;
         transform: scale(1);
+    }
+}
+
+@keyframes appearSchedulingInfo {
+    0% {
+        transform: scale(0.9);
+    }
+    50% {
+        transform: scale(1.1);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+@keyframes vanishSchedulingInfo {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.1);
+    }
+    100% {
+        transform: scale(0.9);
     }
 }
 

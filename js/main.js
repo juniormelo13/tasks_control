@@ -576,9 +576,14 @@ const confirmSchedule = (taskField, scheduleBtn, editBtn) => {
       scheduleBtn.classList.add('disabled')
       taskField.classList.add("scheduled");
       newTaskInput.focus()
-      
+
+      schedulingInfo.classList.add("appear")
       taskField.appendChild(schedulingInfo);
     }, 300)
+
+    setTimeout(() => {
+      schedulingInfo.classList.remove("appear")
+    }, 500);
     
     // Criação do campo de informações sobre o agendamento
     const schedulingInfo = document.createElement("div");
@@ -709,24 +714,32 @@ setInterval(() => {
 }, 0);
 // Configuração do botão de remoção do agendamento
 const schedulingRemoveClick = (schedulingInfo, taskField, scheduleBtn, appointmentDate, appointmentTime, editBtn) => {
-  appointmentDate.remove()
-  appointmentTime.remove()
-  if (taskField.classList.contains('scheduled')) {
-    taskField.classList.remove('scheduled')
-  }
-  if (taskField.classList.contains('expiredTask')) {
-    taskField.classList.remove('expiredTask')
-  }
-  if (schedulingInfo.classList.contains('expiredTask')) {
-    schedulingInfo.classList.remove('expiredTask')
-  }
-  if (taskField.classList.contains('expireAlert')) {
-    taskField.classList.remove('expireAlert')
-  }
-  scheduleBtn.classList.remove('disabled')
-  editBtn.classList.remove('disabled')
-  schedulingInfo.remove();
-  newTaskInput.focus()
+  
+  schedulingInfo.classList.add("vanish")
+  setTimeout(() => {
+    appointmentDate.remove()
+    appointmentTime.remove()
+    if (taskField.classList.contains('scheduled')) {
+      taskField.classList.remove('scheduled')
+    }
+    if (taskField.classList.contains('expiredTask')) {
+      taskField.classList.remove('expiredTask')
+    }
+    if (schedulingInfo.classList.contains('expiredTask')) {
+      schedulingInfo.classList.remove('expiredTask')
+    }
+    if (taskField.classList.contains('expireAlert')) {
+      taskField.classList.remove('expireAlert')
+    }
+    taskField.style.pointerEvents = "none"
+    schedulingInfo.remove();
+    newTaskInput.focus()
+  }, 200);
+  setTimeout(() => {
+    taskField.style.pointerEvents = "visible"
+    scheduleBtn.classList.remove('disabled')
+    editBtn.classList.remove('disabled')
+  }, 500);
 };
 
 // Configuração do botão de exclusão da tarefa
