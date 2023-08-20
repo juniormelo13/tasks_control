@@ -578,7 +578,7 @@ const confirmSchedule = (taskField, scheduleBtn, editBtn) => {
       newTaskInput.focus()
       
       taskField.appendChild(schedulingInfo);
-    }, 200)
+    }, 300)
     
     // Criação do campo de informações sobre o agendamento
     const schedulingInfo = document.createElement("div");

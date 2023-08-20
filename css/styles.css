@@ -195,7 +195,7 @@ body {
     margin: 25px;
     padding: 0 20px;
     border: 2px solid var(--color4);
-    transition: box-shadow 0.3s;
+    transition: border 0.3s, box-shadow 0.3s;
     animation: appearTask 0.2s ease-in forwards;
 }
 
@@ -499,6 +499,7 @@ body {
     border: 2px solid var(--color4);
     border-radius: 5px;
     padding: 15px;
+    transition: border 0.3s, box-shadow 0.3s;
 }
 
 .scheduleFieldHeader {
@@ -862,11 +863,11 @@ body {
     display: none;
 }
 
-.editField.appear, .scheduleField.appear {
+.editField.appear, .scheduleField.appear, #confirmField.appear {
     animation: appear 0.2s ease-in forwards;
 }
 
-.editField.vanish, .scheduleField.vanish {
+.editField.vanish, .scheduleField.vanish, #confirmField.vanish {
     animation: vanish 0.2s ease-in forwards;
 }
 
