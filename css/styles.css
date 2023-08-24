@@ -698,6 +698,7 @@ body {
     font-size: 13px;
     color: var(--color4);
     font-family: 'lato', 'sans-serif';
+    user-select: none;
 }
 
 .schedulingRemoveBtn {
