@@ -71,6 +71,7 @@ function insertTask() {
       newTaskInput.focus();
     }, 200);
     taskField.classList.add("taskField");
+    taskField.classList.add("hover");
 
     // Texto da tarefa
     const taskContent = document.createElement("p");
@@ -276,10 +277,9 @@ const completeClick = (taskField, taskContent, scheduleBtn, editBtn, checkBtn, c
     newTaskInput.focus();
   } else {
     if (taskField.classList.contains("completed")) {
-      taskField.style.hover = "disabled"
+      taskField.classList.remove("hover");
       newTaskInput.blur();
       setTimeout(() => {
-        tasksContainer.insertBefore(taskField, tasksContainer.childNodes[0]);
         checkBtn.setAttribute("title", "Concluir");
   
         taskContent.classList.toggle("completed");
@@ -297,11 +297,13 @@ const completeClick = (taskField, taskContent, scheduleBtn, editBtn, checkBtn, c
             completedTaskInfo.remove();
           }
         }
-        taskField.style.pointerEvents = "visible"
         newTaskInput.focus();
       }, 200);
+      setTimeout(() => {
+        taskField.classList.add("hover");
+      }, 400);
     } else {
-      taskField.style.pointerEvents = "none"
+      taskField.classList.remove("hover");
       newTaskInput.blur();
       setTimeout(() => {
         taskContent.classList.toggle("completed");
@@ -327,9 +329,11 @@ const completeClick = (taskField, taskContent, scheduleBtn, editBtn, checkBtn, c
         taskField.appendChild(completedTaskInfo);
         completedTaskInfo.appendChild(completedTaskTextContent);
         completedTaskInfo.appendChild(completedTaskIcon);
-        taskField.style.pointerEvents = "visible"
         newTaskInput.focus();
       }, 200);
+      setTimeout(() => {
+        taskField.classList.add("hover");
+      }, 400);
     }
   }
 };

@@ -213,7 +213,7 @@ body {
     border: 2px solid var(--color6);
 }
 
-.taskField.completed:hover {
+.taskField.completed.hover:hover {
     box-shadow: 0 0 10px 2px var(--color6);
 }
 
@@ -221,11 +221,11 @@ body {
     border: 2px solid var(--color7);
 }
 
-.taskField.scheduled:hover {
+.taskField.scheduled.hover:hover {
     box-shadow: 0 0 10px 2px var(--color7);
 }
 
-.taskField.scheduled:hover .schedulingInfo {
+.taskField.scheduled.hover:hover .schedulingInfo {
     box-shadow: 0 -3px 10px -1px var(--color7);
 }
 
@@ -233,11 +233,11 @@ body {
     border: 2px solid var(--color3);
 }
 
-.taskField.expireAlert:hover {
+.taskField.expireAlert.hover:hover {
     box-shadow: 0 0 10px 2px var(--color3);
 }
 
-.taskField.expireAlert:hover .schedulingInfo.expireAlert {
+.taskField.expireAlert.hover:hover .schedulingInfo.expireAlert {
     box-shadow: 0 -3px 10px -1px var(--color3);
 }
 
@@ -245,11 +245,11 @@ body {
     border: 2px solid var(--color8);
 }
 
-.taskField.expiredTask:hover {
+.taskField.expiredTask.hover:hover {
     box-shadow: 0 0 10px 2px var(--color8);
 }
 
-.taskField.expiredTask:hover .schedulingInfo.expiredTask  {
+.taskField.expiredTask.hover:hover .schedulingInfo.expiredTask  {
     box-shadow: 0 -3px 10px -1px var(--color8);
 }
 
@@ -276,20 +276,20 @@ body {
     width: 85%;
 }
 
-.taskField:hover {
+.taskField.hover:hover {
     box-shadow: 0 0 10px 2px var(--color4);
 }
 
-.taskField:hover .completedTaskInfo {
+.taskField.hover:hover .completedTaskInfo {
     box-shadow: 0 -3px 10px -1px var(--color6);
 }
 
-.taskField:hover .checkBtn,.taskField:hover .scheduleBtn,.taskField:hover .editBtn, .taskField:hover .removeBtn {
+.taskField.hover:hover .checkBtn,.taskField.hover:hover .scheduleBtn,.taskField.hover:hover .editBtn, .taskField.hover:hover .removeBtn {
     transform: translate3d(0px, 0, 0);
     opacity: 1;
 }
 
-.taskField:hover .disabled {
+.taskField.hover:hover .disabled {
     display: none;
 }
 
@@ -690,7 +690,7 @@ body {
     }
 }
 
-.schedulingInfo:hover .schedulingRemoveBtn {
+.schedulingInfo.hover:hover .schedulingRemoveBtn {
     display: block;
 }
 
@@ -722,7 +722,7 @@ body {
     transition: 0.2s;
 }
 
-.taskField:hover .schedulingRemoveBtn {
+.taskField.hover:hover .schedulingRemoveBtn {
     transform: translateY(0);
     opacity: 1;
 }
