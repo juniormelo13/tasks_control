@@ -181,7 +181,6 @@ body {
     width: 100%;
     justify-content: center;
     align-items: center;
-    /* flex-wrap: wrap; */
     margin-top: -25px;
 }
 
@@ -201,11 +200,15 @@ body {
     animation: appearTask 0.2s ease-in forwards;
 }
 
+.taskField.pointerEventsNone {
+    pointer-events: none;
+}
+
 .taskField.completed {
     border: 2px solid var(--color6);
 }
 
-.taskField.completed.hover:hover {
+.taskField.completed:hover {
     box-shadow: 0 0 10px 2px var(--color6);
 }
 
@@ -213,11 +216,11 @@ body {
     border: 2px solid var(--color7);
 }
 
-.taskField.scheduled.hover:hover {
+.taskField.scheduled:hover {
     box-shadow: 0 0 10px 2px var(--color7);
 }
 
-.taskField.scheduled.hover:hover .schedulingInfo {
+.taskField.scheduled:hover .schedulingInfo {
     box-shadow: 0 -3px 10px -1px var(--color7);
 }
 
@@ -225,11 +228,11 @@ body {
     border: 2px solid var(--color3);
 }
 
-.taskField.expireAlert.hover:hover {
+.taskField.expireAlert:hover {
     box-shadow: 0 0 10px 2px var(--color3);
 }
 
-.taskField.expireAlert.hover:hover .schedulingInfo.expireAlert {
+.taskField.expireAlert:hover .schedulingInfo.expireAlert {
     box-shadow: 0 -3px 10px -1px var(--color3);
 }
 
@@ -237,11 +240,11 @@ body {
     border: 2px solid var(--color8);
 }
 
-.taskField.expiredTask.hover:hover {
+.taskField.expiredTask:hover {
     box-shadow: 0 0 10px 2px var(--color8);
 }
 
-.taskField.expiredTask.hover:hover .schedulingInfo.expiredTask  {
+.taskField.expiredTask:hover .schedulingInfo.expiredTask  {
     box-shadow: 0 -3px 10px -1px var(--color8);
 }
 
@@ -268,20 +271,20 @@ body {
     width: 85%;
 }
 
-.taskField.hover:hover {
+.taskField:hover {
     box-shadow: 0 0 10px 2px var(--color4);
 }
 
-.taskField.hover:hover .completedTaskInfo {
+.taskField:hover .completedTaskInfo {
     box-shadow: 0 -3px 10px -1px var(--color6);
 }
 
-.taskField.hover:hover .checkBtn,.taskField.hover:hover .scheduleBtn,.taskField.hover:hover .editBtn, .taskField.hover:hover .removeBtn {
+.taskField:hover .checkBtn,.taskField:hover .scheduleBtn,.taskField:hover .editBtn, .taskField:hover .removeBtn {
     transform: translate3d(0px, 0, 0);
     opacity: 1;
 }
 
-.taskField.hover:hover .disabled {
+.taskField:hover .disabled {
     display: none;
 }
 
@@ -682,7 +685,7 @@ body {
     }
 }
 
-.schedulingInfo.hover:hover .schedulingRemoveBtn {
+.schedulingInfo:hover .schedulingRemoveBtn {
     display: block;
 }
 
@@ -714,7 +717,7 @@ body {
     transition: 0.2s;
 }
 
-.taskField.hover:hover .schedulingRemoveBtn {
+.taskField:hover .schedulingRemoveBtn {
     transform: translateY(0);
     opacity: 1;
 }
@@ -862,6 +865,7 @@ body {
 
 .editField.hide {
     display: none;
+    pointer-events: none;
 }
 
 .editField.appear, .scheduleField.appear, #confirmField.appear {
@@ -878,10 +882,12 @@ body {
 
 .scheduleField.hide {
     display: none;
+    pointer-events: none;
 }
 
 #confirmField.hide {
     display: none;
+    pointer-events: none;
 }
 
 #header.hide {
@@ -894,10 +900,12 @@ body {
 
 .appointmentDate.hide {
     display: none;
+    pointer-events: none;
 }
 
 .appointmentTime.hide {
     display: none;
+    pointer-events: none;
 }
 
 /* Animações */

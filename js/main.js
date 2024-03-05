@@ -56,9 +56,8 @@ function insertTask() {
     setTimeout(() => {
       tasksContainer.insertBefore(taskField, tasksContainer.childNodes[0]);
       newTaskInput.focus();
-    }, 200);
+    }, 100);
     taskField.classList.add("taskField");
-    taskField.classList.add("hover");
 
     // Texto da tarefa
     const taskContent = document.createElement("p");
@@ -137,6 +136,7 @@ const completeClick = (taskField, taskContent, scheduleBtn, editBtn, checkBtn, c
     header.classList.add("hide");
     mainContainer.classList.add("hide");
     confirmFieldText.innerText = "Esta tarefa possui um agendamento, tem certeza que deseja concluí-la?";
+    confirmField.classList.add("appear");
     confirmField.classList.remove("hide");
 
     btnYes.onclick = confirmCompletedAction;
@@ -145,8 +145,10 @@ const completeClick = (taskField, taskContent, scheduleBtn, editBtn, checkBtn, c
     function confirmCompletedAction() {
       header.classList.remove("hide");
       mainContainer.classList.remove("hide");
-      confirmField.classList.add("hide");
-
+      confirmField.classList.remove("appear");
+      confirmField.classList.add("vanish");
+      mainContainer.classList.add("mainContainerAppear");
+      
       const tasks = tasksContainer.childNodes;
       for (const task of tasks) {
         const schedulingInfo = task.childNodes[4];
@@ -176,13 +178,22 @@ const completeClick = (taskField, taskContent, scheduleBtn, editBtn, checkBtn, c
 
         taskField.classList.remove("scheduled");
 
-        setTimeout(() => {
         if (taskField.classList.contains("expireAlert")) {
         taskField.classList.remove("expireAlert");
         }
         if (taskField.classList.contains("expiredTask")) {
         taskField.classList.remove("expiredTask");
         }
+
+        setTimeout(() => {
+          taskField.classList.add("removeTask");
+        }, 200)
+
+        setTimeout(() => {
+        mainContainer.classList.remove("mainContainerAppear");
+        confirmField.classList.remove("vanish");
+        confirmField.classList.add("hide");
+        taskField.classList.remove("removeTask");
         taskContent.classList.add("completed");
         taskField.classList.add("completed");
         tasksContainer.insertBefore(taskField, tasksContainer.childNodes[length - 1]);
@@ -195,7 +206,7 @@ const completeClick = (taskField, taskContent, scheduleBtn, editBtn, checkBtn, c
         completedTaskIcon.classList.add("completedTaskIcon");
         completedTaskIcon.classList.add("fa-solid");
         completedTaskIcon.classList.add("fa-check");
-      }, 200);
+      }, 550);
 
       checkBtn.setAttribute("title", "Restaurar");
       newTaskInput.focus();
@@ -204,13 +215,22 @@ const completeClick = (taskField, taskContent, scheduleBtn, editBtn, checkBtn, c
     btnNo.onclick = () => {
       header.classList.remove("hide");
       mainContainer.classList.remove("hide");
-      confirmField.classList.add("hide");
+      mainContainer.classList.add("mainContainerAppear");
+      confirmField.classList.remove("appear");
+      confirmField.classList.add("vanish");
+      
+      setTimeout(() => {
+        confirmField.classList.remove("vanish");
+        confirmField.classList.add("hide");
+        mainContainer.classList.remove("mainContainerAppear");
+        newTaskInput.focus();
 
-      newTaskInput.focus();
+      }, 200)
     };
   } else if (taskField.classList.contains("expiredTask")) {
+    
     taskField.classList.remove("expiredTask");
-    checkIcon.classList.remove("fa-thumbs-up");
+    taskField.classList.add("removeTask");
 
     const tasks = tasksContainer.childNodes;
     for (const task of tasks) {
@@ -223,16 +243,18 @@ const completeClick = (taskField, taskContent, scheduleBtn, editBtn, checkBtn, c
         appointmentDate.remove();
       }
     }
-
-    taskContent.classList.add("completed");
-    taskField.classList.add("completed");
-    checkIcon.classList.add("fa-rotate");
-    checkIcon.classList.add("fa-spin");
-
+    
     const completedTaskInfo = document.createElement("div");
     const completedTaskTextContent = document.createElement("p");
     const completedTaskIcon = document.createElement("i");
+
     setTimeout(() => {
+      taskField.classList.remove("removeTask");
+      checkIcon.classList.remove("fa-thumbs-up");
+      taskContent.classList.add("completed");
+      taskField.classList.add("completed");
+      checkIcon.classList.add("fa-rotate");
+      checkIcon.classList.add("fa-spin");
       tasksContainer.insertBefore(taskField, tasksContainer.childNodes[length - 1]);
       checkBtn.setAttribute("title", "Restaurar");
       completedTaskInfo.classList.add("completedTaskInfo");
@@ -241,16 +263,16 @@ const completeClick = (taskField, taskContent, scheduleBtn, editBtn, checkBtn, c
       completedTaskIcon.classList.add("completedTaskIcon");
       completedTaskIcon.classList.add("fa-solid");
       completedTaskIcon.classList.add("fa-check");
-    }, 2000);
-
-    taskField.appendChild(completedTaskInfo);
-    completedTaskInfo.appendChild(completedTaskTextContent);
-    completedTaskInfo.appendChild(completedTaskIcon);
+      taskField.appendChild(completedTaskInfo);
+      completedTaskInfo.appendChild(completedTaskTextContent);
+      completedTaskInfo.appendChild(completedTaskIcon);
+    }, 300);
 
     newTaskInput.focus();
+
   } else {
     if (taskField.classList.contains("completed")) {
-      taskField.classList.remove("hover");
+      taskField.classList.add("removeTask");
       newTaskInput.blur();
       setTimeout(() => {
         checkBtn.setAttribute("title", "Concluir");
@@ -262,6 +284,7 @@ const completeClick = (taskField, taskContent, scheduleBtn, editBtn, checkBtn, c
         checkIcon.classList.toggle("fa-thumbs-up");
         checkIcon.classList.toggle("fa-rotate");
         checkIcon.classList.toggle("fa-spin");
+        tasksContainer.insertBefore(taskField, tasksContainer.childNodes[length - 0])
   
         const tasks = tasksContainer.childNodes;
         for (const task of tasks) {
@@ -270,15 +293,14 @@ const completeClick = (taskField, taskContent, scheduleBtn, editBtn, checkBtn, c
             completedTaskInfo.remove();
           }
         }
+        taskField.classList.remove("removeTask");
         newTaskInput.focus();
-      }, 200);
-      setTimeout(() => {
-        taskField.classList.add("hover");
-      }, 400);
+      }, 300);
     } else {
-      taskField.classList.remove("hover");
+      taskField.classList.add("removeTask");
       newTaskInput.blur();
       setTimeout(() => {
+        taskField.classList.remove("removeTask");
         taskContent.classList.toggle("completed");
         taskField.classList.toggle("completed");
         editBtn.classList.toggle("disabled");
@@ -303,10 +325,7 @@ const completeClick = (taskField, taskContent, scheduleBtn, editBtn, checkBtn, c
         completedTaskInfo.appendChild(completedTaskTextContent);
         completedTaskInfo.appendChild(completedTaskIcon);
         newTaskInput.focus();
-      }, 200);
-      setTimeout(() => {
-        taskField.classList.add("hover");
-      }, 400);
+      }, 300);
     }
   }
 };
@@ -361,7 +380,7 @@ const closeEditField = () => {
     mainContainer.classList.remove("mainContainerAppear");
     mainContainer.classList.remove("hide");
     newTaskInput.focus();
-  }, 200);
+  }, 300);
   if (editInput.classList.contains("inputError")) {
     editInput.classList.remove("inputError");
   }
@@ -656,15 +675,10 @@ setInterval(() => {
   const tasks = tasksContainer.childNodes;
 
   for (const task of tasks) {
-    if (
-      task.classList.contains("scheduled") ||
-      task.classList.contains("expiredTask")
-    ) {
+    if (task.classList.contains("scheduled") || task.classList.contains("expiredTask")) {
       const appointmentDate = task.childNodes[2];
       const appointmentTime = task.childNodes[3];
-      const schedulingDate = new Date(
-        appointmentDate.innerText + " " + appointmentTime.innerText
-      );
+      const schedulingDate = new Date(appointmentDate.innerText + " " + appointmentTime.innerText);
 
       const schedulingInfo = task.childNodes[4];
       const schedulingTextContent = schedulingInfo.firstChild;
@@ -735,12 +749,12 @@ const schedulingRemoveClick = (schedulingInfo, taskField, scheduleBtn, appointme
     if (taskField.classList.contains("expireAlert")) {
       taskField.classList.remove("expireAlert");
     }
-    taskField.style.pointerEvents = "none";
+    taskField.classList.add("pointerEventsNone");
     schedulingInfo.remove();
     newTaskInput.focus();
   }, 200);
   setTimeout(() => {
-    taskField.style.pointerEvents = "visible";
+    taskField.classList.remove("pointerEventsNone");
     scheduleBtn.classList.remove("disabled");
     editBtn.classList.remove("disabled");
   }, 500);
@@ -752,35 +766,51 @@ const deleteClick = (taskField) => {
     header.classList.add("hide");
     mainContainer.classList.add("hide");
     confirmFieldText.innerText = "Esta tarefa possui um agendamento, tem certeza que deseja removê-la?";
+    confirmField.classList.add("appear");
     confirmField.classList.remove("hide");
 
     btnYes.onclick = confirmDeleteAction;
     btnYes.focus();
 
     function confirmDeleteAction() {
-      taskField.classList.add("removeTask");
+      confirmField.classList.remove("appear");
+      confirmField.classList.add("vanish");
+      mainContainer.classList.add("mainContainerAppear");
       setTimeout(() => {
+        taskField.classList.add("removeTask");
+      }, 200)
+      setTimeout(() => {
+        confirmField.classList.add("hide");
         header.classList.remove("hide");
         mainContainer.classList.remove("hide");
-        confirmField.classList.add("hide");
-
+        mainContainer.classList.remove("mainContainerAppear");
+        confirmField.classList.remove("vanish");
         taskField.remove();
         newTaskInput.focus();
-      }, 200);
+      }, 550);
     }
 
     btnNo.onclick = () => {
       header.classList.remove("hide");
       mainContainer.classList.remove("hide");
-      confirmField.classList.add("hide");
+      mainContainer.classList.add("mainContainerAppear");
+      confirmField.classList.remove("appear");
+      confirmField.classList.add("vanish");
+      
+      setTimeout(() => {
+        confirmField.classList.remove("vanish");
+        confirmField.classList.add("hide");
+        mainContainer.classList.remove("mainContainerAppear");
+        newTaskInput.focus();
 
-      newTaskInput.focus();
+      }, 200)
+
     };
   } else {
     taskField.classList.add("removeTask");
     setTimeout(() => {
       taskField.remove();
       newTaskInput.focus();
-    }, 200);
+    }, 350);
   }
 };
