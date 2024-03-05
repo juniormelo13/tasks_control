@@ -177,9 +177,11 @@ body {
 
 .tasksContainer {
     display: flex;
+    flex-direction: column;
     width: 100%;
     justify-content: center;
-    flex-wrap: wrap;
+    align-items: center;
+    /* flex-wrap: wrap; */
     margin-top: -25px;
 }
 
@@ -188,7 +190,7 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: 460px;
+    width: 655px;
     height: 70px;
     background-color: var(--color2);
     border-radius: 5px;
@@ -197,16 +199,6 @@ body {
     border: 2px solid var(--color4);
     transition: border 0.3s, box-shadow 0.3s;
     animation: appearTask 0.2s ease-in forwards;
-}
-
-.taskField.oneTask  {
-    width: 655px;
-    padding: 0 20px;
-}
-
-.taskField.twoTasks  {
-    width: 600px;
-    padding: 0 20px;
 }
 
 .taskField.completed {
