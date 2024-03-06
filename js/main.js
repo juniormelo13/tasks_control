@@ -148,8 +148,6 @@ const completeClick = (taskField, taskContent, scheduleBtn, editBtn, checkBtn, c
       mainContainer.classList.add("mainContainerAppear");
       confirmField.classList.remove("appear");
       confirmField.classList.add("vanish");
-      
-      
 
       checkIcon.classList.remove("fa-thumbs-up");
       checkIcon.classList.add("fa-rotate");
@@ -207,7 +205,6 @@ const completeClick = (taskField, taskContent, scheduleBtn, editBtn, checkBtn, c
         checkBtn.setAttribute("title", "Restaurar");
         newTaskInput.focus();
       }, 550);
-
     }
 
     btnNo.onclick = () => {
@@ -224,12 +221,8 @@ const completeClick = (taskField, taskContent, scheduleBtn, editBtn, checkBtn, c
         newTaskInput.focus();
       }, 200)
     };
-  } else if (taskField.classList.contains("expiredTask")) {
-    
-    
+  } else if (taskField.classList.contains("expiredTask")) {    
     taskField.classList.add("removeTask");
-
-    
     
     const completedTaskInfo = document.createElement("div");
     const completedTaskTextContent = document.createElement("p");
@@ -267,7 +260,6 @@ const completeClick = (taskField, taskContent, scheduleBtn, editBtn, checkBtn, c
       completedTaskInfo.appendChild(completedTaskIcon);
       newTaskInput.focus();
     }, 350);
-
   } else {
     if (taskField.classList.contains("completed")) {
       taskField.classList.add("removeTask");
@@ -799,9 +791,7 @@ const deleteClick = (taskField) => {
         confirmField.classList.add("hide");
         mainContainer.classList.remove("mainContainerAppear");
         newTaskInput.focus();
-
       }, 200)
-
     };
   } else {
     taskField.classList.add("removeTask");

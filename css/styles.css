@@ -1,1029 +1,1035 @@
 /* Fontes LATO e DELICIOUS HANDRAWN */
-@import url('https://fonts.googleapis.com/css2?family=Delicious+Handrawn&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Delicious+Handrawn&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap");
 
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 :root {
-    --color1: rgb(45, 45, 45);
-    --color2: rgb(36, 36, 35);
-    --color3: rgb(250, 190, 44);
-    --color4: rgb(232, 237, 223);
-    --color5: rgb(207, 219, 213);
-    --color6: rgb(127, 252, 45);
-    --color7: rgb(125, 157, 244);
-    --color8: rgb(243, 53, 53);
-    --color9: rgb(150, 150, 150);
-    --color10: rgba(150, 150, 150, 0.2);
-    --color11: rgba(150, 150, 150, 0.3);
-    --color12: rgb(200, 200, 200);
-    --color13: rgb(155, 155, 155);
+  --color1: rgb(45, 45, 45);
+  --color2: rgb(36, 36, 35);
+  --color3: rgb(250, 190, 44);
+  --color4: rgb(232, 237, 223);
+  --color5: rgb(207, 219, 213);
+  --color6: rgb(127, 252, 45);
+  --color7: rgb(125, 157, 244);
+  --color8: rgb(243, 53, 53);
+  --color9: rgb(150, 150, 150);
+  --color10: rgba(150, 150, 150, 0.2);
+  --color11: rgba(150, 150, 150, 0.3);
+  --color12: rgb(200, 200, 200);
+  --color13: rgb(155, 155, 155);
 }
 
 body {
-    background-color: var(--color1);
-    width: 100%;
+  background-color: var(--color1);
+  width: 100%;
 }
 
 #header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-    height: 100px;
-    padding: 0 10%;
-    background-color: var(--color2);
-    border-bottom: 2px solid var(--color4);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  height: 80px;
+  padding: 0 3%;
+  background-color: var(--color2);
 }
 
 #header .logo img {
-    width: 175px;
-    animation: fadeInFromTop 0.3s ease-in;
+  width: 140px;
 }
 
 #header .menu {
-    display: flex;
-    gap: 15px;
-    justify-content: center;
-    align-items: center;
-    animation: fadeInFromTop 0.3s ease-in;
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+  align-items: center;
 }
 
 #header .menu a {
-    text-decoration: none;
-    font-family: 'lato', 'sans-serif';
-    font-size: 16px;
-    text-transform: uppercase;
-    color: var(--color5);
-    transition: 0.2s;
-    font-weight: bold;
+  text-decoration: none;
+  font-family: "lato", "sans-serif";
+  font-size: 16px;
+  text-transform: capitalize;
+  color: var(--color5);
+  transition: 0.2s;
+  font-weight: bold;
 }
 
 #header .menu a:hover {
-    color: white;
-    text-shadow: 0 0 25px var(--color4);
+  color: white;
+  text-shadow: 0 0 25px var(--color4);
 }
 
 #header .menu a:last-child {
-    background-color: var(--color4);
-    padding: 10px 20px;
-    color: var(--color2);
-    text-shadow: none;
-    text-transform: uppercase;
-    border-radius: 5px;
-    border: 2px solid var(--color4);
-    margin-left: 15px;
-    font-size: 18px;
+  background-color: var(--color4);
+  padding: 10px 15px;
+  color: var(--color2);
+  text-shadow: none;
+  text-transform: capitalize;
+  border-radius: 5px;
+  border: 2px solid var(--color4);
+  font-size: 18px;
 }
 
 #header .menu a:last-child:hover {
-    background-color: var(--color2);
-    color: var(--color4);
-    box-shadow: 0 0 10px 2px var(--color4);
+  background-color: var(--color2);
+  color: var(--color4);
+  box-shadow: 0 0 10px 2px var(--color4);
 }
 
 #mainContainer {
-    width: 100%;
+  width: 100%;
 }
 
 .container {
-    padding: 0 10%;
+  padding: 0 3%;
 }
 
 .newTaskContainer {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 15px;
-    height: 25vh;
-    animation: fadeInFromTop 0.3s ease-in;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+  height: 10vh;
+  margin-bottom: 25px;
 }
 
 .newTaskContainerInput {
-    position: relative;
-    width: 600px;
-    height: 48px;
+  position: relative;
+  width: 600px;
+  height: 48px;
 }
 
 #newTaskInput {
-    width: 100%;
-    height: 100%;
-    border-radius: 5px;
-    outline: none;
-    border: 2px solid var(--color4);
-    background-color: var(--color2);
-    padding: 5px 50px 5px 10px;
-    font-family: 'lato', 'sans-serif';
-    font-size: 18px;
-    font-weight: bold;
-    color: var(--color4);
-    transition: 0.2s;
+  width: 100%;
+  height: 100%;
+  border-radius: 5px;
+  outline: none;
+  border: 2px solid var(--color4);
+  background-color: var(--color2);
+  padding: 5px 50px 5px 10px;
+  font-family: "lato", "sans-serif";
+  font-size: 18px;
+  font-weight: bold;
+  color: var(--color4);
+  transition: 0.2s;
 }
 
 #newTaskInput::placeholder {
-    transition: 0.2s;
-    color: var(--color13);
+  transition: 0.2s;
+  color: var(--color13);
 }
 
 #newTaskBtn {
-    text-align: center;
-    line-height: 0px;
-    font-family: 'lato', 'sans-serif';
-    font-size: 40px;
-    border-radius: 5px;
-    padding: 5px 7px 7px 7px;
-    border: 2px solid var(--color4);
-    height: 48px;
-    width: 40px;
-    font-weight: bold;
-    background-color: var(--color4);
-    color: var(--color2);
-    transition: 0.2s;
+  text-align: center;
+  line-height: 0px;
+  font-family: "lato", "sans-serif";
+  font-size: 40px;
+  border-radius: 5px;
+  padding: 5px 7px 7px 7px;
+  border: 2px solid var(--color4);
+  height: 48px;
+  width: 40px;
+  font-weight: bold;
+  background-color: var(--color4);
+  color: var(--color2);
+  transition: 0.2s;
 }
 
 #newTaskBtn:hover {
-    cursor: pointer;
-    background-color: var(--color2);
-    color: var(--color4);
-    box-shadow: 0 0 10px 2px var(--color4);
+  cursor: pointer;
+  background-color: var(--color2);
+  color: var(--color4);
+  box-shadow: 0 0 10px 2px var(--color4);
 }
 
 #cleanInputBtn {
-    position: absolute;
-    height: 100%;
-    width: 50px;
-    font-family: 'lato', 'sans-serif';
-    font-size: 18px;
-    font-weight: bold;
-    color: var(--color9);
-    border: none;
-    outline: none;
-    background-color: var(--color10);
-    border-top-right-radius: 5px;
-    border-bottom-right-radius: 5px;
-    transition: 0.2s;
-    right: 0;
-    display: none;
+  position: absolute;
+  height: 100%;
+  width: 50px;
+  font-family: "lato", "sans-serif";
+  font-size: 18px;
+  font-weight: bold;
+  color: var(--color9);
+  border: none;
+  outline: none;
+  background-color: var(--color10);
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+  transition: 0.2s;
+  right: 0;
+  display: none;
 }
 
 #cleanInputBtn:hover {
-    cursor: pointer;
-    background-color: var(--color11);
-    color: var(--color12);
+  cursor: pointer;
+  background-color: var(--color11);
+  color: var(--color12);
 }
 
 .tasksContainer {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    justify-content: center;
-    align-items: center;
-    margin-top: -25px;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
 }
 
 .taskField {
-    position: relative;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 655px;
-    height: 70px;
-    background-color: var(--color2);
-    border-radius: 5px;
-    margin: 25px;
-    padding: 0 20px;
-    border: 2px solid var(--color4);
-    transition: border 0.3s, box-shadow 0.3s;
-    animation: appearTask 0.2s ease-in forwards;
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 655px;
+  height: 65px;
+  background-color: var(--color2);
+  border-radius: 5px;
+  margin: 25px;
+  padding: 0 20px;
+  border: 2px solid var(--color4);
+  transition: border 0.3s, box-shadow 0.3s;
+  animation: appearTask 0.2s ease-in forwards;
 }
 
 .taskField.pointerEventsNone {
-    pointer-events: none;
+  pointer-events: none;
 }
 
 .taskField.completed {
-    border: 2px solid var(--color6);
+  border: 2px solid var(--color6);
 }
 
 .taskField.completed:hover {
-    box-shadow: 0 0 10px 2px var(--color6);
+  box-shadow: 0 0 10px 2px var(--color6);
 }
 
 .taskField.scheduled {
-    border: 2px solid var(--color7);
+  border: 2px solid var(--color7);
 }
 
 .taskField.scheduled:hover {
-    box-shadow: 0 0 10px 2px var(--color7);
+  box-shadow: 0 0 10px 2px var(--color7);
 }
 
 .taskField.scheduled:hover .schedulingInfo {
-    box-shadow: 0 -3px 10px -1px var(--color7);
+  box-shadow: 0 -3px 10px -1px var(--color7);
 }
 
 .taskField.expireAlert {
-    border: 2px solid var(--color3);
+  border: 2px solid var(--color3);
 }
 
 .taskField.expireAlert:hover {
-    box-shadow: 0 0 10px 2px var(--color3);
+  box-shadow: 0 0 10px 2px var(--color3);
 }
 
 .taskField.expireAlert:hover .schedulingInfo.expireAlert {
-    box-shadow: 0 -3px 10px -1px var(--color3);
+  box-shadow: 0 -3px 10px -1px var(--color3);
 }
 
 .taskField.expiredTask {
-    border: 2px solid var(--color8);
+  border: 2px solid var(--color8);
 }
 
 .taskField.expiredTask:hover {
-    box-shadow: 0 0 10px 2px var(--color8);
+  box-shadow: 0 0 10px 2px var(--color8);
 }
 
-.taskField.expiredTask:hover .schedulingInfo.expiredTask  {
-    box-shadow: 0 -3px 10px -1px var(--color8);
+.taskField.expiredTask:hover .schedulingInfo.expiredTask {
+  box-shadow: 0 -3px 10px -1px var(--color8);
 }
 
 .taskContent {
-    font-family: 'lato', 'sans-serif';
-    font-size: 17px;
-    width: 75%;
-    color: var(--color4);
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    font-weight: bold;
+  font-family: "lato", "sans-serif";
+  font-size: 17px;
+  width: 75%;
+  color: var(--color4);
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  font-weight: bold;
 }
 
 .taskContent.completed {
-    text-decoration: line-through;
+  text-decoration: line-through;
 }
 
 .taskField.oneTask .taskContent {
-    width: 90%;
+  width: 90%;
 }
 
 .taskField.twoTasks .taskContent {
-    width: 85%;
+  width: 85%;
 }
 
 .taskField:hover {
-    box-shadow: 0 0 10px 2px var(--color4);
+  box-shadow: 0 0 10px 2px var(--color4);
 }
 
 .taskField:hover .completedTaskInfo {
-    box-shadow: 0 -3px 10px -1px var(--color6);
+  box-shadow: 0 -3px 10px -1px var(--color6);
 }
 
-.taskField:hover .checkBtn,.taskField:hover .scheduleBtn,.taskField:hover .editBtn, .taskField:hover .removeBtn {
-    transform: translate3d(0px, 0, 0);
-    opacity: 1;
+.taskField:hover .checkBtn,
+.taskField:hover .scheduleBtn,
+.taskField:hover .editBtn,
+.taskField:hover .removeBtn {
+  transform: translate3d(0px, 0, 0);
+  opacity: 1;
 }
 
 .taskField:hover .disabled {
-    display: none;
+  display: none;
 }
 
 .disabled {
-    display: none;
+  display: none;
 }
 
 .btnField {
-    width: 20%;
-    height: 30px;
-    display: flex;
-    justify-content: flex-end;
-    gap: 8px;
+  width: 20%;
+  height: 30px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
 }
 
-.checkBtn, .scheduleBtn, .editBtn, .removeBtn {
-    font-size: 16px;
-    background: none;
-    border: none;
-    outline: none;
-    transform: translate3d(10px, 0, 0);
-    opacity: 0;
-    transition: 0.3s;
+.checkBtn,
+.scheduleBtn,
+.editBtn,
+.removeBtn {
+  font-size: 16px;
+  background: none;
+  border: none;
+  outline: none;
+  transform: translate3d(10px, 0, 0);
+  opacity: 0;
+  transition: 0.3s;
 }
 
 .checkBtn {
-    color: var(--color6);
+  color: var(--color6);
 }
 
 .checkBtn i.fa-rotate {
-    color: var(--color4);
+  color: var(--color4);
 }
 
 .editBtn {
-    color: var(--color3);
+  color: var(--color3);
 }
 
-.scheduleBtn{
-    color: var(--color7);
+.scheduleBtn {
+  color: var(--color7);
 }
 
 .removeBtn {
-    color: var(--color8);
+  color: var(--color8);
 }
 
-.checkBtn:hover, .scheduleBtn:hover, .editBtn:hover, .removeBtn:hover {
-    cursor: pointer;
-    padding-bottom: 8px;
+.checkBtn:hover,
+.scheduleBtn:hover,
+.editBtn:hover,
+.removeBtn:hover {
+  cursor: pointer;
+  padding-bottom: 8px;
 }
 
 .editField {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    background-color: var(--color2);
-    width: 450px;
-    height: 350px;
-    border: 2px solid var(--color4);
-    border-radius: 5px;
-    padding: 15px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  background-color: var(--color2);
+  width: 450px;
+  height: 350px;
+  border: 2px solid var(--color4);
+  border-radius: 5px;
+  padding: 15px;
 }
 
 .editFieldHeader {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-bottom: 2px solid var(--color4);
-    padding-bottom: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 2px solid var(--color4);
+  padding-bottom: 10px;
 }
 
 .editFieldHeader h1 {
-    font-family: 'Lato', 'Sans-Serif';
-    text-transform: uppercase;
-    font-size: 25px;
-    color: var(--color4);
+  font-family: "Lato", "Sans-Serif";
+  text-transform: uppercase;
+  font-size: 25px;
+  color: var(--color4);
 }
 
 #closeEditFieldBtn {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 30px;
-    border: none;
-    outline: none;
-    background: none;
-    color: var(--color4);
-    transition: 0.2s;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 30px;
+  border: none;
+  outline: none;
+  background: none;
+  color: var(--color4);
+  transition: 0.2s;
 }
 
 #closeEditFieldBtn:hover {
-    cursor: pointer;
-    color: var(--color8);
+  cursor: pointer;
+  color: var(--color8);
 }
 
 .editFieldCenter {
-    position: relative;
-    width: 100%;
-    height: 38px;
-    margin-top: 80px;
+  position: relative;
+  width: 100%;
+  height: 38px;
+  margin-top: 80px;
 }
 
 #editInput {
-    width: 100%;
-    height: 100%;
-    border-radius: 5px;
-    outline: none;
-    border: 2px solid var(--color4);
-    background-color: var(--color2);
-    color: var(--color4);
-    padding: 5px 50px 5px 10px;
-    font-family: 'lato', 'sans-serif';
-    font-size: 18px;
-    font-weight: bold;
-    transition: 0.2s;
+  width: 100%;
+  height: 100%;
+  border-radius: 5px;
+  outline: none;
+  border: 2px solid var(--color4);
+  background-color: var(--color2);
+  color: var(--color4);
+  padding: 5px 50px 5px 10px;
+  font-family: "lato", "sans-serif";
+  font-size: 18px;
+  font-weight: bold;
+  transition: 0.2s;
 }
 
 #editInput::placeholder {
-    transition: 0.2s;
-    color: var(--color13);
+  transition: 0.2s;
+  color: var(--color13);
 }
 
 #cleanEditInputBtn {
-    position: absolute;
-    right: 0;
-    height: 100%;
-    width: 40px;
-    font-family: 'lato', 'sans-serif';
-    font-size: 18px;
-    font-weight: bold;
-    color: var(--color9);
-    border: none;
-    outline: none;
-    background-color: var(--color10);
-    border-top-right-radius: 5px;
-    border-bottom-right-radius: 5px;
-    transition: 0.2s;
-    display: none;
+  position: absolute;
+  right: 0;
+  height: 100%;
+  width: 40px;
+  font-family: "lato", "sans-serif";
+  font-size: 18px;
+  font-weight: bold;
+  color: var(--color9);
+  border: none;
+  outline: none;
+  background-color: var(--color10);
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+  transition: 0.2s;
+  display: none;
 }
 
 #cleanEditInputBtn:hover {
-    cursor: pointer;
-    background-color: var(--color11);
-    color: var(--color12);
+  cursor: pointer;
+  background-color: var(--color11);
+  color: var(--color12);
 }
 
 .editFieldFooter {
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-    height: 38px;
-    margin-top: 40px;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  height: 38px;
+  margin-top: 40px;
 }
 
 #confirmEditBtn {
-    font-family: 'lato', 'sans-serif';
-    font-size: 18px;
-    border-radius: 5px;
-    border: none;
-    outline: none;
-    height: 100%;
-    width: 120px;
-    text-transform: uppercase;
-    font-weight: bold;
-    background-color: var(--color4);
-    border: 2px solid var(--color4);
-    color: var(--color2);
-    transition: 0.2s;
+  font-family: "lato", "sans-serif";
+  font-size: 18px;
+  border-radius: 5px;
+  border: none;
+  outline: none;
+  height: 100%;
+  width: 120px;
+  text-transform: uppercase;
+  font-weight: bold;
+  background-color: var(--color4);
+  border: 2px solid var(--color4);
+  color: var(--color2);
+  transition: 0.2s;
 }
 
 #confirmEditBtn:hover {
-    cursor: pointer;
-    background-color: var(--color2);
-    color: var(--color4);
-    box-shadow: 0 0 10px 2px var(--color4);
+  cursor: pointer;
+  background-color: var(--color2);
+  color: var(--color4);
+  box-shadow: 0 0 10px 2px var(--color4);
 }
 
 #cancelEditBtn {
-    font-family: 'lato', 'sans-serif';
-    font-size: 18px;
-    border-radius: 5px;
-    border: none;
-    outline: none;
-    height: 100%;
-    width: 120px;
-    text-transform: uppercase;
-    font-weight: bold;
-    background-color: var(--color4);
-    opacity: 0.6;
-    color: var(--color2);
-    transition: 0.2s;
+  font-family: "lato", "sans-serif";
+  font-size: 18px;
+  border-radius: 5px;
+  border: none;
+  outline: none;
+  height: 100%;
+  width: 120px;
+  text-transform: uppercase;
+  font-weight: bold;
+  background-color: var(--color4);
+  opacity: 0.6;
+  color: var(--color2);
+  transition: 0.2s;
 }
 
 #cancelEditBtn:hover {
-    cursor: pointer;
-    opacity: 1;
+  cursor: pointer;
+  opacity: 1;
 }
 
 .scheduleField {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    background-color: var(--color2);
-    width: 450px;
-    height: 350px;
-    border: 2px solid var(--color4);
-    border-radius: 5px;
-    padding: 15px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  background-color: var(--color2);
+  width: 450px;
+  height: 350px;
+  border: 2px solid var(--color4);
+  border-radius: 5px;
+  padding: 15px;
 }
 
 .scheduleFieldHeader {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-bottom: 2px solid var(--color4);
-    padding-bottom: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 2px solid var(--color4);
+  padding-bottom: 10px;
 }
 
 .scheduleFieldHeader h1 {
-    font-family: 'Lato', 'Sans-Serif';
-    text-transform: uppercase;
-    font-size: 25px;
-    color: var(--color4);
+  font-family: "Lato", "Sans-Serif";
+  text-transform: uppercase;
+  font-size: 25px;
+  color: var(--color4);
 }
 
 #scheduleFieldCloseBtn {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 30px;
-    border: none;
-    outline: none;
-    background: none;
-    color: var(--color4);
-    transition: 0.2s;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 30px;
+  border: none;
+  outline: none;
+  background: none;
+  color: var(--color4);
+  transition: 0.2s;
 }
 
 #scheduleFieldCloseBtn:hover {
-    cursor: pointer;
-    color: var(--color8);
+  cursor: pointer;
+  color: var(--color8);
 }
 
 .scheduleFieldCenter {
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-    width: 100%;
-    height: 38px;
-    margin-top: 80px;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  height: 38px;
+  margin-top: 80px;
 }
 
 #scheduleInputDate {
-    border-radius: 5px;
-    outline: none;
-    border: 2px solid var(--color4);
-    background-color: var(--color2);
-    color: var(--color4);
-    padding: 5px 10px;
-    font-family: 'lato', 'sans-serif';
-    font-size: 18px;
-    font-weight: bold;
-    transition: 0.2s;
+  border-radius: 5px;
+  outline: none;
+  border: 2px solid var(--color4);
+  background-color: var(--color2);
+  color: var(--color4);
+  padding: 5px 10px;
+  font-family: "lato", "sans-serif";
+  font-size: 18px;
+  font-weight: bold;
+  transition: 0.2s;
 }
 
 #scheduleInputDate::-webkit-calendar-picker-indicator {
-    cursor: pointer;
-    filter: invert(1) brightness(100%) sepia(100%) saturate(100%);
+  cursor: pointer;
+  filter: invert(1) brightness(100%) sepia(100%) saturate(100%);
 }
 
 #scheduleInputTime {
-    border-radius: 5px;
-    border: 2px solid var(--color4);
-    background-color: var(--color2);
-    color: var(--color4);
-    outline: none;
-    padding: 5px 10px;
-    font-family: 'lato', 'sans-serif';
-    font-size: 18px;
-    font-weight: bold;
-    transition: 0.2s;
+  border-radius: 5px;
+  border: 2px solid var(--color4);
+  background-color: var(--color2);
+  color: var(--color4);
+  outline: none;
+  padding: 5px 10px;
+  font-family: "lato", "sans-serif";
+  font-size: 18px;
+  font-weight: bold;
+  transition: 0.2s;
 }
 
 #scheduleInputTime::-webkit-calendar-picker-indicator {
-    cursor: pointer;
-    filter: invert(1) brightness(100%) sepia(100%) saturate(100%);
+  cursor: pointer;
+  filter: invert(1) brightness(100%) sepia(100%) saturate(100%);
 }
 
 .scheduleFieldFooter {
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-    height: 38px;
-    margin-top: 40px;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  height: 38px;
+  margin-top: 40px;
 }
 
 #confirmScheduleBtn {
-    font-family: 'lato', 'sans-serif';
-    font-size: 18px;
-    border-radius: 5px;
-    border: none;
-    outline: none;
-    height: 100%;
-    width: 120px;
-    text-transform: uppercase;
-    font-weight: bold;
-    background-color: var(--color4);
-    border: 2px solid var(--color4);
-    color: var(--color2);
-    transition: 0.2s;
+  font-family: "lato", "sans-serif";
+  font-size: 18px;
+  border-radius: 5px;
+  border: none;
+  outline: none;
+  height: 100%;
+  width: 120px;
+  text-transform: uppercase;
+  font-weight: bold;
+  background-color: var(--color4);
+  border: 2px solid var(--color4);
+  color: var(--color2);
+  transition: 0.2s;
 }
 
 #confirmScheduleBtn:hover {
-    cursor: pointer;
-    background-color: var(--color2);
-    color: var(--color4);
-    box-shadow: 0 0 10px 2px var(--color4);
+  cursor: pointer;
+  background-color: var(--color2);
+  color: var(--color4);
+  box-shadow: 0 0 10px 2px var(--color4);
 }
 
 #cancelScheduletBtn {
-    font-family: 'lato', 'sans-serif';
-    font-size: 18px;
-    border-radius: 5px;
-    border: none;
-    outline: none;
-    height: 100%;
-    width: 120px;
-    text-transform: uppercase;
-    font-weight: bold;
-    background-color: var(--color4);
-    color: var(--color2);
-    opacity: 0.6;
-    transition: 0.2s;
+  font-family: "lato", "sans-serif";
+  font-size: 18px;
+  border-radius: 5px;
+  border: none;
+  outline: none;
+  height: 100%;
+  width: 120px;
+  text-transform: uppercase;
+  font-weight: bold;
+  background-color: var(--color4);
+  color: var(--color2);
+  opacity: 0.6;
+  transition: 0.2s;
 }
 
 #cancelScheduletBtn:hover {
-    cursor: pointer;
-    opacity: 1;
+  cursor: pointer;
+  opacity: 1;
 }
 
-
-.schedulingInfo, .completedTaskInfo {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: absolute;
-    border-radius: 5px;
-    padding: 5px 20px 5px 20px;
-    background-color: var(--color2);
-    right: 5px;
-    top: -25px;
-    transition: box-shadow 0.3s, border 0.3s;
+.schedulingInfo,
+.completedTaskInfo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  border-radius: 5px;
+  padding: 5px 20px 5px 20px;
+  background-color: var(--color2);
+  right: 5px;
+  top: -25px;
+  transition: box-shadow 0.3s, border 0.3s;
 }
 
 .completedTaskIcon {
-    color: var(--color6);
+  color: var(--color6);
 }
 
 .schedulingInfo {
-    border: 2px solid var(--color7);
-    gap: 25px;
+  border: 2px solid var(--color7);
+  gap: 25px;
 }
 
 .completedTaskInfo {
-    border: 2px solid var(--color6);
-    gap: 10px;
+  border: 2px solid var(--color6);
+  gap: 10px;
 }
 
 .completedTaskInfo:hover {
-    box-shadow: 0 -3px 10px -1px var(--color6);
+  box-shadow: 0 -3px 10px -1px var(--color6);
 }
 
 .schedulingInfo.expireAlert {
-    border: 2px solid var(--color3);
-    animation: expireAlert 0.5s infinite alternate;
+  border: 2px solid var(--color3);
+  animation: expireAlert 0.5s infinite alternate;
 }
 
 @keyframes expireAlert {
-    0% {
-        box-shadow: none;
-    }
-    100% {
-        box-shadow: 0 -3px 10px -1px var(--color3);
-    }
+  0% {
+    box-shadow: none;
+  }
+  100% {
+    box-shadow: 0 -3px 10px -1px var(--color3);
+  }
 }
 
 .schedulingInfo.expiredTask {
-    border: 2px solid var(--color8);
-    animation: expiredTask 0.5s infinite alternate;
+  border: 2px solid var(--color8);
+  animation: expiredTask 0.5s infinite alternate;
 }
 
 @keyframes expiredTask {
-    0% {
-        box-shadow: none;
-    }
-    100% {
-        box-shadow: 0 -3px 10px -1px var(--color8);
-    }
+  0% {
+    box-shadow: none;
+  }
+  100% {
+    box-shadow: 0 -3px 10px -1px var(--color8);
+  }
 }
 
 .schedulingInfo:hover .schedulingRemoveBtn {
-    display: block;
+  display: block;
 }
 
-.schedulingTextContent, .completedTaskTextContent {
-    font-size: 13px;
-    color: var(--color4);
-    font-family: 'lato', 'sans-serif';
-    user-select: none;
+.schedulingTextContent,
+.completedTaskTextContent {
+  font-size: 13px;
+  color: var(--color4);
+  font-family: "lato", "sans-serif";
+  user-select: none;
 }
 
 .schedulingRemoveBtn {
-    position: absolute;
-    text-align: center;
-    line-height: 18px;
-    padding: 1px 1px 1px 1.5px;
-    top: -8px;
-    right: -8px;
-    background-color: var(--color2);
-    color: var(--color4);
-    border-radius: 50%;
-    border: 2px solid var(--color4);
-    width: 23px;
-    height: 23px;
-    font-size: 10px;
-    font-family: Arial, sans-serif;
-    font-weight: bold;
-    transform: translateY(10px);
-    opacity: 0;
-    transition: 0.2s;
+  position: absolute;
+  text-align: center;
+  line-height: 18px;
+  padding: 1px 1px 1px 1.5px;
+  top: -8px;
+  right: -8px;
+  background-color: var(--color2);
+  color: var(--color4);
+  border-radius: 50%;
+  border: 2px solid var(--color4);
+  width: 23px;
+  height: 23px;
+  font-size: 10px;
+  font-family: Arial, sans-serif;
+  font-weight: bold;
+  transform: translateY(10px);
+  opacity: 0;
+  transition: 0.2s;
 }
 
 .taskField:hover .schedulingRemoveBtn {
-    transform: translateY(0);
-    opacity: 1;
+  transform: translateY(0);
+  opacity: 1;
 }
 
 .schedulingInfo .schedulingRemoveBtn {
-    border: 2px solid var(--color7);
-    color: var(--color7);
+  border: 2px solid var(--color7);
+  color: var(--color7);
 }
 
 .schedulingInfo.expireAlert .schedulingRemoveBtn {
-    border: 2px solid var(--color3);
-    color: var(--color3);
+  border: 2px solid var(--color3);
+  color: var(--color3);
 }
 
 .schedulingInfo.expiredTask .schedulingRemoveBtn {
-    border: 2px solid var(--color8);
-    color: var(--color8);
+  border: 2px solid var(--color8);
+  color: var(--color8);
 }
 
-.schedulingRemoveBtn:hover, .schedulingInfo.expireAlert .schedulingRemoveBtn:hover, .schedulingInfo.expiredTask .schedulingRemoveBtn:hover {
-    cursor: pointer;
+.schedulingRemoveBtn:hover,
+.schedulingInfo.expireAlert .schedulingRemoveBtn:hover,
+.schedulingInfo.expiredTask .schedulingRemoveBtn:hover {
+  cursor: pointer;
 }
 
-.schedulingRemoveBtn:hover, .schedulingInfo.expireAlert .schedulingRemoveBtn:hover {
-    color: var(--color8);
-    border: 2px solid var(--color8);
+.schedulingRemoveBtn:hover,
+.schedulingInfo.expireAlert .schedulingRemoveBtn:hover {
+  color: var(--color8);
+  border: 2px solid var(--color8);
 }
 
 .schedulingInfo.expiredTask .schedulingRemoveBtn:hover {
-    color: var(--color4);
-    border: 2px solid var(--color4);
+  color: var(--color4);
+  border: 2px solid var(--color4);
 }
 
 #confirmField {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    background-color: var(--color2);
-    width: 450px;
-    height: 350px;
-    border: 2px solid var(--color4);
-    border-radius: 5px;
-    padding: 15px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  background-color: var(--color2);
+  width: 450px;
+  height: 350px;
+  border: 2px solid var(--color4);
+  border-radius: 5px;
+  padding: 15px;
 }
 
 #confirmFieldText {
-    font-family: 'Lato', 'Sans-Serif';
-    font-size: 22px;
-    text-align: center;
-    margin-top: 60px;
-    color: var(--color4);
+  font-family: "Lato", "Sans-Serif";
+  font-size: 22px;
+  text-align: center;
+  margin-top: 60px;
+  color: var(--color4);
 }
 
 .btnFieldToConfirm {
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-    width: 100%;
-    height: 38px;
-    margin-top: 80px;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  height: 38px;
+  margin-top: 80px;
 }
 
 #btnYes {
-    font-family: 'lato', 'sans-serif';
-    font-size: 18px;
-    border-radius: 5px;
-    border: none;
-    outline: none;
-    height: 100%;
-    width: 120px;
-    text-transform: uppercase;
-    font-weight: bold;
-    background-color: var(--color4);
-    border: 2px solid var(--color4);
-    color: var(--color2);
-    transition: 0.2s;
+  font-family: "lato", "sans-serif";
+  font-size: 18px;
+  border-radius: 5px;
+  border: none;
+  outline: none;
+  height: 100%;
+  width: 120px;
+  text-transform: uppercase;
+  font-weight: bold;
+  background-color: var(--color4);
+  border: 2px solid var(--color4);
+  color: var(--color2);
+  transition: 0.2s;
 }
 
 #btnYes:hover {
-    cursor: pointer;
-    background-color: var(--color2);
-    color: var(--color4);
-    box-shadow: 0 0 10px 2px var(--color4);
+  cursor: pointer;
+  background-color: var(--color2);
+  color: var(--color4);
+  box-shadow: 0 0 10px 2px var(--color4);
 }
 
 #btnNo {
-    font-family: 'lato', 'sans-serif';
-    font-size: 18px;
-    border-radius: 5px;
-    border: none;
-    outline: none;
-    height: 100%;
-    width: 120px;
-    text-transform: uppercase;
-    font-weight: bold;
-    background-color: var(--color4);
-    color: var(--color2);
-    opacity: 0.6;
-    transition: 0.2s;
+  font-family: "lato", "sans-serif";
+  font-size: 18px;
+  border-radius: 5px;
+  border: none;
+  outline: none;
+  height: 100%;
+  width: 120px;
+  text-transform: uppercase;
+  font-weight: bold;
+  background-color: var(--color4);
+  color: var(--color2);
+  opacity: 0.6;
+  transition: 0.2s;
 }
 
 #btnNo:hover {
-    cursor: pointer;
-    opacity: 1;
+  cursor: pointer;
+  opacity: 1;
 }
 
-#newTaskInput:focus, #editInput:focus, #scheduleInputDate:focus, #scheduleInputTime:focus {
-    border: 2px solid var(--color4);
-    box-shadow: 0 0 10px 2px var(--color4);
+#newTaskInput:focus,
+#editInput:focus,
+#scheduleInputDate:focus,
+#scheduleInputTime:focus {
+  border: 2px solid var(--color4);
+  box-shadow: 0 0 10px 2px var(--color4);
 }
 
-#newTaskInput.inputError, #editInput.inputError, #scheduleInputDate.inputError, #scheduleInputTime.inputError {
-    border: 2px solid var(--color8);
-    box-shadow: 0 0 10px 2px var(--color8);
+#newTaskInput.inputError,
+#editInput.inputError,
+#scheduleInputDate.inputError,
+#scheduleInputTime.inputError {
+  border: 2px solid var(--color8);
+  box-shadow: 0 0 10px 2px var(--color8);
 }
 
-#newTaskInput:focus::placeholder, #editInput:focus::placeholder {
-    color: var(--color4);
+#newTaskInput:focus::placeholder,
+#editInput:focus::placeholder {
+  color: var(--color4);
 }
 
 /* Janelas e elementos em segundo plano */
 
 #mainContainer.hide {
-    pointer-events: none;
-    animation: hide 0.2s ease-in forwards;
+  pointer-events: none;
+  animation: hide 0.2s ease-in forwards;
 }
 
 #mainContainer.mainContainerAppear {
-    animation: mainContainerAppear 0.2s ease-in forwards;
+  animation: mainContainerAppear 0.2s ease-in forwards;
 }
 
 .taskField.removeTask {
-    animation: removeTask 0.2s ease-in forwards
+  animation: removeTask 0.2s ease-in forwards;
 }
 
 .schedulingInfo.appear {
-    animation: appearSchedulingInfo 0.2s ease-in forwards;
-    transition: none;
+  animation: appearSchedulingInfo 0.2s ease-in forwards;
+  transition: none;
 }
 
 .schedulingInfo.vanish {
-    animation: vanishSchedulingInfo 0.2s ease-in forwards
+  animation: vanishSchedulingInfo 0.2s ease-in forwards;
 }
 
 .editField.hide {
-    display: none;
-    pointer-events: none;
+  display: none;
+  pointer-events: none;
 }
 
-.editField.appear, .scheduleField.appear, #confirmField.appear {
-    animation: appear 0.2s ease-in forwards;
+.editField.appear,
+.scheduleField.appear,
+#confirmField.appear {
+  animation: appear 0.2s ease-in forwards;
 }
 
-.editField.vanish, .scheduleField.vanish, #confirmField.vanish {
-    animation: vanish 0.2s ease-in forwards;
+.editField.vanish,
+.scheduleField.vanish,
+#confirmField.vanish {
+  animation: vanish 0.2s ease-in forwards;
 }
 
 .fadeInFromRight {
-    animation: fadeInFromRight 0.3s;
+  animation: fadeInFromRight 0.3s;
 }
 
 .scheduleField.hide {
-    display: none;
-    pointer-events: none;
+  display: none;
+  pointer-events: none;
 }
 
 #confirmField.hide {
-    display: none;
-    pointer-events: none;
+  display: none;
+  pointer-events: none;
 }
 
 #header.hide {
-    pointer-events: none;
+  pointer-events: none;
 }
 
 .editBtn.editing {
-    pointer-events: none;
+  pointer-events: none;
 }
 
 .appointmentDate.hide {
-    display: none;
-    pointer-events: none;
+  display: none;
+  pointer-events: none;
 }
 
 .appointmentTime.hide {
-    display: none;
-    pointer-events: none;
+  display: none;
+  pointer-events: none;
 }
 
 /* Animações */
 
-@keyframes fadeInFromTop {
-    0% {
-        transform: translateY(-10px);
-        opacity: 0; 
-    }
-    100% {
-        transform: translateY(0);
-        opacity: 1;
-    }
-}
-
 @keyframes hide {
-    0% {
-        filter: blur(0);
-    }
-    100% {
-        filter: blur(5px) opacity(0.3);
-    }
+  0% {
+    filter: blur(0);
+  }
+  100% {
+    filter: blur(5px) opacity(0.3);
+  }
 }
 
 @keyframes mainContainerAppear {
-    0% {
-        filter: blur(5px) opacity(0.3);
-    }
-    100% {
-        filter: blur(0);
-    }
+  0% {
+    filter: blur(5px) opacity(0.3);
+  }
+  100% {
+    filter: blur(0);
+  }
 }
 
 @keyframes appear {
-    0% {
-        transform: translate(-50%, -50%) scale(0.5);
-        opacity: 0;
-    }
-    100% {
-        transform: translate(-50%, -50%) scale(1);
-        opacity: 1;
-    }
+  0% {
+    transform: translate(-50%, -50%) scale(0.5);
+    opacity: 0;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 1;
+  }
 }
 
 @keyframes vanish {
-    0% {
-        transform: translate(-50%, -50%) scale(1);
-        opacity: 1;
-    }
-    100% {
-        transform: translate(-50%, -50%) scale(0.5);
-        opacity: 0;
-    }
+  0% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(0.5);
+    opacity: 0;
+  }
 }
 
 @keyframes fadeInFromRight {
-    0% {
-        transform: translateX(30px);
-        opacity: 0;
-    }
-    100% {
-        transform: translateX(0);
-        opacity: 1;
-    }
+  0% {
+    transform: translateX(30px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
 }
 
 @keyframes appearTask {
-    0% {
-        opacity: 0;
-        transform: scale(1);
-    }
-    50% {
-        opacity: 0.5;
-        transform: scale(1.1);
-    }
-    100% {
-        opacity: 1;
-        transform: scale(1);
-    }
+  0% {
+    opacity: 0;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.5;
+    transform: scale(1.1);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
 }
 
 @keyframes removeTask {
-    0% {
-        opacity: 1;
-        transform: scale(1);
-    }
-    50% {
-        opacity: 0.5;
-        transform: scale(1.1);
-    }
-    100% {
-        opacity: 0;
-        transform: scale(1);
-    }
+  0% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.5;
+    transform: scale(1.1);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1);
+  }
 }
 
 @keyframes appearSchedulingInfo {
-    0% {
-        transform: scale(0.9);
-    }
-    50% {
-        transform: scale(1.1);
-    }
-    100% {
-        transform: scale(1);
-    }
+  0% {
+    transform: scale(0.9);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
 }
 
 @keyframes vanishSchedulingInfo {
-    0% {
-        transform: scale(1);
-    }
-    50% {
-        transform: scale(1.1);
-    }
-    100% {
-        transform: scale(0.9);
-    }
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(0.9);
+  }
 }
-
-
