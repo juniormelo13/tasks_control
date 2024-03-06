@@ -473,14 +473,14 @@ body {
     text-transform: uppercase;
     font-weight: bold;
     background-color: var(--color4);
+    opacity: 0.6;
     color: var(--color2);
     transition: 0.2s;
 }
 
 #cancelEditBtn:hover {
     cursor: pointer;
-    background-color: var(--color5);
-    color: var(--color2);
+    opacity: 1;
 }
 
 .scheduleField {
@@ -616,13 +616,13 @@ body {
     font-weight: bold;
     background-color: var(--color4);
     color: var(--color2);
+    opacity: 0.6;
     transition: 0.2s;
 }
 
 #cancelScheduletBtn:hover {
     cursor: pointer;
-    background-color: var(--color5);
-    color: var(--color2);
+    opacity: 1;
 }
 
 
@@ -816,13 +816,13 @@ body {
     font-weight: bold;
     background-color: var(--color4);
     color: var(--color2);
+    opacity: 0.6;
     transition: 0.2s;
 }
 
 #btnNo:hover {
     cursor: pointer;
-    background-color: var(--color5);
-    color: var(--color2);
+    opacity: 1;
 }
 
 #newTaskInput:focus, #editInput:focus, #scheduleInputDate:focus, #scheduleInputTime:focus {
@@ -877,7 +877,7 @@ body {
 }
 
 .fadeInFromRight {
-    animation: fadeInFromRight 0.3s ease-in;
+    animation: fadeInFromRight 0.3s;
 }
 
 .scheduleField.hide {
@@ -963,7 +963,7 @@ body {
 
 @keyframes fadeInFromRight {
     0% {
-        transform: translateX(20px);
+        transform: translateX(30px);
         opacity: 0;
     }
     100% {

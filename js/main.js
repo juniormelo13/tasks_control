@@ -145,23 +145,15 @@ const completeClick = (taskField, taskContent, scheduleBtn, editBtn, checkBtn, c
     function confirmCompletedAction() {
       header.classList.remove("hide");
       mainContainer.classList.remove("hide");
+      mainContainer.classList.add("mainContainerAppear");
       confirmField.classList.remove("appear");
       confirmField.classList.add("vanish");
-      mainContainer.classList.add("mainContainerAppear");
       
-      const tasks = tasksContainer.childNodes;
-      for (const task of tasks) {
-        const schedulingInfo = task.childNodes[4];
-        const appointmentDate = task.childNodes[2];
-        const appointmentTime = task.childNodes[3];
-        if (task.firstChild.isSameNode(taskContent)) {
-          schedulingInfo.remove();
-          appointmentTime.remove();
-          appointmentDate.remove();
-        }
-      }
+      
 
       checkIcon.classList.remove("fa-thumbs-up");
+      checkIcon.classList.add("fa-rotate");
+      checkIcon.classList.add("fa-spin");
 
       switch (editBtn.classList.contains("disabled")) {
         case false:
@@ -169,27 +161,33 @@ const completeClick = (taskField, taskContent, scheduleBtn, editBtn, checkBtn, c
           break;
         }
         
-        checkIcon.classList.add("fa-rotate");
-        checkIcon.classList.add("fa-spin");
-        
         const completedTaskInfo = document.createElement("div");
         const completedTaskTextContent = document.createElement("p");
         const completedTaskIcon = document.createElement("i");
-
-        taskField.classList.remove("scheduled");
-
-        if (taskField.classList.contains("expireAlert")) {
-        taskField.classList.remove("expireAlert");
-        }
-        if (taskField.classList.contains("expiredTask")) {
-        taskField.classList.remove("expiredTask");
-        }
 
         setTimeout(() => {
           taskField.classList.add("removeTask");
         }, 200)
 
         setTimeout(() => {
+          const tasks = tasksContainer.childNodes;
+          for (const task of tasks) {
+            const schedulingInfo = task.childNodes[4];
+            const appointmentDate = task.childNodes[2];
+            const appointmentTime = task.childNodes[3];
+          if (task.firstChild.isSameNode(taskContent)) {
+          schedulingInfo.remove();
+          appointmentTime.remove();
+          appointmentDate.remove();
+        }
+      }
+      taskField.classList.remove("scheduled");
+      if (taskField.classList.contains("expireAlert")) {
+        taskField.classList.remove("expireAlert");
+        }
+        if (taskField.classList.contains("expiredTask")) {
+        taskField.classList.remove("expiredTask");
+        }
         mainContainer.classList.remove("mainContainerAppear");
         confirmField.classList.remove("vanish");
         confirmField.classList.add("hide");
@@ -206,10 +204,10 @@ const completeClick = (taskField, taskContent, scheduleBtn, editBtn, checkBtn, c
         completedTaskIcon.classList.add("completedTaskIcon");
         completedTaskIcon.classList.add("fa-solid");
         completedTaskIcon.classList.add("fa-check");
+        checkBtn.setAttribute("title", "Restaurar");
+        newTaskInput.focus();
       }, 550);
 
-      checkBtn.setAttribute("title", "Restaurar");
-      newTaskInput.focus();
     }
 
     btnNo.onclick = () => {
@@ -224,15 +222,21 @@ const completeClick = (taskField, taskContent, scheduleBtn, editBtn, checkBtn, c
         confirmField.classList.add("hide");
         mainContainer.classList.remove("mainContainerAppear");
         newTaskInput.focus();
-
       }, 200)
     };
   } else if (taskField.classList.contains("expiredTask")) {
     
-    taskField.classList.remove("expiredTask");
+    
     taskField.classList.add("removeTask");
 
-    const tasks = tasksContainer.childNodes;
+    
+    
+    const completedTaskInfo = document.createElement("div");
+    const completedTaskTextContent = document.createElement("p");
+    const completedTaskIcon = document.createElement("i");
+
+    setTimeout(() => {
+      const tasks = tasksContainer.childNodes;
     for (const task of tasks) {
       const schedulingInfo = task.childNodes[4];
       const appointmentDate = task.childNodes[2];
@@ -243,12 +247,7 @@ const completeClick = (taskField, taskContent, scheduleBtn, editBtn, checkBtn, c
         appointmentDate.remove();
       }
     }
-    
-    const completedTaskInfo = document.createElement("div");
-    const completedTaskTextContent = document.createElement("p");
-    const completedTaskIcon = document.createElement("i");
-
-    setTimeout(() => {
+      taskField.classList.remove("expiredTask");
       taskField.classList.remove("removeTask");
       checkIcon.classList.remove("fa-thumbs-up");
       taskContent.classList.add("completed");
@@ -266,9 +265,8 @@ const completeClick = (taskField, taskContent, scheduleBtn, editBtn, checkBtn, c
       taskField.appendChild(completedTaskInfo);
       completedTaskInfo.appendChild(completedTaskTextContent);
       completedTaskInfo.appendChild(completedTaskIcon);
-    }, 300);
-
-    newTaskInput.focus();
+      newTaskInput.focus();
+    }, 350);
 
   } else {
     if (taskField.classList.contains("completed")) {
@@ -276,7 +274,6 @@ const completeClick = (taskField, taskContent, scheduleBtn, editBtn, checkBtn, c
       newTaskInput.blur();
       setTimeout(() => {
         checkBtn.setAttribute("title", "Concluir");
-  
         taskContent.classList.toggle("completed");
         taskField.classList.toggle("completed");
         editBtn.classList.toggle("disabled");
@@ -285,7 +282,7 @@ const completeClick = (taskField, taskContent, scheduleBtn, editBtn, checkBtn, c
         checkIcon.classList.toggle("fa-rotate");
         checkIcon.classList.toggle("fa-spin");
         tasksContainer.insertBefore(taskField, tasksContainer.childNodes[length - 0])
-  
+
         const tasks = tasksContainer.childNodes;
         for (const task of tasks) {
           const completedTaskInfo = task.childNodes[2];
@@ -295,7 +292,7 @@ const completeClick = (taskField, taskContent, scheduleBtn, editBtn, checkBtn, c
         }
         taskField.classList.remove("removeTask");
         newTaskInput.focus();
-      }, 300);
+      }, 350);
     } else {
       taskField.classList.add("removeTask");
       newTaskInput.blur();
@@ -325,7 +322,7 @@ const completeClick = (taskField, taskContent, scheduleBtn, editBtn, checkBtn, c
         completedTaskInfo.appendChild(completedTaskTextContent);
         completedTaskInfo.appendChild(completedTaskIcon);
         newTaskInput.focus();
-      }, 300);
+      }, 350);
     }
   }
 };
@@ -380,7 +377,7 @@ const closeEditField = () => {
     mainContainer.classList.remove("mainContainerAppear");
     mainContainer.classList.remove("hide");
     newTaskInput.focus();
-  }, 300);
+  }, 200);
   if (editInput.classList.contains("inputError")) {
     editInput.classList.remove("inputError");
   }
@@ -446,7 +443,7 @@ function editTask() {
       newTaskInput.focus();
       document.querySelector(".task").classList.add("fadeInFromRight");
       document.querySelector(".task").innerText = editInput.value;
-    }, 200);
+    }, 300);
     setTimeout(() => {
       document.querySelector(".task").classList.remove("fadeInFromRight");
       document.querySelector(".task").classList.remove("task");
