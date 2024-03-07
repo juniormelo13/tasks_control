@@ -174,9 +174,9 @@ body {
 .tasksContainer {
   display: flex;
   flex-direction: column;
-  width: 100%;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
+  width: 100%;
 }
 
 .taskField {
