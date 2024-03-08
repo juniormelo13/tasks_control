@@ -752,20 +752,12 @@ body {
 
 .schedulingRemoveBtn {
   position: absolute;
-  text-align: center;
-  line-height: 18px;
-  padding: 1px 1px 1px 1.5px;
-  top: -8px;
-  right: -8px;
+  top: -12px;
+  right: -10px;
   background-color: var(--color2);
-  color: var(--color4);
   border-radius: 50%;
-  border: 2px solid var(--color4);
-  width: 23px;
-  height: 23px;
-  font-size: 10px;
-  font-family: Arial, sans-serif;
-  font-weight: bold;
+  border: none;
+  font-size: 23px;
   transform: translateY(10px);
   opacity: 0;
   transition: 0.2s;
@@ -777,17 +769,14 @@ body {
 }
 
 .schedulingInfo .schedulingRemoveBtn {
-  border: 2px solid var(--color7);
   color: var(--color7);
 }
 
 .schedulingInfo.expireAlert .schedulingRemoveBtn {
-  border: 2px solid var(--color3);
   color: var(--color3);
 }
 
 .schedulingInfo.expiredTask .schedulingRemoveBtn {
-  border: 2px solid var(--color8);
   color: var(--color8);
 }
 
@@ -800,12 +789,10 @@ body {
 .schedulingRemoveBtn:hover,
 .schedulingInfo.expireAlert .schedulingRemoveBtn:hover {
   color: var(--color8);
-  border: 2px solid var(--color8);
 }
 
 .schedulingInfo.expiredTask .schedulingRemoveBtn:hover {
   color: var(--color4);
-  border: 2px solid var(--color4);
 }
 
 #confirmField {
