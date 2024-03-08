@@ -2,6 +2,53 @@
 const newTaskInput = document.querySelector("#newTaskInput");
 newTaskInput.focus();
 
+//Configuração do botão de Menu
+
+const menuBtn = document.querySelector("#menuButton")
+const menu = document.querySelector(".menu")
+const menuBtnIcon = document.querySelector("#menuButtonIcon")
+let menuOpen = false
+
+function menuOpenFunction() {
+    menu.classList.remove("displayNone")
+    if (menu.classList.contains("menuVanish")) {
+      menu.classList.remove("menuVanish")
+    }
+    menu.classList.add("menuAppear")
+    menuBtnIcon.classList.toggle("fa-bars")
+    menuBtnIcon.classList.toggle("fa-xmark")
+    menuBtn.classList.toggle("active")
+}
+
+function menuCloseFunction() {
+  menu.classList.remove("menuAppear")
+  menu.classList.add("menuVanish")
+  menuBtnIcon.classList.toggle("fa-bars")
+  menuBtnIcon.classList.toggle("fa-xmark")
+  menuBtn.classList.toggle("active")
+  menuBtn.disabled = true
+  setTimeout(() => {
+    menu.classList.add("displayNone")
+    menuBtn.disabled = false
+  }, 200)
+}
+
+menuBtn.addEventListener("click", () => {
+  menuOpen = !menuOpen
+  if (menuOpen) {
+    menuOpenFunction()
+  } else {
+    menuCloseFunction()
+  }
+})
+
+document.addEventListener("click", e => {
+  if (!menu.contains(e.target) && !menuBtn.contains(e.target) && !menuBtnIcon.contains(e.target) && menuOpen) {
+    menuOpen = !menuOpen
+    menuCloseFunction()
+  }
+})
+
 // Botão para limpar o campo de texto principal
 const cleanInputBtn = document.querySelector("#cleanInputBtn");
 cleanInputBtn.setAttribute("title", "Limpar");

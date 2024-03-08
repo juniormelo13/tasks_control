@@ -21,34 +21,33 @@
     <header id="header">
       <!-- Logo do site -->
       <div class="logo">
-        <a href="#"><img src="./img/task_control_logo.png" alt="logo do site com as o texto na cor branca e imagem com relógio no meio e cercado com quadros em azul, amarelo, vermelho e verde"></a>
+        <a href="#"><img src="./img/icon.png" alt="logo do site com as o texto na cor branca e imagem com relógio no meio e cercado com quadros em azul, amarelo, vermelho e verde"></a>
+      </div>
+      <!-- Parte superior da caixa, onde serão informadas e enviadas as tarefas -->
+      <div class="newTaskContainer">
+        <!-- Caixa de texto para informar a nova tarefa -->
+        <div class="newTaskContainerInput">
+          <!-- Campo onde as tarefas serão adicionadas -->
+          <input type="text" name="newTaskInput" id="newTaskInput" placeholder="Digite a tarefa..."/>
+          <!-- Botão para limpar o campo -->
+          <input type="button" value="X" id="cleanInputBtn" />
+        </div>
+        <!-- Botão para adição da nova tarefa no campo -->
+        <input type="button" value="+" id="newTaskBtn" title="Adicionar" />
       </div>
       <!-- Menu do site -->
-      <div class="menu">
+      <button id="menuButton"><i id="menuButtonIcon" class="fa-solid fa-bars"></i></button>
+      <div class="menu displayNone">
         <a href="#">ajuda</a>
         <a href="#">contato</a>
         <a href="#">sugestões</a>
         <a href="#">cadastrar</a>
-        <a href="#">entrar</a>
+        <a href="#">login</a>
       </div>
     </header>
     <main id="mainContainer">
       <!-- Caixa principal do projeto -->
-      <div class="container">
-        <!-- Parte superior da caixa, onde serão informadas e enviadas as tarefas -->
-        <div class="newTaskContainer">
-          <!-- Caixa de texto para informar a nova tarefa -->
-          <div class="newTaskContainerInput">
-            <!-- Campo onde as tarefas serão adicionadas -->
-            <input type="text" name="newTaskInput" id="newTaskInput" placeholder="Digite a tarefa..."/>
-            <!-- Botão para limpar o campo -->
-            <input type="button" value="X" id="cleanInputBtn" />
-          </div>
-          <!-- Botão para adição da nova tarefa no campo -->
-          <input type="button" value="+" id="newTaskBtn" title="Adicionar" />
-        </div>
         <div class="tasksContainer"></div>
-      </div>
     </main>
     <!-- Campo de edição das tarefas -->
     <div class="editField hide">
