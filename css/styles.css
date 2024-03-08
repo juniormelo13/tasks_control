@@ -26,6 +26,16 @@
 body {
   background-color: var(--color1);
   width: 100%;
+  overflow-y: scroll;
+}
+
+::-webkit-scrollbar {
+  width: 2px;
+  background: #fff;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(45deg, var(--color8), var(--color7), var(--color3), var(--color6));
 }
 
 #header {
@@ -85,29 +95,11 @@ body {
 }
 
 #header .menu.menuAppear {
-  animation: menuAppear 0.2s;
+  animation: menuAppear 0.2s forwards;
 }
 
 #header .menu.menuVanish {
   animation: menuVanish 0.2s forwards;
-}
-
-@keyframes menuAppear {
-  0% {
-    height: 0rem;
-  }
-  100% {
-    height: 14rem;
-  }
-}
-
-@keyframes menuVanish {
-  0% {
-    height: 14rem;
-  }
-  100% {
-    height: 0rem;
-  }
 }
 
 #header .menu a {
@@ -144,23 +136,6 @@ body {
   background-color: var(--color2);
   color: var(--color4);
   box-shadow: 0 0 10px 2px var(--color4);
-}
-
-#mainContainer {
-  width: 100%;
-  padding: 0 3%;
-  height: 100vh;
-  padding-top: 80px;
-  overflow-y: scroll;
-}
-
-#mainContainer::-webkit-scrollbar {
-  width: 2px;
-  background: #fff;
-}
-
-#mainContainer::-webkit-scrollbar-thumb {
-  background: linear-gradient(45deg, var(--color8), var(--color7), var(--color3), var(--color6));
 }
 
 .newTaskContainer {
@@ -244,13 +219,13 @@ body {
   color: var(--color12);
 }
 
-.tasksContainer {
+#tasksContainer {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
   width: 100%;
-  margin-top: 25px;
+  padding-top: 105px;
 }
 
 .taskField {
@@ -413,7 +388,7 @@ body {
   padding-bottom: 8px;
 }
 
-.editField {
+#editField {
   position: absolute;
   left: 50%;
   top: 50%;
@@ -561,7 +536,7 @@ body {
   opacity: 1;
 }
 
-.scheduleField {
+#scheduleField {
   position: absolute;
   left: 50%;
   top: 50%;
@@ -930,13 +905,13 @@ body {
 
 /* Janelas e elementos em segundo plano */
 
-#mainContainer.hide {
+#tasksContainer.hide {
   pointer-events: none;
   animation: hide 0.2s ease-in forwards;
 }
 
-#mainContainer.mainContainerAppear {
-  animation: mainContainerAppear 0.2s ease-in forwards;
+#tasksContainer.tasksContainerAppear {
+  animation: tasksContainerAppear 0.2s ease-in forwards;
 }
 
 .taskField.removeTask {
@@ -952,19 +927,19 @@ body {
   animation: vanishSchedulingInfo 0.2s ease-in forwards;
 }
 
-.editField.hide {
+#editField.hide {
   display: none;
   pointer-events: none;
 }
 
-.editField.appear,
-.scheduleField.appear,
+#editField.appear,
+#scheduleField.appear,
 #confirmField.appear {
   animation: appear 0.2s ease-in forwards;
 }
 
-.editField.vanish,
-.scheduleField.vanish,
+#editField.vanish,
+#scheduleField.vanish,
 #confirmField.vanish {
   animation: vanish 0.2s ease-in forwards;
 }
@@ -973,7 +948,7 @@ body {
   animation: fadeInFromRight 0.3s;
 }
 
-.scheduleField.hide {
+#scheduleField.hide {
   display: none;
   pointer-events: none;
 }
@@ -1012,7 +987,7 @@ body {
   }
 }
 
-@keyframes mainContainerAppear {
+@keyframes tasksContainerAppear {
   0% {
     filter: blur(5px) opacity(0.3);
   }
@@ -1105,5 +1080,23 @@ body {
   }
   100% {
     transform: scale(0.9);
+  }
+}
+
+@keyframes menuAppear {
+  0% {
+    height: 0rem;
+  }
+  100% {
+    height: 14rem;
+  }
+}
+
+@keyframes menuVanish {
+  0% {
+    height: 14rem;
+  }
+  100% {
+    height: 0rem;
   }
 }
