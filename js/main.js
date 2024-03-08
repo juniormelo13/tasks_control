@@ -10,6 +10,7 @@ const menuBtnIcon = document.querySelector("#menuButtonIcon");
 let menuOpen = false;
 
 function menuOpenFunction() {
+  menuOpen = !menuOpen;
   menu.classList.remove("displayNone");
   if (menu.classList.contains("menuVanish")) {
     menu.classList.remove("menuVanish");
@@ -21,6 +22,7 @@ function menuOpenFunction() {
 }
 
 function menuCloseFunction() {
+  menuOpen = !menuOpen;
   menu.classList.remove("menuAppear");
   menu.classList.add("menuVanish");
   menuBtnIcon.classList.toggle("fa-bars");
@@ -34,8 +36,7 @@ function menuCloseFunction() {
 }
 
 menuBtn.addEventListener("click", () => {
-  menuOpen = !menuOpen;
-  if (menuOpen) {
+  if (!menuOpen) {
     menuOpenFunction();
   } else {
     menuCloseFunction();
@@ -49,7 +50,6 @@ document.addEventListener("click", (e) => {
     !menuBtnIcon.contains(e.target) &&
     menuOpen
   ) {
-    menuOpen = !menuOpen;
     menuCloseFunction();
   }
 });
@@ -166,6 +166,17 @@ function insertTask() {
       scheduleClick(taskField, scheduleBtn, editBtn)
     );
 
+    // Botão para adiconar anotações sobre a tarefa
+    const notesBtn = document.createElement("button");
+    btnField.appendChild(notesBtn);
+    notesBtn.classList.add("notesBtn");
+    const notesBtnIcon = document.createElement("i");
+    notesBtn.appendChild(notesBtnIcon);
+    notesBtnIcon.classList.add("fa-solid");
+    notesBtnIcon.classList.add("fa-file-lines");
+    notesBtn.setAttribute("title", "Anotações");
+    notesBtn.addEventListener("click", () => notesBtnClick(taskField));
+
     // Botão para exclusão da tarefa
     const removeBtn = document.createElement("button");
     btnField.appendChild(removeBtn);
@@ -174,7 +185,7 @@ function insertTask() {
     removeBtn.appendChild(removeIcon);
     removeIcon.classList.add("fa-solid");
     removeIcon.classList.add("fa-trash");
-    removeBtn.setAttribute("title", "Excluir");
+    removeBtn.setAttribute("title", "Excluir tarefa");
     removeBtn.addEventListener("click", () => deleteClick(taskField));
 
     cleanInputBtn.style.display = "none";
@@ -698,10 +709,10 @@ const confirmSchedule = (taskField, scheduleBtn, editBtn) => {
     schedulingInfo.appendChild(schedulingRemoveBtn);
     schedulingRemoveBtn.classList.add("schedulingRemoveBtn");
     schedulingRemoveBtn.setAttribute("title", "Cancelar agendamento");
-    // schedulingRemoveBtn.setAttribute("type", "button");
     schedulingRemoveBtn.appendChild(xMarkIcon);
     xMarkIcon.classList.add("fa-regular");
     xMarkIcon.classList.add("fa-circle-xmark");
+
     schedulingRemoveBtn.addEventListener("click", () =>
       schedulingRemoveClick(
         schedulingInfo,

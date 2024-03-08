@@ -35,7 +35,13 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: linear-gradient(45deg, var(--color8), var(--color7), var(--color3), var(--color6));
+  background: linear-gradient(
+    45deg,
+    var(--color8),
+    var(--color7),
+    var(--color3),
+    var(--color6)
+  );
 }
 
 #header {
@@ -67,7 +73,8 @@ body {
   transition: 0.2s;
 }
 
-#menuButton:hover, #menuButton.active  {
+#menuButton:hover,
+#menuButton.active {
   cursor: pointer;
   background-color: var(--color2);
   color: var(--color4);
@@ -326,7 +333,8 @@ body {
 .taskField:hover .checkBtn,
 .taskField:hover .scheduleBtn,
 .taskField:hover .editBtn,
-.taskField:hover .removeBtn {
+.taskField:hover .removeBtn,
+.taskField:hover .notesBtn {
   transform: translate3d(0px, 0, 0);
   opacity: 1;
 }
@@ -350,14 +358,23 @@ body {
 .checkBtn,
 .scheduleBtn,
 .editBtn,
-.removeBtn {
+.removeBtn,
+.notesBtn {
   font-size: 16px;
+  width: 16px;
   background: none;
   border: none;
   outline: none;
-  transform: translate3d(10px, 0, 0);
   opacity: 0;
   transition: 0.3s;
+}
+
+.checkBtn,
+.scheduleBtn,
+.editBtn,
+.removeBtn,
+.notesBtn {
+  transform: translate3d(10px, 0, 0);
 }
 
 .checkBtn {
@@ -380,10 +397,15 @@ body {
   color: var(--color8);
 }
 
+.notesBtn {
+  color: var(--color4);
+}
+
 .checkBtn:hover,
 .scheduleBtn:hover,
 .editBtn:hover,
-.removeBtn:hover {
+.removeBtn:hover,
+.notesBtn:hover {
   cursor: pointer;
   padding-bottom: 8px;
 }
@@ -752,15 +774,15 @@ body {
 
 .schedulingRemoveBtn {
   position: absolute;
-  top: -12px;
-  right: -10px;
+  top: -10px;
+  right: -5px;
   background-color: var(--color2);
   border-radius: 50%;
   border: none;
-  font-size: 23px;
+  font-size: 20px;
   transform: translateY(10px);
   opacity: 0;
-  transition: 0.2s;
+  transition: 0.3s;
 }
 
 .taskField:hover .schedulingRemoveBtn {
