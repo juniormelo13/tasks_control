@@ -347,6 +347,7 @@ const completeClick = (
   } else {
     if (taskField.classList.contains("completed")) {
       taskField.classList.add("removeTask");
+      checkBtn.disabled = true
       newTaskInput.blur();
       setTimeout(() => {
         checkBtn.setAttribute("title", "Concluir");
@@ -370,10 +371,12 @@ const completeClick = (
           }
         }
         taskField.classList.remove("removeTask");
+        checkBtn.disabled = false
         newTaskInput.focus();
       }, 350);
     } else {
       taskField.classList.add("removeTask");
+      checkBtn.disabled = true
       newTaskInput.blur();
       setTimeout(() => {
         taskField.classList.remove("removeTask");
@@ -400,6 +403,7 @@ const completeClick = (
         completedTaskIcon.classList.add("completedTaskIcon");
         completedTaskIcon.classList.add("fa-solid");
         completedTaskIcon.classList.add("fa-check");
+        checkBtn.disabled = false
         taskField.appendChild(completedTaskInfo);
         completedTaskInfo.appendChild(completedTaskTextContent);
         completedTaskInfo.appendChild(completedTaskIcon);
@@ -1008,4 +1012,42 @@ const deleteClick = (taskField) => {
       newTaskInput.focus();
     }, 350);
   }
+};
+
+// Configuração do botão de anotações
+
+const notesBtnClick = (taskField) => {
+  const notePadContainer = document.createElement("div");
+  const notePad = document.createElement("textarea");
+  const notePadBtnField = document.createElement("div");
+  const saveNoteBtn = document.createElement("button");
+  const cleanNoteBtn = document.createElement("button");
+  const closeNoteBtn = document.createElement("button");
+  const saveNoteBtnIcon = document.createElement("i");
+  const cleanNoteBtnIcon = document.createElement("i");
+  const closeNoteBtnIcon = document.createElement("i");
+  notePadContainer.classList.add("notePadContainer");
+  notePad.classList.add("notePad");
+  notePadBtnField.classList.add("notePadBtnField");
+  saveNoteBtn.setAttribute("title", "Salvar");
+  saveNoteBtn.classList.add("saveNoteBtn");
+  saveNoteBtnIcon.classList.add("fa-regular");
+  saveNoteBtnIcon.classList.add("fa-circle-check");
+  cleanNoteBtn.classList.add("cleanNoteBtn");
+  cleanNoteBtn.setAttribute("title", "Limpar");
+  cleanNoteBtnIcon.classList.add("fa-solid");
+  cleanNoteBtnIcon.classList.add("fa-broom");
+  closeNoteBtn.classList.add("closeNoteBtn");
+  closeNoteBtn.setAttribute("title", "Fechar");
+  closeNoteBtnIcon.classList.add("fa-regular");
+  closeNoteBtnIcon.classList.add("fa-circle-xmark");
+  taskField.appendChild(notePadContainer);
+  notePadContainer.appendChild(notePad);
+  notePadContainer.appendChild(notePadBtnField);
+  notePadContainer.appendChild(closeNoteBtn);
+  closeNoteBtn.appendChild(closeNoteBtnIcon);
+  notePadBtnField.appendChild(saveNoteBtn);
+  saveNoteBtn.appendChild(saveNoteBtnIcon);
+  notePadBtnField.appendChild(cleanNoteBtn);
+  cleanNoteBtn.appendChild(cleanNoteBtnIcon);
 };
