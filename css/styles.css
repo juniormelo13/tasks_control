@@ -82,22 +82,26 @@ body {
 }
 
 #header .menu {
+  position: absolute;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
   gap: 1rem;
-  position: absolute;
   top: 85px;
   right: calc(5% + 20px);
   background-color: var(--color2);
-  border-radius: 0 0 50px 10px;
+  border-radius: 5px;
   width: 10rem;
   height: 14rem;
   overflow: hidden;
+  box-shadow: 6px 6px 10px 0px rgba(0, 0, 0, 0.5);
 }
 
-#header .menu.displayNone {
+#header .menu.hide,
+.saveNoteBtn.hide,
+.deleteNoteBtn.hide,
+.historicNotes.hide {
   display: none;
 }
 
@@ -898,42 +902,76 @@ body {
 
 .notePadContainer {
   position: absolute;
-  right: -13rem;
-  top: -3rem;
+  right: -15.5rem;
+  top: 0;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
-  width: 12rem;
+  width: 14rem;
   height: 12rem;
   background-color: var(--color2);
-  border-radius: 5px;
-  padding: 35px 5px 5px;
+  border-radius: 0px 5px 5px;
+  padding: 0px 10px;
+  box-shadow: 6px 6px 10px 0px rgba(0, 0, 0, 0.5);
 }
 
-.notePadContainer:hover .closeNoteBtn, .notePadContainer:hover .cleanNoteBtn, .notePadContainer:hover .saveNoteBtn {
-  
+.notePadContainer.notePadContainerAppear {
+  animation: notePadContainerAppear 0.3s forwards;
+}
+
+.notePadContainer.notePadContainerVanish {
+  animation: notePadContainerVanish 0.3s forwards;
+}
+
+.notePadContainer::after {
+  content: "";
+  position: absolute;
+  left: -10px;
+  top: 0;
+  border-bottom: 10px solid transparent;
+  border-right: 10px solid var(--color2);
+}
+
+.notePadTop {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  height: 20%;
+  border-bottom: 2px solid var(--color4);
+}
+
+.notePadTitle {
+  font-family: "Lato", "Sans-Serif";
+  text-transform: capitalize;
+  font-size: 16px;
+  font-weight: bold;
+  color: var(--color4);
+}
+
+.closeNoteBtn {
+  color: var(--color4);
+}
+
+.notePadContainer:hover .closeNoteBtn,
+.notePadContainer:hover .deleteNoteBtn,
+.notePadContainer:hover .saveNoteBtn {
 }
 
 .notePad {
   width: 100%;
-  height: 75%;
+  height: 60%;
   color: var(--color4);
   background: var(--color2);
-  padding: 5px 10px;
+  padding: 5px 0;
+  margin: 10px 0 5px 0;
   outline: none;
   border: none;
   resize: none;
   font-size: 14px;
   font-family: "lato", "sans-serif";
   font-weight: bold;
-}
-
-.closeNoteBtn {
-  position: absolute;
-  top: 5px;
-  right: 5px;
-  color: var(--color4);
 }
 
 .closeNoteBtn:hover {
@@ -943,42 +981,44 @@ body {
 
 .notePadBtnField {
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
   width: 100%;
   height: 20%;
-  
 }
 
-.saveNoteBtn, .cleanNoteBtn, .closeNoteBtn {
-  width: 20px;
-  font-size: 20px;
+.saveNoteBtn,
+.deleteNoteBtn,
+.closeNoteBtn {
   border: none;
   background: var(--color2);
   border-radius: 50%;
   transition: 0.3s;
-  opacity: 0;
-  /* display: none; */
+}
+
+.closeNoteBtn {
+  font-size: 18px;
 }
 
 .saveNoteBtn {
-  color: var(--color4);
+  font-size: 18px;
+  color: var(--color6);
 }
 
 .saveNoteBtn:hover {
   cursor: pointer;
-  color: var(--color6);
+  padding-bottom: 8px;
 }
 
-.cleanNoteBtn {
-  color: var(--color4);
+.deleteNoteBtn {
+  font-size: 16px;
+  color: var(--color8);
 }
 
-.cleanNoteBtn:hover {
+.deleteNoteBtn:hover {
   cursor: pointer;
-  color: var(--color3);
+  padding-bottom: 8px;
 }
-
 
 /* Janelas e elementos em segundo plano */
 
@@ -1004,11 +1044,6 @@ body {
   animation: vanishSchedulingInfo 0.2s ease-in forwards;
 }
 
-#editField.hide {
-  display: none;
-  pointer-events: none;
-}
-
 #editField.appear,
 #scheduleField.appear,
 #confirmField.appear {
@@ -1025,16 +1060,6 @@ body {
   animation: fadeInFromRight 0.3s;
 }
 
-#scheduleField.hide {
-  display: none;
-  pointer-events: none;
-}
-
-#confirmField.hide {
-  display: none;
-  pointer-events: none;
-}
-
 #header.hide {
   pointer-events: none;
 }
@@ -1043,12 +1068,7 @@ body {
   pointer-events: none;
 }
 
-.appointmentDate.hide {
-  display: none;
-  pointer-events: none;
-}
-
-.appointmentTime.hide {
+.appointmentDate.hide, .appointmentTime.hide, #confirmField.hide, #scheduleField.hide, #editField.hide, .schedulingInfo.hide {
   display: none;
   pointer-events: none;
 }
@@ -1196,3 +1216,24 @@ body {
   }
 }
 
+@keyframes notePadContainerAppear {
+  0% {
+    transform: translateX(-30px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0px);
+    opacity: 1;
+  }
+}
+
+@keyframes notePadContainerVanish {
+  0% {
+    transform: translateX(0px);
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(-30px);
+    opacity: 0;
+  }
+}
