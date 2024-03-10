@@ -98,13 +98,6 @@ body {
   box-shadow: 6px 6px 10px 0px rgba(0, 0, 0, 0.5);
 }
 
-#header .menu.hide,
-.saveNoteBtn.hide,
-.deleteNoteBtn.hide,
-.historicNotes.hide {
-  display: none;
-}
-
 #header .menu.menuAppear {
   animation: menuAppear 0.2s forwards;
 }
@@ -275,7 +268,7 @@ body {
   box-shadow: 0 0 10px 2px var(--color7);
 }
 
-.taskField.scheduled:hover .schedulingInfo {
+.taskField.scheduled:hover .taskInfo.scheduled {
   box-shadow: 0 -3px 10px -1px var(--color7);
 }
 
@@ -287,7 +280,7 @@ body {
   box-shadow: 0 0 10px 2px var(--color3);
 }
 
-.taskField.expireAlert:hover .schedulingInfo.expireAlert {
+.taskField.expireAlert:hover .taskInfo.expireAlert {
   box-shadow: 0 -3px 10px -1px var(--color3);
 }
 
@@ -299,7 +292,7 @@ body {
   box-shadow: 0 0 10px 2px var(--color8);
 }
 
-.taskField.expiredTask:hover .schedulingInfo.expiredTask {
+.taskField.expiredTask:hover .taskInfo.expiredTask {
   box-shadow: 0 -3px 10px -1px var(--color8);
 }
 
@@ -316,21 +309,14 @@ body {
 
 .taskContent.completed {
   text-decoration: line-through;
-}
-
-.taskField.oneTask .taskContent {
-  width: 90%;
-}
-
-.taskField.twoTasks .taskContent {
-  width: 85%;
+  font-style: italic;
 }
 
 .taskField:hover {
   box-shadow: 0 0 10px 2px var(--color4);
 }
 
-.taskField:hover .completedTaskInfo {
+.taskField:hover .taskInfo.completed {
   box-shadow: 0 -3px 10px -1px var(--color6);
 }
 
@@ -343,11 +329,11 @@ body {
   opacity: 1;
 }
 
-.taskField:hover .disabled {
+.taskField:hover .disabledBtn {
   display: none;
 }
 
-.disabled {
+.disabledBtn {
   display: none;
 }
 
@@ -704,8 +690,7 @@ body {
   opacity: 1;
 }
 
-.schedulingInfo,
-.completedTaskInfo {
+.taskInfo {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -722,36 +707,30 @@ body {
   color: var(--color6);
 }
 
-.schedulingInfo {
+.taskInfo.scheduled {
   border: 2px solid var(--color7);
-  gap: 25px;
 }
 
-.completedTaskInfo {
+.taskInfo.completed {
   border: 2px solid var(--color6);
   gap: 10px;
 }
 
-.completedTaskInfo:hover {
+.taskInfo.completed:hover {
   box-shadow: 0 -3px 10px -1px var(--color6);
 }
 
-.schedulingInfo.expireAlert {
+.taskInfo.expireAlert {
   border: 2px solid var(--color3);
   animation: expireAlert 0.5s infinite alternate;
 }
 
-.schedulingInfo.expiredTask {
+.taskInfo.expiredTask {
   border: 2px solid var(--color8);
   animation: expiredTask 0.5s infinite alternate;
 }
 
-.schedulingInfo:hover .schedulingRemoveBtn {
-  display: block;
-}
-
-.schedulingTextContent,
-.completedTaskTextContent {
+.infoTextContent {
   font-size: 13px;
   color: var(--color4);
   font-family: "lato", "sans-serif";
@@ -776,30 +755,28 @@ body {
   opacity: 1;
 }
 
-.schedulingInfo .schedulingRemoveBtn {
+.taskInfo.scheduled .schedulingRemoveBtn {
   color: var(--color7);
 }
 
-.schedulingInfo.expireAlert .schedulingRemoveBtn {
+.taskInfo.expireAlert .schedulingRemoveBtn {
   color: var(--color3);
 }
 
-.schedulingInfo.expiredTask .schedulingRemoveBtn {
+.taskInfo.expiredTask .schedulingRemoveBtn {
   color: var(--color8);
 }
 
-.schedulingRemoveBtn:hover,
-.schedulingInfo.expireAlert .schedulingRemoveBtn:hover,
-.schedulingInfo.expiredTask .schedulingRemoveBtn:hover {
+.schedulingRemoveBtn:hover {
   cursor: pointer;
 }
 
 .schedulingRemoveBtn:hover,
-.schedulingInfo.expireAlert .schedulingRemoveBtn:hover {
+.taskInfo.scheduled .schedulingRemoveBtn:hover {
   color: var(--color8);
 }
 
-.schedulingInfo.expiredTask .schedulingRemoveBtn:hover {
+.taskInfo.expiredTask .schedulingRemoveBtn:hover {
   color: var(--color4);
 }
 
@@ -954,11 +931,6 @@ body {
   color: var(--color4);
 }
 
-.notePadContainer:hover .closeNoteBtn,
-.notePadContainer:hover .deleteNoteBtn,
-.notePadContainer:hover .saveNoteBtn {
-}
-
 .notePad {
   width: 100%;
   height: 60%;
@@ -1022,41 +994,41 @@ body {
 
 /* Janelas e elementos em segundo plano */
 
-#tasksContainer.hide {
+#tasksContainer.tasksContainerHide {
   pointer-events: none;
-  animation: hide 0.2s ease-in forwards;
+  animation: tasksContainerHide 0.2s ease-in forwards;
 }
 
 #tasksContainer.tasksContainerAppear {
   animation: tasksContainerAppear 0.2s ease-in forwards;
 }
 
-.taskField.removeTask {
-  animation: removeTask 0.2s ease-in forwards;
+.taskField.vanishTask {
+  animation: vanishTask 0.2s ease-in forwards;
 }
 
-.schedulingInfo.appear {
-  animation: appearSchedulingInfo 0.2s ease-in forwards;
+.taskInfo.appearTaskInfo {
+  animation: appearTaskInfo 0.2s ease-in forwards;
   transition: none;
 }
 
-.schedulingInfo.vanish {
-  animation: vanishSchedulingInfo 0.2s ease-in forwards;
+.taskInfo.vanishTaskInfo {
+  animation: vanishTaskInfo 0.2s ease-in forwards;
 }
 
-#editField.appear,
-#scheduleField.appear,
-#confirmField.appear {
-  animation: appear 0.2s ease-in forwards;
+#editField.appearWindow,
+#scheduleField.appearWindow,
+#confirmField.appearWindow {
+  animation: appearWindow 0.2s ease-in forwards;
 }
 
-#editField.vanish,
-#scheduleField.vanish,
-#confirmField.vanish {
-  animation: vanish 0.2s ease-in forwards;
+#editField.vanishWindow,
+#scheduleField.vanishWindow,
+#confirmField.vanishWindow {
+  animation: vanishWindow 0.2s ease-in forwards;
 }
 
-.fadeInFromRight {
+.contentAnimation {
   animation: fadeInFromRight 0.3s;
 }
 
@@ -1064,18 +1036,24 @@ body {
   pointer-events: none;
 }
 
-.editBtn.editing {
-  pointer-events: none;
-}
-
-.appointmentDate.hide, .appointmentTime.hide, #confirmField.hide, #scheduleField.hide, #editField.hide, .schedulingInfo.hide {
+#header .menu.hide,
+.saveNoteBtn.hide,
+.deleteNoteBtn.hide,
+.appointmentDate.hide,
+.appointmentTime.hide,
+#confirmField.hide,
+#scheduleField.hide,
+#editField.hide,
+.taskInfo.hide,
+.completedTaskIcon.hide,
+.schedulingRemoveBtn.hide {
   display: none;
   pointer-events: none;
 }
 
 /* Animações */
 
-@keyframes hide {
+@keyframes tasksContainerHide {
   0% {
     filter: blur(0);
   }
@@ -1093,7 +1071,7 @@ body {
   }
 }
 
-@keyframes appear {
+@keyframes appearWindow {
   0% {
     transform: translate(-50%, -50%) scale(0.5);
     opacity: 0;
@@ -1104,7 +1082,7 @@ body {
   }
 }
 
-@keyframes vanish {
+@keyframes vanishWindow {
   0% {
     transform: translate(-50%, -50%) scale(1);
     opacity: 1;
@@ -1141,7 +1119,7 @@ body {
   }
 }
 
-@keyframes removeTask {
+@keyframes vanishTask {
   0% {
     opacity: 1;
     transform: scale(1);
@@ -1156,7 +1134,7 @@ body {
   }
 }
 
-@keyframes appearSchedulingInfo {
+@keyframes appearTaskInfo {
   0% {
     transform: scale(0.9);
   }
@@ -1168,7 +1146,7 @@ body {
   }
 }
 
-@keyframes vanishSchedulingInfo {
+@keyframes vanishTaskInfo {
   0% {
     transform: scale(1);
   }
