@@ -879,7 +879,7 @@ body {
 
 .notePadContainer {
   position: absolute;
-  right: -15.5rem;
+  right: -16rem;
   top: 0;
   display: flex;
   flex-direction: column;
@@ -931,7 +931,7 @@ body {
   color: var(--color4);
 }
 
-.notePad {
+.notePadInput {
   width: 100%;
   height: 60%;
   color: var(--color4);
@@ -953,14 +953,13 @@ body {
 
 .notePadBtnField {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
   align-items: center;
   width: 100%;
   height: 20%;
 }
 
-.saveNoteBtn,
-.deleteNoteBtn,
+.cleanNoteBtn,
 .closeNoteBtn {
   border: none;
   background: var(--color2);
@@ -972,24 +971,14 @@ body {
   font-size: 18px;
 }
 
-.saveNoteBtn {
-  font-size: 18px;
-  color: var(--color6);
-}
-
-.saveNoteBtn:hover {
-  cursor: pointer;
-  padding-bottom: 8px;
-}
-
-.deleteNoteBtn {
+.cleanNoteBtn {
   font-size: 16px;
-  color: var(--color8);
+  color: var(--color4);
 }
 
-.deleteNoteBtn:hover {
+.cleanNoteBtn:hover {
   cursor: pointer;
-  padding-bottom: 8px;
+  color: var(--color3);
 }
 
 /* Janelas e elementos em segundo plano */
@@ -1032,13 +1021,12 @@ body {
   animation: fadeInFromRight 0.3s;
 }
 
-#header.hide {
+#header.pointerEventsNone {
   pointer-events: none;
 }
 
 #header .menu.hide,
-.saveNoteBtn.hide,
-.deleteNoteBtn.hide,
+.cleanNoteBtn.hide,
 .appointmentDate.hide,
 .appointmentTime.hide,
 #confirmField.hide,
@@ -1046,7 +1034,9 @@ body {
 #editField.hide,
 .taskInfo.hide,
 .completedTaskIcon.hide,
-.schedulingRemoveBtn.hide {
+.schedulingRemoveBtn.hide,
+.notePadContainer.hide,
+.notesInfo.hide {
   display: none;
   pointer-events: none;
 }
@@ -1196,22 +1186,22 @@ body {
 
 @keyframes notePadContainerAppear {
   0% {
-    transform: translateX(-30px);
+    transform: translateX(-50px) scale(0.9);
     opacity: 0;
   }
   100% {
-    transform: translateX(0px);
+    transform: translateX(0px) scale(1);
     opacity: 1;
   }
 }
 
 @keyframes notePadContainerVanish {
   0% {
-    transform: translateX(0px);
+    transform: translateX(0px) scale(1);
     opacity: 1;
   }
   100% {
-    transform: translateX(-30px);
+    transform: translateX(-50px) scale(0.9);
     opacity: 0;
   }
 }
