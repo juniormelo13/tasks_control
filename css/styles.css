@@ -245,7 +245,6 @@ body {
   padding: 0 20px;
   border: 2px solid var(--color4);
   transition: border 0.3s, box-shadow 0.3s;
-  animation: appearTask 0.2s ease-in forwards;
 }
 
 .taskField.pointerEventsNone {
@@ -256,7 +255,7 @@ body {
   border: 2px solid var(--color6);
 }
 
-.taskField.completed:hover {
+.taskField.hover.completed:hover {
   box-shadow: 0 0 10px 2px var(--color6);
 }
 
@@ -264,11 +263,11 @@ body {
   border: 2px solid var(--color7);
 }
 
-.taskField.scheduled:hover {
+.taskField.hover.scheduled:hover {
   box-shadow: 0 0 10px 2px var(--color7);
 }
 
-.taskField.scheduled:hover .taskInfo.scheduled {
+.taskField.hover.scheduled:hover .taskInfo.scheduled {
   box-shadow: 0 -3px 10px -1px var(--color7);
 }
 
@@ -276,11 +275,11 @@ body {
   border: 2px solid var(--color3);
 }
 
-.taskField.expireAlert:hover {
+.taskField.hover.expireAlert:hover {
   box-shadow: 0 0 10px 2px var(--color3);
 }
 
-.taskField.expireAlert:hover .taskInfo.expireAlert {
+.taskField.hover.expireAlert:hover .taskInfo.expireAlert {
   box-shadow: 0 -3px 10px -1px var(--color3);
 }
 
@@ -288,11 +287,11 @@ body {
   border: 2px solid var(--color8);
 }
 
-.taskField.expiredTask:hover {
+.taskField.hover.expiredTask:hover {
   box-shadow: 0 0 10px 2px var(--color8);
 }
 
-.taskField.expiredTask:hover .taskInfo.expiredTask {
+.taskField.hover.expiredTask:hover .taskInfo.expiredTask {
   box-shadow: 0 -3px 10px -1px var(--color8);
 }
 
@@ -312,24 +311,24 @@ body {
   font-style: italic;
 }
 
-.taskField:hover {
+.taskField.hover:hover {
   box-shadow: 0 0 10px 2px var(--color4);
 }
 
-.taskField:hover .taskInfo.completed {
+.taskField.hover:hover .taskInfo.completed {
   box-shadow: 0 -3px 10px -1px var(--color6);
 }
 
-.taskField:hover .checkBtn,
-.taskField:hover .scheduleBtn,
-.taskField:hover .editBtn,
-.taskField:hover .removeBtn,
-.taskField:hover .notesBtn {
+.taskField.hover:hover .checkBtn,
+.taskField.hover:hover .scheduleBtn,
+.taskField.hover:hover .editBtn,
+.taskField.hover:hover .removeBtn,
+.taskField.hover:hover .notesBtn {
   transform: translate3d(0px, 0, 0);
   opacity: 1;
 }
 
-.taskField:hover .disabledBtn {
+.taskField.hover:hover .disabledBtn {
   display: none;
 }
 
@@ -750,7 +749,7 @@ body {
   transition: 0.3s;
 }
 
-.taskField:hover .schedulingRemoveBtn {
+.taskField.hover:hover .schedulingRemoveBtn {
   transform: translateY(0);
   opacity: 1;
 }
@@ -880,7 +879,7 @@ body {
 .notePadContainer {
   position: absolute;
   right: -16rem;
-  top: 0;
+  top: -30px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -904,10 +903,11 @@ body {
 .notePadContainer::after {
   content: "";
   position: absolute;
-  left: -10px;
-  top: 0;
-  border-bottom: 10px solid transparent;
-  border-right: 10px solid var(--color2);
+  left: -20px;
+  top: 40px;
+  border-bottom: 20px solid transparent;
+  border-top: 20px solid transparent;
+  border-right: 20px solid var(--color2);
 }
 
 .notePadTop {
@@ -992,6 +992,10 @@ body {
   animation: tasksContainerAppear 0.2s ease-in forwards;
 }
 
+.taskField.appearTask {
+  animation: appearTask 0.2s ease-in forwards;
+}
+
 .taskField.vanishTask {
   animation: vanishTask 0.2s ease-in forwards;
 }
@@ -1021,6 +1025,18 @@ body {
   animation: fadeInFromRight 0.3s;
 }
 
+.notePadContainer.pointerEventsVisible {
+  pointer-events: visible;
+}
+
+.taskField.lowOpacity {
+  animation: lowOpacity 0.3s forwards;
+}
+
+.taskField.normalOpacity {
+  animation: normalOpacity 0.3s forwards;
+}
+
 #header.pointerEventsNone {
   pointer-events: none;
 }
@@ -1042,6 +1058,24 @@ body {
 }
 
 /* Animações */
+
+@keyframes lowOpacity {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.5;
+  }
+}
+
+@keyframes normalOpacity {
+  0% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 1;
+  }
+}
 
 @keyframes tasksContainerHide {
   0% {
