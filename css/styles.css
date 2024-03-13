@@ -27,6 +27,7 @@ body {
   background-color: var(--color1);
   width: 100%;
   overflow-y: scroll;
+  overflow-x: hidden;
 }
 
 ::-webkit-scrollbar {
@@ -397,6 +398,21 @@ body {
 .notesBtn:hover {
   cursor: pointer;
   padding-bottom: 8px;
+}
+
+.notesBtnAlert {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  background-color: var(--color6);
+  border-radius: 50%;
+  bottom: 4px;
+  right: -2px;
+  transition: 0.3s;
+}
+
+.notesBtn:hover .notesBtnAlert {
+  margin-bottom: 4px;
 }
 
 #editField {
@@ -1037,6 +1053,20 @@ body {
   animation: normalOpacity 0.3s forwards;
 }
 
+.taskField.pushNotes {
+  animation: pushNotes 0.3s ease-out;
+}
+
+@keyframes pushNotes {
+  0%,
+  90% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(1.1);
+  }
+}
+
 #header.pointerEventsNone {
   pointer-events: none;
 }
@@ -1052,7 +1082,8 @@ body {
 .completedTaskIcon.hide,
 .schedulingRemoveBtn.hide,
 .notePadContainer.hide,
-.notesInfo.hide {
+.notesInfo.hide,
+.notesBtnAlert.hide {
   display: none;
   pointer-events: none;
 }
@@ -1220,8 +1251,12 @@ body {
 
 @keyframes notePadContainerAppear {
   0% {
-    transform: translateX(-50px) scale(0.9);
+    transform: translateX(-40px) scale(0.8);
     opacity: 0;
+  }
+  50% {
+    transform: translateX(0px) scale(0.8);
+    opacity: 1;
   }
   100% {
     transform: translateX(0px) scale(1);
@@ -1234,8 +1269,12 @@ body {
     transform: translateX(0px) scale(1);
     opacity: 1;
   }
+  50% {
+    transform: translateX(0px) scale(0.8);
+    opacity: 1;
+  }
   100% {
-    transform: translateX(-50px) scale(0.9);
+    transform: translateX(-40px) scale(0.8);
     opacity: 0;
   }
 }
