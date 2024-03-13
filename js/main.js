@@ -221,7 +221,7 @@ function insertTask() {
       )
     );
     cleanNoteBtn.addEventListener("click", () =>
-      cleanNoteClick(notePadInput, cleanNoteBtn)
+      cleanNoteClick(notePadInput, cleanNoteBtn, notePadContainer)
     );
 
     // Botão para conclusão a tarefa
@@ -1153,6 +1153,7 @@ const deleteClick = (taskField) => {
 // Configuração do botão de anotações
 
 let notePadContainerShow = false;
+let inputEquality = true
 
 function notesBtnClick(
   taskField,
@@ -1163,6 +1164,7 @@ function notesBtnClick(
   notesBtn,
   notesBtnAlert
 ) {
+  inputEquality = true
   header.classList.add("pointerEventsNone");
   notePadContainer.classList.remove("hide");
   notePadContainer.classList.add("notePadContainerAppear");
@@ -1204,8 +1206,18 @@ function notesBtnClick(
     const validateField = () => notePadInput.value != "";
     if (!validateField()) {
       cleanNoteBtn.classList.add("hide");
+      if (notesInfo.innerText == notePadInput.value.trim()) {
+        inputEquality = true
+      } else {
+        inputEquality = false
+      }
     } else {
       cleanNoteBtn.classList.remove("hide");
+      if (notesInfo.innerText == notePadInput.value.trim()) {
+        inputEquality = true
+      } else {
+        inputEquality = false
+      }
     }
   };
 }
@@ -1225,35 +1237,74 @@ function closeNoteClick(
   } else {
     notesBtnAlert.classList.add("hide");
   }
-  const tasks = tasksContainer.childNodes;
-  for (const task of tasks) {
-    if (task.classList.contains("lowOpacity")) {
-      task.classList.remove("lowOpacity");
-    }
-    task.classList.add("normalOpacity");
-  }
-  taskField.classList.remove("normalOpacity");
-  taskField.classList.add("pushNotes");
   notePadContainerShow = !notePadContainerShow;
   setTimeout(() => {
     notePadContainer.classList.remove("notePadContainerVanish");
     notePadContainer.classList.add("hide");
-    header.classList.remove("pointerEventsNone");
-    taskField.classList.add("hover");
-    const tasks = tasksContainer.childNodes;
-    for (const task of tasks) {
-      task.classList.remove("pointerEventsNone");
-      if (task.classList.contains("normalOpacity")) {
-        task.classList.remove("normalOpacity");
+    switch (notesInfo.innerText != "" && !inputEquality) {
+      case true:
+        taskField.classList.add("shakeMove");
+        break;
       }
-    }
-    taskField.classList.remove("pushNotes");
-    newTaskInput.focus();
-  }, 300);
+    }, 300);
+  if(notesInfo.innerText != "" && !inputEquality) {
+    setTimeout(() => {  
+      const tasks = tasksContainer.childNodes;
+      for (const task of tasks) {
+        if (task.classList.contains("lowOpacity")) {
+          task.classList.remove("lowOpacity");
+        }
+        task.classList.add("normalOpacity");
+      }
+      taskField.classList.remove("normalOpacity");
+      taskField.classList.remove("shakeMove");
+    }, 500)
+    
+    setTimeout(() => {
+      taskField.classList.add("hover");
+      header.classList.remove("pointerEventsNone");
+      const tasks = tasksContainer.childNodes;
+      for (const task of tasks) {
+        task.classList.remove("pointerEventsNone");
+        if (task.classList.contains("normalOpacity")) {
+          task.classList.remove("normalOpacity");
+        }
+      }
+      newTaskInput.focus();
+    }, 800)
+  } else {
+    setTimeout(() => {  
+      const tasks = tasksContainer.childNodes;
+      for (const task of tasks) {
+        if (task.classList.contains("lowOpacity")) {
+          task.classList.remove("lowOpacity");
+        }
+        task.classList.add("normalOpacity");
+      }
+      taskField.classList.remove("normalOpacity");
+    }, 300)
+    
+    setTimeout(() => {
+      taskField.classList.add("hover");
+      header.classList.remove("pointerEventsNone");
+      const tasks = tasksContainer.childNodes;
+      for (const task of tasks) {
+        task.classList.remove("pointerEventsNone");
+        if (task.classList.contains("normalOpacity")) {
+          task.classList.remove("normalOpacity");
+        }
+      }
+      newTaskInput.focus();
+    }, 600)
+  }
 }
 
-function cleanNoteClick(notePadInput, cleanNoteBtn) {
+function cleanNoteClick(notePadInput, cleanNoteBtn, notePadContainer) {
   notePadInput.value = "";
   notePadInput.focus();
   cleanNoteBtn.classList.add("hide");
+  notePadContainer.classList.add("shakeMove")
+  setTimeout(() => {
+    notePadContainer.classList.remove("shakeMove")
+  }, 300)
 }
