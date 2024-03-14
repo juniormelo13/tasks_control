@@ -492,13 +492,11 @@ const completeClick = (
           taskField,
           tasksContainer.childNodes[length - 0]
         );
-
         taskInfo.classList.remove("completed");
         taskInfo.classList.add("hide");
         infoTextContent.innerText = "";
         completedTaskIcon.classList.add("hide");
         schedulingRemoveBtn.classList.remove("hide");
-
         taskField.classList.remove("vanishTask");
         taskField.classList.add("appearTask");
         checkBtn.disabled = false;
@@ -521,13 +519,11 @@ const completeClick = (
         checkIcon.classList.toggle("fa-thumbs-up");
         checkIcon.classList.toggle("fa-rotate");
         checkIcon.classList.toggle("fa-spin");
-
         tasksContainer.insertBefore(
           taskField,
           tasksContainer.childNodes[length - 1]
         );
         checkBtn.setAttribute("title", "Restaurar");
-
         taskInfo.classList.add("completed");
         taskInfo.classList.remove("hide");
         infoTextContent.innerText = "Tarefa concluída";

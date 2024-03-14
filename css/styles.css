@@ -52,7 +52,7 @@ body {
   align-items: center;
   width: calc(100% - 2px);
   height: 80px;
-  padding: 0 5%;
+  padding: 0 6rem;
   background-color: var(--color2);
   z-index: 1;
 }
@@ -172,7 +172,8 @@ body {
   transition: 0.2s;
 }
 
-#newTaskInput::placeholder {
+#newTaskInput::placeholder,
+#searchTaskInput::placeholder {
   transition: 0.2s;
   color: var(--color13);
 }
@@ -193,7 +194,8 @@ body {
   transition: 0.2s;
 }
 
-#newTaskBtn:hover {
+#newTaskBtn:hover,
+#searchTaskButton:hover {
   cursor: pointer;
   background-color: var(--color2);
   color: var(--color4);
@@ -248,15 +250,15 @@ body {
   transition: border 0.3s, box-shadow 0.3s;
 }
 
-.taskField.pointerEventsNone {
-  pointer-events: none;
+.taskField.hover:hover {
+  box-shadow: 0 0 10px 2px var(--color4);
 }
 
 .taskField.completed {
   border: 2px solid var(--color6);
 }
 
-.taskField.hover.completed:hover {
+.taskField.completed.hover:hover {
   box-shadow: 0 0 10px 2px var(--color6);
 }
 
@@ -264,36 +266,40 @@ body {
   border: 2px solid var(--color7);
 }
 
-.taskField.hover.scheduled:hover {
+.taskField.scheduled.hover:hover {
   box-shadow: 0 0 10px 2px var(--color7);
 }
 
-.taskField.hover.scheduled:hover .taskInfo.scheduled {
-  box-shadow: 0 -3px 10px -1px var(--color7);
-}
-
-.taskField.expireAlert {
+.taskField.scheduled.expireAlert {
   border: 2px solid var(--color3);
 }
 
-.taskField.hover.expireAlert:hover {
+.taskField.scheduled.expireAlert.hover:hover {
   box-shadow: 0 0 10px 2px var(--color3);
-}
-
-.taskField.hover.expireAlert:hover .taskInfo.expireAlert {
-  box-shadow: 0 -3px 10px -1px var(--color3);
 }
 
 .taskField.expiredTask {
   border: 2px solid var(--color8);
 }
 
-.taskField.hover.expiredTask:hover {
+.taskField.expiredTask.hover:hover {
   box-shadow: 0 0 10px 2px var(--color8);
 }
 
-.taskField.hover.expiredTask:hover .taskInfo.expiredTask {
+.taskField.scheduled.hover:hover .taskInfo.scheduled {
+  box-shadow: 0 -3px 10px -1px var(--color7);
+}
+
+.taskField.scheduled.expireAlert.hover:hover .taskInfo.scheduled.expireAlert {
+  box-shadow: 0 -3px 10px -1px var(--color3);
+}
+
+.taskField.expiredTask.hover:hover .taskInfo.expiredTask {
   box-shadow: 0 -3px 10px -1px var(--color8);
+}
+
+.taskField.completed.hover:hover .taskInfo.completed {
+  box-shadow: 0 -3px 10px -1px var(--color6);
 }
 
 .taskContent {
@@ -310,14 +316,6 @@ body {
 .taskContent.completed {
   text-decoration: line-through;
   font-style: italic;
-}
-
-.taskField.hover:hover {
-  box-shadow: 0 0 10px 2px var(--color4);
-}
-
-.taskField.hover:hover .taskInfo.completed {
-  box-shadow: 0 -3px 10px -1px var(--color6);
 }
 
 .taskField.hover:hover .checkBtn,
@@ -774,7 +772,7 @@ body {
   color: var(--color7);
 }
 
-.taskInfo.expireAlert .schedulingRemoveBtn {
+.taskInfo.scheduled.expireAlert .schedulingRemoveBtn {
   color: var(--color3);
 }
 
@@ -872,7 +870,8 @@ body {
 #newTaskInput:focus,
 #editInput:focus,
 #scheduleInputDate:focus,
-#scheduleInputTime:focus {
+#scheduleInputTime:focus,
+#searchTaskInput:focus {
   border: 2px solid var(--color4);
   box-shadow: 0 0 10px 2px var(--color4);
 }
@@ -886,7 +885,8 @@ body {
 }
 
 #newTaskInput:focus::placeholder,
-#editInput:focus::placeholder {
+#editInput:focus::placeholder,
+#searchTaskInput:focus::placeholder {
   color: var(--color4);
 }
 
@@ -997,6 +997,121 @@ body {
   color: var(--color3);
 }
 
+/* Estilização da barra lateral dos filtros */
+
+#leftContainerFilter {
+  position: fixed;
+  background-color: var(--color2);
+  height: calc(100vh - 80px);
+  width: calc(12rem + 60px);
+  top: 80px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 0px;
+}
+
+.searchContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  height: 2.5rem;
+  width: 100%;
+}
+
+#searchTaskInput {
+  width: 100%;
+  height: 100%;
+  border-radius: 5px;
+  outline: none;
+  border: 2px solid var(--color4);
+  background-color: var(--color2);
+  padding: 5px 10px 8px 10px;
+  font-family: "lato", "sans-serif";
+  font-size: 15px;
+  font-weight: bold;
+  color: var(--color4);
+  transition: 0.2s;
+}
+
+#searchTaskButton {
+  text-align: center;
+  font-family: "lato", "sans-serif";
+  font-size: 15px;
+  border-radius: 5px;
+  line-height: 0px;
+  padding: ;
+  border: 2px solid var(--color4);
+  height: 100%;
+  width: 20%;
+  font-weight: bold;
+  background-color: var(--color4);
+  color: var(--color2);
+  transition: 0.2s;
+}
+
+#leftContainerButton {
+  position: absolute;
+  width: 4rem;
+  height: 4rem;
+  border-radius: 50%;
+  right: -2rem;
+  border: none;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: var(--color2);
+  padding: 15px;
+  z-index: -1000;
+}
+
+#leftContainerButton:hover {
+  cursor: pointer;
+}
+
+#leftContainerButton i {
+  color: var(--color4);
+  font-size: 15px;
+  float: right;
+}
+
+#searchTaskInput::-webkit-search-cancel-button {
+  filter: invert(1) brightness(1000%) sepia(0%) saturate(0%);
+  cursor: pointer;
+}
+
+.filterContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  width: 100%;
+  height: 20rem;
+  padding: 0px 30px;
+}
+
+.filterContainer div {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.filterContainer div:hover {
+  cursor: pointer;
+}
+
+.filterContainer p,
+.filterContainer span {
+  color: var(--color4);
+  font-family: "lato", "sans-serif";
+  font-size: 16px;
+  text-transform: capitalize;
+  color: var(--color5);
+  font-weight: bold;
+}
+
 /* Janelas e elementos em segundo plano */
 
 #tasksContainer.tasksContainerHide {
@@ -1041,6 +1156,10 @@ body {
   animation: fadeInFromRight 0.3s;
 }
 
+.taskField.pointerEventsNone {
+  pointer-events: none;
+}
+
 .notePadContainer.pointerEventsVisible {
   pointer-events: visible;
 }
@@ -1053,7 +1172,8 @@ body {
   animation: normalOpacity 0.3s forwards;
 }
 
-.taskField.shakeMove, .notePadContainer.shakeMove {
+.taskField.shakeMove,
+.notePadContainer.shakeMove {
   animation: shakeMove 0.2s ease-in;
 }
 
@@ -1245,7 +1365,7 @@ body {
     box-shadow: none;
   }
   100% {
-    box-shadow: 0 -3px 10px -1px var(--color8);
+    box-shadow: 0 -4px 10px -1px var(--color8);
   }
 }
 
@@ -1254,7 +1374,7 @@ body {
     box-shadow: none;
   }
   100% {
-    box-shadow: 0 -3px 10px -1px var(--color3);
+    box-shadow: 0 -4px 10px -1px var(--color3);
   }
 }
 

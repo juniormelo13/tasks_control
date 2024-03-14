@@ -5,9 +5,12 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="css/styles.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css"/>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css"
+    />
     <script src="js/main.js" defer></script>
-    <link rel="icon" type="image/png" href="./img/icon.png"/>
+    <link rel="icon" type="image/png" href="./img/icon.png" />
     <title>Task Control</title>
   </head>
   <body>
@@ -15,18 +18,29 @@
     <header id="header">
       <!-- Logo do site -->
       <div class="logo">
-        <a href="#"><img src="./img/icon.png" alt="logo do site com um relógio no meio e cercado com blocos nas cores azul, amarelo, vermelho e verde"></a>
+        <a href="#"
+          ><img
+            src="./img/icon.png"
+            alt="logo do site com um relógio no meio e cercado com blocos nas cores azul, amarelo, vermelho e verde"
+        /></a>
       </div>
       <!-- Input onde serão informadas e enviadas as tarefas -->
       <div class="newTaskContainer">
         <div class="newTaskContainerInput">
-          <input type="text" name="newTaskInput" id="newTaskInput" placeholder="Digite a tarefa..."/>
+          <input
+            type="text"
+            name="newTaskInput"
+            id="newTaskInput"
+            placeholder="Digite a tarefa..."
+          />
           <input type="button" value="X" id="cleanInputBtn" />
         </div>
         <input type="button" value="+" id="newTaskBtn" title="Adicionar" />
       </div>
       <!-- Menu do site -->
-      <button id="menuButton"><i id="menuButtonIcon" class="fa-solid fa-bars"></i></button>
+      <button id="menuButton">
+        <i id="menuButtonIcon" class="fa-solid fa-bars"></i>
+      </button>
       <div class="menu hide">
         <a href="#">ajuda</a>
         <a href="#">contato</a>
@@ -41,39 +55,91 @@
     <div id="editField" class="hide">
       <div class="editFieldHeader">
         <h1>editar tarefa</h1>
-        <button id="closeEditFieldBtn"><i class="fa-solid fa-xmark"></i></button>
+        <button id="closeEditFieldBtn">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
       </div>
       <div class="editFieldCenter">
-        <input type="text" name="editInput" id="editInput" placeholder="Digite a tarefa...">
-        <input type="button" value="X" id="cleanEditInputBtn">
+        <input
+          type="text"
+          name="editInput"
+          id="editInput"
+          placeholder="Digite a tarefa..."
+        />
+        <input type="button" value="X" id="cleanEditInputBtn" />
       </div>
       <div class="editFieldFooter">
-        <input type="button" value="editar" id="confirmEditBtn">
-        <input type="button" value="cancelar" id="cancelEditBtn">
+        <input type="button" value="editar" id="confirmEditBtn" />
+        <input type="button" value="cancelar" id="cancelEditBtn" />
       </div>
     </div>
     <!-- Campo de agendamento das tarefas -->
     <div id="scheduleField" class="hide">
       <div class="scheduleFieldHeader">
         <h1>agendar tarefa</h1>
-        <button id="scheduleFieldCloseBtn"><i class="fa-solid fa-xmark"></i></button>
+        <button id="scheduleFieldCloseBtn">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
       </div>
-        <div class="scheduleFieldCenter">
-            <input type="date" name="scheduleInputDate" id="scheduleInputDate" >
-            <input type="time" name="scheduleInputTime" id="scheduleInputTime" >
-        </div>
-          <div class="scheduleFieldFooter">
-            <input type="button" value="agendar" id="confirmScheduleBtn">
-            <input type="button" value="cancelar" id="cancelScheduletBtn">
-          </div>
+      <div class="scheduleFieldCenter">
+        <input type="date" name="scheduleInputDate" id="scheduleInputDate" />
+        <input type="time" name="scheduleInputTime" id="scheduleInputTime" />
+      </div>
+      <div class="scheduleFieldFooter">
+        <input type="button" value="agendar" id="confirmScheduleBtn" />
+        <input type="button" value="cancelar" id="cancelScheduletBtn" />
+      </div>
     </div>
     <!-- Janela para confirmação de exclusão e conclusão de tarefas agendadas -->
     <div id="confirmField" class="hide">
       <p id="confirmFieldText"></p>
       <div class="btnFieldToConfirm">
-        <input type="button" value="Sim" id="btnYes">
-        <input type="button" value="Não" id="btnNo">
+        <input type="button" value="Sim" id="btnYes" />
+        <input type="button" value="Não" id="btnNo" />
       </div>
     </div>
+    <nav id="leftContainerFilter">
+      <div class="searchContainer">
+        <input
+          type="search"
+          name="searchTaskInput"
+          id="searchTaskInput"
+          placeholder="Pesquisar tarefa"
+        />
+        <button id="searchTaskButton">
+          <i class="fa-solid fa-magnifying-glass"></i>
+        </button>
+      </div>
+      <div class="filterContainer">
+        <div class="allTaskFilter">
+          <p>Todas</p>
+          <span>0</span>
+        </div>
+        <div class="pendingTaskFilter">
+          <p>Pendentes</p>
+          <span>0</span>
+        </div>
+        <div class="completedTaskFilter">
+          <p>Concluídas</p>
+          <span>0</span>
+        </div>
+        <div class="scheduleTaskFilter">
+          <p>Agendadas</p>
+          <span>0</span>
+        </div>
+        <div class="expiredTaskFilter">
+          <p>Expiradas</p>
+          <span>0</span>
+        </div>
+      </div>
+      <div class="dateContainer">
+        <p class="date"></p>
+        <p class="day"></p>
+        <p class="hour"></p>
+      </div>
+      <button id="leftContainerButton">
+        <i class="fa-solid fa-angles-right"></i>
+      </button>
+    </nav>
   </body>
 </html>
