@@ -13,7 +13,7 @@ function menuOpenFunction() {
   menuOpen = !menuOpen;
   menu.classList.remove("hide");
   menu.classList.add("menuAppear");
-  menuBtnIcon.classList.toggle("fa-bars");
+  menuBtnIcon.classList.toggle("fa-angles-down");
   menuBtnIcon.classList.toggle("fa-xmark");
   menuBtn.classList.toggle("active");
   menuBtn.disabled = true;
@@ -26,13 +26,13 @@ function menuOpenFunction() {
 function menuCloseFunction() {
   menuOpen = !menuOpen;
   menu.classList.add("menuVanish");
-  menuBtnIcon.classList.toggle("fa-bars");
+  menuBtnIcon.classList.toggle("fa-angles-down");
   menuBtnIcon.classList.toggle("fa-xmark");
-  menuBtn.classList.toggle("active");
   menuBtn.disabled = true;
   setTimeout(() => {
     menu.classList.add("hide");
     menu.classList.remove("menuVanish");
+    menuBtn.classList.toggle("active");
     menuBtn.disabled = false;
   }, 200);
 }
