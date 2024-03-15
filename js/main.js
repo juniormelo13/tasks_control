@@ -199,9 +199,9 @@ function insertTask() {
     cleanNoteBtnIcon.classList.add("fa-solid");
     cleanNoteBtnIcon.classList.add("fa-broom");
     closeNoteBtn.classList.add("closeNoteBtn");
-    closeNoteBtn.setAttribute("title", "Fechar");
+    closeNoteBtn.setAttribute("title", "Salvar");
     closeNoteBtnIcon.classList.add("fa-solid");
-    closeNoteBtnIcon.classList.add("fa-xmark");
+    closeNoteBtnIcon.classList.add("fa-angles-left");
     notePadInput.setAttribute("spellcheck", "false");
     notesInfo.classList.add("notesInfo");
     notesInfo.classList.add("hide");

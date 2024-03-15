@@ -1059,7 +1059,7 @@ body {
 
 .closeNoteBtn:hover {
   cursor: pointer;
-  color: var(--color8);
+  color: var(--color6);
 }
 
 .notePadBtnField {
