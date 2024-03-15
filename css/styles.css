@@ -1136,10 +1136,6 @@ body {
   animation: fadeInFromRight 0.3s;
 }
 
-.taskField.pointerEventsNone {
-  pointer-events: none;
-}
-
 .notePadContainer.pointerEventsVisible {
   pointer-events: visible;
 }
@@ -1176,8 +1172,9 @@ body {
   }
 }
 
-#header.pointerEventsNone {
+#header.pointerEventsNone, .taskField.pointerEventsNone, #mainContainer.pointerEventsNone {
   pointer-events: none;
+  user-select: none;
 }
 
 #header .menu.hide,

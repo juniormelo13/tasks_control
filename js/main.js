@@ -2,6 +2,9 @@
 const newTaskInput = document.querySelector("#newTaskInput");
 newTaskInput.focus();
 
+// Container principal do projeto
+const mainContainer = document.querySelector("#mainContainer")
+
 //Configuração do botão de Menu
 
 const menuBtn = document.querySelector("#menuButton");
@@ -357,6 +360,7 @@ const completeClick = (
   if (taskField.classList.contains("scheduled")) {
     header.classList.add("pointerEventsNone");
     tasksContainer.classList.add("tasksContainerHide");
+    mainContainer.classList.add("pointerEventsNone");
     confirmFieldText.innerText =
       "Esta tarefa possui um agendamento, tem certeza que deseja concluí-la?";
     confirmField.classList.add("appearWindow");
@@ -368,6 +372,7 @@ const completeClick = (
     function confirmCompletedAction() {
       header.classList.remove("pointerEventsNone");
       tasksContainer.classList.remove("tasksContainerHide");
+      mainContainer.classList.remove("pointerEventsNone");
       tasksContainer.classList.add("tasksContainerAppear");
       confirmField.classList.remove("appearWindow");
       confirmField.classList.add("vanishWindow");
@@ -434,6 +439,7 @@ const completeClick = (
     btnNo.onclick = () => {
       header.classList.remove("pointerEventsNone");
       tasksContainer.classList.remove("tasksContainerHide");
+      mainContainer.classList.remove("pointerEventsNone");
       tasksContainer.classList.add("tasksContainerAppear");
       confirmField.classList.remove("appearWindow");
       confirmField.classList.add("vanishWindow");
@@ -560,6 +566,7 @@ const editInput = document.querySelector("#editInput");
 const editClick = (taskContent) => {
   header.classList.add("pointerEventsNone");
   tasksContainer.classList.add("tasksContainerHide");
+  mainContainer.classList.add("pointerEventsNone");
   editField.classList.add("appearWindow");
   editField.classList.remove("hide");
 
@@ -592,6 +599,7 @@ const closeEditField = () => {
     header.classList.remove("pointerEventsNone");
     tasksContainer.classList.remove("tasksContainerAppear");
     tasksContainer.classList.remove("tasksContainerHide");
+    mainContainer.classList.remove("pointerEventsNone");
     newTaskInput.focus();
   }, 200);
   if (editInput.classList.contains("inputError")) {
@@ -655,6 +663,7 @@ function editTask() {
       header.classList.remove("pointerEventsNone");
       tasksContainer.classList.remove("tasksContainerAppear");
       tasksContainer.classList.remove("tasksContainerHide");
+      mainContainer.classList.remove("pointerEventsNone");
       document.querySelector(".editingTask").classList.add("contentAnimation");
       document.querySelector(".editingTask").innerText = editInput.value;
       const tasks = tasksContainer.childNodes;
@@ -702,6 +711,7 @@ const scheduleClick = (
 ) => {
   header.classList.add("pointerEventsNone");
   tasksContainer.classList.add("tasksContainerHide");
+  mainContainer.classList.add("pointerEventsNone");
   scheduleField.classList.add("appearWindow");
   scheduleField.classList.remove("hide");
 
@@ -778,6 +788,7 @@ const closeScheduleField = () => {
     header.classList.remove("pointerEventsNone");
     tasksContainer.classList.remove("tasksContainerAppear");
     tasksContainer.classList.remove("tasksContainerHide");
+    mainContainer.classList.remove("pointerEventsNone");
     scheduleField.classList.add("hide");
     newTaskInput.focus();
   }, 200);
@@ -861,6 +872,7 @@ const confirmSchedule = (
       header.classList.remove("pointerEventsNone");
       tasksContainer.classList.remove("tasksContainerAppear");
       tasksContainer.classList.remove("tasksContainerHide");
+      mainContainer.classList.remove("pointerEventsNone");
       scheduleField.classList.add("hide");
       scheduleBtn.classList.add("disabledBtn");
       taskField.classList.add("scheduled");
@@ -1111,6 +1123,7 @@ const deleteClick = (taskField) => {
   if (taskField.classList.contains("scheduled")) {
     header.classList.add("pointerEventsNone");
     tasksContainer.classList.add("tasksContainerHide");
+    mainContainer.classList.add("pointerEventsNone");
     confirmFieldText.innerText =
       "Esta tarefa possui um agendamento, tem certeza que deseja removê-la?";
     confirmField.classList.add("appearWindow");
@@ -1130,6 +1143,7 @@ const deleteClick = (taskField) => {
         confirmField.classList.add("hide");
         header.classList.remove("pointerEventsNone");
         tasksContainer.classList.remove("tasksContainerHide");
+        mainContainer.classList.remove("pointerEventsNone");
         tasksContainer.classList.remove("tasksContainerAppear");
         confirmField.classList.remove("vanishWindow");
         taskField.remove();
@@ -1143,6 +1157,7 @@ const deleteClick = (taskField) => {
     btnNo.onclick = () => {
       header.classList.remove("pointerEventsNone");
       tasksContainer.classList.remove("tasksContainerHide");
+      mainContainer.classList.remove("pointerEventsNone");
       tasksContainer.classList.add("tasksContainerAppear");
       confirmField.classList.remove("appearWindow");
       confirmField.classList.add("vanishWindow");
