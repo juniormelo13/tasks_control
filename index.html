@@ -32,25 +32,58 @@
             name="newTaskInput"
             id="newTaskInput"
             placeholder="Digite a tarefa..."
+            spellcheck="false"
+            autocomplete="off"
           />
           <input type="button" value="X" id="cleanInputBtn" />
         </div>
         <input type="button" value="+" id="newTaskBtn" title="Adicionar" />
       </div>
-      <!-- Menu do site -->
+      <!-- Filtros de tarefas -->
       <button id="menuButton">
         <i id="menuButtonIcon" class="fa-solid fa-angles-down"></i>
       </button>
       <div class="menu hide">
-        <a href="#">ajuda</a>
-        <a href="#">contato</a>
-        <a href="#">sugestões</a>
-        <a href="#">cadastrar</a>
-        <a href="#">login</a>
+        <div class="searchContainer">
+          <input
+            type="search"
+            name="searchTaskInput"
+            id="searchTaskInput"
+            placeholder="Pesquisar tarefa"
+            spellcheck="false"
+          />
+          <!-- <button id="searchTaskButton">
+            <i class="fa-solid fa-magnifying-glass"></i>
+          </button> -->
+        </div>
+        <div class="filterContainer">
+          <a href="#" class="allTaskFilter"
+            ><p>Todas</p>
+            <span>0</span></a
+          >
+          <a href="#" class="pendingTaskFilter"
+            ><p>Pendentes</p>
+            <span>0</span></a
+          >
+          <a href="#" class="scheduleTaskFilter"
+            ><p>Agendadas</p>
+            <span>0</span></a
+          >
+          <a href="#" class="expiredTaskFilter"
+            ><p>Expiradas</p>
+            <span>0</span></a
+          >
+          <a href="#" class="completedTaskFilter"
+            ><p>Concluídas</p>
+            <span>0</span></a
+          >
+        </div>
       </div>
     </header>
     <!-- Caixa principal do projeto, onde as tarefas serão adicionadas -->
-    <main id="tasksContainer"></main>
+    <main id="mainContainer">
+      <div id="tasksContainer"></div>
+    </main>
     <!-- Campo de edição das tarefas -->
     <div id="editField" class="hide">
       <div class="editFieldHeader">
@@ -65,6 +98,8 @@
           name="editInput"
           id="editInput"
           placeholder="Digite a tarefa..."
+          autocomplete="off"
+          spellcheck="false"
         />
         <input type="button" value="X" id="cleanEditInputBtn" />
       </div>
@@ -98,48 +133,8 @@
         <input type="button" value="Não" id="btnNo" />
       </div>
     </div>
-    <!-- <nav id="leftContainerFilter">
-      <div class="searchContainer">
-        <input
-          type="search"
-          name="searchTaskInput"
-          id="searchTaskInput"
-          placeholder="Pesquisar tarefa"
-        />
-        <button id="searchTaskButton">
-          <i class="fa-solid fa-magnifying-glass"></i>
-        </button>
-      </div>
-      <div class="filterContainer">
-        <div class="allTaskFilter">
-          <p>Todas</p>
-          <span>0</span>
-        </div>
-        <div class="pendingTaskFilter">
-          <p>Pendentes</p>
-          <span>0</span>
-        </div>
-        <div class="completedTaskFilter">
-          <p>Concluídas</p>
-          <span>0</span>
-        </div>
-        <div class="scheduleTaskFilter">
-          <p>Agendadas</p>
-          <span>0</span>
-        </div>
-        <div class="expiredTaskFilter">
-          <p>Expiradas</p>
-          <span>0</span>
-        </div>
-      </div>
-      <div class="dateContainer">
-        <p class="date"></p>
-        <p class="day"></p>
-        <p class="hour"></p>
-      </div>
-      <button id="leftContainerButton">
-        <i class="fa-solid fa-angles-right"></i>
-      </button>
-    </nav> -->
+    <div id="noTaskTextContainer">
+      <h1 id="noTaskText">Não há tarefas!</h1>
+    </div>
   </body>
 </html>

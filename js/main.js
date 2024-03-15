@@ -20,7 +20,7 @@ function menuOpenFunction() {
   setTimeout(() => {
     menu.classList.remove("menuAppear");
     menuBtn.disabled = false;
-  }, 200);
+  }, 300);
 }
 
 function menuCloseFunction() {
@@ -34,7 +34,7 @@ function menuCloseFunction() {
     menu.classList.remove("menuVanish");
     menuBtn.classList.toggle("active");
     menuBtn.disabled = false;
-  }, 200);
+  }, 300);
 }
 
 menuBtn.addEventListener("click", () => {
@@ -77,6 +77,9 @@ newTaskInput.onkeyup = () => {
 // Campo onde as novas tarefas serão adicionadas
 const tasksContainer = document.querySelector("#tasksContainer");
 
+// Função para identificar se o campo de tarefas está vazio
+const noTaskTextContainer = document.querySelector("#noTaskTextContainer");
+
 // Botão para adicionar a nova tarefa
 const newTaskBtn = document.querySelector("#newTaskBtn");
 
@@ -112,6 +115,9 @@ function insertTask() {
     taskField.classList.add("taskField");
     taskField.classList.add("appearTask");
     taskField.classList.add("hover");
+    if (tasksContainer.childNodes.length <= 0) {
+      noTaskTextContainer.classList.add("hide");
+    }
     setTimeout(() => {
       tasksContainer.insertBefore(taskField, tasksContainer.childNodes[0]);
       newTaskInput.focus();
@@ -649,15 +655,23 @@ function editTask() {
       header.classList.remove("pointerEventsNone");
       tasksContainer.classList.remove("tasksContainerAppear");
       tasksContainer.classList.remove("tasksContainerHide");
-      newTaskInput.focus();
       document.querySelector(".editingTask").classList.add("contentAnimation");
       document.querySelector(".editingTask").innerText = editInput.value;
+      const tasks = tasksContainer.childNodes;
+      for (const task of tasks) {
+        task.classList.add("pointerEventsNone");
+      }
     }, 300);
     setTimeout(() => {
       document
-        .querySelector(".editingTask")
-        .classList.remove("contentAnimation");
+      .querySelector(".editingTask")
+      .classList.remove("contentAnimation");
       document.querySelector(".editingTask").classList.remove("editingTask");
+      const tasks = tasksContainer.childNodes;
+      for (const task of tasks) {
+        task.classList.remove("pointerEventsNone");
+      }
+      newTaskInput.focus();
     }, 600);
   }
 }
@@ -1120,6 +1134,9 @@ const deleteClick = (taskField) => {
         confirmField.classList.remove("vanishWindow");
         taskField.remove();
         newTaskInput.focus();
+        if (tasksContainer.childNodes.length <= 0) {
+          noTaskTextContainer.classList.remove("hide");
+        }
       }, 550);
     }
 
@@ -1142,6 +1159,9 @@ const deleteClick = (taskField) => {
     setTimeout(() => {
       taskField.remove();
       newTaskInput.focus();
+      if (tasksContainer.childNodes.length <= 0) {
+        noTaskTextContainer.classList.remove("hide");
+      }
     }, 350);
   }
 };
@@ -1149,7 +1169,7 @@ const deleteClick = (taskField) => {
 // Configuração do botão de anotações
 
 let notePadContainerShow = false;
-let inputEquality = true
+let inputEquality = true;
 
 function notesBtnClick(
   taskField,
@@ -1160,7 +1180,7 @@ function notesBtnClick(
   notesBtn,
   notesBtnAlert
 ) {
-  inputEquality = true
+  inputEquality = true;
   header.classList.add("pointerEventsNone");
   notePadContainer.classList.remove("hide");
   notePadContainer.classList.add("notePadContainerAppear");
@@ -1203,16 +1223,16 @@ function notesBtnClick(
     if (!validateField()) {
       cleanNoteBtn.classList.add("hide");
       if (notesInfo.innerText == notePadInput.value.trim()) {
-        inputEquality = true
+        inputEquality = true;
       } else {
-        inputEquality = false
+        inputEquality = false;
       }
     } else {
       cleanNoteBtn.classList.remove("hide");
       if (notesInfo.innerText == notePadInput.value.trim()) {
-        inputEquality = true
+        inputEquality = true;
       } else {
-        inputEquality = false
+        inputEquality = false;
       }
     }
   };
@@ -1241,10 +1261,10 @@ function closeNoteClick(
       case true:
         taskField.classList.add("shakeMove");
         break;
-      }
-    }, 300);
-  if(notesInfo.innerText != "" && !inputEquality) {
-    setTimeout(() => {  
+    }
+  }, 300);
+  if (notesInfo.innerText != "" && !inputEquality) {
+    setTimeout(() => {
       const tasks = tasksContainer.childNodes;
       for (const task of tasks) {
         if (task.classList.contains("lowOpacity")) {
@@ -1254,8 +1274,8 @@ function closeNoteClick(
       }
       taskField.classList.remove("normalOpacity");
       taskField.classList.remove("shakeMove");
-    }, 500)
-    
+    }, 500);
+
     setTimeout(() => {
       taskField.classList.add("hover");
       header.classList.remove("pointerEventsNone");
@@ -1267,9 +1287,9 @@ function closeNoteClick(
         }
       }
       newTaskInput.focus();
-    }, 800)
+    }, 800);
   } else {
-    setTimeout(() => {  
+    setTimeout(() => {
       const tasks = tasksContainer.childNodes;
       for (const task of tasks) {
         if (task.classList.contains("lowOpacity")) {
@@ -1278,8 +1298,8 @@ function closeNoteClick(
         task.classList.add("normalOpacity");
       }
       taskField.classList.remove("normalOpacity");
-    }, 300)
-    
+    }, 300);
+
     setTimeout(() => {
       taskField.classList.add("hover");
       header.classList.remove("pointerEventsNone");
@@ -1291,7 +1311,7 @@ function closeNoteClick(
         }
       }
       newTaskInput.focus();
-    }, 600)
+    }, 600);
   }
 }
 
@@ -1299,8 +1319,8 @@ function cleanNoteClick(notePadInput, cleanNoteBtn, notePadContainer) {
   notePadInput.value = "";
   notePadInput.focus();
   cleanNoteBtn.classList.add("hide");
-  notePadContainer.classList.add("shakeMove")
+  notePadContainer.classList.add("shakeMove");
   setTimeout(() => {
-    notePadContainer.classList.remove("shakeMove")
-  }, 300)
+    notePadContainer.classList.remove("shakeMove");
+  }, 300);
 }
