@@ -1,9 +1,21 @@
 // Campo de texto principal para informar as tarefas que serão adicionadas
 const newTaskInput = document.querySelector("#newTaskInput");
+
+// Focar no input ao carregar página
 newTaskInput.focus();
 
+// Campo onde as novas tarefas serão adicionadas
+const tasksContainer = document.querySelector("#tasksContainer");
+
+// Função para identificar se o campo de tarefas está vazio
+const noTaskTextContainer = document.querySelector("#noTaskTextContainer");
+
+// Variáveis para guardar tarefas no banco de dados (Local Storage)
+let dbTarefas = [];
+taskRecover();
+
 // Container principal do projeto
-const mainContainer = document.querySelector("#mainContainer")
+const mainContainer = document.querySelector("#mainContainer");
 
 //Configuração do botão de Menu
 
@@ -77,12 +89,6 @@ newTaskInput.onkeyup = () => {
   }
 };
 
-// Campo onde as novas tarefas serão adicionadas
-const tasksContainer = document.querySelector("#tasksContainer");
-
-// Função para identificar se o campo de tarefas está vazio
-const noTaskTextContainer = document.querySelector("#noTaskTextContainer");
-
 // Botão para adicionar a nova tarefa
 const newTaskBtn = document.querySelector("#newTaskBtn");
 
@@ -112,25 +118,32 @@ function insertTask() {
   } else {
     // Caso o valor do input seja válido: Criação dos parágrafos e botões referentes a cada tarefa adicionada
 
+    cleanInputBtn.style.display = "none";
+
     // Tarefa
     const taskField = document.createElement("div");
     newTaskInput.blur();
     taskField.classList.add("taskField");
     taskField.classList.add("appearTask");
     taskField.classList.add("hover");
-    if (tasksContainer.childNodes.length <= 0) {
-      noTaskTextContainer.classList.add("hide");
-    }
     setTimeout(() => {
       tasksContainer.insertBefore(taskField, tasksContainer.childNodes[0]);
       newTaskInput.focus();
     }, 100);
+    setTimeout(() => {
+      taskField.classList.remove("appearTask");
+      // taskRecover();
+    }, 300);
+    if (!noTaskTextContainer.classList.contains("hide")) {
+      noTaskTextContainer.classList.add("hide");
+    }
 
     // Texto da tarefa
     const taskContent = document.createElement("p");
     taskField.appendChild(taskContent);
     taskContent.classList.add("taskContent");
     taskContent.innerText = newTaskInput.value;
+    newTaskInput.value = "";
 
     // Campo dos botões/ícones
     const btnField = document.createElement("div");
@@ -174,7 +187,8 @@ function insertTask() {
         appointmentDate,
         appointmentTime,
         editBtn,
-        infoTextContent
+        infoTextContent,
+        infoTaskSave
       )
     );
 
@@ -226,7 +240,8 @@ function insertTask() {
         taskField,
         notePadInput,
         notesInfo,
-        notesBtnAlert
+        notesBtnAlert,
+        infoTaskSave
       )
     );
     cleanNoteBtn.addEventListener("click", () =>
@@ -255,7 +270,8 @@ function insertTask() {
         taskInfo,
         infoTextContent,
         completedTaskIcon,
-        schedulingRemoveBtn
+        schedulingRemoveBtn,
+        infoTaskSave
       )
     );
 
@@ -268,7 +284,9 @@ function insertTask() {
     editIcon.classList.add("fa-solid");
     editIcon.classList.add("fa-pen");
     editBtn.setAttribute("title", "Editar");
-    editBtn.addEventListener("click", () => editClick(taskContent));
+    editBtn.addEventListener("click", () =>
+      editClick(taskContent, infoTaskSave)
+    );
 
     // Botão para agendamento da tarefa
     const scheduleBtn = document.createElement("button");
@@ -287,7 +305,8 @@ function insertTask() {
         appointmentTime,
         taskInfo,
         infoTextContent,
-        schedulingRemoveBtn
+        schedulingRemoveBtn,
+        infoTaskSave
       )
     );
 
@@ -312,7 +331,8 @@ function insertTask() {
         cleanNoteBtn,
         notesInfo,
         notesBtn,
-        notesBtnAlert
+        notesBtnAlert,
+        infoTaskSave
       )
     );
 
@@ -325,14 +345,16 @@ function insertTask() {
     removeIcon.classList.add("fa-solid");
     removeIcon.classList.add("fa-trash");
     removeBtn.setAttribute("title", "Excluir tarefa");
-    removeBtn.addEventListener("click", () => deleteClick(taskField));
+    removeBtn.addEventListener("click", () =>
+      deleteClick(taskField, infoTaskSave)
+    );
 
-    cleanInputBtn.style.display = "none";
+    // Salvar tarefa no Local Storage
+    const infoTaskSave = new Object();
+    infoTaskSave.taskContent = taskContent.innerText;
 
-    newTaskInput.value = "";
-    setTimeout(() => {
-      taskField.classList.remove("appearTask");
-    }, 300);
+    dbTarefas.unshift(infoTaskSave);
+    localStorage.setItem("tarefas", JSON.stringify(dbTarefas));
   }
 }
 
@@ -355,7 +377,8 @@ const completeClick = (
   taskInfo,
   infoTextContent,
   completedTaskIcon,
-  schedulingRemoveBtn
+  schedulingRemoveBtn,
+  infoTaskSave
 ) => {
   if (taskField.classList.contains("scheduled")) {
     header.classList.add("pointerEventsNone");
@@ -387,6 +410,10 @@ const completeClick = (
           break;
       }
 
+      // Salvar ação no Local Storage
+      infoTaskSave.completeTask = true;
+      localStorage.setItem("tarefas", JSON.stringify(dbTarefas));
+
       setTimeout(() => {
         taskField.classList.add("vanishTask");
       }, 200);
@@ -417,10 +444,10 @@ const completeClick = (
         taskField.classList.add("appearTask");
         taskContent.classList.add("completed");
         taskField.classList.add("completed");
-        tasksContainer.insertBefore(
-          taskField,
-          tasksContainer.childNodes[length - 1]
-        );
+        // tasksContainer.insertBefore(
+        //   taskField,
+        //   tasksContainer.childNodes[length - 1]
+        // );
 
         taskInfo.classList.add("completed");
         taskInfo.classList.remove("hide");
@@ -454,6 +481,10 @@ const completeClick = (
   } else if (taskField.classList.contains("expiredTask")) {
     taskField.classList.add("vanishTask");
 
+    // Salvar ação no Local Storage
+    infoTaskSave.completeTask = true;
+    localStorage.setItem("tarefas", JSON.stringify(dbTarefas));
+
     setTimeout(() => {
       appointmentTime.innerText = "";
       appointmentDate.innerText = "";
@@ -469,10 +500,10 @@ const completeClick = (
       taskField.classList.add("completed");
       checkIcon.classList.add("fa-rotate");
       checkIcon.classList.add("fa-spin");
-      tasksContainer.insertBefore(
-        taskField,
-        tasksContainer.childNodes[length - 1]
-      );
+      // tasksContainer.insertBefore(
+      //   taskField,
+      //   tasksContainer.childNodes[length - 1]
+      // );
       checkBtn.setAttribute("title", "Restaurar");
 
       taskInfo.classList.add("completed");
@@ -491,6 +522,11 @@ const completeClick = (
       taskField.classList.add("vanishTask");
       checkBtn.disabled = true;
       newTaskInput.blur();
+
+      // Salvar ação no Local Storage
+      delete infoTaskSave.completeTask;
+      localStorage.setItem("tarefas", JSON.stringify(dbTarefas));
+
       setTimeout(() => {
         checkBtn.setAttribute("title", "Concluir");
         taskContent.classList.toggle("completed");
@@ -500,10 +536,10 @@ const completeClick = (
         checkIcon.classList.toggle("fa-thumbs-up");
         checkIcon.classList.toggle("fa-rotate");
         checkIcon.classList.toggle("fa-spin");
-        tasksContainer.insertBefore(
-          taskField,
-          tasksContainer.childNodes[length - 0]
-        );
+        // tasksContainer.insertBefore(
+        //   taskField,
+        //   tasksContainer.childNodes[length - 0]
+        // );
         taskInfo.classList.remove("completed");
         taskInfo.classList.add("hide");
         infoTextContent.innerText = "";
@@ -521,6 +557,11 @@ const completeClick = (
       taskField.classList.add("vanishTask");
       checkBtn.disabled = true;
       newTaskInput.blur();
+
+      // Salvar ação no Local Storage
+      infoTaskSave.completeTask = true;
+      localStorage.setItem("tarefas", JSON.stringify(dbTarefas));
+
       setTimeout(() => {
         taskField.classList.remove("vanishTask");
         taskField.classList.add("appearTask");
@@ -531,19 +572,17 @@ const completeClick = (
         checkIcon.classList.toggle("fa-thumbs-up");
         checkIcon.classList.toggle("fa-rotate");
         checkIcon.classList.toggle("fa-spin");
-        tasksContainer.insertBefore(
-          taskField,
-          tasksContainer.childNodes[length - 1]
-        );
+        // tasksContainer.insertBefore(
+        //   taskField,
+        //   tasksContainer.childNodes[length - 1]
+        // );
         checkBtn.setAttribute("title", "Restaurar");
         taskInfo.classList.add("completed");
         taskInfo.classList.remove("hide");
         infoTextContent.innerText = "Tarefa concluída";
         completedTaskIcon.classList.remove("hide");
         schedulingRemoveBtn.classList.add("hide");
-
         checkBtn.disabled = false;
-
         newTaskInput.focus();
       }, 300);
       setTimeout(() => {
@@ -562,8 +601,11 @@ const editField = document.querySelector("#editField");
 // Input de texto para edição das tarefas
 const editInput = document.querySelector("#editInput");
 
+// Configuração do botão de confirmação da edição
+const confirmEditBtn = document.querySelector("#confirmEditBtn");
+
 // Função responsável pela abertura da janela de edição
-const editClick = (taskContent) => {
+const editClick = (taskContent, infoTaskSave) => {
   header.classList.add("pointerEventsNone");
   tasksContainer.classList.add("tasksContainerHide");
   mainContainer.classList.add("pointerEventsNone");
@@ -585,7 +627,22 @@ const editClick = (taskContent) => {
   editInput.select();
   cleanEditInputBtn.style.display = "inline";
 
-  taskContent.classList.add("editingTask");
+  confirmEditBtn.onclick = () => editTask(taskContent, infoTaskSave);
+
+  editInput.onkeypress = (e) => {
+    if (e.key === "Enter") {
+      editTask(taskContent, infoTaskSave);
+    }
+  };
+
+  editInput.onkeyup = () => {
+    const validateEditField = () => editInput.value != "";
+    if (!validateEditField()) {
+      cleanEditInputBtn.style.display = "none";
+    } else {
+      cleanEditInputBtn.style.display = "inline";
+    }
+  };
 };
 
 // Função responsável pelo fechamento da janela de edições
@@ -605,7 +662,6 @@ const closeEditField = () => {
   if (editInput.classList.contains("inputError")) {
     editInput.classList.remove("inputError");
   }
-  document.querySelector(".editingTask").classList.remove("editingTask");
 };
 
 // Adicionado a função de fechamento nos botões de fechar "X" e "Cancelar"
@@ -625,27 +681,7 @@ cleanEditInputBtn.addEventListener("click", () => {
   cleanEditInputBtn.style.display = "none";
 });
 
-editInput.onkeyup = () => {
-  const validateEditField = () => editInput.value != "";
-  if (!validateEditField()) {
-    cleanEditInputBtn.style.display = "none";
-  } else {
-    cleanEditInputBtn.style.display = "inline";
-  }
-};
-
-// Configuração do botão de confirmação da edição
-const confirmEditBtn = document.querySelector("#confirmEditBtn");
-
-editInput.onkeypress = (e) => {
-  if (e.key === "Enter") {
-    editTask();
-  }
-};
-
-confirmEditBtn.onclick = editTask;
-
-function editTask() {
+function editTask(taskContent, infoTaskSave) {
   // Função para validar o input do campo de edição
   const validateEditField = () => editInput.value.trim() != "";
   if (!validateEditField()) {
@@ -657,6 +693,11 @@ function editTask() {
     editField.classList.add("vanishWindow");
     editField.classList.remove("appearWindow");
     tasksContainer.classList.add("tasksContainerAppear");
+
+    // Salvar ação no Local Storage
+    infoTaskSave["taskContent"] = editInput.value;
+    localStorage.setItem("tarefas", JSON.stringify(dbTarefas));
+
     setTimeout(() => {
       editField.classList.remove("vanishWindow");
       editField.classList.add("hide");
@@ -664,18 +705,15 @@ function editTask() {
       tasksContainer.classList.remove("tasksContainerAppear");
       tasksContainer.classList.remove("tasksContainerHide");
       mainContainer.classList.remove("pointerEventsNone");
-      document.querySelector(".editingTask").classList.add("contentAnimation");
-      document.querySelector(".editingTask").innerText = editInput.value;
+      taskContent.classList.add("contentAnimation");
+      taskContent.innerText = editInput.value;
       const tasks = tasksContainer.childNodes;
       for (const task of tasks) {
         task.classList.add("pointerEventsNone");
       }
     }, 300);
     setTimeout(() => {
-      document
-      .querySelector(".editingTask")
-      .classList.remove("contentAnimation");
-      document.querySelector(".editingTask").classList.remove("editingTask");
+      taskContent.classList.remove("contentAnimation");
       const tasks = tasksContainer.childNodes;
       for (const task of tasks) {
         task.classList.remove("pointerEventsNone");
@@ -707,7 +745,8 @@ const scheduleClick = (
   appointmentTime,
   taskInfo,
   infoTextContent,
-  schedulingRemoveBtn
+  schedulingRemoveBtn,
+  infoTaskSave
 ) => {
   header.classList.add("pointerEventsNone");
   tasksContainer.classList.add("tasksContainerHide");
@@ -759,7 +798,8 @@ const scheduleClick = (
       appointmentTime,
       taskInfo,
       infoTextContent,
-      schedulingRemoveBtn
+      schedulingRemoveBtn,
+      infoTaskSave
     );
 
   scheduleField.onkeypress = (e) => {
@@ -771,7 +811,8 @@ const scheduleClick = (
         appointmentTime,
         taskInfo,
         infoTextContent,
-        schedulingRemoveBtn
+        schedulingRemoveBtn,
+        infoTaskSave
       );
     }
   };
@@ -813,7 +854,8 @@ const confirmSchedule = (
   appointmentTime,
   taskInfo,
   infoTextContent,
-  schedulingRemoveBtn
+  schedulingRemoveBtn,
+  infoTaskSave
 ) => {
   const currentDate = new Date();
   const scheduleInputDateValue = scheduleInputDate.value;
@@ -955,6 +997,14 @@ const confirmSchedule = (
 
     appointmentDate.innerText = scheduleInputDateValue;
     appointmentTime.innerText = scheduleInputTimeValue;
+
+    // Salvar ação no Local Storage
+    infoTaskSave.scheduledTask = [
+      true,
+      scheduleInputDateValue,
+      scheduleInputTimeValue,
+    ];
+    localStorage.setItem("tarefas", JSON.stringify(dbTarefas));
   }
 };
 
@@ -964,7 +1014,6 @@ setInterval(() => {
   const currentDate = currentFullDate.toLocaleDateString("fr-CA");
 
   const tasks = tasksContainer.childNodes;
-
   for (const task of tasks) {
     if (
       task.classList.contains("scheduled") ||
@@ -1083,9 +1132,15 @@ const schedulingRemoveClick = (
   appointmentDate,
   appointmentTime,
   editBtn,
-  infoTextContent
+  infoTextContent,
+  infoTaskSave
 ) => {
   taskInfo.classList.add("vanishTaskInfo");
+
+  // Salvar ação no Local Storage
+  delete infoTaskSave.scheduledTask;
+  localStorage.setItem("tarefas", JSON.stringify(dbTarefas));
+
   setTimeout(() => {
     appointmentTime.innerText = "";
     appointmentDate.innerText = "";
@@ -1119,7 +1174,7 @@ const schedulingRemoveClick = (
 };
 
 // Configuração do botão de exclusão da tarefa
-const deleteClick = (taskField) => {
+const deleteClick = (taskField, infoTaskSave) => {
   if (taskField.classList.contains("scheduled")) {
     header.classList.add("pointerEventsNone");
     tasksContainer.classList.add("tasksContainerHide");
@@ -1136,6 +1191,12 @@ const deleteClick = (taskField) => {
       confirmField.classList.remove("appearWindow");
       confirmField.classList.add("vanishWindow");
       tasksContainer.classList.add("tasksContainerAppear");
+
+      // Salvar ação no Local Storage
+      const index = dbTarefas.indexOf(infoTaskSave);
+      dbTarefas.splice(index, 1);
+      localStorage.setItem("tarefas", JSON.stringify(dbTarefas));
+
       setTimeout(() => {
         taskField.classList.add("vanishTask");
       }, 200);
@@ -1171,11 +1232,19 @@ const deleteClick = (taskField) => {
     };
   } else {
     taskField.classList.add("vanishTask");
+
+    // Salvar ação no Local Storage
+    const index = dbTarefas.indexOf(infoTaskSave);
+    dbTarefas.splice(index, 1);
+    localStorage.setItem("tarefas", JSON.stringify(dbTarefas));
+
     setTimeout(() => {
       taskField.remove();
       newTaskInput.focus();
-      if (tasksContainer.childNodes.length <= 0) {
-        noTaskTextContainer.classList.remove("hide");
+      if (tasksContainer.childNodes.length == 0) {
+        if (noTaskTextContainer.classList.contains("hide")) {
+          noTaskTextContainer.classList.remove("hide");
+        }
       }
     }, 350);
   }
@@ -1193,7 +1262,8 @@ function notesBtnClick(
   cleanNoteBtn,
   notesInfo,
   notesBtn,
-  notesBtnAlert
+  notesBtnAlert,
+  infoTaskSave
 ) {
   inputEquality = true;
   header.classList.add("pointerEventsNone");
@@ -1210,6 +1280,8 @@ function notesBtnClick(
   if (notesInfo.innerText == "") {
     notePadInput.focus();
     cleanNoteBtn.classList.add("hide");
+  } else {
+    cleanNoteBtn.classList.remove("hide");
   }
   setTimeout(() => {
     notePadContainer.classList.remove("notePadContainerAppear");
@@ -1229,7 +1301,8 @@ function notesBtnClick(
         taskField,
         notePadInput,
         notesInfo,
-        notesBtnAlert
+        notesBtnAlert,
+        infoTaskSave
       );
     }
   };
@@ -1258,7 +1331,8 @@ function closeNoteClick(
   taskField,
   notePadInput,
   notesInfo,
-  notesBtnAlert
+  notesBtnAlert,
+  infoTaskSave
 ) {
   notePadContainer.classList.add("notePadContainerVanish");
   notesInfo.innerText = notePadInput.value.trim();
@@ -1279,6 +1353,16 @@ function closeNoteClick(
     }
   }, 300);
   if (notesInfo.innerText != "" && !inputEquality) {
+    // Salvar ação no Local Storage
+    // if (infoTaskSave.savedNote == true) {
+    //   delete infoTaskSave.savedNote;
+    //   localStorage.setItem("tarefas", JSON.stringify(dbTarefas));
+    // }
+
+    // Salvar ação no Local Storage
+    infoTaskSave.savedNote = [true, notesInfo.innerText];
+    localStorage.setItem("tarefas", JSON.stringify(dbTarefas));
+
     setTimeout(() => {
       const tasks = tasksContainer.childNodes;
       for (const task of tasks) {
@@ -1338,4 +1422,280 @@ function cleanNoteClick(notePadInput, cleanNoteBtn, notePadContainer) {
   setTimeout(() => {
     notePadContainer.classList.remove("shakeMove");
   }, 300);
+}
+
+function taskRecover() {
+  if (localStorage.getItem("tarefas")) {
+    dbTarefas = JSON.parse(localStorage.getItem("tarefas"));
+  }
+  if (dbTarefas.length == 0) {
+    noTaskTextContainer.classList.remove("hide");
+  } else {
+    if (!noTaskTextContainer.classList.contains("hide")) {
+      noTaskTextContainer.classList.add("hide");
+    }
+  }
+  tasksContainer.innerHTML = "";
+  for (let i = 0; i < dbTarefas.length; i++) {
+    // Recuperação dos dados de cada tarefa no array e renderização em tela
+
+    const infoTaskSave = dbTarefas[i];
+
+    // Tarefa
+    const taskField = document.createElement("div");
+    taskField.classList.add("taskField");
+    taskField.classList.add("hover");
+    tasksContainer.appendChild(taskField);
+
+    // Texto da tarefa
+    const taskContent = document.createElement("p");
+    taskField.appendChild(taskContent);
+    taskContent.classList.add("taskContent");
+    taskContent.innerText = infoTaskSave.taskContent;
+
+    // Campo dos botões/ícones
+    const btnField = document.createElement("div");
+    taskField.appendChild(btnField);
+    btnField.classList.add("btnField");
+
+    // Criação do campo de informações da tarefa
+    const taskInfo = document.createElement("div");
+    const infoTextContent = document.createElement("p");
+    const schedulingRemoveBtn = document.createElement("button");
+    const schedulingRemoveBtnIcon = document.createElement("i");
+    const appointmentDate = document.createElement("span");
+    const appointmentTime = document.createElement("span");
+    const completedTaskIcon = document.createElement("i");
+    taskInfo.classList.add("taskInfo");
+    taskInfo.classList.add("hide");
+    infoTextContent.classList.add("infoTextContent");
+    appointmentDate.classList.add("appointmentDate");
+    appointmentDate.classList.add("hide");
+    appointmentTime.classList.add("appointmentTime");
+    appointmentTime.classList.add("hide");
+    completedTaskIcon.classList.add("completedTaskIcon");
+    completedTaskIcon.classList.add("fa-solid");
+    completedTaskIcon.classList.add("fa-check");
+    completedTaskIcon.classList.add("hide");
+    taskField.appendChild(taskInfo);
+    taskInfo.appendChild(infoTextContent);
+    taskInfo.appendChild(schedulingRemoveBtn);
+    taskInfo.appendChild(appointmentDate);
+    taskInfo.appendChild(appointmentTime);
+    taskInfo.appendChild(completedTaskIcon);
+    schedulingRemoveBtn.classList.add("schedulingRemoveBtn");
+    schedulingRemoveBtn.appendChild(schedulingRemoveBtnIcon);
+    schedulingRemoveBtnIcon.classList.add("fa-regular");
+    schedulingRemoveBtnIcon.classList.add("fa-circle-xmark");
+    schedulingRemoveBtn.addEventListener("click", () =>
+      schedulingRemoveClick(
+        taskInfo,
+        taskField,
+        scheduleBtn,
+        appointmentDate,
+        appointmentTime,
+        editBtn,
+        infoTextContent,
+        infoTaskSave
+      )
+    );
+
+    // Campo para anotações da tarefa
+    const notePadContainer = document.createElement("div");
+    const notePadTop = document.createElement("div");
+    const notePadTitle = document.createElement("p");
+    const closeNoteBtn = document.createElement("button");
+    const notePadInput = document.createElement("textarea");
+    const notePadBtnField = document.createElement("div");
+    const cleanNoteBtn = document.createElement("button");
+    const cleanNoteBtnIcon = document.createElement("i");
+    const closeNoteBtnIcon = document.createElement("i");
+    const notesInfo = document.createElement("span");
+    notePadContainer.classList.add("notePadContainer");
+    notePadContainer.classList.add("hide");
+    notePadTop.classList.add("notePadTop");
+    notePadTitle.classList.add("notePadTitle");
+    notePadInput.classList.add("notePadInput");
+    notePadInput.setAttribute("name", "notePadInput");
+    notePadBtnField.classList.add("notePadBtnField");
+    cleanNoteBtn.classList.add("cleanNoteBtn");
+    cleanNoteBtn.classList.add("hide");
+    cleanNoteBtn.setAttribute("title", "Limpar Anotações");
+    cleanNoteBtnIcon.classList.add("fa-solid");
+    cleanNoteBtnIcon.classList.add("fa-broom");
+    closeNoteBtn.classList.add("closeNoteBtn");
+    closeNoteBtn.setAttribute("title", "Salvar");
+    closeNoteBtnIcon.classList.add("fa-solid");
+    closeNoteBtnIcon.classList.add("fa-angles-left");
+    notePadInput.setAttribute("spellcheck", "false");
+    notesInfo.classList.add("notesInfo");
+    notesInfo.classList.add("hide");
+    taskField.appendChild(notePadContainer);
+    notePadContainer.appendChild(notePadTop);
+    notePadContainer.appendChild(notePadInput);
+    notePadContainer.appendChild(notePadBtnField);
+    notePadContainer.appendChild(notesInfo);
+    notePadTop.appendChild(notePadTitle);
+    notePadTitle.innerText = "Anotações";
+    notePadTop.appendChild(closeNoteBtn);
+    closeNoteBtn.appendChild(closeNoteBtnIcon);
+    notePadBtnField.appendChild(cleanNoteBtn);
+    cleanNoteBtn.appendChild(cleanNoteBtnIcon);
+
+    closeNoteBtn.addEventListener("click", () =>
+      closeNoteClick(
+        notePadContainer,
+        taskField,
+        notePadInput,
+        notesInfo,
+        notesBtnAlert,
+        infoTaskSave
+      )
+    );
+    cleanNoteBtn.addEventListener("click", () =>
+      cleanNoteClick(notePadInput, cleanNoteBtn, notePadContainer)
+    );
+
+    // Botão para conclusão a tarefa
+    const checkBtn = document.createElement("button");
+    btnField.appendChild(checkBtn);
+    checkBtn.classList.add("checkBtn");
+    const checkIcon = document.createElement("i");
+    checkBtn.appendChild(checkIcon);
+    checkIcon.classList.add("fa-solid");
+    checkIcon.classList.add("fa-thumbs-up");
+    checkBtn.setAttribute("title", "Concluir");
+    checkBtn.addEventListener("click", () =>
+      completeClick(
+        taskField,
+        taskContent,
+        scheduleBtn,
+        editBtn,
+        checkBtn,
+        checkIcon,
+        appointmentDate,
+        appointmentTime,
+        taskInfo,
+        infoTextContent,
+        completedTaskIcon,
+        schedulingRemoveBtn,
+        infoTaskSave
+      )
+    );
+
+    //Botão para edição da tarefa
+    const editBtn = document.createElement("button");
+    btnField.appendChild(editBtn);
+    editBtn.classList.add("editBtn");
+    const editIcon = document.createElement("i");
+    editBtn.appendChild(editIcon);
+    editIcon.classList.add("fa-solid");
+    editIcon.classList.add("fa-pen");
+    editBtn.setAttribute("title", "Editar");
+    editBtn.addEventListener("click", () =>
+      editClick(taskContent, infoTaskSave)
+    );
+
+    // Botão para agendamento da tarefa
+    const scheduleBtn = document.createElement("button");
+    btnField.appendChild(scheduleBtn);
+    scheduleBtn.classList.add("scheduleBtn");
+    const scheduleIcon = document.createElement("i");
+    scheduleBtn.appendChild(scheduleIcon);
+    scheduleIcon.classList.add("fa-solid");
+    scheduleIcon.classList.add("fa-clock");
+    scheduleBtn.setAttribute("title", "Agendar");
+    scheduleBtn.addEventListener("click", () =>
+      scheduleClick(
+        taskField,
+        scheduleBtn,
+        appointmentDate,
+        appointmentTime,
+        taskInfo,
+        infoTextContent,
+        schedulingRemoveBtn,
+        infoTaskSave
+      )
+    );
+
+    // Botão para adiconar anotações sobre a tarefa
+    const notesBtn = document.createElement("button");
+    btnField.appendChild(notesBtn);
+    notesBtn.classList.add("notesBtn");
+    const notesBtnIcon = document.createElement("i");
+    const notesBtnAlert = document.createElement("span");
+    notesBtn.appendChild(notesBtnIcon);
+    notesBtn.appendChild(notesBtnAlert);
+    notesBtnIcon.classList.add("fa-solid");
+    notesBtnIcon.classList.add("fa-file-lines");
+    notesBtnAlert.classList.add("notesBtnAlert");
+    notesBtnAlert.classList.add("hide");
+    notesBtn.setAttribute("title", "Anotações");
+    notesBtn.addEventListener("click", () =>
+      notesBtnClick(
+        taskField,
+        notePadInput,
+        notePadContainer,
+        cleanNoteBtn,
+        notesInfo,
+        notesBtn,
+        notesBtnAlert,
+        infoTaskSave
+      )
+    );
+
+    // Botão para exclusão da tarefa
+    const removeBtn = document.createElement("button");
+    btnField.appendChild(removeBtn);
+    removeBtn.classList.add("removeBtn");
+    const removeIcon = document.createElement("i");
+    removeBtn.appendChild(removeIcon);
+    removeIcon.classList.add("fa-solid");
+    removeIcon.classList.add("fa-trash");
+    removeBtn.setAttribute("title", "Excluir tarefa");
+    removeBtn.addEventListener("click", () =>
+      deleteClick(taskField, infoTaskSave)
+    );
+
+    switch (infoTaskSave.completeTask) {
+      case true:
+        taskContent.classList.toggle("completed");
+        taskField.classList.toggle("completed");
+        editBtn.classList.toggle("disabledBtn");
+        scheduleBtn.classList.toggle("disabledBtn");
+        checkIcon.classList.toggle("fa-thumbs-up");
+        checkIcon.classList.toggle("fa-rotate");
+        checkIcon.classList.toggle("fa-spin");
+        // tasksContainer.insertBefore(
+        //   taskField,
+        //   tasksContainer.childNodes[length - 1]
+        // );
+        checkBtn.setAttribute("title", "Restaurar");
+        taskInfo.classList.add("completed");
+        taskInfo.classList.remove("hide");
+        infoTextContent.innerText = "Tarefa concluída";
+        completedTaskIcon.classList.remove("hide");
+        schedulingRemoveBtn.classList.add("hide");
+        break;
+    }
+
+    switch (infoTaskSave.scheduledTask && infoTaskSave.scheduledTask[0]) {
+      case true:
+        scheduleBtn.classList.add("disabledBtn");
+        taskInfo.classList.remove("hide");
+        taskField.classList.add("scheduled");
+        taskInfo.classList.add("scheduled");
+        schedulingRemoveBtn.setAttribute("title", "Cancelar agendamento");
+        appointmentDate.innerText = infoTaskSave.scheduledTask[1];
+        appointmentTime.innerText = infoTaskSave.scheduledTask[2];
+        break;
+    }
+
+    switch (infoTaskSave.savedNote && infoTaskSave.savedNote[0]) {
+      case true:
+        notesInfo.innerText = infoTaskSave.savedNote[1];
+        notesBtnAlert.classList.remove("hide");
+        break;
+    }
+  }
 }
