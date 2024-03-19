@@ -412,6 +412,7 @@ const completeClick = (
 
       // Salvar ação no Local Storage
       infoTaskSave.completeTask = true;
+      delete infoTaskSave.scheduledTask
       localStorage.setItem("tarefas", JSON.stringify(dbTarefas));
 
       setTimeout(() => {
@@ -953,44 +954,16 @@ const confirmSchedule = (
     );
 
     // Inclusão dos dados no campo de informações sobre o agendamento
-    const difSeconds =
-      (setDateForScheduling.getTime() - currentDate.getTime()) / 1000;
+    const difSeconds = (setDateForScheduling.getTime() - currentDate.getTime()) / 1000;
     const difMinutes = difSeconds / 60;
-    const difDaysOfTheWeek =
-      setDateForScheduling.getDay() - currentDate.getDay();
+    const difDaysOfTheWeek = setDateForScheduling.getDay() - currentDate.getDay();
 
     if (difMinutes > 2879) {
-      infoTextContent.innerText =
-        "Agendado para " +
-        dayForinfoTextContent +
-        ", " +
-        dateForinfoTextContent +
-        " às " +
-        timeForinfoTextContent;
-    } else if (
-      difMinutes > 1440 &&
-      difMinutes <= 2879 &&
-      difDaysOfTheWeek >= 2
-    ) {
-      infoTextContent.innerText =
-        "Agendado para " +
-        dayForinfoTextContent +
-        ", " +
-        dateForinfoTextContent +
-        " às " +
-        timeForinfoTextContent;
-    } else if (
-      difMinutes > 1440 &&
-      difMinutes <= 2879 &&
-      difDaysOfTheWeek == -5
-    ) {
-      infoTextContent.innerText =
-        "Agendado para " +
-        dayForinfoTextContent +
-        ", " +
-        dateForinfoTextContent +
-        " às " +
-        timeForinfoTextContent;
+      infoTextContent.innerText = "Agendado para " + dayForinfoTextContent + ", " +  dateForinfoTextContent + " às " + timeForinfoTextContent;
+    } else if (difMinutes > 1440 && difMinutes <= 2879 && difDaysOfTheWeek >= 2) {
+      infoTextContent.innerText = "Agendado para " + dayForinfoTextContent + ", " + dateForinfoTextContent + " às " + timeForinfoTextContent;
+    } else if (difMinutes > 1440 && difMinutes <= 2879 && difDaysOfTheWeek == -5) {
+      infoTextContent.innerText = "Agendado para " + dayForinfoTextContent + ", " + dateForinfoTextContent + " às " + timeForinfoTextContent;
     } else {
       infoTextContent.innerText = "";
     }
@@ -1041,85 +1014,35 @@ setInterval(() => {
       const difDays = difMinutes / (60 * 24);
 
       if (difTimeInSeconds <= 0) {
-        taskInfo.classList.add("expiredTask");
         taskInfo.classList.remove("scheduled");
-        if (task.classList.contains("expireAlert")) {
-          task.classList.remove("expireAlert");
-        }
-        if (taskInfo.classList.contains("expireAlert")) {
-          taskInfo.classList.remove("expireAlert");
-        }
-        task.classList.add("expiredTask");
+        taskInfo.classList.remove("expireAlert");
+        taskInfo.classList.add("expiredTask");
         task.classList.remove("scheduled");
+        task.classList.remove("expireAlert");
+        task.classList.add("expiredTask");
         schedulingRemoveBtn.setAttribute("title", "Restaurar");
         editBtn.classList.add("disabledBtn");
-
         if (currentDate === appointmentDate.innerText) {
-          infoTextContent.innerText =
-            "Expirou hoje às " + appointmentTime.innerText;
-        } else if (
-          difDays < 2 &&
-          schedulingDate.getDay() == 6 &&
-          currentFullDate.getDay() == 0
-        ) {
-          infoTextContent.innerText =
-            "Expirou ontem às " + appointmentTime.innerText;
-        } else if (
-          difDays < 2 &&
-          currentFullDate.getDay() - schedulingDate.getDay() == 1
-        ) {
-          infoTextContent.innerText =
-            "Expirou ontem às " + appointmentTime.innerText;
+          infoTextContent.innerText = "Expirou hoje às " + appointmentTime.innerText;
+        } else if (difDays < 2 && schedulingDate.getDay() == 6 && currentFullDate.getDay() == 0) {
+          infoTextContent.innerText = "Expirou ontem às " + appointmentTime.innerText;
+        } else if (difDays < 2 && currentFullDate.getDay() - schedulingDate.getDay() == 1) {
+          infoTextContent.innerText = "Expirou ontem às " + appointmentTime.innerText;
         } else {
-          infoTextContent.innerText =
-            "Expirou em " +
-            schedulingDate.toLocaleDateString("pt-BR") +
-            " às " +
-            appointmentTime.innerText;
+          infoTextContent.innerText = "Expirou em " + schedulingDate.toLocaleDateString("pt-BR") + " às " + appointmentTime.innerText;
         }
-      } else if (
-        difTimeInMinutes > 0 &&
-        difTimeInMinutes <= 30 &&
-        currentDate === appointmentDate.innerText
-      ) {
-        infoTextContent.innerText =
-          "Agendado para hoje às " +
-          appointmentTime.innerText +
-          " - Expira em " +
-          Math.ceil(difTimeInMinutes) +
-          " min";
+      } else if (difTimeInMinutes > 0 && difTimeInMinutes <= 30 && currentDate === appointmentDate.innerText) {
+        infoTextContent.innerText = "Agendado para hoje às " + appointmentTime.innerText + " - Expira em " + Math.ceil(difTimeInMinutes) + " min";
         task.classList.add("expireAlert");
         taskInfo.classList.add("expireAlert");
-      } else if (
-        difTimeInMinutes > 30 &&
-        difTimeInMinutes <= 60 &&
-        currentDate === appointmentDate.innerText
-      ) {
-        infoTextContent.innerText =
-          "Agendado para hoje às " +
-          appointmentTime.innerText +
-          " - Expira em " +
-          Math.ceil(difTimeInMinutes) +
-          " min";
-      } else if (
-        currentDate === appointmentDate.innerText &&
-        difTimeInMinutes > 60
-      ) {
-        infoTextContent.innerText =
-          "Agendado para hoje às " + appointmentTime.innerText;
-      } else if (
-        difTimeInDays < 2 &&
-        schedulingDate.getDay() == 0 &&
-        currentFullDate.getDay() == 6
-      ) {
-        infoTextContent.innerText =
-          "Agendado para amanhã às " + appointmentTime.innerText;
-      } else if (
-        difTimeInDays < 2 &&
-        schedulingDate.getDay() - currentFullDate.getDay() == 1
-      ) {
-        infoTextContent.innerText =
-          "Agendado para amanhã às " + appointmentTime.innerText;
+      } else if (difTimeInMinutes > 30 && difTimeInMinutes <= 60 && currentDate === appointmentDate.innerText) {
+        infoTextContent.innerText = "Agendado para hoje às " + appointmentTime.innerText + " - Expira em " + Math.ceil(difTimeInMinutes) + " min";
+      } else if (currentDate === appointmentDate.innerText && difTimeInMinutes > 60) {
+        infoTextContent.innerText = "Agendado para hoje às " + appointmentTime.innerText;
+      } else if (difTimeInDays < 2 && schedulingDate.getDay() == 0 && currentFullDate.getDay() == 6) {
+        infoTextContent.innerText = "Agendado para amanhã às " + appointmentTime.innerText;
+      } else if (difTimeInDays < 2 && schedulingDate.getDay() - currentFullDate.getDay() == 1) {
+        infoTextContent.innerText = "Agendado para amanhã às " + appointmentTime.innerText;
       }
     }
   }
@@ -1353,12 +1276,7 @@ function closeNoteClick(
     }
   }, 300);
   if (notesInfo.innerText != "" && !inputEquality) {
-    // Salvar ação no Local Storage
-    // if (infoTaskSave.savedNote == true) {
-    //   delete infoTaskSave.savedNote;
-    //   localStorage.setItem("tarefas", JSON.stringify(dbTarefas));
-    // }
-
+    
     // Salvar ação no Local Storage
     infoTaskSave.savedNote = [true, notesInfo.innerText];
     localStorage.setItem("tarefas", JSON.stringify(dbTarefas));
@@ -1388,6 +1306,15 @@ function closeNoteClick(
       newTaskInput.focus();
     }, 800);
   } else {
+    if(notesInfo.innerText == "") {
+
+      // Salvar ação no Local Storage
+      if (infoTaskSave.savedNote) {
+        delete infoTaskSave.savedNote;
+        localStorage.setItem("tarefas", JSON.stringify(dbTarefas));
+      }
+
+    }
     setTimeout(() => {
       const tasks = tasksContainer.childNodes;
       for (const task of tasks) {
