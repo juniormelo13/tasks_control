@@ -196,12 +196,12 @@ function insertTask() {
     const notePadContainer = document.createElement("div");
     const notePadTop = document.createElement("div");
     const notePadTitle = document.createElement("p");
-    const closeNoteBtn = document.createElement("button");
+    const saveNoteBtn = document.createElement("button");
     const notePadInput = document.createElement("textarea");
     const notePadBtnField = document.createElement("div");
     const cleanNoteBtn = document.createElement("button");
     const cleanNoteBtnIcon = document.createElement("i");
-    const closeNoteBtnIcon = document.createElement("i");
+    const saveNoteBtnIcon = document.createElement("i");
     const notesInfo = document.createElement("span");
     notePadContainer.classList.add("notePadContainer");
     notePadContainer.classList.add("hide");
@@ -215,10 +215,10 @@ function insertTask() {
     cleanNoteBtn.setAttribute("title", "Limpar Anotações");
     cleanNoteBtnIcon.classList.add("fa-solid");
     cleanNoteBtnIcon.classList.add("fa-broom");
-    closeNoteBtn.classList.add("closeNoteBtn");
-    closeNoteBtn.setAttribute("title", "Salvar");
-    closeNoteBtnIcon.classList.add("fa-solid");
-    closeNoteBtnIcon.classList.add("fa-angles-left");
+    saveNoteBtn.classList.add("saveNoteBtn");
+    saveNoteBtn.setAttribute("title", "Salvar");
+    saveNoteBtnIcon.classList.add("fa-solid");
+    saveNoteBtnIcon.classList.add("fa-angles-left");
     notePadInput.setAttribute("spellcheck", "false");
     notesInfo.classList.add("notesInfo");
     notesInfo.classList.add("hide");
@@ -229,13 +229,13 @@ function insertTask() {
     notePadContainer.appendChild(notesInfo);
     notePadTop.appendChild(notePadTitle);
     notePadTitle.innerText = "Anotações";
-    notePadTop.appendChild(closeNoteBtn);
-    closeNoteBtn.appendChild(closeNoteBtnIcon);
+    notePadTop.appendChild(saveNoteBtn);
+    saveNoteBtn.appendChild(saveNoteBtnIcon);
     notePadBtnField.appendChild(cleanNoteBtn);
     cleanNoteBtn.appendChild(cleanNoteBtnIcon);
 
-    closeNoteBtn.addEventListener("click", () =>
-      closeNoteClick(
+    saveNoteBtn.addEventListener("click", () =>
+      saveNoteClick(
         notePadContainer,
         taskField,
         notePadInput,
@@ -1045,7 +1045,6 @@ const confirmSchedule = (
         " - Expira em " +
         Math.ceil(difMinutes) +
         " min";
-      console.log(infoTextContent.innerText);
     } else if (
       difMinutes > 0 &&
       difMinutes <= 30 &&
@@ -1066,8 +1065,6 @@ const confirmSchedule = (
 
     appointmentDate.innerText = scheduleInputDateValue;
     appointmentTime.innerText = scheduleInputTimeValue;
-
-    console.log(infoTextContent.innerText);
 
     // Salvar ação no Local Storage
     infoTaskSave.scheduledTask = [
@@ -1390,7 +1387,7 @@ function notesBtnClick(
       !notePadContainer.contains(e.target) &&
       !notesBtn.contains(e.target)
     ) {
-      closeNoteClick(
+      saveNoteClick(
         notePadContainer,
         taskField,
         notePadInput,
@@ -1420,7 +1417,7 @@ function notesBtnClick(
   };
 }
 
-function closeNoteClick(
+function saveNoteClick(
   notePadContainer,
   taskField,
   notePadInput,
@@ -1599,12 +1596,12 @@ function taskRecover() {
     const notePadContainer = document.createElement("div");
     const notePadTop = document.createElement("div");
     const notePadTitle = document.createElement("p");
-    const closeNoteBtn = document.createElement("button");
+    const saveNoteBtn = document.createElement("button");
     const notePadInput = document.createElement("textarea");
     const notePadBtnField = document.createElement("div");
     const cleanNoteBtn = document.createElement("button");
     const cleanNoteBtnIcon = document.createElement("i");
-    const closeNoteBtnIcon = document.createElement("i");
+    const saveNoteBtnIcon = document.createElement("i");
     const notesInfo = document.createElement("span");
     notePadContainer.classList.add("notePadContainer");
     notePadContainer.classList.add("hide");
@@ -1618,10 +1615,10 @@ function taskRecover() {
     cleanNoteBtn.setAttribute("title", "Limpar Anotações");
     cleanNoteBtnIcon.classList.add("fa-solid");
     cleanNoteBtnIcon.classList.add("fa-broom");
-    closeNoteBtn.classList.add("closeNoteBtn");
-    closeNoteBtn.setAttribute("title", "Salvar");
-    closeNoteBtnIcon.classList.add("fa-solid");
-    closeNoteBtnIcon.classList.add("fa-angles-left");
+    saveNoteBtn.classList.add("saveNoteBtn");
+    saveNoteBtn.setAttribute("title", "Salvar");
+    saveNoteBtnIcon.classList.add("fa-solid");
+    saveNoteBtnIcon.classList.add("fa-angles-left");
     notePadInput.setAttribute("spellcheck", "false");
     notesInfo.classList.add("notesInfo");
     notesInfo.classList.add("hide");
@@ -1632,13 +1629,13 @@ function taskRecover() {
     notePadContainer.appendChild(notesInfo);
     notePadTop.appendChild(notePadTitle);
     notePadTitle.innerText = "Anotações";
-    notePadTop.appendChild(closeNoteBtn);
-    closeNoteBtn.appendChild(closeNoteBtnIcon);
+    notePadTop.appendChild(saveNoteBtn);
+    saveNoteBtn.appendChild(saveNoteBtnIcon);
     notePadBtnField.appendChild(cleanNoteBtn);
     cleanNoteBtn.appendChild(cleanNoteBtnIcon);
 
-    closeNoteBtn.addEventListener("click", () =>
-      closeNoteClick(
+    saveNoteBtn.addEventListener("click", () =>
+      saveNoteClick(
         notePadContainer,
         taskField,
         notePadInput,

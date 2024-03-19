@@ -1038,7 +1038,7 @@ body {
   color: var(--color4);
 }
 
-.closeNoteBtn {
+.saveNoteBtn {
   color: var(--color4);
 }
 
@@ -1057,7 +1057,7 @@ body {
   font-weight: bold;
 }
 
-.closeNoteBtn:hover {
+.saveNoteBtn:hover {
   cursor: pointer;
   color: var(--color6);
 }
@@ -1071,14 +1071,14 @@ body {
 }
 
 .cleanNoteBtn,
-.closeNoteBtn {
+.saveNoteBtn {
   border: none;
   background: var(--color2);
   border-radius: 50%;
   transition: 0.3s;
 }
 
-.closeNoteBtn {
+.saveNoteBtn {
   font-size: 18px;
 }
 
