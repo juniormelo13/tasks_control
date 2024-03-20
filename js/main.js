@@ -1078,12 +1078,15 @@ const confirmSchedule = (
 };
 
 // Verificação do status do agendamento em tempo real
+
 setInterval(() => {
   const currentFullDate = new Date();
   const currentDate = currentFullDate.toLocaleDateString("fr-CA");
 
-  const tasks = tasksContainer.childNodes;
-  for (const task of tasks) {
+  for (let i = 0; i < dbTarefas.length; i++) {
+    const infoTaskSave = dbTarefas[i];
+    const task = tasksContainer.childNodes[i];
+
     if (
       task.classList.contains("scheduled") ||
       task.classList.contains("expiredTask")
@@ -1138,6 +1141,19 @@ setInterval(() => {
             " às " +
             appointmentTime.innerText;
         }
+
+        // Salvar ação no Local Storage
+        if (infoTaskSave.scheduledTask) {
+          delete infoTaskSave.scheduledTask;
+          delete infoTaskSave.expireAlert;
+        }
+        if (!infoTaskSave.expiredTask)
+          infoTaskSave.expiredTask = [
+            true,
+            appointmentDate.innerText,
+            appointmentTime.innerText,
+            infoTextContent.innerText,
+          ];
       } else if (
         difTimeInMinutes > 0 &&
         difTimeInMinutes <= 30 &&
@@ -1151,6 +1167,17 @@ setInterval(() => {
           " min";
         task.classList.add("expireAlert");
         taskInfo.classList.add("expireAlert");
+
+        // Salvar ação no Local Storage
+        if (!infoTaskSave.scheduledTask) {
+          infoTaskSave.expireAlert = true;
+          infoTaskSave.scheduledTask = [
+            true,
+            appointmentDate.innerText,
+            appointmentTime.innerText,
+            infoTextContent.innerText,
+          ];
+        }
       } else if (
         difTimeInMinutes > 30 &&
         difTimeInMinutes <= 60 &&
@@ -1208,10 +1235,28 @@ setInterval(() => {
           " min";
         task.classList.add("expireAlert");
         taskInfo.classList.add("expireAlert");
+
+        // Salvar ação no Local Storage
+        if (!infoTaskSave.scheduledTask) {
+          infoTaskSave.expireAlert = true;
+          infoTaskSave.scheduledTask = [
+            true,
+            appointmentDate.innerText,
+            appointmentTime.innerText,
+            infoTextContent.innerText,
+          ];
+        }
       }
+      if (infoTaskSave.expiredTask) {
+        infoTaskSave.expiredTask[3] = infoTextContent.innerText;
+      } else {
+        infoTaskSave.scheduledTask[3] = infoTextContent.innerText;
+      }
+      localStorage.setItem("tarefas", JSON.stringify(dbTarefas));
     }
   }
 }, 1000);
+
 // Configuração do botão de remoção do agendamento
 const schedulingRemoveClick = (
   taskInfo,
@@ -1795,6 +1840,20 @@ function taskRecover() {
       case true:
         taskField.classList.add("expireAlert");
         taskInfo.classList.add("expireAlert");
+        break;
+    }
+
+    switch (infoTaskSave.expiredTask && infoTaskSave.expiredTask[0]) {
+      case true:
+        taskField.classList.add("expiredTask");
+        taskInfo.classList.add("expiredTask");
+        taskInfo.classList.remove("hide");
+        schedulingRemoveBtn.setAttribute("title", "Restaurar");
+        editBtn.classList.add("disabledBtn");
+        scheduleBtn.classList.add("disabledBtn");
+        infoTextContent.innerText = infoTaskSave.expiredTask[3];
+        appointmentDate.innerText = infoTaskSave.expiredTask[1];
+        appointmentTime.innerText = infoTaskSave.expiredTask[2];
         break;
     }
   }
