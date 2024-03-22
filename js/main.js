@@ -126,10 +126,8 @@ function insertTask() {
     taskField.classList.add("taskField");
     taskField.classList.add("hover");
     taskField.classList.add("appearTask");
-    tasksContainer.appendChild(taskField);
-    setTimeout(() => {
-      //tasksContainer.insertBefore(taskField, tasksContainer.childNodes[0]);
-    }, 100);
+    tasksContainer.insertBefore(taskField, tasksContainer.childNodes[0]);
+
     setTimeout(() => {
       newTaskInput.focus();
       taskField.classList.remove("appearTask");
@@ -346,14 +344,14 @@ function insertTask() {
     removeIcon.classList.add("fa-trash");
     removeBtn.setAttribute("title", "Excluir tarefa");
     removeBtn.addEventListener("click", () =>
-      deleteClick(taskField, infoTaskSave)
+      deleteClick(taskField, infoTaskSave, notesInfo)
     );
 
     // Salvar tarefa no Local Storage
     const infoTaskSave = new Object();
     infoTaskSave.taskContent = taskContent.innerText;
 
-    dbTarefas.push(infoTaskSave);
+    dbTarefas.unshift(infoTaskSave);
     localStorage.setItem("tarefas", JSON.stringify(dbTarefas));
   }
 }
@@ -1330,13 +1328,26 @@ const schedulingRemoveClick = (
 };
 
 // Configuração do botão de exclusão da tarefa
-const deleteClick = (taskField, infoTaskSave) => {
-  if (taskField.classList.contains("scheduled")) {
+const deleteClick = (taskField, infoTaskSave, notesInfo) => {
+  if (taskField.classList.contains("scheduled") || notesInfo.innerText != "") {
     header.classList.add("pointerEventsNone");
     tasksContainer.classList.add("tasksContainerHide");
     mainContainer.classList.add("pointerEventsNone");
-    confirmFieldText.innerText =
-      "Esta tarefa possui um agendamento, tem certeza que deseja removê-la?";
+
+    if (
+      taskField.classList.contains("scheduled") &&
+      notesInfo.innerText != ""
+    ) {
+      confirmFieldText.innerText =
+        "Esta tarefa contém agendamento e anotações, tem certeza de que deseja removê-la?";
+    } else if (taskField.classList.contains("scheduled")) {
+      confirmFieldText.innerText =
+        "Esta tarefa contém um agendamento, tem certeza de que deseja removê-la?";
+    } else {
+      confirmFieldText.innerText =
+        "Esta tarefa contém anotações, tem certeza de que deseja removê-la?";
+    }
+
     confirmField.classList.add("appearWindow");
     confirmField.classList.remove("hide");
 
@@ -1347,6 +1358,10 @@ const deleteClick = (taskField, infoTaskSave) => {
       confirmField.classList.remove("appearWindow");
       confirmField.classList.add("vanishWindow");
       tasksContainer.classList.add("tasksContainerAppear");
+      const tasks = tasksContainer.childNodes;
+      for (const task of tasks) {
+        task.classList.add("pointerEventsNone");
+      }
 
       // Salvar ação no Local Storage
       const index = dbTarefas.indexOf(infoTaskSave);
@@ -1365,6 +1380,11 @@ const deleteClick = (taskField, infoTaskSave) => {
         confirmField.classList.remove("vanishWindow");
         taskField.remove();
         newTaskInput.focus();
+        setTimeout(() => {
+          for (const task of tasks) {
+            task.classList.remove("pointerEventsNone");
+          }
+        }, 100);
         if (tasksContainer.childNodes.length <= 0) {
           noTaskTextContainer.classList.remove("hide");
         }
@@ -1388,6 +1408,10 @@ const deleteClick = (taskField, infoTaskSave) => {
     };
   } else {
     taskField.classList.add("vanishTask");
+    const tasks = tasksContainer.childNodes;
+    for (const task of tasks) {
+      task.classList.add("pointerEventsNone");
+    }
 
     // Salvar ação no Local Storage
     const index = dbTarefas.indexOf(infoTaskSave);
@@ -1397,6 +1421,12 @@ const deleteClick = (taskField, infoTaskSave) => {
     setTimeout(() => {
       taskField.remove();
       newTaskInput.focus();
+      const tasks = tasksContainer.childNodes;
+      setTimeout(() => {
+        for (const task of tasks) {
+          task.classList.remove("pointerEventsNone");
+        }
+      }, 100);
       if (tasksContainer.childNodes.length == 0) {
         if (noTaskTextContainer.classList.contains("hide")) {
           noTaskTextContainer.classList.remove("hide");
@@ -1811,7 +1841,7 @@ function taskRecover() {
     removeIcon.classList.add("fa-trash");
     removeBtn.setAttribute("title", "Excluir tarefa");
     removeBtn.addEventListener("click", () =>
-      deleteClick(taskField, infoTaskSave)
+      deleteClick(taskField, infoTaskSave, notesInfo)
     );
 
     switch (infoTaskSave.completeTask) {
