@@ -391,6 +391,7 @@ const completeClick = (
     btnYes.focus();
 
     function confirmCompletedAction() {
+      const tasks = tasksContainer.childNodes;
       header.classList.remove("pointerEventsNone");
       tasksContainer.classList.remove("tasksContainerHide");
       mainContainer.classList.remove("pointerEventsNone");
@@ -409,6 +410,10 @@ const completeClick = (
       }
 
       taskInfo.classList.add("deletedTaskInfo");
+      for (const task of tasks) {
+        task.classList.remove("hover");
+        task.childNodes[1].classList.add("pointerEventsNone");
+      }
 
       // Salvar ação no Local Storage
       if (infoTaskSave.expiredTask) {
@@ -467,6 +472,10 @@ const completeClick = (
       }, 500);
       setTimeout(() => {
         taskField.classList.remove("appearTask");
+        for (const task of tasks) {
+          task.classList.add("hover");
+          task.childNodes[1].classList.remove("pointerEventsNone");
+        }
       }, 800);
     }
 
@@ -486,6 +495,11 @@ const completeClick = (
       }, 200);
     };
   } else if (taskField.classList.contains("expiredTask")) {
+    const tasks = tasksContainer.childNodes;
+    for (const task of tasks) {
+      task.classList.remove("hover");
+      task.childNodes[1].classList.add("pointerEventsNone");
+    }
     taskField.classList.add("vanishTask");
     taskInfo.classList.add("deletedTaskInfo");
 
@@ -527,10 +541,20 @@ const completeClick = (
     }, 300);
     setTimeout(() => {
       taskField.classList.remove("appearTask");
+      for (const task of tasks) {
+        task.classList.add("hover");
+        task.childNodes[1].classList.remove("pointerEventsNone");
+      }
     }, 500);
   } else {
     if (taskField.classList.contains("completed")) {
+      const tasks = tasksContainer.childNodes;
+      for (const task of tasks) {
+        task.classList.remove("hover");
+        task.childNodes[1].classList.add("pointerEventsNone");
+      }
       taskField.classList.add("vanishTask");
+      taskField.classList.remove("hover");
       checkBtn.disabled = true;
       newTaskInput.blur();
 
@@ -563,8 +587,17 @@ const completeClick = (
       }, 300);
       setTimeout(() => {
         taskField.classList.remove("appearTask");
+        for (const task of tasks) {
+          task.classList.add("hover");
+          task.childNodes[1].classList.remove("pointerEventsNone");
+        }
       }, 500);
     } else {
+      const tasks = tasksContainer.childNodes;
+      for (const task of tasks) {
+        task.classList.remove("hover");
+        task.childNodes[1].classList.add("pointerEventsNone");
+      }
       taskField.classList.add("vanishTask");
       checkBtn.disabled = true;
       newTaskInput.blur();
@@ -598,6 +631,10 @@ const completeClick = (
       }, 300);
       setTimeout(() => {
         taskField.classList.remove("appearTask");
+        for (const task of tasks) {
+          task.classList.add("hover");
+          task.childNodes[1].classList.remove("pointerEventsNone");
+        }
       }, 500);
     }
   }

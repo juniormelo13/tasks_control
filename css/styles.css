@@ -1174,7 +1174,7 @@ body {
 
 #header.pointerEventsNone,
 .taskField.pointerEventsNone,
-#mainContainer.pointerEventsNone {
+#mainContainer.pointerEventsNone, .btnField.pointerEventsNone {
   pointer-events: none;
   user-select: none;
 }
