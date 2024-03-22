@@ -1269,7 +1269,7 @@ setInterval(() => {
       localStorage.setItem("tarefas", JSON.stringify(dbTarefas));
     }
   }
-}, 0);
+}, 1000);
 
 // Configuração do botão de remoção do agendamento
 const schedulingRemoveClick = (
@@ -1463,8 +1463,9 @@ function notesBtnClick(
   }
   taskField.classList.remove("lowOpacity");
   notePadInput.value = notesInfo.innerText;
+  notesBtn.disabled = true;
+  notePadInput.focus();
   if (notesInfo.innerText == "") {
-    notePadInput.focus();
     cleanNoteBtn.classList.add("hide");
   } else {
     cleanNoteBtn.classList.remove("hide");
@@ -1472,6 +1473,7 @@ function notesBtnClick(
   setTimeout(() => {
     notePadContainer.classList.remove("notePadContainerAppear");
     notePadContainer.classList.add("pointerEventsVisible");
+    notesBtn.disabled = false;
   }, 300);
   setTimeout(() => {
     notePadContainerShow = !notePadContainerShow;
@@ -1492,22 +1494,38 @@ function notesBtnClick(
       );
     }
   };
-  notePadInput.onkeyup = () => {
-    const validateField = () => notePadInput.value != "";
-    if (!validateField()) {
-      cleanNoteBtn.classList.add("hide");
-      if (notesInfo.innerText == notePadInput.value.trim()) {
-        inputEquality = true;
+  notePadInput.onkeypress = (e) => {
+    if (e.key === "Enter") {
+      e.preventDefault();
+    }
+  };
+  notePadInput.onkeyup = (e) => {
+    if (e.key !== "Enter") {
+      const validateField = () => notePadInput.value != "";
+      if (!validateField()) {
+        cleanNoteBtn.classList.add("hide");
+        if (notesInfo.innerText == notePadInput.value.trim()) {
+          inputEquality = true;
+        } else {
+          inputEquality = false;
+        }
       } else {
-        inputEquality = false;
+        cleanNoteBtn.classList.remove("hide");
+        if (notesInfo.innerText == notePadInput.value.trim()) {
+          inputEquality = true;
+        } else {
+          inputEquality = false;
+        }
       }
     } else {
-      cleanNoteBtn.classList.remove("hide");
-      if (notesInfo.innerText == notePadInput.value.trim()) {
-        inputEquality = true;
-      } else {
-        inputEquality = false;
-      }
+      saveNoteClick(
+        notePadContainer,
+        taskField,
+        notePadInput,
+        notesInfo,
+        notesBtnAlert,
+        infoTaskSave
+      );
     }
   };
 }
