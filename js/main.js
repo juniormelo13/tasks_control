@@ -124,16 +124,16 @@ function insertTask() {
     const taskField = document.createElement("div");
     newTaskInput.blur();
     taskField.classList.add("taskField");
-    taskField.classList.add("appearTask");
     taskField.classList.add("hover");
+    taskField.classList.add("appearTask");
+    tasksContainer.appendChild(taskField);
     setTimeout(() => {
-      tasksContainer.insertBefore(taskField, tasksContainer.childNodes[0]);
-      newTaskInput.focus();
+      //tasksContainer.insertBefore(taskField, tasksContainer.childNodes[0]);
     }, 100);
     setTimeout(() => {
+      newTaskInput.focus();
       taskField.classList.remove("appearTask");
-      // taskRecover();
-    }, 300);
+    }, 200);
     if (!noTaskTextContainer.classList.contains("hide")) {
       noTaskTextContainer.classList.add("hide");
     }
@@ -353,7 +353,7 @@ function insertTask() {
     const infoTaskSave = new Object();
     infoTaskSave.taskContent = taskContent.innerText;
 
-    dbTarefas.unshift(infoTaskSave);
+    dbTarefas.push(infoTaskSave);
     localStorage.setItem("tarefas", JSON.stringify(dbTarefas));
   }
 }
@@ -410,12 +410,17 @@ const completeClick = (
           break;
       }
 
+      taskInfo.classList.add("deletedTaskInfo");
+
       // Salvar ação no Local Storage
-      infoTaskSave.completeTask = true;
-      delete infoTaskSave.scheduledTask;
+      if (infoTaskSave.expiredTask) {
+        delete infoTaskSave.expiredTask;
+      }
       if (infoTaskSave.expireAlert) {
         delete infoTaskSave.expireAlert;
       }
+      delete infoTaskSave.scheduledTask;
+      infoTaskSave.completeTask = true;
       localStorage.setItem("tarefas", JSON.stringify(dbTarefas));
 
       setTimeout(() => {
@@ -484,8 +489,12 @@ const completeClick = (
     };
   } else if (taskField.classList.contains("expiredTask")) {
     taskField.classList.add("vanishTask");
+    taskInfo.classList.add("deletedTaskInfo");
 
     // Salvar ação no Local Storage
+    if (infoTaskSave.expiredTask) {
+      delete infoTaskSave.expiredTask;
+    }
     infoTaskSave.completeTask = true;
     localStorage.setItem("tarefas", JSON.stringify(dbTarefas));
 
@@ -1063,6 +1072,10 @@ const confirmSchedule = (
       }, 300);
     }
 
+    if (taskInfo.classList.contains("deletedTaskInfo")) {
+      taskInfo.classList.remove("deletedTaskInfo");
+    }
+
     appointmentDate.innerText = scheduleInputDateValue;
     appointmentTime.innerText = scheduleInputTimeValue;
 
@@ -1084,8 +1097,8 @@ setInterval(() => {
   const currentDate = currentFullDate.toLocaleDateString("fr-CA");
 
   for (let i = 0; i < dbTarefas.length; i++) {
-    const infoTaskSave = dbTarefas[i];
     const task = tasksContainer.childNodes[i];
+    const infoTaskSave = dbTarefas[i];
 
     if (
       task.classList.contains("scheduled") ||
@@ -1143,17 +1156,18 @@ setInterval(() => {
         }
 
         // Salvar ação no Local Storage
-        if (infoTaskSave.scheduledTask) {
+
+        if (!taskInfo.classList.contains("deletedTaskInfo")) {
           delete infoTaskSave.scheduledTask;
           delete infoTaskSave.expireAlert;
-        }
-        if (!infoTaskSave.expiredTask)
+
           infoTaskSave.expiredTask = [
             true,
             appointmentDate.innerText,
             appointmentTime.innerText,
             infoTextContent.innerText,
           ];
+        }
       } else if (
         difTimeInMinutes > 0 &&
         difTimeInMinutes <= 30 &&
@@ -1169,14 +1183,15 @@ setInterval(() => {
         taskInfo.classList.add("expireAlert");
 
         // Salvar ação no Local Storage
-        if (!infoTaskSave.scheduledTask) {
-          infoTaskSave.expireAlert = true;
+
+        if (!taskInfo.classList.contains("deletedTaskInfo")) {
           infoTaskSave.scheduledTask = [
             true,
             appointmentDate.innerText,
             appointmentTime.innerText,
             infoTextContent.innerText,
           ];
+          infoTaskSave.expireAlert = true;
         }
       } else if (
         difTimeInMinutes > 30 &&
@@ -1237,25 +1252,26 @@ setInterval(() => {
         taskInfo.classList.add("expireAlert");
 
         // Salvar ação no Local Storage
-        if (!infoTaskSave.scheduledTask) {
-          infoTaskSave.expireAlert = true;
+        if (!taskInfo.classList.contains("deletedTaskInfo")) {
           infoTaskSave.scheduledTask = [
             true,
             appointmentDate.innerText,
             appointmentTime.innerText,
             infoTextContent.innerText,
           ];
+          infoTaskSave.expireAlert = true;
         }
       }
       if (infoTaskSave.expiredTask) {
         infoTaskSave.expiredTask[3] = infoTextContent.innerText;
-      } else {
+      }
+      if (infoTaskSave.scheduledTask) {
         infoTaskSave.scheduledTask[3] = infoTextContent.innerText;
       }
       localStorage.setItem("tarefas", JSON.stringify(dbTarefas));
     }
   }
-}, 1000);
+}, 0);
 
 // Configuração do botão de remoção do agendamento
 const schedulingRemoveClick = (
@@ -1269,12 +1285,16 @@ const schedulingRemoveClick = (
   infoTaskSave
 ) => {
   taskInfo.classList.add("vanishTaskInfo");
+  taskInfo.classList.add("deletedTaskInfo");
 
   // Salvar ação no Local Storage
-  delete infoTaskSave.scheduledTask;
+  if (infoTaskSave.expiredTask) {
+    delete infoTaskSave.expiredTask;
+  }
   if (infoTaskSave.expireAlert) {
     delete infoTaskSave.expireAlert;
   }
+  delete infoTaskSave.scheduledTask;
   localStorage.setItem("tarefas", JSON.stringify(dbTarefas));
 
   setTimeout(() => {

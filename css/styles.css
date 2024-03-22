@@ -322,7 +322,7 @@ body {
 #tasksContainer {
   position: relative;
   display: flex;
-  flex-direction: column;
+  flex-direction: column-reverse;
   justify-content: flex-start;
   align-items: center;
   width: 100%;
@@ -1172,7 +1172,9 @@ body {
   }
 }
 
-#header.pointerEventsNone, .taskField.pointerEventsNone, #mainContainer.pointerEventsNone {
+#header.pointerEventsNone,
+.taskField.pointerEventsNone,
+#mainContainer.pointerEventsNone {
   pointer-events: none;
   user-select: none;
 }
