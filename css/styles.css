@@ -241,7 +241,7 @@ body {
   cursor: pointer;
 }
 
-.filterContainer {
+#filterContainer {
   position: relative;
   display: flex;
   flex-direction: column;
@@ -251,7 +251,7 @@ body {
   width: 100%;
 }
 
-.filterContainer a {
+#filterContainer a {
   text-decoration: none;
   width: 100%;
   display: flex;
@@ -260,8 +260,8 @@ body {
   padding: 5px 10px;
   transition: 0.2s;
 }
-.filterContainer a,
-.filterContainer a p span {
+#filterContainer a,
+#filterContainer a p span {
   color: var(--color13);
   font-family: "lato", "sans-serif";
   font-size: 14px;
@@ -269,28 +269,28 @@ body {
   font-weight: bold;
 }
 
-.filterContainer a:hover {
+#filterContainer a:hover, #filterContainer a.active {
   cursor: pointer;
   color: var(--color4);
 }
 
-.filterContainer .allTaskFilter:hover {
+#filterContainer #allTaskFilter:hover, #allTaskFilter.active {
   border-left: 4px solid var(--color4);
 }
 
-.filterContainer .pendingTaskFilter:hover {
+#filterContainer #pendingTaskFilter:hover, #pendingTaskFilter.active {
   border-left: 4px solid var(--color3);
 }
 
-.filterContainer .completedTaskFilter:hover {
+#filterContainer #completedTaskFilter:hover, #completedTaskFilter.active {
   border-left: 4px solid var(--color6);
 }
 
-.filterContainer .scheduleTaskFilter:hover {
+#filterContainer #scheduleTaskFilter:hover, #scheduleTaskFilter.active {
   border-left: 4px solid var(--color7);
 }
 
-.filterContainer .expiredTaskFilter:hover {
+#filterContainer #expiredTaskFilter:hover, #expiredTaskFilter.active {
   border-left: 4px solid var(--color8);
 }
 
@@ -1192,7 +1192,7 @@ body {
 .notePadContainer.hide,
 .notesInfo.hide,
 .notesBtnAlert.hide,
-#noTaskTextContainer.hide {
+#noTaskTextContainer.hide, .taskField.hide {
   display: none;
   pointer-events: none;
 }

@@ -17,12 +17,42 @@ taskRecover();
 // Container principal do projeto
 const mainContainer = document.querySelector("#mainContainer");
 
+// Variáveis dos filtros das tarefas
+const allFilter = document.querySelector("#filterContainer");
+const allTaskFilter = document.querySelector("#allTaskFilter");
+const pendingTaskFilter = document.querySelector("#pendingTaskFilter");
+const scheduleTaskFilter = document.querySelector("#scheduleTaskFilter");
+const expiredTaskFilter = document.querySelector("#expiredTaskFilter");
+const completedTaskFilter = document.querySelector("#completedTaskFilter");
+const allTaskFilterAmount = document.querySelector("#allTaskFilterAmount");
+const pendingTaskFilterAmount = document.querySelector(
+  "#pendingTaskFilterAmount"
+);
+const scheduleTaskFilterAmount = document.querySelector(
+  "#scheduleTaskFilterAmount"
+);
+const expiredTaskFilterAmount = document.querySelector(
+  "#expiredTaskFilterAmount"
+);
+const completedTaskFilterAmount = document.querySelector(
+  "#completedTaskFilterAmount"
+);
+
+const filters = allFilter.children;
+pendingTaskFilter.classList.add("active");
+
+let pendingTasks = dbTarefas.filter(
+  (infoTaskSave) => !infoTaskSave.completeTask
+);
+pendingTaskFilterFunction();
+
 //Configuração do botão de Menu
 
 const menuBtn = document.querySelector("#menuButton");
 const menu = document.querySelector(".menu");
 const menuBtnIcon = document.querySelector("#menuButtonIcon");
 let menuOpen = false;
+menuOpenFunction();
 
 function menuOpenFunction() {
   menuOpen = !menuOpen;
@@ -60,16 +90,16 @@ menuBtn.addEventListener("click", () => {
   }
 });
 
-document.addEventListener("click", (e) => {
-  if (
-    !menu.contains(e.target) &&
-    !menuBtn.contains(e.target) &&
-    !menuBtnIcon.contains(e.target) &&
-    menuOpen
-  ) {
-    menuCloseFunction();
-  }
-});
+// document.addEventListener("click", (e) => {
+//   if (
+//     !menu.contains(e.target) &&
+//     !menuBtn.contains(e.target) &&
+//     !menuBtnIcon.contains(e.target) &&
+//     menuOpen
+//   ) {
+//     menuCloseFunction();
+//   }
+// });
 
 // Botão para limpar o campo de texto principal
 const cleanInputBtn = document.querySelector("#cleanInputBtn");
@@ -126,7 +156,6 @@ function insertTask() {
     taskField.classList.add("taskField");
     taskField.classList.add("hover");
     taskField.classList.add("appearTask");
-    tasksContainer.insertBefore(taskField, tasksContainer.childNodes[0]);
 
     setTimeout(() => {
       newTaskInput.focus();
@@ -142,6 +171,38 @@ function insertTask() {
     taskContent.classList.add("taskContent");
     taskContent.innerText = newTaskInput.value;
     newTaskInput.value = "";
+
+    // Salvar tarefa no Local Storage
+    const infoTaskSave = new Object();
+    infoTaskSave.taskContent = taskContent.innerText;
+    dbTarefas.unshift(infoTaskSave);
+    localStorage.setItem("tarefas", JSON.stringify(dbTarefas));
+
+    pendingTasks = dbTarefas.filter(
+      (infoTaskSave) => !infoTaskSave.completeTask
+    );
+    if (
+      allTaskFilter.classList.contains("active") ||
+      pendingTaskFilter.classList.contains("active")
+    ) {
+      tasksContainer.insertBefore(taskField, tasksContainer.childNodes[0]);
+      allTaskFilterAmount.innerText = tasksContainer.childNodes.length;
+      pendingTaskFilterAmount.innerText = pendingTasks.length;
+    } else if (
+      !pendingTaskFilter.classList.contains("active") &&
+      !allTaskFilter.classList.contains("active")
+    ) {
+      for (const filter of filters) {
+        if (filter.classList.contains("active")) {
+          filter.classList.remove("active");
+        }
+      }
+      pendingTaskFilter.classList.add("active");
+      tasksContainer.insertBefore(taskField, tasksContainer.childNodes[0]);
+      allTaskFilterAmount.innerText = tasksContainer.childNodes.length;
+      pendingTaskFilterAmount.innerText = pendingTasks.length;
+      pendingTaskFilterFunction();
+    }
 
     // Campo dos botões/ícones
     const btnField = document.createElement("div");
@@ -346,13 +407,6 @@ function insertTask() {
     removeBtn.addEventListener("click", () =>
       deleteClick(taskField, infoTaskSave, notesInfo)
     );
-
-    // Salvar tarefa no Local Storage
-    const infoTaskSave = new Object();
-    infoTaskSave.taskContent = taskContent.innerText;
-
-    dbTarefas.unshift(infoTaskSave);
-    localStorage.setItem("tarefas", JSON.stringify(dbTarefas));
   }
 }
 
@@ -1397,7 +1451,8 @@ const deleteClick = (taskField, infoTaskSave, notesInfo) => {
       tasksContainer.classList.add("tasksContainerAppear");
       const tasks = tasksContainer.childNodes;
       for (const task of tasks) {
-        task.classList.add("pointerEventsNone");
+        task.classList.remove("hover");
+        task.childNodes[1].classList.add("pointerEventsNone");
       }
 
       // Salvar ação no Local Storage
@@ -1419,9 +1474,10 @@ const deleteClick = (taskField, infoTaskSave, notesInfo) => {
         newTaskInput.focus();
         setTimeout(() => {
           for (const task of tasks) {
-            task.classList.remove("pointerEventsNone");
+            task.classList.add("hover");
+            task.childNodes[1].classList.remove("pointerEventsNone");
           }
-        }, 100);
+        }, 150);
         if (tasksContainer.childNodes.length <= 0) {
           noTaskTextContainer.classList.remove("hide");
         }
@@ -1447,7 +1503,8 @@ const deleteClick = (taskField, infoTaskSave, notesInfo) => {
     taskField.classList.add("vanishTask");
     const tasks = tasksContainer.childNodes;
     for (const task of tasks) {
-      task.classList.add("pointerEventsNone");
+      task.classList.remove("hover");
+      task.childNodes[1].classList.add("pointerEventsNone");
     }
 
     // Salvar ação no Local Storage
@@ -1458,12 +1515,13 @@ const deleteClick = (taskField, infoTaskSave, notesInfo) => {
     setTimeout(() => {
       taskField.remove();
       newTaskInput.focus();
-      const tasks = tasksContainer.childNodes;
+
       setTimeout(() => {
         for (const task of tasks) {
-          task.classList.remove("pointerEventsNone");
+          task.classList.add("hover");
+          task.childNodes[1].classList.remove("pointerEventsNone");
         }
-      }, 100);
+      }, 150);
       if (tasksContainer.childNodes.length == 0) {
         if (noTaskTextContainer.classList.contains("hide")) {
           noTaskTextContainer.classList.remove("hide");
@@ -1960,6 +2018,177 @@ function taskRecover() {
         appointmentDate.innerText = infoTaskSave.expiredTask[1];
         appointmentTime.innerText = infoTaskSave.expiredTask[2];
         break;
+    }
+  }
+}
+
+// Configuração dos filtros das tarefas
+
+allTaskFilter.addEventListener("click", () => {
+  for (const filter of filters) {
+    if (filter.classList.contains("active")) {
+      filter.classList.remove("active");
+    }
+  }
+  allTaskFilter.classList.add("active");
+  setTimeout(() => {
+    allTaskFilterFunction();
+  }, 200);
+});
+
+function allTaskFilterFunction() {
+  if (tasksContainer.childNodes.length != 0) {
+    noTaskTextContainer.classList.add("hide");
+  }
+  taskRecover();
+}
+
+allTaskFilterAmount.innerText = tasksContainer.childNodes.length;
+
+pendingTaskFilter.addEventListener("click", () => {
+  for (const filter of filters) {
+    if (filter.classList.contains("active")) {
+      filter.classList.remove("active");
+    }
+  }
+  pendingTaskFilter.classList.add("active");
+  setTimeout(() => {
+    pendingTaskFilterFunction();
+  }, 200);
+});
+
+pendingTaskFilterAmount.innerText = pendingTasks.length;
+
+function pendingTaskFilterFunction() {
+  for (i = 0; i < dbTarefas.length; i++) {
+    const infoTaskSave = dbTarefas[i];
+    const task = tasksContainer.childNodes[i];
+
+    if (pendingTasks.length != 0) {
+      noTaskTextContainer.classList.add("hide");
+    }
+    if (task.classList.contains("hide")) {
+      task.classList.remove("hide");
+    }
+    if (infoTaskSave.completeTask) {
+      task.classList.add("hide");
+    }
+    if (pendingTasks.length == 0) {
+      noTaskTextContainer.classList.remove("hide");
+    }
+  }
+}
+
+const scheduledTasks = dbTarefas.filter(
+  (infoTaskSave) => infoTaskSave.scheduledTask
+);
+
+scheduleTaskFilter.addEventListener("click", () => {
+  for (const filter of filters) {
+    if (filter.classList.contains("active")) {
+      filter.classList.remove("active");
+    }
+  }
+  scheduleTaskFilter.classList.add("active");
+  setTimeout(() => {
+    scheduleTaskFilterFunction();
+  }, 200);
+});
+
+scheduleTaskFilterAmount.innerText = scheduledTasks.length;
+
+function scheduleTaskFilterFunction() {
+  for (i = 0; i < dbTarefas.length; i++) {
+    const infoTaskSave = dbTarefas[i];
+    const task = tasksContainer.childNodes[i];
+
+    if (scheduledTasks.length != 0) {
+      noTaskTextContainer.classList.add("hide");
+    }
+    if (task.classList.contains("hide")) {
+      task.classList.remove("hide");
+    }
+    if (!infoTaskSave.scheduledTask) {
+      task.classList.add("hide");
+    }
+    if (scheduledTasks.length == 0) {
+      noTaskTextContainer.classList.remove("hide");
+    }
+  }
+}
+
+const expiredTasks = dbTarefas.filter(
+  (infoTaskSave) => infoTaskSave.expiredTask
+);
+
+expiredTaskFilter.addEventListener("click", () => {
+  for (const filter of filters) {
+    if (filter.classList.contains("active")) {
+      filter.classList.remove("active");
+    }
+  }
+  expiredTaskFilter.classList.add("active");
+  setTimeout(() => {
+    expiredTaskFilterFunction();
+  }, 200);
+});
+
+expiredTaskFilterAmount.innerText = expiredTasks.length;
+
+function expiredTaskFilterFunction() {
+  for (i = 0; i < dbTarefas.length; i++) {
+    const infoTaskSave = dbTarefas[i];
+    const task = tasksContainer.childNodes[i];
+
+    if (expiredTasks.length != 0) {
+      noTaskTextContainer.classList.add("hide");
+    }
+    if (task.classList.contains("hide")) {
+      task.classList.remove("hide");
+    }
+    if (!infoTaskSave.expiredTask) {
+      task.classList.add("hide");
+    }
+    if (expiredTasks.length == 0) {
+      noTaskTextContainer.classList.remove("hide");
+    }
+  }
+}
+
+const completedTasks = dbTarefas.filter(
+  (infoTaskSave) => infoTaskSave.completeTask
+);
+
+completedTaskFilter.addEventListener("click", () => {
+  for (const filter of filters) {
+    if (filter.classList.contains("active")) {
+      filter.classList.remove("active");
+    }
+  }
+  completedTaskFilter.classList.add("active");
+  setTimeout(() => {
+    completedTaskFilterFunction();
+  }, 200);
+});
+
+completedTaskFilterAmount.innerText = completedTasks.length;
+
+function completedTaskFilterFunction() {
+  for (i = 0; i < dbTarefas.length; i++) {
+    const infoTaskSave = dbTarefas[i];
+    const task = tasksContainer.childNodes[i];
+
+    if (completedTasks.length != 0) {
+      noTaskTextContainer.classList.add("hide");
+    }
+    if (task.classList.contains("hide")) {
+      task.classList.remove("hide");
+    }
+    if (!infoTaskSave.completeTask) {
+      task.classList.add("hide");
+    }
+    if (completedTasks.length == 0) {
+      noTaskTextContainer.classList.remove("hide");
     }
   }
 }
