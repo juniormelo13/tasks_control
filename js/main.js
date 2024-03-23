@@ -39,12 +39,22 @@ const completedTaskFilterAmount = document.querySelector(
 );
 
 const filters = allFilter.children;
-pendingTaskFilter.classList.add("active");
-
+allTaskFilter.classList.add("active");
+allTaskFilterAmount.innerText = tasksContainer.childNodes.length;
 let pendingTasks = dbTarefas.filter(
   (infoTaskSave) => !infoTaskSave.completeTask
 );
-pendingTaskFilterFunction();
+let scheduledTasks = dbTarefas.filter(
+  (infoTaskSave) => infoTaskSave.scheduledTask
+);
+let expiredTasks = dbTarefas.filter((infoTaskSave) => infoTaskSave.expiredTask);
+let completedTasks = dbTarefas.filter(
+  (infoTaskSave) => infoTaskSave.completeTask
+);
+pendingTaskFilterAmount.innerText = pendingTasks.length;
+scheduleTaskFilterAmount.innerText = scheduledTasks.length;
+expiredTaskFilterAmount.innerText = expiredTasks.length;
+completedTaskFilterAmount.innerText = completedTasks.length;
 
 //Configuração do botão de Menu
 
@@ -523,6 +533,30 @@ const completeClick = (
 
         checkBtn.setAttribute("title", "Restaurar");
         newTaskInput.focus();
+        pendingTasks = dbTarefas.filter(
+          (infoTaskSave) => !infoTaskSave.completeTask
+        );
+        completedTasks = dbTarefas.filter(
+          (infoTaskSave) => infoTaskSave.completeTask
+        );
+        scheduledTasks = dbTarefas.filter(
+          (infoTaskSave) => infoTaskSave.scheduledTask
+        );
+        if (scheduleTaskFilter.classList.contains("active")) {
+          scheduleTaskFilterFunction();
+          pendingTaskFilterAmount.innerText = pendingTasks.length;
+          completedTaskFilterAmount.innerText = completedTasks.length;
+          scheduleTaskFilterAmount.innerText = scheduledTasks.length;
+        } else if (pendingTaskFilter.classList.contains("active")) {
+          pendingTaskFilterFunction();
+          pendingTaskFilterAmount.innerText = pendingTasks.length;
+          completedTaskFilterAmount.innerText = completedTasks.length;
+          scheduleTaskFilterAmount.innerText = scheduledTasks.length;
+        } else {
+          pendingTaskFilterAmount.innerText = pendingTasks.length;
+          completedTaskFilterAmount.innerText = completedTasks.length;
+          scheduleTaskFilterAmount.innerText = scheduledTasks.length;
+        }
       }, 500);
       setTimeout(() => {
         taskField.classList.remove("appearTask");
@@ -590,8 +624,31 @@ const completeClick = (
       infoTextContent.innerText = "Tarefa concluída";
       completedTaskIcon.classList.remove("hide");
       schedulingRemoveBtn.classList.add("hide");
-
       newTaskInput.focus();
+      pendingTasks = dbTarefas.filter(
+        (infoTaskSave) => !infoTaskSave.completeTask
+      );
+      completedTasks = dbTarefas.filter(
+        (infoTaskSave) => infoTaskSave.completeTask
+      );
+      expiredTasks = dbTarefas.filter(
+        (infoTaskSave) => infoTaskSave.expiredTask
+      );
+      if (expiredTaskFilter.classList.contains("active")) {
+        expiredTaskFilterFunction();
+        pendingTaskFilterAmount.innerText = pendingTasks.length;
+        completedTaskFilterAmount.innerText = completedTasks.length;
+        expiredTaskFilterAmount.innerText = expiredTasks.length;
+      } else if (pendingTaskFilter.classList.contains("active")) {
+        pendingTaskFilterFunction();
+        pendingTaskFilterAmount.innerText = pendingTasks.length;
+        completedTaskFilterAmount.innerText = completedTasks.length;
+        expiredTaskFilterAmount.innerText = expiredTasks.length;
+      } else {
+        pendingTaskFilterAmount.innerText = pendingTasks.length;
+        completedTaskFilterAmount.innerText = completedTasks.length;
+        expiredTaskFilterAmount.innerText = expiredTasks.length;
+      }
     }, 300);
     setTimeout(() => {
       taskField.classList.remove("appearTask");
@@ -638,6 +695,20 @@ const completeClick = (
         taskField.classList.add("appearTask");
         checkBtn.disabled = false;
         newTaskInput.focus();
+        pendingTasks = dbTarefas.filter(
+          (infoTaskSave) => !infoTaskSave.completeTask
+        );
+        completedTasks = dbTarefas.filter(
+          (infoTaskSave) => infoTaskSave.completeTask
+        );
+        if (completedTaskFilter.classList.contains("active")) {
+          completedTaskFilterFunction();
+          pendingTaskFilterAmount.innerText = pendingTasks.length;
+          completedTaskFilterAmount.innerText = completedTasks.length;
+        } else {
+          pendingTaskFilterAmount.innerText = pendingTasks.length;
+          completedTaskFilterAmount.innerText = completedTasks.length;
+        }
       }, 300);
       setTimeout(() => {
         taskField.classList.remove("appearTask");
@@ -682,6 +753,20 @@ const completeClick = (
         schedulingRemoveBtn.classList.add("hide");
         checkBtn.disabled = false;
         newTaskInput.focus();
+        pendingTasks = dbTarefas.filter(
+          (infoTaskSave) => !infoTaskSave.completeTask
+        );
+        completedTasks = dbTarefas.filter(
+          (infoTaskSave) => infoTaskSave.completeTask
+        );
+        if (pendingTaskFilter.classList.contains("active")) {
+          pendingTaskFilterFunction();
+          pendingTaskFilterAmount.innerText = pendingTasks.length;
+          completedTaskFilterAmount.innerText = completedTasks.length;
+        } else {
+          pendingTaskFilterAmount.innerText = pendingTasks.length;
+          completedTaskFilterAmount.innerText = completedTasks.length;
+        }
       }, 300);
       setTimeout(() => {
         taskField.classList.remove("appearTask");
@@ -2043,8 +2128,6 @@ function allTaskFilterFunction() {
   taskRecover();
 }
 
-allTaskFilterAmount.innerText = tasksContainer.childNodes.length;
-
 pendingTaskFilter.addEventListener("click", () => {
   for (const filter of filters) {
     if (filter.classList.contains("active")) {
@@ -2056,8 +2139,6 @@ pendingTaskFilter.addEventListener("click", () => {
     pendingTaskFilterFunction();
   }, 200);
 });
-
-pendingTaskFilterAmount.innerText = pendingTasks.length;
 
 function pendingTaskFilterFunction() {
   for (i = 0; i < dbTarefas.length; i++) {
@@ -2079,10 +2160,6 @@ function pendingTaskFilterFunction() {
   }
 }
 
-const scheduledTasks = dbTarefas.filter(
-  (infoTaskSave) => infoTaskSave.scheduledTask
-);
-
 scheduleTaskFilter.addEventListener("click", () => {
   for (const filter of filters) {
     if (filter.classList.contains("active")) {
@@ -2094,8 +2171,6 @@ scheduleTaskFilter.addEventListener("click", () => {
     scheduleTaskFilterFunction();
   }, 200);
 });
-
-scheduleTaskFilterAmount.innerText = scheduledTasks.length;
 
 function scheduleTaskFilterFunction() {
   for (i = 0; i < dbTarefas.length; i++) {
@@ -2117,10 +2192,6 @@ function scheduleTaskFilterFunction() {
   }
 }
 
-const expiredTasks = dbTarefas.filter(
-  (infoTaskSave) => infoTaskSave.expiredTask
-);
-
 expiredTaskFilter.addEventListener("click", () => {
   for (const filter of filters) {
     if (filter.classList.contains("active")) {
@@ -2132,8 +2203,6 @@ expiredTaskFilter.addEventListener("click", () => {
     expiredTaskFilterFunction();
   }, 200);
 });
-
-expiredTaskFilterAmount.innerText = expiredTasks.length;
 
 function expiredTaskFilterFunction() {
   for (i = 0; i < dbTarefas.length; i++) {
@@ -2155,10 +2224,6 @@ function expiredTaskFilterFunction() {
   }
 }
 
-const completedTasks = dbTarefas.filter(
-  (infoTaskSave) => infoTaskSave.completeTask
-);
-
 completedTaskFilter.addEventListener("click", () => {
   for (const filter of filters) {
     if (filter.classList.contains("active")) {
@@ -2170,8 +2235,6 @@ completedTaskFilter.addEventListener("click", () => {
     completedTaskFilterFunction();
   }, 200);
 });
-
-completedTaskFilterAmount.innerText = completedTasks.length;
 
 function completedTaskFilterFunction() {
   for (i = 0; i < dbTarefas.length; i++) {
