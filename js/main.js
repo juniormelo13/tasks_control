@@ -415,7 +415,7 @@ function insertTask() {
     removeIcon.classList.add("fa-trash");
     removeBtn.setAttribute("title", "Excluir tarefa");
     removeBtn.addEventListener("click", () =>
-      deleteClick(taskField, infoTaskSave, notesInfo)
+      deleteClick(taskField, infoTaskSave, notesInfo, taskInfo)
     );
   }
 }
@@ -473,7 +473,7 @@ const completeClick = (
           break;
       }
 
-      taskInfo.classList.add("deletedTaskInfo");
+      taskInfo.classList.add("deleted");
       for (const task of tasks) {
         task.classList.remove("hover");
         task.childNodes[1].classList.add("pointerEventsNone");
@@ -589,7 +589,7 @@ const completeClick = (
       task.childNodes[1].classList.add("pointerEventsNone");
     }
     taskField.classList.add("vanishTask");
-    taskInfo.classList.add("deletedTaskInfo");
+    taskInfo.classList.add("deleted");
 
     // Salvar ação no Local Storage
     if (infoTaskSave.expiredTask) {
@@ -1246,8 +1246,8 @@ const confirmSchedule = (
       }, 300);
     }
 
-    if (taskInfo.classList.contains("deletedTaskInfo")) {
-      taskInfo.classList.remove("deletedTaskInfo");
+    if (taskInfo.classList.contains("deleted")) {
+      taskInfo.classList.remove("deleted");
     }
 
     appointmentDate.innerText = scheduleInputDateValue;
@@ -1261,191 +1261,15 @@ const confirmSchedule = (
       infoTextContent.innerText,
     ];
     localStorage.setItem("tarefas", JSON.stringify(dbTarefas));
+
+    setTimeout(() => {
+      scheduledTasks = dbTarefas.filter(
+        (infoTaskSave) => infoTaskSave.scheduledTask
+      );
+      scheduleTaskFilterAmount.innerText = scheduledTasks.length;
+    }, 300);
   }
 };
-
-// Verificação do status do agendamento em tempo real
-
-setInterval(() => {
-  const currentFullDate = new Date();
-  const currentDate = currentFullDate.toLocaleDateString("fr-CA");
-
-  for (let i = 0; i < dbTarefas.length; i++) {
-    const task = tasksContainer.childNodes[i];
-    const infoTaskSave = dbTarefas[i];
-
-    if (
-      task.classList.contains("scheduled") ||
-      task.classList.contains("expiredTask")
-    ) {
-      const taskInfo = task.childNodes[2];
-      const infoTextContent = taskInfo.firstChild;
-      const schedulingRemoveBtn = taskInfo.childNodes[1];
-      const appointmentDate = taskInfo.childNodes[2];
-      const appointmentTime = taskInfo.childNodes[3];
-      const schedulingDate = new Date(
-        appointmentDate.innerText + " " + appointmentTime.innerText
-      );
-
-      const btnField = task.childNodes[1];
-      const editBtn = btnField.childNodes[1];
-      const difTimeInSeconds =
-        (schedulingDate.getTime() - currentFullDate.getTime()) / 1000;
-      const difTimeInMinutes = difTimeInSeconds / 60;
-      const difTimeInDays = difTimeInMinutes / (60 * 24);
-      const difDaysFromScheduledToCurrent =
-        schedulingDate.getDay() - currentFullDate.getDay();
-
-      const difSeconds =
-        (currentFullDate.getTime() - schedulingDate.getTime()) / 1000;
-      const difMinutes = difSeconds / 60;
-      const difDays = difMinutes / (60 * 24);
-      const difDaysFromCurrentToScheduled =
-        currentFullDate.getDay() - schedulingDate.getDay();
-
-      if (difTimeInSeconds <= 0) {
-        taskInfo.classList.remove("scheduled");
-        taskInfo.classList.remove("expireAlert");
-        taskInfo.classList.add("expiredTask");
-        task.classList.remove("scheduled");
-        task.classList.remove("expireAlert");
-        task.classList.add("expiredTask");
-        schedulingRemoveBtn.setAttribute("title", "Restaurar");
-        editBtn.classList.add("disabledBtn");
-        if (currentDate === appointmentDate.innerText) {
-          infoTextContent.innerText =
-            "Expirou hoje às " + appointmentTime.innerText;
-        } else if (difDays < 2 && difDaysFromScheduledToCurrent == 6) {
-          infoTextContent.innerText =
-            "Expirou ontem às " + appointmentTime.innerText;
-        } else if (difDays < 2 && difDaysFromCurrentToScheduled == 1) {
-          infoTextContent.innerText =
-            "Expirou ontem às " + appointmentTime.innerText;
-        } else {
-          infoTextContent.innerText =
-            "Expirou em " +
-            schedulingDate.toLocaleDateString("pt-BR") +
-            " às " +
-            appointmentTime.innerText;
-        }
-
-        // Salvar ação no Local Storage
-
-        if (!taskInfo.classList.contains("deletedTaskInfo")) {
-          delete infoTaskSave.scheduledTask;
-          delete infoTaskSave.expireAlert;
-
-          infoTaskSave.expiredTask = [
-            true,
-            appointmentDate.innerText,
-            appointmentTime.innerText,
-            infoTextContent.innerText,
-          ];
-        }
-      } else if (
-        difTimeInMinutes > 0 &&
-        difTimeInMinutes <= 30 &&
-        currentDate === appointmentDate.innerText
-      ) {
-        infoTextContent.innerText =
-          "Agendado para hoje às " +
-          appointmentTime.innerText +
-          " - Expira em " +
-          Math.ceil(difTimeInMinutes) +
-          " min";
-        task.classList.add("expireAlert");
-        taskInfo.classList.add("expireAlert");
-
-        // Salvar ação no Local Storage
-
-        if (!taskInfo.classList.contains("deletedTaskInfo")) {
-          infoTaskSave.scheduledTask = [
-            true,
-            appointmentDate.innerText,
-            appointmentTime.innerText,
-            infoTextContent.innerText,
-          ];
-          infoTaskSave.expireAlert = true;
-        }
-      } else if (
-        difTimeInMinutes > 30 &&
-        difTimeInMinutes <= 60 &&
-        currentDate === appointmentDate.innerText
-      ) {
-        infoTextContent.innerText =
-          "Agendado para hoje às " +
-          appointmentTime.innerText +
-          " - Expira em " +
-          Math.ceil(difTimeInMinutes) +
-          " min";
-      } else if (
-        currentDate === appointmentDate.innerText &&
-        difTimeInMinutes > 60
-      ) {
-        infoTextContent.innerText =
-          "Agendado para hoje às " + appointmentTime.innerText;
-      } else if (
-        (difTimeInDays < 2 && difDaysFromScheduledToCurrent == -6) ||
-        (difTimeInDays < 2 && difDaysFromScheduledToCurrent == 1)
-      ) {
-        infoTextContent.innerText =
-          "Agendado para amanhã às " + appointmentTime.innerText;
-      } else if (
-        (difTimeInDays < 2 &&
-          difDaysFromScheduledToCurrent == -6 &&
-          difTimeInMinutes > 30 &&
-          difTimeInMinutes <= 60) ||
-        (difTimeInDays < 2 &&
-          difDaysFromScheduledToCurrent == 1 &&
-          difTimeInMinutes > 30 &&
-          difTimeInMinutes <= 60)
-      ) {
-        infoTextContent.innerText =
-          "Agendado para amanhã às " +
-          appointmentTime.innerText +
-          " - Expira em " +
-          Math.ceil(difTimeInMinutes) +
-          " min";
-      } else if (
-        (difTimeInDays < 2 &&
-          difDaysFromScheduledToCurrent == -6 &&
-          difTimeInMinutes > 0 &&
-          difTimeInMinutes <= 30) ||
-        (difTimeInDays < 2 &&
-          difDaysFromScheduledToCurrent == 1 &&
-          difTimeInMinutes > 0 &&
-          difTimeInMinutes <= 30)
-      ) {
-        infoTextContent.innerText =
-          "Agendado para amanhã às " +
-          appointmentTime.innerText +
-          " - Expira em " +
-          Math.ceil(difTimeInMinutes) +
-          " min";
-        task.classList.add("expireAlert");
-        taskInfo.classList.add("expireAlert");
-
-        // Salvar ação no Local Storage
-        if (!taskInfo.classList.contains("deletedTaskInfo")) {
-          infoTaskSave.scheduledTask = [
-            true,
-            appointmentDate.innerText,
-            appointmentTime.innerText,
-            infoTextContent.innerText,
-          ];
-          infoTaskSave.expireAlert = true;
-        }
-      }
-      if (infoTaskSave.expiredTask) {
-        infoTaskSave.expiredTask[3] = infoTextContent.innerText;
-      }
-      if (infoTaskSave.scheduledTask) {
-        infoTaskSave.scheduledTask[3] = infoTextContent.innerText;
-      }
-      localStorage.setItem("tarefas", JSON.stringify(dbTarefas));
-    }
-  }
-}, 1000);
 
 // Configuração do botão de remoção do agendamento
 const schedulingRemoveClick = (
@@ -1459,7 +1283,7 @@ const schedulingRemoveClick = (
   infoTaskSave
 ) => {
   taskInfo.classList.add("vanishTaskInfo");
-  taskInfo.classList.add("deletedTaskInfo");
+  taskInfo.classList.add("deleted");
 
   // Salvar ação no Local Storage
   if (infoTaskSave.expiredTask) {
@@ -1468,7 +1292,9 @@ const schedulingRemoveClick = (
   if (infoTaskSave.expireAlert) {
     delete infoTaskSave.expireAlert;
   }
-  delete infoTaskSave.scheduledTask;
+  if (infoTaskSave.scheduledTask) {
+    delete infoTaskSave.scheduledTask;
+  }
   localStorage.setItem("tarefas", JSON.stringify(dbTarefas));
 
   setTimeout(() => {
@@ -1495,6 +1321,24 @@ const schedulingRemoveClick = (
     taskInfo.classList.add("hide");
     taskInfo.classList.remove("vanishTaskInfo");
     newTaskInput.focus();
+    setTimeout(() => {
+      scheduledTasks = dbTarefas.filter(
+        (infoTaskSave) => infoTaskSave.scheduledTask
+      );
+      expiredTasks = dbTarefas.filter(
+        (infoTaskSave) => infoTaskSave.expiredTask
+      );
+      if (scheduleTaskFilter.classList.contains("active")) {
+        scheduleTaskFilterFunction();
+        scheduleTaskFilterAmount.innerText = scheduledTasks.length;
+      } else if (expiredTaskFilter.classList.contains("active")) {
+        expiredTaskFilterFunction();
+        expiredTaskFilterAmount.innerText = expiredTasks.length;
+      } else {
+        scheduleTaskFilterAmount.innerText = scheduledTasks.length;
+        expiredTaskFilterAmount.innerText = expiredTasks.length;
+      }
+    }, 100);
   }, 200);
   setTimeout(() => {
     taskField.classList.remove("pointerEventsNone");
@@ -1504,7 +1348,7 @@ const schedulingRemoveClick = (
 };
 
 // Configuração do botão de exclusão da tarefa
-const deleteClick = (taskField, infoTaskSave, notesInfo) => {
+const deleteClick = (taskField, infoTaskSave, notesInfo, taskInfo) => {
   if (taskField.classList.contains("scheduled") || notesInfo.innerText != "") {
     header.classList.add("pointerEventsNone");
     tasksContainer.classList.add("tasksContainerHide");
@@ -1539,6 +1383,7 @@ const deleteClick = (taskField, infoTaskSave, notesInfo) => {
         task.classList.remove("hover");
         task.childNodes[1].classList.add("pointerEventsNone");
       }
+      taskInfo.classList.add("deleted");
 
       // Salvar ação no Local Storage
       const index = dbTarefas.indexOf(infoTaskSave);
@@ -1557,6 +1402,27 @@ const deleteClick = (taskField, infoTaskSave, notesInfo) => {
         confirmField.classList.remove("vanishWindow");
         taskField.remove();
         newTaskInput.focus();
+        pendingTasks = dbTarefas.filter(
+          (infoTaskSave) => !infoTaskSave.completeTask
+        );
+        scheduledTasks = dbTarefas.filter(
+          (infoTaskSave) => infoTaskSave.scheduledTask
+        );
+        if (scheduleTaskFilter.classList.contains("active")) {
+          scheduleTaskFilterFunction();
+          allTaskFilterAmount.innerText = tasksContainer.childNodes.length;
+          pendingTaskFilterAmount.innerText = pendingTasks.length;
+          scheduleTaskFilterAmount.innerText = scheduledTasks.length;
+        } else if (pendingTaskFilter.classList.contains("active")) {
+          pendingTaskFilterFunction();
+          allTaskFilterAmount.innerText = tasksContainer.childNodes.length;
+          pendingTaskFilterAmount.innerText = pendingTasks.length;
+          scheduleTaskFilterAmount.innerText = scheduledTasks.length;
+        } else {
+          allTaskFilterAmount.innerText = tasksContainer.childNodes.length;
+          pendingTaskFilterAmount.innerText = pendingTasks.length;
+          scheduleTaskFilterAmount.innerText = scheduledTasks.length;
+        }
         setTimeout(() => {
           for (const task of tasks) {
             task.classList.add("hover");
@@ -1591,6 +1457,7 @@ const deleteClick = (taskField, infoTaskSave, notesInfo) => {
       task.classList.remove("hover");
       task.childNodes[1].classList.add("pointerEventsNone");
     }
+    taskInfo.classList.add("deleted");
 
     // Salvar ação no Local Storage
     const index = dbTarefas.indexOf(infoTaskSave);
@@ -1600,7 +1467,40 @@ const deleteClick = (taskField, infoTaskSave, notesInfo) => {
     setTimeout(() => {
       taskField.remove();
       newTaskInput.focus();
-
+      pendingTasks = dbTarefas.filter(
+        (infoTaskSave) => !infoTaskSave.completeTask
+      );
+      completedTasks = dbTarefas.filter(
+        (infoTaskSave) => infoTaskSave.completeTask
+      );
+      expiredTasks = dbTarefas.filter(
+        (infoTaskSave) => infoTaskSave.expiredTask
+      );
+      scheduledTasks = dbTarefas.filter(
+        (infoTaskSave) => infoTaskSave.scheduledTask
+      );
+      if (expiredTaskFilter.classList.contains("active")) {
+        expiredTaskFilterFunction();
+        allTaskFilterAmount.innerText = tasksContainer.childNodes.length;
+        pendingTaskFilterAmount.innerText = pendingTasks.length;
+        expiredTaskFilterAmount.innerText = expiredTasks.length;
+      } else if (completedTaskFilter.classList.contains("active")) {
+        completedTaskFilterFunction();
+        allTaskFilterAmount.innerText = tasksContainer.childNodes.length;
+        pendingTaskFilterAmount.innerText = pendingTasks.length;
+        completedTaskFilterAmount.innerText = completedTasks.length;
+      } else if (pendingTaskFilter.classList.contains("active")) {
+        pendingTaskFilterFunction();
+        allTaskFilterAmount.innerText = tasksContainer.childNodes.length;
+        pendingTaskFilterAmount.innerText = pendingTasks.length;
+        expiredTaskFilterAmount.innerText = expiredTasks.length;
+        completedTaskFilterAmount.innerText = completedTasks.length;
+      } else {
+        allTaskFilterAmount.innerText = tasksContainer.childNodes.length;
+        pendingTaskFilterAmount.innerText = pendingTasks.length;
+        expiredTaskFilterAmount.innerText = expiredTasks.length;
+        completedTaskFilterAmount.innerText = completedTasks.length;
+      }
       setTimeout(() => {
         for (const task of tasks) {
           task.classList.add("hover");
@@ -2039,7 +1939,7 @@ function taskRecover() {
     removeIcon.classList.add("fa-trash");
     removeBtn.setAttribute("title", "Excluir tarefa");
     removeBtn.addEventListener("click", () =>
-      deleteClick(taskField, infoTaskSave, notesInfo)
+      deleteClick(taskField, infoTaskSave, notesInfo, taskInfo)
     );
 
     switch (infoTaskSave.completeTask) {
@@ -2255,3 +2155,201 @@ function completedTaskFilterFunction() {
     }
   }
 }
+
+// Verificação do status do agendamento em tempo real
+setInterval(() => {
+  const currentFullDate = new Date();
+  const currentDate = currentFullDate.toLocaleDateString("fr-CA");
+
+  for (let i = 0; i < dbTarefas.length; i++) {
+    const task = tasksContainer.childNodes[i];
+    const infoTaskSave = dbTarefas[i];
+
+    if (infoTaskSave.scheduledTask || infoTaskSave.expiredTask) {
+      const taskInfo = task.childNodes[2];
+      const infoTextContent = taskInfo.firstChild;
+      const schedulingRemoveBtn = taskInfo.childNodes[1];
+      const appointmentDate = taskInfo.childNodes[2];
+      const appointmentTime = taskInfo.childNodes[3];
+      const schedulingDate = new Date(
+        appointmentDate.innerText + " " + appointmentTime.innerText
+      );
+
+      const btnField = task.childNodes[1];
+      const editBtn = btnField.childNodes[1];
+      const difTimeInSeconds =
+        (schedulingDate.getTime() - currentFullDate.getTime()) / 1000;
+      const difTimeInMinutes = difTimeInSeconds / 60;
+      const difTimeInDays = difTimeInMinutes / (60 * 24);
+      const difDaysFromScheduledToCurrent =
+        schedulingDate.getDay() - currentFullDate.getDay();
+
+      const difSeconds =
+        (currentFullDate.getTime() - schedulingDate.getTime()) / 1000;
+      const difMinutes = difSeconds / 60;
+      const difDays = difMinutes / (60 * 24);
+      const difDaysFromCurrentToScheduled =
+        currentFullDate.getDay() - schedulingDate.getDay();
+
+      if (difTimeInSeconds <= 0) {
+        taskInfo.classList.remove("scheduled");
+        taskInfo.classList.remove("expireAlert");
+        taskInfo.classList.add("expiredTask");
+        task.classList.remove("scheduled");
+        task.classList.remove("expireAlert");
+        task.classList.add("expiredTask");
+        schedulingRemoveBtn.setAttribute("title", "Restaurar");
+        editBtn.classList.add("disabledBtn");
+        if (currentDate === appointmentDate.innerText) {
+          infoTextContent.innerText =
+            "Expirou hoje às " + appointmentTime.innerText;
+        } else if (difDays < 2 && difDaysFromScheduledToCurrent == 6) {
+          infoTextContent.innerText =
+            "Expirou ontem às " + appointmentTime.innerText;
+        } else if (difDays < 2 && difDaysFromCurrentToScheduled == 1) {
+          infoTextContent.innerText =
+            "Expirou ontem às " + appointmentTime.innerText;
+        } else {
+          infoTextContent.innerText =
+            "Expirou em " +
+            schedulingDate.toLocaleDateString("pt-BR") +
+            " às " +
+            appointmentTime.innerText;
+        }
+
+        // Salvar ação no Local Storage
+        if (!taskInfo.classList.contains("deleted")) {
+          delete infoTaskSave.scheduledTask;
+          delete infoTaskSave.expireAlert;
+
+          infoTaskSave.expiredTask = [
+            true,
+            appointmentDate.innerText,
+            appointmentTime.innerText,
+            infoTextContent.innerText,
+          ];
+        }
+
+        // Filtro de tarefas
+        expiredTasks = dbTarefas.filter(
+          (infoTaskSave) => infoTaskSave.expiredTask
+        );
+        scheduledTasks = dbTarefas.filter(
+          (infoTaskSave) => infoTaskSave.scheduledTask
+        );
+        if (expiredTaskFilter.classList.contains("active")) {
+          expiredTaskFilterFunction();
+          expiredTaskFilterAmount.innerText = expiredTasks.length;
+          scheduleTaskFilterAmount.innerText = scheduledTasks.length;
+        } else if (scheduleTaskFilter.classList.contains("active")) {
+          scheduleTaskFilterFunction();
+          expiredTaskFilterAmount.innerText = expiredTasks.length;
+          scheduleTaskFilterAmount.innerText = scheduledTasks.length;
+        } else {
+          expiredTaskFilterAmount.innerText = expiredTasks.length;
+          scheduleTaskFilterAmount.innerText = scheduledTasks.length;
+        }
+      } else if (
+        difTimeInMinutes > 0 &&
+        difTimeInMinutes <= 30 &&
+        currentDate === appointmentDate.innerText
+      ) {
+        infoTextContent.innerText =
+          "Agendado para hoje às " +
+          appointmentTime.innerText +
+          " - Expira em " +
+          Math.ceil(difTimeInMinutes) +
+          " min";
+        task.classList.add("expireAlert");
+        taskInfo.classList.add("expireAlert");
+
+        // Salvar ação no Local Storage
+
+        if (!taskInfo.classList.contains("deleted")) {
+          infoTaskSave.scheduledTask = [
+            true,
+            appointmentDate.innerText,
+            appointmentTime.innerText,
+            infoTextContent.innerText,
+          ];
+          infoTaskSave.expireAlert = true;
+        }
+      } else if (
+        difTimeInMinutes > 30 &&
+        difTimeInMinutes <= 60 &&
+        currentDate === appointmentDate.innerText
+      ) {
+        infoTextContent.innerText =
+          "Agendado para hoje às " +
+          appointmentTime.innerText +
+          " - Expira em " +
+          Math.ceil(difTimeInMinutes) +
+          " min";
+      } else if (
+        currentDate === appointmentDate.innerText &&
+        difTimeInMinutes > 60
+      ) {
+        infoTextContent.innerText =
+          "Agendado para hoje às " + appointmentTime.innerText;
+      } else if (
+        (difTimeInDays < 2 && difDaysFromScheduledToCurrent == -6) ||
+        (difTimeInDays < 2 && difDaysFromScheduledToCurrent == 1)
+      ) {
+        infoTextContent.innerText =
+          "Agendado para amanhã às " + appointmentTime.innerText;
+      } else if (
+        (difTimeInDays < 2 &&
+          difDaysFromScheduledToCurrent == -6 &&
+          difTimeInMinutes > 30 &&
+          difTimeInMinutes <= 60) ||
+        (difTimeInDays < 2 &&
+          difDaysFromScheduledToCurrent == 1 &&
+          difTimeInMinutes > 30 &&
+          difTimeInMinutes <= 60)
+      ) {
+        infoTextContent.innerText =
+          "Agendado para amanhã às " +
+          appointmentTime.innerText +
+          " - Expira em " +
+          Math.ceil(difTimeInMinutes) +
+          " min";
+      } else if (
+        (difTimeInDays < 2 &&
+          difDaysFromScheduledToCurrent == -6 &&
+          difTimeInMinutes > 0 &&
+          difTimeInMinutes <= 30) ||
+        (difTimeInDays < 2 &&
+          difDaysFromScheduledToCurrent == 1 &&
+          difTimeInMinutes > 0 &&
+          difTimeInMinutes <= 30)
+      ) {
+        infoTextContent.innerText =
+          "Agendado para amanhã às " +
+          appointmentTime.innerText +
+          " - Expira em " +
+          Math.ceil(difTimeInMinutes) +
+          " min";
+        task.classList.add("expireAlert");
+        taskInfo.classList.add("expireAlert");
+
+        // Salvar ação no Local Storage
+        if (!taskInfo.classList.contains("deleted")) {
+          infoTaskSave.scheduledTask = [
+            true,
+            appointmentDate.innerText,
+            appointmentTime.innerText,
+            infoTextContent.innerText,
+          ];
+          infoTaskSave.expireAlert = true;
+        }
+      }
+      if (infoTaskSave.expiredTask) {
+        infoTaskSave.expiredTask[3] = infoTextContent.innerText;
+      }
+      if (infoTaskSave.scheduledTask) {
+        infoTaskSave.scheduledTask[3] = infoTextContent.innerText;
+      }
+      localStorage.setItem("tarefas", JSON.stringify(dbTarefas));
+    }
+  }
+}, 0);
