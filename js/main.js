@@ -21,19 +21,31 @@ const mainContainer = document.querySelector("#mainContainer");
 
 const inputFileImg = document.querySelector("#inputFileImg");
 const uploadedImg = document.querySelector("#uploadedImg");
+let dbInfoAccountImg = [];
+if (localStorage.getItem("infoAccountImg")) {
+  dbInfoAccountImg = JSON.parse(localStorage.getItem("infoAccountImg"));
+  window.onload = () => {
+    uploadedImg.src = dbInfoAccountImg[0].img;
+  };
+}
 
 function loadImage(e) {
   const filePath = e.target;
-  
   const file = filePath.files;
-  
-  const fileReader = new FileReader();
-  
-  fileReader.onload = () => {
-    uploadedImg.src = fileReader.result;
-  };
-  
-  fileReader.readAsDataURL(file[0]);
+  if (file.length > 0 && !file[0].type.includes("image")) {
+    alert("Por favor selecione uma imagem válida.");
+  } else if (file.length > 0) {
+    const imgAccountSave = new Object();
+    dbInfoAccountImg = [];
+    const fileReader = new FileReader();
+    fileReader.onload = () => {
+      uploadedImg.src = fileReader.result;
+      imgAccountSave.img = fileReader.result;
+      dbInfoAccountImg.push(imgAccountSave);
+      localStorage.setItem("infoAccountImg", JSON.stringify(dbInfoAccountImg));
+    };
+    fileReader.readAsDataURL(file[0]);
+  }
 }
 
 inputFileImg.addEventListener("change", loadImage);
@@ -42,32 +54,32 @@ inputFileImg.addEventListener("change", loadImage);
 
 const nameInput = document.querySelector("#nameInput");
 const nameIdentIcon = document.querySelector("#nameIdentIcon");
-let dbInfoAccount = [];
-if(localStorage.getItem("infoAccountName")) {
-  dbInfoAccount = JSON.parse(localStorage.getItem("infoAccountName"));
+let dbInfoAccountName = [];
+if (localStorage.getItem("infoAccountName")) {
+  dbInfoAccountName = JSON.parse(localStorage.getItem("infoAccountName"));
+  nameInput.value = dbInfoAccountName[0].name;
 }
-nameInput.value = dbInfoAccount[0].name
 
 nameInput.addEventListener("blur", saveName);
 nameInput.onkeypress = (e) => {
   if (e.key === "Enter") {
-    nameInput.blur()
+    nameInput.blur();
   }
-}
+};
 
 nameInput.onfocus = () => {
-  nameIdentIcon.classList.add("active")
-  nameInput.classList.add("active")
-}
+  nameIdentIcon.classList.add("active");
+  nameInput.classList.add("active");
+};
 
 function saveName() {
-  nameIdentIcon.classList.remove("active")
-  nameInput.classList.remove("active")
-  const nameAccountSave = new Object()
-  dbInfoAccount = [];
-  nameAccountSave.name = nameInput.value
-  dbInfoAccount.push(nameAccountSave)
-  localStorage.setItem("infoAccountName", JSON.stringify(dbInfoAccount));
+  nameIdentIcon.classList.remove("active");
+  nameInput.classList.remove("active");
+  const nameAccountSave = new Object();
+  dbInfoAccountName = [];
+  nameAccountSave.name = nameInput.value;
+  dbInfoAccountName.push(nameAccountSave);
+  localStorage.setItem("infoAccountName", JSON.stringify(dbInfoAccountName));
 }
 
 // Variáveis dos filtros das tarefas
@@ -94,9 +106,7 @@ const completedTaskFilterAmount = document.querySelector(
 const filters = allFilter.children;
 allTaskFilter.classList.add("active");
 allTaskFilterAmount.innerText = tasksContainer.childNodes.length;
-let pendingTasks = dbTasks.filter(
-  (infoTaskSave) => !infoTaskSave.completeTask
-);
+let pendingTasks = dbTasks.filter((infoTaskSave) => !infoTaskSave.completeTask);
 let scheduledTasks = dbTasks.filter(
   (infoTaskSave) => infoTaskSave.scheduledTask
 );
@@ -229,9 +239,7 @@ function insertTask() {
     dbTasks.unshift(infoTaskSave);
     localStorage.setItem("Tasks", JSON.stringify(dbTasks));
 
-    pendingTasks = dbTasks.filter(
-      (infoTaskSave) => !infoTaskSave.completeTask
-    );
+    pendingTasks = dbTasks.filter((infoTaskSave) => !infoTaskSave.completeTask);
     if (
       allTaskFilter.classList.contains("active") ||
       pendingTaskFilter.classList.contains("active")
@@ -672,9 +680,7 @@ const completeClick = (
       completedTasks = dbTasks.filter(
         (infoTaskSave) => infoTaskSave.completeTask
       );
-      expiredTasks = dbTasks.filter(
-        (infoTaskSave) => infoTaskSave.expiredTask
-      );
+      expiredTasks = dbTasks.filter((infoTaskSave) => infoTaskSave.expiredTask);
       if (expiredTaskFilter.classList.contains("active")) {
         expiredTaskFilterFunction();
         pendingTaskFilterAmount.innerText = pendingTasks.length;
@@ -1366,9 +1372,7 @@ const schedulingRemoveClick = (
       scheduledTasks = dbTasks.filter(
         (infoTaskSave) => infoTaskSave.scheduledTask
       );
-      expiredTasks = dbTasks.filter(
-        (infoTaskSave) => infoTaskSave.expiredTask
-      );
+      expiredTasks = dbTasks.filter((infoTaskSave) => infoTaskSave.expiredTask);
       if (scheduleTaskFilter.classList.contains("active")) {
         scheduleTaskFilterFunction();
         scheduleTaskFilterAmount.innerText = scheduledTasks.length;
@@ -1514,9 +1518,7 @@ const deleteClick = (taskField, infoTaskSave, notesInfo, taskInfo) => {
       completedTasks = dbTasks.filter(
         (infoTaskSave) => infoTaskSave.completeTask
       );
-      expiredTasks = dbTasks.filter(
-        (infoTaskSave) => infoTaskSave.expiredTask
-      );
+      expiredTasks = dbTasks.filter((infoTaskSave) => infoTaskSave.expiredTask);
       scheduledTasks = dbTasks.filter(
         (infoTaskSave) => infoTaskSave.scheduledTask
       );
