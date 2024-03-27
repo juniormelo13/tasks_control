@@ -11,11 +11,64 @@ const tasksContainer = document.querySelector("#tasksContainer");
 const noTaskTextContainer = document.querySelector("#noTaskTextContainer");
 
 // Variáveis para guardar tarefas no banco de dados (Local Storage)
-let dbTarefas = [];
+let dbTasks = [];
 taskRecover();
 
 // Container principal do projeto
 const mainContainer = document.querySelector("#mainContainer");
+
+// Configuração para guardar imagem do perfil do usuário
+
+const inputFileImg = document.querySelector("#inputFileImg");
+const uploadedImg = document.querySelector("#uploadedImg");
+
+function loadImage(e) {
+  const filePath = e.target;
+  
+  const file = filePath.files;
+  
+  const fileReader = new FileReader();
+  
+  fileReader.onload = () => {
+    uploadedImg.src = fileReader.result;
+  };
+  
+  fileReader.readAsDataURL(file[0]);
+}
+
+inputFileImg.addEventListener("change", loadImage);
+
+// Nome do usuário
+
+const nameInput = document.querySelector("#nameInput");
+const nameIdentIcon = document.querySelector("#nameIdentIcon");
+let dbInfoAccount = [];
+if(localStorage.getItem("infoAccountName")) {
+  dbInfoAccount = JSON.parse(localStorage.getItem("infoAccountName"));
+}
+nameInput.value = dbInfoAccount[0].name
+
+nameInput.addEventListener("blur", saveName);
+nameInput.onkeypress = (e) => {
+  if (e.key === "Enter") {
+    nameInput.blur()
+  }
+}
+
+nameInput.onfocus = () => {
+  nameIdentIcon.classList.add("active")
+  nameInput.classList.add("active")
+}
+
+function saveName() {
+  nameIdentIcon.classList.remove("active")
+  nameInput.classList.remove("active")
+  const nameAccountSave = new Object()
+  dbInfoAccount = [];
+  nameAccountSave.name = nameInput.value
+  dbInfoAccount.push(nameAccountSave)
+  localStorage.setItem("infoAccountName", JSON.stringify(dbInfoAccount));
+}
 
 // Variáveis dos filtros das tarefas
 const allFilter = document.querySelector("#filterContainer");
@@ -41,14 +94,14 @@ const completedTaskFilterAmount = document.querySelector(
 const filters = allFilter.children;
 allTaskFilter.classList.add("active");
 allTaskFilterAmount.innerText = tasksContainer.childNodes.length;
-let pendingTasks = dbTarefas.filter(
+let pendingTasks = dbTasks.filter(
   (infoTaskSave) => !infoTaskSave.completeTask
 );
-let scheduledTasks = dbTarefas.filter(
+let scheduledTasks = dbTasks.filter(
   (infoTaskSave) => infoTaskSave.scheduledTask
 );
-let expiredTasks = dbTarefas.filter((infoTaskSave) => infoTaskSave.expiredTask);
-let completedTasks = dbTarefas.filter(
+let expiredTasks = dbTasks.filter((infoTaskSave) => infoTaskSave.expiredTask);
+let completedTasks = dbTasks.filter(
   (infoTaskSave) => infoTaskSave.completeTask
 );
 pendingTaskFilterAmount.innerText = pendingTasks.length;
@@ -62,7 +115,6 @@ const menuBtn = document.querySelector("#menuButton");
 const menu = document.querySelector(".menu");
 const menuBtnIcon = document.querySelector("#menuButtonIcon");
 let menuOpen = false;
-menuOpenFunction();
 
 function menuOpenFunction() {
   menuOpen = !menuOpen;
@@ -99,17 +151,6 @@ menuBtn.addEventListener("click", () => {
     menuCloseFunction();
   }
 });
-
-// document.addEventListener("click", (e) => {
-//   if (
-//     !menu.contains(e.target) &&
-//     !menuBtn.contains(e.target) &&
-//     !menuBtnIcon.contains(e.target) &&
-//     menuOpen
-//   ) {
-//     menuCloseFunction();
-//   }
-// });
 
 // Botão para limpar o campo de texto principal
 const cleanInputBtn = document.querySelector("#cleanInputBtn");
@@ -185,10 +226,10 @@ function insertTask() {
     // Salvar tarefa no Local Storage
     const infoTaskSave = new Object();
     infoTaskSave.taskContent = taskContent.innerText;
-    dbTarefas.unshift(infoTaskSave);
-    localStorage.setItem("tarefas", JSON.stringify(dbTarefas));
+    dbTasks.unshift(infoTaskSave);
+    localStorage.setItem("Tasks", JSON.stringify(dbTasks));
 
-    pendingTasks = dbTarefas.filter(
+    pendingTasks = dbTasks.filter(
       (infoTaskSave) => !infoTaskSave.completeTask
     );
     if (
@@ -488,7 +529,7 @@ const completeClick = (
       }
       delete infoTaskSave.scheduledTask;
       infoTaskSave.completeTask = true;
-      localStorage.setItem("tarefas", JSON.stringify(dbTarefas));
+      localStorage.setItem("Tasks", JSON.stringify(dbTasks));
 
       setTimeout(() => {
         taskField.classList.add("vanishTask");
@@ -533,13 +574,13 @@ const completeClick = (
 
         checkBtn.setAttribute("title", "Restaurar");
         newTaskInput.focus();
-        pendingTasks = dbTarefas.filter(
+        pendingTasks = dbTasks.filter(
           (infoTaskSave) => !infoTaskSave.completeTask
         );
-        completedTasks = dbTarefas.filter(
+        completedTasks = dbTasks.filter(
           (infoTaskSave) => infoTaskSave.completeTask
         );
-        scheduledTasks = dbTarefas.filter(
+        scheduledTasks = dbTasks.filter(
           (infoTaskSave) => infoTaskSave.scheduledTask
         );
         if (scheduleTaskFilter.classList.contains("active")) {
@@ -596,7 +637,7 @@ const completeClick = (
       delete infoTaskSave.expiredTask;
     }
     infoTaskSave.completeTask = true;
-    localStorage.setItem("tarefas", JSON.stringify(dbTarefas));
+    localStorage.setItem("Tasks", JSON.stringify(dbTasks));
 
     setTimeout(() => {
       appointmentTime.innerText = "";
@@ -625,13 +666,13 @@ const completeClick = (
       completedTaskIcon.classList.remove("hide");
       schedulingRemoveBtn.classList.add("hide");
       newTaskInput.focus();
-      pendingTasks = dbTarefas.filter(
+      pendingTasks = dbTasks.filter(
         (infoTaskSave) => !infoTaskSave.completeTask
       );
-      completedTasks = dbTarefas.filter(
+      completedTasks = dbTasks.filter(
         (infoTaskSave) => infoTaskSave.completeTask
       );
-      expiredTasks = dbTarefas.filter(
+      expiredTasks = dbTasks.filter(
         (infoTaskSave) => infoTaskSave.expiredTask
       );
       if (expiredTaskFilter.classList.contains("active")) {
@@ -671,7 +712,7 @@ const completeClick = (
 
       // Salvar ação no Local Storage
       delete infoTaskSave.completeTask;
-      localStorage.setItem("tarefas", JSON.stringify(dbTarefas));
+      localStorage.setItem("Tasks", JSON.stringify(dbTasks));
 
       setTimeout(() => {
         checkBtn.setAttribute("title", "Concluir");
@@ -695,10 +736,10 @@ const completeClick = (
         taskField.classList.add("appearTask");
         checkBtn.disabled = false;
         newTaskInput.focus();
-        pendingTasks = dbTarefas.filter(
+        pendingTasks = dbTasks.filter(
           (infoTaskSave) => !infoTaskSave.completeTask
         );
-        completedTasks = dbTarefas.filter(
+        completedTasks = dbTasks.filter(
           (infoTaskSave) => infoTaskSave.completeTask
         );
         if (completedTaskFilter.classList.contains("active")) {
@@ -729,7 +770,7 @@ const completeClick = (
 
       // Salvar ação no Local Storage
       infoTaskSave.completeTask = true;
-      localStorage.setItem("tarefas", JSON.stringify(dbTarefas));
+      localStorage.setItem("Tasks", JSON.stringify(dbTasks));
 
       setTimeout(() => {
         taskField.classList.remove("vanishTask");
@@ -753,10 +794,10 @@ const completeClick = (
         schedulingRemoveBtn.classList.add("hide");
         checkBtn.disabled = false;
         newTaskInput.focus();
-        pendingTasks = dbTarefas.filter(
+        pendingTasks = dbTasks.filter(
           (infoTaskSave) => !infoTaskSave.completeTask
         );
-        completedTasks = dbTarefas.filter(
+        completedTasks = dbTasks.filter(
           (infoTaskSave) => infoTaskSave.completeTask
         );
         if (pendingTaskFilter.classList.contains("active")) {
@@ -883,7 +924,7 @@ function editTask(taskContent, infoTaskSave) {
 
     // Salvar ação no Local Storage
     infoTaskSave["taskContent"] = editInput.value;
-    localStorage.setItem("tarefas", JSON.stringify(dbTarefas));
+    localStorage.setItem("Tasks", JSON.stringify(dbTasks));
 
     setTimeout(() => {
       editField.classList.remove("vanishWindow");
@@ -1260,10 +1301,10 @@ const confirmSchedule = (
       scheduleInputTimeValue,
       infoTextContent.innerText,
     ];
-    localStorage.setItem("tarefas", JSON.stringify(dbTarefas));
+    localStorage.setItem("Tasks", JSON.stringify(dbTasks));
 
     setTimeout(() => {
-      scheduledTasks = dbTarefas.filter(
+      scheduledTasks = dbTasks.filter(
         (infoTaskSave) => infoTaskSave.scheduledTask
       );
       scheduleTaskFilterAmount.innerText = scheduledTasks.length;
@@ -1295,7 +1336,7 @@ const schedulingRemoveClick = (
   if (infoTaskSave.scheduledTask) {
     delete infoTaskSave.scheduledTask;
   }
-  localStorage.setItem("tarefas", JSON.stringify(dbTarefas));
+  localStorage.setItem("Tasks", JSON.stringify(dbTasks));
 
   setTimeout(() => {
     appointmentTime.innerText = "";
@@ -1322,10 +1363,10 @@ const schedulingRemoveClick = (
     taskInfo.classList.remove("vanishTaskInfo");
     newTaskInput.focus();
     setTimeout(() => {
-      scheduledTasks = dbTarefas.filter(
+      scheduledTasks = dbTasks.filter(
         (infoTaskSave) => infoTaskSave.scheduledTask
       );
-      expiredTasks = dbTarefas.filter(
+      expiredTasks = dbTasks.filter(
         (infoTaskSave) => infoTaskSave.expiredTask
       );
       if (scheduleTaskFilter.classList.contains("active")) {
@@ -1386,9 +1427,9 @@ const deleteClick = (taskField, infoTaskSave, notesInfo, taskInfo) => {
       taskInfo.classList.add("deleted");
 
       // Salvar ação no Local Storage
-      const index = dbTarefas.indexOf(infoTaskSave);
-      dbTarefas.splice(index, 1);
-      localStorage.setItem("tarefas", JSON.stringify(dbTarefas));
+      const index = dbTasks.indexOf(infoTaskSave);
+      dbTasks.splice(index, 1);
+      localStorage.setItem("Tasks", JSON.stringify(dbTasks));
 
       setTimeout(() => {
         taskField.classList.add("vanishTask");
@@ -1402,10 +1443,10 @@ const deleteClick = (taskField, infoTaskSave, notesInfo, taskInfo) => {
         confirmField.classList.remove("vanishWindow");
         taskField.remove();
         newTaskInput.focus();
-        pendingTasks = dbTarefas.filter(
+        pendingTasks = dbTasks.filter(
           (infoTaskSave) => !infoTaskSave.completeTask
         );
-        scheduledTasks = dbTarefas.filter(
+        scheduledTasks = dbTasks.filter(
           (infoTaskSave) => infoTaskSave.scheduledTask
         );
         if (scheduleTaskFilter.classList.contains("active")) {
@@ -1460,23 +1501,23 @@ const deleteClick = (taskField, infoTaskSave, notesInfo, taskInfo) => {
     taskInfo.classList.add("deleted");
 
     // Salvar ação no Local Storage
-    const index = dbTarefas.indexOf(infoTaskSave);
-    dbTarefas.splice(index, 1);
-    localStorage.setItem("tarefas", JSON.stringify(dbTarefas));
+    const index = dbTasks.indexOf(infoTaskSave);
+    dbTasks.splice(index, 1);
+    localStorage.setItem("Tasks", JSON.stringify(dbTasks));
 
     setTimeout(() => {
       taskField.remove();
       newTaskInput.focus();
-      pendingTasks = dbTarefas.filter(
+      pendingTasks = dbTasks.filter(
         (infoTaskSave) => !infoTaskSave.completeTask
       );
-      completedTasks = dbTarefas.filter(
+      completedTasks = dbTasks.filter(
         (infoTaskSave) => infoTaskSave.completeTask
       );
-      expiredTasks = dbTarefas.filter(
+      expiredTasks = dbTasks.filter(
         (infoTaskSave) => infoTaskSave.expiredTask
       );
-      scheduledTasks = dbTarefas.filter(
+      scheduledTasks = dbTasks.filter(
         (infoTaskSave) => infoTaskSave.scheduledTask
       );
       if (expiredTaskFilter.classList.contains("active")) {
@@ -1639,7 +1680,7 @@ function saveNoteClick(
   if (notesInfo.innerText != "" && !inputEquality) {
     // Salvar ação no Local Storage
     infoTaskSave.savedNote = [true, notesInfo.innerText];
-    localStorage.setItem("tarefas", JSON.stringify(dbTarefas));
+    localStorage.setItem("Tasks", JSON.stringify(dbTasks));
 
     setTimeout(() => {
       const tasks = tasksContainer.childNodes;
@@ -1670,7 +1711,7 @@ function saveNoteClick(
       // Salvar ação no Local Storage
       if (infoTaskSave.savedNote) {
         delete infoTaskSave.savedNote;
-        localStorage.setItem("tarefas", JSON.stringify(dbTarefas));
+        localStorage.setItem("Tasks", JSON.stringify(dbTasks));
       }
     }
     setTimeout(() => {
@@ -1710,10 +1751,10 @@ function cleanNoteClick(notePadInput, cleanNoteBtn, notePadContainer) {
 }
 
 function taskRecover() {
-  if (localStorage.getItem("tarefas")) {
-    dbTarefas = JSON.parse(localStorage.getItem("tarefas"));
+  if (localStorage.getItem("Tasks")) {
+    dbTasks = JSON.parse(localStorage.getItem("Tasks"));
   }
-  if (dbTarefas.length == 0) {
+  if (dbTasks.length == 0) {
     noTaskTextContainer.classList.remove("hide");
   } else {
     if (!noTaskTextContainer.classList.contains("hide")) {
@@ -1721,10 +1762,10 @@ function taskRecover() {
     }
   }
   tasksContainer.innerHTML = "";
-  for (let i = 0; i < dbTarefas.length; i++) {
+  for (let i = 0; i < dbTasks.length; i++) {
     // Recuperação dos dados de cada tarefa no array e renderização em tela
 
-    const infoTaskSave = dbTarefas[i];
+    const infoTaskSave = dbTasks[i];
 
     // Tarefa
     const taskField = document.createElement("div");
@@ -2017,6 +2058,7 @@ allTaskFilter.addEventListener("click", () => {
   }
   allTaskFilter.classList.add("active");
   setTimeout(() => {
+    newTaskInput.focus();
     allTaskFilterFunction();
   }, 200);
 });
@@ -2036,13 +2078,14 @@ pendingTaskFilter.addEventListener("click", () => {
   }
   pendingTaskFilter.classList.add("active");
   setTimeout(() => {
+    newTaskInput.focus();
     pendingTaskFilterFunction();
   }, 200);
 });
 
 function pendingTaskFilterFunction() {
-  for (i = 0; i < dbTarefas.length; i++) {
-    const infoTaskSave = dbTarefas[i];
+  for (i = 0; i < dbTasks.length; i++) {
+    const infoTaskSave = dbTasks[i];
     const task = tasksContainer.childNodes[i];
 
     if (pendingTasks.length != 0) {
@@ -2068,13 +2111,14 @@ scheduleTaskFilter.addEventListener("click", () => {
   }
   scheduleTaskFilter.classList.add("active");
   setTimeout(() => {
+    newTaskInput.focus();
     scheduleTaskFilterFunction();
   }, 200);
 });
 
 function scheduleTaskFilterFunction() {
-  for (i = 0; i < dbTarefas.length; i++) {
-    const infoTaskSave = dbTarefas[i];
+  for (i = 0; i < dbTasks.length; i++) {
+    const infoTaskSave = dbTasks[i];
     const task = tasksContainer.childNodes[i];
 
     if (scheduledTasks.length != 0) {
@@ -2100,13 +2144,14 @@ expiredTaskFilter.addEventListener("click", () => {
   }
   expiredTaskFilter.classList.add("active");
   setTimeout(() => {
+    newTaskInput.focus();
     expiredTaskFilterFunction();
   }, 200);
 });
 
 function expiredTaskFilterFunction() {
-  for (i = 0; i < dbTarefas.length; i++) {
-    const infoTaskSave = dbTarefas[i];
+  for (i = 0; i < dbTasks.length; i++) {
+    const infoTaskSave = dbTasks[i];
     const task = tasksContainer.childNodes[i];
 
     if (expiredTasks.length != 0) {
@@ -2132,13 +2177,14 @@ completedTaskFilter.addEventListener("click", () => {
   }
   completedTaskFilter.classList.add("active");
   setTimeout(() => {
+    newTaskInput.focus();
     completedTaskFilterFunction();
   }, 200);
 });
 
 function completedTaskFilterFunction() {
-  for (i = 0; i < dbTarefas.length; i++) {
-    const infoTaskSave = dbTarefas[i];
+  for (i = 0; i < dbTasks.length; i++) {
+    const infoTaskSave = dbTasks[i];
     const task = tasksContainer.childNodes[i];
 
     if (completedTasks.length != 0) {
@@ -2161,9 +2207,9 @@ setInterval(() => {
   const currentFullDate = new Date();
   const currentDate = currentFullDate.toLocaleDateString("fr-CA");
 
-  for (let i = 0; i < dbTarefas.length; i++) {
+  for (let i = 0; i < dbTasks.length; i++) {
     const task = tasksContainer.childNodes[i];
-    const infoTaskSave = dbTarefas[i];
+    const infoTaskSave = dbTasks[i];
 
     if (infoTaskSave.scheduledTask || infoTaskSave.expiredTask) {
       const taskInfo = task.childNodes[2];
@@ -2231,10 +2277,10 @@ setInterval(() => {
         }
 
         // Filtro de tarefas
-        expiredTasks = dbTarefas.filter(
+        expiredTasks = dbTasks.filter(
           (infoTaskSave) => infoTaskSave.expiredTask
         );
-        scheduledTasks = dbTarefas.filter(
+        scheduledTasks = dbTasks.filter(
           (infoTaskSave) => infoTaskSave.scheduledTask
         );
         if (expiredTaskFilter.classList.contains("active")) {
@@ -2349,7 +2395,7 @@ setInterval(() => {
       if (infoTaskSave.scheduledTask) {
         infoTaskSave.scheduledTask[3] = infoTextContent.innerText;
       }
-      localStorage.setItem("tarefas", JSON.stringify(dbTarefas));
+      localStorage.setItem("Tasks", JSON.stringify(dbTasks));
     }
   }
 }, 0);

@@ -39,11 +39,35 @@
         </div>
         <input type="button" value="+" id="newTaskBtn" title="Adicionar" />
       </div>
-      <!-- Filtros de tarefas -->
+      <!-- Menu/filtros de tarefas -->
       <button id="menuButton">
         <i id="menuButtonIcon" class="fa-solid fa-angles-down"></i>
       </button>
       <div class="menu hide">
+        <div id="accountIdentBox">
+          <div class="imgIdentBox">
+            <label for="inputFileImg" id="inputFileImgLabel"></label>
+            <input
+              type="file"
+              name="inputFileImg"
+              id="inputFileImg"
+              accept="image/*"
+            />
+            <img src="./img/Profile-Avatar-PNG-Image.png" alt="" id="uploadedImg"/>
+            <label for="inputFileImg" id="inputFileImgLabelIcon"><i class="fa-solid fa-pen"></i></label>
+          </div>
+          <div class="nameIdentBox">
+            <input
+              type="text"
+              name="nameInput"
+              id="nameInput"
+              value="Meu Task Control!"
+              spellcheck="false"
+              autocomplete="off"
+            />
+            <i class="fa-solid fa-pen" id="nameIdentIcon"></i>
+          </div>
+        </div>
         <div class="searchContainer">
           <input
             type="search"
@@ -51,10 +75,8 @@
             id="searchTaskInput"
             placeholder="Pesquisar tarefa"
             spellcheck="false"
+            autocomplete="off"
           />
-          <!-- <button id="searchTaskButton">
-            <i class="fa-solid fa-magnifying-glass"></i>
-          </button> -->
         </div>
         <div id="filterContainer">
           <a href="#" id="allTaskFilter"
