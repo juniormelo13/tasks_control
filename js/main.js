@@ -17,7 +17,7 @@ taskRecover();
 // Container principal do projeto
 const mainContainer = document.querySelector("#mainContainer");
 
-// Configuração para guardar imagem do perfil do usuário
+// Configuração para guardar imagem do perfil do usuário no localStorage
 
 const inputFileImg = document.querySelector("#inputFileImg");
 const uploadedImg = document.querySelector("#uploadedImg");
@@ -57,7 +57,7 @@ const nameIdentIcon = document.querySelector("#nameIdentIcon");
 let dbInfoAccountName = [];
 if (localStorage.getItem("infoAccountName")) {
   dbInfoAccountName = JSON.parse(localStorage.getItem("infoAccountName"));
-  nameInput.value = dbInfoAccountName[0].name;
+  nameInput.value = dbInfoAccountName[0].name.trim();
 }
 
 nameInput.addEventListener("blur", saveName);
@@ -77,12 +77,13 @@ function saveName() {
   nameInput.classList.remove("active");
   const nameAccountSave = new Object();
   dbInfoAccountName = [];
-  nameAccountSave.name = nameInput.value;
+  nameAccountSave.name = nameInput.value.trim();
+  nameInput.value = nameInput.value.trim();
   dbInfoAccountName.push(nameAccountSave);
   localStorage.setItem("infoAccountName", JSON.stringify(dbInfoAccountName));
 }
 
-// Variáveis dos filtros das tarefas
+// Filtros das tarefas
 const allFilter = document.querySelector("#filterContainer");
 const allTaskFilter = document.querySelector("#allTaskFilter");
 const pendingTaskFilter = document.querySelector("#pendingTaskFilter");
@@ -119,6 +120,97 @@ scheduleTaskFilterAmount.innerText = scheduledTasks.length;
 expiredTaskFilterAmount.innerText = expiredTasks.length;
 completedTaskFilterAmount.innerText = completedTasks.length;
 
+const searchTaskInput = document.querySelector("#searchTaskInput");
+const searchTaskInputBtn = document.querySelector("#searchCleanBtn");
+let inputValue = "";
+let filtred = false;
+let containsHide = [];
+
+searchTaskInput.onblur = () => {
+  if (searchTaskInput.value.trim() == "") {
+    searchTaskInput.value = "";
+    searchTaskInputBtn.classList.add("hide");
+  }
+};
+
+searchTaskInput.onkeyup = () => {  
+  if (inputValue != searchTaskInput.value.trim()) {
+    filtred = true;
+    inputValue = searchTaskInput.value.trim();
+    if (!allTaskFilter.classList.contains("active")) {
+      for (const filter of filters) {
+        if (filter.classList.contains("active")) {
+          filter.classList.remove("active");
+        }
+      }
+      allTaskFilter.classList.add("active");
+      allTaskFilterFunction();
+    }
+    taskFilter();
+  }
+  if (searchTaskInput.value != "") {
+    if (searchTaskInputBtn.classList.contains("hide")) {
+      searchTaskInputBtn.classList.remove("hide");
+    }
+  } else {
+    filtred = false;
+    if (!searchTaskInputBtn.classList.contains("hide")) {
+      searchTaskInputBtn.classList.add("hide");
+    }
+  }
+};
+
+function taskFilter() {
+  containsHide = [];
+  for (let i = 0; i < dbTasks.length; i++) {
+    const infoTaskSave = dbTasks[i];
+    const task = tasksContainer.childNodes[i];
+
+    if (
+      !infoTaskSave.taskContent
+        .toLowerCase()
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .includes(
+          inputValue
+            .toLowerCase()
+            .normalize("NFD")
+            .replace(/[\u0300-\u036f]/g, "")
+        )
+    ) {
+      containsHide.push("true");
+      if (!task.classList.contains("hide")) {
+        task.classList.add("hide");
+      }
+    } else {
+      containsHide.push("false");
+      if (task.classList.contains("hide")) {
+        task.classList.remove("hide");
+      }
+    }
+  }
+  if (!containsHide.includes("false")) {
+    noTaskTextContainer.classList.remove("hide");
+  } else {
+    noTaskTextContainer.classList.add("hide");
+  }
+}
+
+searchTaskInputBtn.addEventListener("click", () => {
+  searchTaskInput.value = "";
+  searchTaskInput.focus();
+  searchTaskInputBtn.classList.add("hide");
+  filtred = false;
+  inputValue = "";
+  for (const filter of filters) {
+    if (filter.classList.contains("active")) {
+      filter.classList.remove("active");
+    }
+  }
+  allTaskFilter.classList.add("active");
+  allTaskFilterFunction();
+});
+
 //Configuração do botão de Menu
 
 const menuBtn = document.querySelector("#menuButton");
@@ -136,6 +228,7 @@ function menuOpenFunction() {
   menuBtn.disabled = true;
   setTimeout(() => {
     menu.classList.remove("menuAppear");
+    searchTaskInput.focus();
     menuBtn.disabled = false;
   }, 300);
 }
@@ -150,6 +243,7 @@ function menuCloseFunction() {
     menu.classList.add("hide");
     menu.classList.remove("menuVanish");
     menuBtn.classList.toggle("active");
+    newTaskInput.focus();
     menuBtn.disabled = false;
   }, 300);
 }
@@ -240,17 +334,11 @@ function insertTask() {
     localStorage.setItem("Tasks", JSON.stringify(dbTasks));
 
     pendingTasks = dbTasks.filter((infoTaskSave) => !infoTaskSave.completeTask);
-    if (
-      allTaskFilter.classList.contains("active") ||
-      pendingTaskFilter.classList.contains("active")
-    ) {
-      tasksContainer.insertBefore(taskField, tasksContainer.childNodes[0]);
-      allTaskFilterAmount.innerText = tasksContainer.childNodes.length;
-      pendingTaskFilterAmount.innerText = pendingTasks.length;
-    } else if (
-      !pendingTaskFilter.classList.contains("active") &&
-      !allTaskFilter.classList.contains("active")
-    ) {
+    if (filtred) {
+      filtred = false;
+      searchTaskInput.value = "";
+      inputValue = "";
+      searchTaskInputBtn.classList.add("hide");
       for (const filter of filters) {
         if (filter.classList.contains("active")) {
           filter.classList.remove("active");
@@ -261,6 +349,29 @@ function insertTask() {
       allTaskFilterAmount.innerText = tasksContainer.childNodes.length;
       pendingTaskFilterAmount.innerText = pendingTasks.length;
       pendingTaskFilterFunction();
+    } else {
+      if (
+        allTaskFilter.classList.contains("active") ||
+        pendingTaskFilter.classList.contains("active")
+      ) {
+        tasksContainer.insertBefore(taskField, tasksContainer.childNodes[0]);
+        allTaskFilterAmount.innerText = tasksContainer.childNodes.length;
+        pendingTaskFilterAmount.innerText = pendingTasks.length;
+      } else if (
+        !pendingTaskFilter.classList.contains("active") &&
+        !allTaskFilter.classList.contains("active")
+      ) {
+        for (const filter of filters) {
+          if (filter.classList.contains("active")) {
+            filter.classList.remove("active");
+          }
+        }
+        pendingTaskFilter.classList.add("active");
+        tasksContainer.insertBefore(taskField, tasksContainer.childNodes[0]);
+        allTaskFilterAmount.innerText = tasksContainer.childNodes.length;
+        pendingTaskFilterAmount.innerText = pendingTasks.length;
+        pendingTaskFilterFunction();
+      }
     }
 
     // Campo dos botões/ícones
@@ -1477,6 +1588,9 @@ const deleteClick = (taskField, infoTaskSave, notesInfo, taskInfo) => {
         if (tasksContainer.childNodes.length <= 0) {
           noTaskTextContainer.classList.remove("hide");
         }
+        if (filtred) {
+          taskFilter();
+        }
       }, 550);
     }
 
@@ -1554,6 +1668,9 @@ const deleteClick = (taskField, infoTaskSave, notesInfo, taskInfo) => {
         if (noTaskTextContainer.classList.contains("hide")) {
           noTaskTextContainer.classList.remove("hide");
         }
+      }
+      if (filtred) {
+        taskFilter();
       }
     }, 350);
   }
@@ -2053,6 +2170,12 @@ function taskRecover() {
 // Configuração dos filtros das tarefas
 
 allTaskFilter.addEventListener("click", () => {
+  if (filtred) {
+    filtred = false;
+    searchTaskInput.value = "";
+    inputValue = "";
+    searchTaskInputBtn.classList.add("hide");
+  }
   for (const filter of filters) {
     if (filter.classList.contains("active")) {
       filter.classList.remove("active");
@@ -2073,6 +2196,12 @@ function allTaskFilterFunction() {
 }
 
 pendingTaskFilter.addEventListener("click", () => {
+  if (filtred) {
+    filtred = false;
+    searchTaskInput.value = "";
+    inputValue = "";
+    searchTaskInputBtn.classList.add("hide");
+  }
   for (const filter of filters) {
     if (filter.classList.contains("active")) {
       filter.classList.remove("active");
@@ -2106,6 +2235,12 @@ function pendingTaskFilterFunction() {
 }
 
 scheduleTaskFilter.addEventListener("click", () => {
+  if (filtred) {
+    filtred = false;
+    searchTaskInput.value = "";
+    inputValue = "";
+    searchTaskInputBtn.classList.add("hide");
+  }
   for (const filter of filters) {
     if (filter.classList.contains("active")) {
       filter.classList.remove("active");
@@ -2139,6 +2274,12 @@ function scheduleTaskFilterFunction() {
 }
 
 expiredTaskFilter.addEventListener("click", () => {
+  if (filtred) {
+    filtred = false;
+    searchTaskInput.value = "";
+    inputValue = "";
+    searchTaskInputBtn.classList.add("hide");
+  }
   for (const filter of filters) {
     if (filter.classList.contains("active")) {
       filter.classList.remove("active");
@@ -2172,6 +2313,12 @@ function expiredTaskFilterFunction() {
 }
 
 completedTaskFilter.addEventListener("click", () => {
+  if (filtred) {
+    filtred = false;
+    searchTaskInput.value = "";
+    inputValue = "";
+    searchTaskInputBtn.classList.add("hide");
+  }
   for (const filter of filters) {
     if (filter.classList.contains("active")) {
       filter.classList.remove("active");
