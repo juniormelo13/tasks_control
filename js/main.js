@@ -824,10 +824,6 @@ const completeClick = (
         checkIcon.classList.toggle("fa-thumbs-up");
         checkIcon.classList.toggle("fa-rotate");
         checkIcon.classList.toggle("fa-spin");
-        // tasksContainer.insertBefore(
-        //   taskField,
-        //   tasksContainer.childNodes[length - 0]
-        // );
         taskInfo.classList.remove("completed");
         taskInfo.classList.add("hide");
         infoTextContent.innerText = "";
@@ -886,10 +882,6 @@ const completeClick = (
         checkIcon.classList.toggle("fa-thumbs-up");
         checkIcon.classList.toggle("fa-rotate");
         checkIcon.classList.toggle("fa-spin");
-        // tasksContainer.insertBefore(
-        //   taskField,
-        //   tasksContainer.childNodes[length - 1]
-        // );
         checkBtn.setAttribute("title", "Restaurar");
         taskInfo.classList.add("completed");
         taskInfo.classList.remove("hide");
@@ -1553,19 +1545,12 @@ const deleteClick = (taskField, infoTaskSave, notesInfo) => {
         );
         if (scheduleTaskFilter.classList.contains("active")) {
           scheduleTaskFilterFunction();
-          allTaskFilterAmount.innerText = tasksContainer.childNodes.length;
-          pendingTaskFilterAmount.innerText = pendingTasks.length;
-          scheduleTaskFilterAmount.innerText = scheduledTasks.length;
         } else if (pendingTaskFilter.classList.contains("active")) {
           pendingTaskFilterFunction();
-          allTaskFilterAmount.innerText = tasksContainer.childNodes.length;
-          pendingTaskFilterAmount.innerText = pendingTasks.length;
-          scheduleTaskFilterAmount.innerText = scheduledTasks.length;
-        } else {
-          allTaskFilterAmount.innerText = tasksContainer.childNodes.length;
-          pendingTaskFilterAmount.innerText = pendingTasks.length;
-          scheduleTaskFilterAmount.innerText = scheduledTasks.length;
         }
+        allTaskFilterAmount.innerText = tasksContainer.childNodes.length;
+        pendingTaskFilterAmount.innerText = pendingTasks.length;
+        scheduleTaskFilterAmount.innerText = scheduledTasks.length;
         setTimeout(() => {
           for (const task of tasks) {
             task.classList.add("hover");
@@ -1626,26 +1611,20 @@ const deleteClick = (taskField, infoTaskSave, notesInfo) => {
       );
       if (expiredTaskFilter.classList.contains("active")) {
         expiredTaskFilterFunction();
-        allTaskFilterAmount.innerText = tasksContainer.childNodes.length;
-        pendingTaskFilterAmount.innerText = pendingTasks.length;
         expiredTaskFilterAmount.innerText = expiredTasks.length;
       } else if (completedTaskFilter.classList.contains("active")) {
         completedTaskFilterFunction();
-        allTaskFilterAmount.innerText = tasksContainer.childNodes.length;
-        pendingTaskFilterAmount.innerText = pendingTasks.length;
         completedTaskFilterAmount.innerText = completedTasks.length;
       } else if (pendingTaskFilter.classList.contains("active")) {
         pendingTaskFilterFunction();
-        allTaskFilterAmount.innerText = tasksContainer.childNodes.length;
-        pendingTaskFilterAmount.innerText = pendingTasks.length;
         expiredTaskFilterAmount.innerText = expiredTasks.length;
         completedTaskFilterAmount.innerText = completedTasks.length;
       } else {
-        allTaskFilterAmount.innerText = tasksContainer.childNodes.length;
-        pendingTaskFilterAmount.innerText = pendingTasks.length;
         expiredTaskFilterAmount.innerText = expiredTasks.length;
         completedTaskFilterAmount.innerText = completedTasks.length;
       }
+      allTaskFilterAmount.innerText = tasksContainer.childNodes.length;
+      pendingTaskFilterAmount.innerText = pendingTasks.length;
       setTimeout(() => {
         for (const task of tasks) {
           task.classList.add("hover");
@@ -2099,10 +2078,6 @@ function taskRecover() {
         checkIcon.classList.toggle("fa-thumbs-up");
         checkIcon.classList.toggle("fa-rotate");
         checkIcon.classList.toggle("fa-spin");
-        // tasksContainer.insertBefore(
-        //   taskField,
-        //   tasksContainer.childNodes[length - 1]
-        // );
         checkBtn.setAttribute("title", "Restaurar");
         taskInfo.classList.add("completed");
         taskInfo.classList.remove("hide");
