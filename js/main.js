@@ -694,19 +694,12 @@ const completeClick = (
         );
         if (scheduleTaskFilter.classList.contains("active")) {
           scheduleTaskFilterFunction();
-          pendingTaskFilterAmount.innerText = pendingTasks.length;
-          completedTaskFilterAmount.innerText = completedTasks.length;
-          scheduleTaskFilterAmount.innerText = scheduledTasks.length;
         } else if (pendingTaskFilter.classList.contains("active")) {
           pendingTaskFilterFunction();
-          pendingTaskFilterAmount.innerText = pendingTasks.length;
-          completedTaskFilterAmount.innerText = completedTasks.length;
-          scheduleTaskFilterAmount.innerText = scheduledTasks.length;
-        } else {
-          pendingTaskFilterAmount.innerText = pendingTasks.length;
-          completedTaskFilterAmount.innerText = completedTasks.length;
-          scheduleTaskFilterAmount.innerText = scheduledTasks.length;
         }
+        pendingTaskFilterAmount.innerText = pendingTasks.length;
+        completedTaskFilterAmount.innerText = completedTasks.length;
+        scheduleTaskFilterAmount.innerText = scheduledTasks.length;
       }, 500);
       setTimeout(() => {
         taskField.classList.remove("appearTask");
@@ -778,19 +771,12 @@ const completeClick = (
       expiredTasks = dbTasks.filter((infoTaskSave) => infoTaskSave.expiredTask);
       if (expiredTaskFilter.classList.contains("active")) {
         expiredTaskFilterFunction();
-        pendingTaskFilterAmount.innerText = pendingTasks.length;
-        completedTaskFilterAmount.innerText = completedTasks.length;
-        expiredTaskFilterAmount.innerText = expiredTasks.length;
       } else if (pendingTaskFilter.classList.contains("active")) {
         pendingTaskFilterFunction();
-        pendingTaskFilterAmount.innerText = pendingTasks.length;
-        completedTaskFilterAmount.innerText = completedTasks.length;
-        expiredTaskFilterAmount.innerText = expiredTasks.length;
-      } else {
-        pendingTaskFilterAmount.innerText = pendingTasks.length;
-        completedTaskFilterAmount.innerText = completedTasks.length;
-        expiredTaskFilterAmount.innerText = expiredTasks.length;
       }
+      pendingTaskFilterAmount.innerText = pendingTasks.length;
+      completedTaskFilterAmount.innerText = completedTasks.length;
+      expiredTaskFilterAmount.innerText = expiredTasks.length;
     }, 300);
     setTimeout(() => {
       taskField.classList.remove("appearTask");
@@ -841,12 +827,9 @@ const completeClick = (
         );
         if (completedTaskFilter.classList.contains("active")) {
           completedTaskFilterFunction();
-          pendingTaskFilterAmount.innerText = pendingTasks.length;
-          completedTaskFilterAmount.innerText = completedTasks.length;
-        } else {
-          pendingTaskFilterAmount.innerText = pendingTasks.length;
-          completedTaskFilterAmount.innerText = completedTasks.length;
         }
+        pendingTaskFilterAmount.innerText = pendingTasks.length;
+        completedTaskFilterAmount.innerText = completedTasks.length;
       }, 300);
       setTimeout(() => {
         taskField.classList.remove("appearTask");
@@ -898,12 +881,9 @@ const completeClick = (
         );
         if (pendingTaskFilter.classList.contains("active")) {
           pendingTaskFilterFunction();
-          pendingTaskFilterAmount.innerText = pendingTasks.length;
-          completedTaskFilterAmount.innerText = completedTasks.length;
-        } else {
-          pendingTaskFilterAmount.innerText = pendingTasks.length;
-          completedTaskFilterAmount.innerText = completedTasks.length;
         }
+        pendingTaskFilterAmount.innerText = pendingTasks.length;
+        completedTaskFilterAmount.innerText = completedTasks.length;
       }, 300);
       setTimeout(() => {
         taskField.classList.remove("appearTask");
@@ -1464,14 +1444,11 @@ const schedulingRemoveClick = (
       expiredTasks = dbTasks.filter((infoTaskSave) => infoTaskSave.expiredTask);
       if (scheduleTaskFilter.classList.contains("active")) {
         scheduleTaskFilterFunction();
-        scheduleTaskFilterAmount.innerText = scheduledTasks.length;
       } else if (expiredTaskFilter.classList.contains("active")) {
         expiredTaskFilterFunction();
-        expiredTaskFilterAmount.innerText = expiredTasks.length;
-      } else {
-        scheduleTaskFilterAmount.innerText = scheduledTasks.length;
-        expiredTaskFilterAmount.innerText = expiredTasks.length;
       }
+      scheduleTaskFilterAmount.innerText = scheduledTasks.length;
+      expiredTaskFilterAmount.innerText = expiredTasks.length;
     }, 100);
   }, 200);
   setTimeout(() => {

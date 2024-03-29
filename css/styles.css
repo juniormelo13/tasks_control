@@ -101,14 +101,6 @@ body {
   user-select: none;
 }
 
-#header .menu.menuAppear {
-  animation: menuAppear 0.3s forwards;
-}
-
-#header .menu.menuVanish {
-  animation: menuVanish 0.3s forwards;
-}
-
 .newTaskContainer {
   position: relative;
   display: flex;
@@ -1122,14 +1114,6 @@ body {
   box-shadow: 6px 6px 10px 0px rgba(0, 0, 0, 0.5);
 }
 
-.notePadContainer.notePadContainerAppear {
-  animation: notePadContainerAppear 0.3s forwards;
-}
-
-.notePadContainer.notePadContainerVanish {
-  animation: notePadContainerVanish 0.3s forwards;
-}
-
 .notePadContainer::after {
   content: "";
   position: absolute;
@@ -1211,7 +1195,7 @@ body {
   color: var(--color3);
 }
 
-/* Janelas e elementos em segundo plano */
+/* Classes de animações para janelas e elementos */
 
 #tasksContainer.tasksContainerHide {
   pointer-events: none;
@@ -1272,23 +1256,20 @@ body {
   animation: shakeMove 0.2s ease-in;
 }
 
-@keyframes shakeMove {
-  0%,
-  100% {
-    transform: translateX(0px);
-  }
-  20% {
-    transform: translateX(5px);
-  }
-  40% {
-    transform: translateX(-5px);
-  }
-  60% {
-    transform: translateX(5px);
-  }
-  80% {
-    transform: translateX(-5px);
-  }
+#header .menu.menuAppear {
+  animation: menuAppear 0.3s forwards;
+}
+
+#header .menu.menuVanish {
+  animation: menuVanish 0.3s forwards;
+}
+
+.notePadContainer.notePadContainerAppear {
+  animation: notePadContainerAppear 0.3s forwards;
+}
+
+.notePadContainer.notePadContainerVanish {
+  animation: notePadContainerVanish 0.3s forwards;
 }
 
 #header.pointerEventsNone,
@@ -1511,5 +1492,24 @@ body {
   100% {
     transform: translateX(-40px) scale(0.8);
     opacity: 0;
+  }
+}
+
+@keyframes shakeMove {
+  0%,
+  100% {
+    transform: translateX(0px);
+  }
+  20% {
+    transform: translateX(5px);
+  }
+  40% {
+    transform: translateX(-5px);
+  }
+  60% {
+    transform: translateX(5px);
+  }
+  80% {
+    transform: translateX(-5px);
   }
 }
