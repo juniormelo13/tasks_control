@@ -10,12 +10,25 @@ const tasksContainer = document.querySelector("#tasksContainer");
 // Função para identificar se o campo de tarefas está vazio
 const noTaskTextContainer = document.querySelector("#noTaskTextContainer");
 
+// Container principal do projeto
+const mainContainer = document.querySelector("#mainContainer");
+
+// Checagem/controle de altura do container onde as tarefas serão adicionadas
+const currentHeightMain = mainContainer.offsetHeight;
+let currentHeightTasksContainer = tasksContainer.offsetHeight;
+
+function checkTasksContainerHeight() {
+  currentHeightTasksContainer = tasksContainer.offsetHeight;
+  if (currentHeightTasksContainer > currentHeightMain) {
+    mainContainer.classList.add("scrollActive");
+  } else {
+    mainContainer.classList.remove("scrollActive");
+  }
+}
+
 // Variáveis para guardar tarefas no banco de dados (Local Storage)
 let dbTasks = [];
 taskRecover();
-
-// Container principal do projeto
-const mainContainer = document.querySelector("#mainContainer");
 
 // Configuração para guardar imagem do perfil do usuário no localStorage
 
@@ -140,6 +153,7 @@ searchTaskInput.onkeyup = () => {
       allTaskFilterFunction();
     }
     taskFilter();
+    checkTasksContainerHeight()
   }
   if (searchTaskInput.value != "") {
     if (searchTaskInputBtn.classList.contains("hide")) {
@@ -570,6 +584,8 @@ function insertTask() {
     removeBtn.addEventListener("click", () =>
       deleteClick(taskField, infoTaskSave, notesInfo)
     );
+
+    checkTasksContainerHeight()
   }
 }
 
@@ -1537,6 +1553,7 @@ const deleteClick = (taskField, infoTaskSave, notesInfo) => {
         if (tasksContainer.childNodes.length <= 0) {
           noTaskTextContainer.classList.remove("hide");
         }
+        checkTasksContainerHeight()
         if (filtred) {
           taskFilter();
         }
@@ -1613,6 +1630,7 @@ const deleteClick = (taskField, infoTaskSave, notesInfo) => {
           noTaskTextContainer.classList.remove("hide");
         }
       }
+      checkTasksContainerHeight()
       if (filtred) {
         taskFilter();
       }
@@ -2105,6 +2123,7 @@ function taskRecover() {
         break;
     }
   }
+  checkTasksContainerHeight()
 }
 
 // Configuração dos filtros das tarefas
@@ -2172,6 +2191,7 @@ function pendingTaskFilterFunction() {
       noTaskTextContainer.classList.remove("hide");
     }
   }
+  checkTasksContainerHeight()
 }
 
 scheduleTaskFilter.addEventListener("click", () => {
@@ -2211,6 +2231,7 @@ function scheduleTaskFilterFunction() {
       noTaskTextContainer.classList.remove("hide");
     }
   }
+  checkTasksContainerHeight()
 }
 
 expiredTaskFilter.addEventListener("click", () => {
@@ -2250,6 +2271,7 @@ function expiredTaskFilterFunction() {
       noTaskTextContainer.classList.remove("hide");
     }
   }
+  checkTasksContainerHeight()
 }
 
 completedTaskFilter.addEventListener("click", () => {
@@ -2289,6 +2311,7 @@ function completedTaskFilterFunction() {
       noTaskTextContainer.classList.remove("hide");
     }
   }
+  checkTasksContainerHeight()
 }
 
 // Verificação do status do agendamento em tempo real
