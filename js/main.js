@@ -153,7 +153,7 @@ searchTaskInput.onkeyup = () => {
       allTaskFilterFunction();
     }
     taskFilter();
-    checkTasksContainerHeight()
+    checkTasksContainerHeight();
   }
   if (searchTaskInput.value != "") {
     if (searchTaskInputBtn.classList.contains("hide")) {
@@ -450,7 +450,7 @@ function insertTask() {
     cleanNoteBtn.classList.add("hide");
     cleanNoteBtn.setAttribute("title", "Limpar Anotações");
     cleanNoteBtnIcon.classList.add("fa-solid");
-    cleanNoteBtnIcon.classList.add("fa-broom");
+    cleanNoteBtnIcon.classList.add("fa-xmark");
     saveNoteBtn.classList.add("saveNoteBtn");
     saveNoteBtn.setAttribute("title", "Salvar");
     saveNoteBtnIcon.classList.add("fa-solid");
@@ -585,7 +585,7 @@ function insertTask() {
       deleteClick(taskField, infoTaskSave, notesInfo)
     );
 
-    checkTasksContainerHeight()
+    checkTasksContainerHeight();
   }
 }
 
@@ -1553,7 +1553,7 @@ const deleteClick = (taskField, infoTaskSave, notesInfo) => {
         if (tasksContainer.childNodes.length <= 0) {
           noTaskTextContainer.classList.remove("hide");
         }
-        checkTasksContainerHeight()
+        checkTasksContainerHeight();
         if (filtred) {
           taskFilter();
         }
@@ -1630,7 +1630,7 @@ const deleteClick = (taskField, infoTaskSave, notesInfo) => {
           noTaskTextContainer.classList.remove("hide");
         }
       }
-      checkTasksContainerHeight()
+      checkTasksContainerHeight();
       if (filtred) {
         taskFilter();
       }
@@ -1858,7 +1858,7 @@ function taskRecover() {
     const taskContent = document.createElement("p");
     taskField.appendChild(taskContent);
     taskContent.classList.add("taskContent");
-    taskContent.innerText = infoTaskSave.taskContent;
+    taskContent.innerText = infoTaskSave["taskContent"];
 
     // Campo dos botões/ícones
     const btnField = document.createElement("div");
@@ -1929,7 +1929,7 @@ function taskRecover() {
     cleanNoteBtn.classList.add("hide");
     cleanNoteBtn.setAttribute("title", "Limpar Anotações");
     cleanNoteBtnIcon.classList.add("fa-solid");
-    cleanNoteBtnIcon.classList.add("fa-broom");
+    cleanNoteBtnIcon.classList.add("fa-xmark");
     saveNoteBtn.classList.add("saveNoteBtn");
     saveNoteBtn.setAttribute("title", "Salvar");
     saveNoteBtnIcon.classList.add("fa-solid");
@@ -2123,7 +2123,7 @@ function taskRecover() {
         break;
     }
   }
-  checkTasksContainerHeight()
+  checkTasksContainerHeight();
 }
 
 // Configuração dos filtros das tarefas
@@ -2191,7 +2191,7 @@ function pendingTaskFilterFunction() {
       noTaskTextContainer.classList.remove("hide");
     }
   }
-  checkTasksContainerHeight()
+  checkTasksContainerHeight();
 }
 
 scheduleTaskFilter.addEventListener("click", () => {
@@ -2231,7 +2231,7 @@ function scheduleTaskFilterFunction() {
       noTaskTextContainer.classList.remove("hide");
     }
   }
-  checkTasksContainerHeight()
+  checkTasksContainerHeight();
 }
 
 expiredTaskFilter.addEventListener("click", () => {
@@ -2271,7 +2271,7 @@ function expiredTaskFilterFunction() {
       noTaskTextContainer.classList.remove("hide");
     }
   }
-  checkTasksContainerHeight()
+  checkTasksContainerHeight();
 }
 
 completedTaskFilter.addEventListener("click", () => {
@@ -2311,7 +2311,7 @@ function completedTaskFilterFunction() {
       noTaskTextContainer.classList.remove("hide");
     }
   }
-  checkTasksContainerHeight()
+  checkTasksContainerHeight();
 }
 
 // Verificação do status do agendamento em tempo real
