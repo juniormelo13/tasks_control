@@ -1305,8 +1305,8 @@ const confirmSchedule = (
         " às " +
         timeForinfoTextContent;
     } else if (
-      (difDays < 2 && difDaysOfTheWeek == 1) ||
-      (difDays < 2 && difDaysOfTheWeek == -6)
+      (difDays < 2 && difDaysOfTheWeek == 1 && difMinutes > 60) ||
+      (difDays < 2 && difDaysOfTheWeek == -6 && difMinutes > 60)
     ) {
       infoTextContent.innerText =
         "Agendado para amanhã às " + scheduleInputTimeValue;
@@ -2446,8 +2446,12 @@ setInterval(() => {
         infoTextContent.innerText =
           "Agendado para hoje às " + appointmentTime.innerText;
       } else if (
-        (difTimeInDays < 2 && difDaysFromScheduledToCurrent == -6) ||
-        (difTimeInDays < 2 && difDaysFromScheduledToCurrent == 1)
+        (difTimeInDays < 2 &&
+          difDaysFromScheduledToCurrent == -6 &&
+          difTimeInMinutes > 60) ||
+        (difTimeInDays < 2 &&
+          difDaysFromScheduledToCurrent == 1 &&
+          difTimeInMinutes > 60)
       ) {
         infoTextContent.innerText =
           "Agendado para amanhã às " + appointmentTime.innerText;

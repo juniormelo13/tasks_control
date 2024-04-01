@@ -27,6 +27,7 @@ body {
   background-color: var(--color1);
   width: 100%;
   height: 100vh;
+  overflow: hidden;
 }
 
 #mainContainer::-webkit-scrollbar {
@@ -55,7 +56,7 @@ body {
   align-items: center;
   width: calc(100% - 2px);
   height: 80px;
-  padding: 0 6rem;
+  padding: 0 5%;
   background-color: var(--color2);
   z-index: 1;
 }
@@ -69,7 +70,6 @@ body {
   background: var(--color4);
   width: 40px;
   height: 40px;
-  margin-right: 20px;
   border: 2px solid var(--color4);
   border-radius: 5px;
   font-size: 1.25rem;
@@ -93,7 +93,7 @@ body {
   justify-content: flex-start;
   gap: 2rem;
   top: 85px;
-  right: 40px;
+  right: 5%;
   background-color: var(--color2);
   border-radius: 5px;
   width: 12rem;
@@ -111,12 +111,13 @@ body {
   align-items: center;
   gap: 15px;
   height: 100%;
+  margin-right: 20px;
 }
 
 .newTaskContainerInput {
   position: relative;
-  width: 600px;
-  height: 48px;
+  width: 37.5rem;
+  height: 3rem;
 }
 
 #newTaskInput {
@@ -437,11 +438,12 @@ body {
 #tasksContainer {
   position: relative;
   display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
   width: 100%;
-  padding-top: 25px;
+  padding: 0 5%;
+  gap: 50px;
+  padding-top: 50px;
 }
 
 .taskField {
@@ -449,11 +451,13 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 655px;
-  height: 65px;
+  gap: 15px;
+  min-width: ;
+  max-width: 600px;
+  width: 30%;
+  height: 4rem;
   background-color: var(--color2);
   border-radius: 5px;
-  margin: 25px;
   padding: 0 20px;
   border: 2px solid var(--color4);
   transition: border 0.3s, box-shadow 0.3s;
@@ -514,12 +518,12 @@ body {
 .taskContent {
   font-family: "lato", "sans-serif";
   font-size: 1rem;
-  width: 75%;
   color: var(--color4);
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
   font-weight: bold;
+  line-height: 100%;
 }
 
 .taskContent.completed {
@@ -545,7 +549,6 @@ body {
 }
 
 .btnField {
-  width: 20%;
   height: 30px;
   display: flex;
   justify-content: flex-end;
@@ -626,6 +629,9 @@ body {
 #editField,
 #scheduleField {
   position: absolute;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
@@ -678,7 +684,16 @@ body {
   position: relative;
   width: 100%;
   height: 38px;
-  margin-top: 80px;
+  margin-top: 2rem;
+}
+
+.scheduleFieldCenter {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  height: 38px;
+  margin-top: 2rem;
 }
 
 #editInput,
@@ -741,7 +756,7 @@ body {
   justify-content: center;
   gap: 10px;
   height: 38px;
-  margin-top: 40px;
+  margin-bottom: 4rem;
 }
 
 #confirmEditBtn,
@@ -790,15 +805,6 @@ body {
 #btnNo:hover {
   cursor: pointer;
   opacity: 1;
-}
-
-.scheduleFieldCenter {
-  display: flex;
-  justify-content: center;
-  gap: 10px;
-  width: 100%;
-  height: 38px;
-  margin-top: 80px;
 }
 
 #scheduleInputDate::-webkit-calendar-picker-indicator,
@@ -968,6 +974,7 @@ body {
   border-radius: 0px 5px 5px;
   padding: 0px 10px;
   box-shadow: 6px 6px 10px 0px rgba(0, 0, 0, 0.5);
+  z-index: 1;
 }
 
 .notePadContainer::after {
@@ -1367,5 +1374,51 @@ body {
   }
   80% {
     transform: translateX(-5px);
+  }
+}
+
+/* Responsividade da aplicação */
+
+@media (max-width: 1500px) {
+  .taskField {
+    width: 40%;
+  }
+}
+
+@media (max-width: 1125px) {
+  .taskField {
+    width: 600px;
+  }
+
+  .newTaskContainer {
+    width: 600px;
+  }
+}
+
+@media (max-width: 950px) {
+  .taskField {
+    width: 70%;
+  }
+
+  .newTaskContainer {
+    width: 70%;
+  }
+
+  .newTaskContainerInput {
+    width: 100%;
+  }
+}
+
+@media (max-width: 700px) {
+  .taskField {
+    width: 70%;
+  }
+
+  .newTaskContainer {
+    width: 70%;
+  }
+
+  .newTaskContainerInput {
+    width: 100%;
   }
 }
