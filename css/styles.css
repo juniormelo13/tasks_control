@@ -62,7 +62,8 @@ body {
 }
 
 #header .logo img {
-  width: 60px;
+  width: 40px;
+  height: 40px;
 }
 
 #menuButton {
@@ -111,7 +112,6 @@ body {
   align-items: center;
   gap: 15px;
   height: 100%;
-  margin-right: 20px;
 }
 
 .newTaskContainerInput {
@@ -444,6 +444,7 @@ body {
   padding: 0 5%;
   gap: 50px;
   padding-top: 50px;
+  padding-bottom: 25px;
 }
 
 .taskField {
@@ -452,9 +453,7 @@ body {
   justify-content: space-between;
   align-items: center;
   gap: 15px;
-  min-width: ;
-  max-width: 600px;
-  width: 30%;
+  width: 31.4%;
   height: 4rem;
   background-color: var(--color2);
   border-radius: 5px;
@@ -1310,6 +1309,28 @@ body {
   }
 }
 
+@keyframes menuAppearRightToLeft {
+  0% {
+    right: calc(-12rem - 2px);
+    opacity: 0.5;
+  }
+  100% {
+    right: -2px;
+    opacity: 1;
+  }
+}
+
+@keyframes menuVanishRightToLeft {
+  0% {
+    right: -2px;
+    opacity: 1;
+  }
+  100% {
+    right: calc(-12rem - 2px);
+    opacity: 0.5;
+  }
+}
+
 @keyframes expiredTask {
   0% {
     box-shadow: none;
@@ -1379,6 +1400,18 @@ body {
 
 /* Responsividade da aplicação */
 
+@media (max-width: 1919px) {
+  .taskField {
+    width: 31%;
+  }
+}
+
+@media (max-width: 1589px) {
+  .taskField {
+    width: 30%;
+  }
+}
+
 @media (max-width: 1500px) {
   .taskField {
     width: 40%;
@@ -1389,7 +1422,6 @@ body {
   .taskField {
     width: 600px;
   }
-
   .newTaskContainer {
     width: 600px;
   }
@@ -1399,26 +1431,70 @@ body {
   .taskField {
     width: 70%;
   }
-
   .newTaskContainer {
     width: 70%;
   }
-
   .newTaskContainerInput {
     width: 100%;
   }
 }
 
 @media (max-width: 700px) {
-  .taskField {
-    width: 70%;
+  #logoImg {
+    src: local("./img/task_control_logo.png");
   }
-
+  #header .menu {
+    top: 160px;
+    height: 100vh;
+    border-radius: 0;
+    box-shadow: none;
+    right: -2px;
+  }
+  #header .menu.menuAppear {
+    animation: menuAppearRightToLeft 0.3s forwards;
+  }
+  #header .menu.menuVanish {
+    animation: menuVanishRightToLeft 0.3s forwards;
+  }
+  #mainContainer {
+    top: 160px;
+    height: calc(100vh - 160px);
+  }
   .newTaskContainer {
-    width: 70%;
-  }
-
-  .newTaskContainerInput {
+    position: absolute;
+    background-color: var(--color2);
+    padding: 0 5%;
+    top: 80px;
+    left: 0;
     width: 100%;
+  }
+  .taskField {
+    width: 100%;
+  }
+}
+
+@media (max-width: 450px) {
+  .taskInfo.scheduled {
+    padding: 5px 15px 5px 5px;
+    text-align: center;
+    left: 5px;
+  }
+  .taskField {
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 5px 10px;
+    gap: 15px;
+    height: 6rem;
+  }
+  .taskField.scheduled {
+    gap: 12px;
+  }
+  .taskContent {
+    width: 100%;
+    text-align: center;
+  }
+  .btnField {
+    gap: 15px;
   }
 }
