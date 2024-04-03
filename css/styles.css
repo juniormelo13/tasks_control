@@ -522,7 +522,7 @@ body {
   white-space: nowrap;
   text-overflow: ellipsis;
   font-weight: bold;
-  line-height: 100%;
+  padding-bottom: 2px;
 }
 
 .taskContent.completed {
