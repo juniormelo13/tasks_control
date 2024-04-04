@@ -34,7 +34,10 @@ taskRecover();
 
 const inputFileImg = document.querySelector("#inputFileImg");
 const uploadedImg = document.querySelector("#uploadedImg");
+const inputFileImgLabelIcon = document.querySelector('#inputFileImgLabelIcon')
+const inputFileImgIcon = document.querySelector('#inputFileImgIcon')
 let dbInfoAccountImg = [];
+
 if (localStorage.getItem("infoAccountImg")) {
   dbInfoAccountImg = JSON.parse(localStorage.getItem("infoAccountImg"));
   window.onload = () => {
@@ -58,6 +61,11 @@ function loadImage(e) {
       localStorage.setItem("infoAccountImg", JSON.stringify(dbInfoAccountImg));
     };
     fileReader.readAsDataURL(file[0]);
+    inputFileImgLabelIcon.setAttribute("title", "Remover foto")
+    inputFileImg.setAttribute("title", "Alterar foto")
+    inputFileImgLabelIcon.removeAttribute("for")
+    inputFileImgIcon.classList.remove("fa-plus")
+    inputFileImgIcon.classList.add("fa-trash-can")
   }
 }
 
