@@ -1522,6 +1522,9 @@ const deleteClick = (taskField, infoTaskSave, notesInfo) => {
         const index = dbTasks.indexOf(infoTaskSave);
         dbTasks.splice(index, 1);
         localStorage.setItem("Tasks", JSON.stringify(dbTasks));
+        if (dbTasks.length < 1) {
+          localStorage.removeItem("Tasks")
+        }
         taskField.remove();
         confirmField.classList.add("hide");
         header.classList.remove("pointerEventsNone");
@@ -1591,6 +1594,9 @@ const deleteClick = (taskField, infoTaskSave, notesInfo) => {
       const index = dbTasks.indexOf(infoTaskSave);
       dbTasks.splice(index, 1);
       localStorage.setItem("Tasks", JSON.stringify(dbTasks));
+      if (dbTasks.length < 1) {
+        localStorage.removeItem("Tasks")
+      }
       taskField.remove();
       newTaskInput.focus();
       pendingTasks = dbTasks.filter(
