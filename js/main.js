@@ -338,7 +338,7 @@ function insertTask() {
     const infoTaskSave = new Object();
     infoTaskSave.taskContent = taskContent.innerText;
     dbTasks.unshift(infoTaskSave);
-    localStorage.setItem("Tasks", JSON.stringify(dbTasks));
+    localStorage.setItem("tasks", JSON.stringify(dbTasks));
 
     pendingTasks = dbTasks.filter((infoTaskSave) => !infoTaskSave.completeTask);
     if (filtred) {
@@ -659,7 +659,7 @@ const completeClick = (
       }
       delete infoTaskSave.scheduledTask;
       infoTaskSave.completeTask = true;
-      localStorage.setItem("Tasks", JSON.stringify(dbTasks));
+      localStorage.setItem("tasks", JSON.stringify(dbTasks));
 
       setTimeout(() => {
         taskField.classList.add("vanishTask");
@@ -754,7 +754,7 @@ const completeClick = (
       delete infoTaskSave.expiredTask;
     }
     infoTaskSave.completeTask = true;
-    localStorage.setItem("Tasks", JSON.stringify(dbTasks));
+    localStorage.setItem("tasks", JSON.stringify(dbTasks));
 
     setTimeout(() => {
       appointmentTime.innerText = "";
@@ -815,7 +815,7 @@ const completeClick = (
 
       // Salvar ação no Local Storage
       delete infoTaskSave.completeTask;
-      localStorage.setItem("Tasks", JSON.stringify(dbTasks));
+      localStorage.setItem("tasks", JSON.stringify(dbTasks));
 
       setTimeout(() => {
         checkBtn.setAttribute("title", "Concluir");
@@ -869,7 +869,7 @@ const completeClick = (
         delete infoTaskSave.deletedInfoTask;
       }
       infoTaskSave.completeTask = true;
-      localStorage.setItem("Tasks", JSON.stringify(dbTasks));
+      localStorage.setItem("tasks", JSON.stringify(dbTasks));
 
       setTimeout(() => {
         taskField.classList.remove("vanishTask");
@@ -1016,7 +1016,7 @@ function editTask(taskContent, infoTaskSave) {
 
     // Salvar ação no Local Storage
     infoTaskSave["taskContent"] = editInput.value;
-    localStorage.setItem("Tasks", JSON.stringify(dbTasks));
+    localStorage.setItem("tasks", JSON.stringify(dbTasks));
 
     setTimeout(() => {
       editField.classList.remove("vanishWindow");
@@ -1392,7 +1392,7 @@ const confirmSchedule = (
       scheduleInputTimeValue,
       infoTextContent.innerText,
     ];
-    localStorage.setItem("Tasks", JSON.stringify(dbTasks));
+    localStorage.setItem("tasks", JSON.stringify(dbTasks));
 
     setTimeout(() => {
       scheduledTasks = dbTasks.filter(
@@ -1427,7 +1427,7 @@ const schedulingRemoveClick = (
   if (infoTaskSave.scheduledTask) {
     delete infoTaskSave.scheduledTask;
   }
-  localStorage.setItem("Tasks", JSON.stringify(dbTasks));
+  localStorage.setItem("tasks", JSON.stringify(dbTasks));
 
   setTimeout(() => {
     appointmentTime.innerText = "";
@@ -1513,7 +1513,7 @@ const deleteClick = (taskField, infoTaskSave, notesInfo) => {
 
       // Salvar ação no Local Storage
       infoTaskSave.deletedInfoTask = true;
-      localStorage.setItem("Tasks", JSON.stringify(dbTasks));
+      localStorage.setItem("tasks", JSON.stringify(dbTasks));
 
       setTimeout(() => {
         taskField.classList.add("vanishTask");
@@ -1521,9 +1521,9 @@ const deleteClick = (taskField, infoTaskSave, notesInfo) => {
       setTimeout(() => {
         const index = dbTasks.indexOf(infoTaskSave);
         dbTasks.splice(index, 1);
-        localStorage.setItem("Tasks", JSON.stringify(dbTasks));
+        localStorage.setItem("tasks", JSON.stringify(dbTasks));
         if (dbTasks.length < 1) {
-          localStorage.removeItem("Tasks")
+          localStorage.removeItem("tasks")
         }
         taskField.remove();
         confirmField.classList.add("hide");
@@ -1588,14 +1588,14 @@ const deleteClick = (taskField, infoTaskSave, notesInfo) => {
 
     // Salvar ação no Local Storage
     infoTaskSave.deletedInfoTask = true;
-    localStorage.setItem("Tasks", JSON.stringify(dbTasks));
+    localStorage.setItem("tasks", JSON.stringify(dbTasks));
 
     setTimeout(() => {
       const index = dbTasks.indexOf(infoTaskSave);
       dbTasks.splice(index, 1);
-      localStorage.setItem("Tasks", JSON.stringify(dbTasks));
+      localStorage.setItem("tasks", JSON.stringify(dbTasks));
       if (dbTasks.length < 1) {
-        localStorage.removeItem("Tasks")
+        localStorage.removeItem("tasks")
       }
       taskField.remove();
       newTaskInput.focus();
@@ -1767,7 +1767,7 @@ function saveNoteClick(
   if (notesInfo.innerText != "" && !inputEquality) {
     // Salvar ação no Local Storage
     infoTaskSave.savedNote = [true, notesInfo.innerText];
-    localStorage.setItem("Tasks", JSON.stringify(dbTasks));
+    localStorage.setItem("tasks", JSON.stringify(dbTasks));
 
     setTimeout(() => {
       const tasks = tasksContainer.childNodes;
@@ -1798,7 +1798,7 @@ function saveNoteClick(
       // Salvar ação no Local Storage
       if (infoTaskSave.savedNote) {
         delete infoTaskSave.savedNote;
-        localStorage.setItem("Tasks", JSON.stringify(dbTasks));
+        localStorage.setItem("tasks", JSON.stringify(dbTasks));
       }
     }
     setTimeout(() => {
@@ -1838,8 +1838,8 @@ function cleanNoteClick(notePadInput, cleanNoteBtn, notePadContainer) {
 }
 
 function taskRecover() {
-  if (localStorage.getItem("Tasks")) {
-    dbTasks = JSON.parse(localStorage.getItem("Tasks"));
+  if (localStorage.getItem("tasks")) {
+    dbTasks = JSON.parse(localStorage.getItem("tasks"));
   }
   if (dbTasks.length == 0) {
     noTaskTextContainer.classList.remove("hide");
@@ -2513,7 +2513,7 @@ setInterval(() => {
       if (infoTaskSave.scheduledTask) {
         infoTaskSave.scheduledTask[3] = infoTextContent.innerText;
       }
-      localStorage.setItem("Tasks", JSON.stringify(dbTasks));
+      localStorage.setItem("tasks", JSON.stringify(dbTasks));
     }
   }
 }, 1000);
