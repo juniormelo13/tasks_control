@@ -88,12 +88,17 @@ nameInput.onfocus = () => {
 function saveName() {
   nameIdentIcon.classList.remove("active");
   nameInput.classList.remove("active");
-  const nameAccountSave = new Object();
-  dbInfoAccountName = [];
-  nameAccountSave.name = nameInput.value.trim();
-  nameInput.value = nameInput.value.trim();
-  dbInfoAccountName.push(nameAccountSave);
-  localStorage.setItem("infoAccountName", JSON.stringify(dbInfoAccountName));
+  if (nameInput.value.trim() == "" || nameInput.value == "Meu Task Control!") {
+    nameInput.value = "Meu Task Control!"
+    localStorage.removeItem("infoAccountName")
+  } else {
+    const nameAccountSave = new Object();
+    dbInfoAccountName = [];
+    nameAccountSave.name = nameInput.value.trim();
+    nameInput.value = nameInput.value.trim();
+    dbInfoAccountName.push(nameAccountSave);
+    localStorage.setItem("infoAccountName", JSON.stringify(dbInfoAccountName));
+  }
 }
 
 // Filtros das tarefas
