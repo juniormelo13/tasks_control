@@ -51,7 +51,7 @@ if (localStorage.getItem("infoAccountImg")) {
     uploadedImg.src = dbInfoAccountImg[0].img;
     inputFileImgLabelBtn.removeAttribute("for");
     inputFileImgLabelBtn.setAttribute("title", "Remover foto");
-    inputFileImgLabelBtn.setAttribute("onclick", "removeImgQuestion()");
+    inputFileImgLabelBtn.setAttribute("onclick", "removeImgConfirm()");
     inputFileImgLabel.setAttribute("title", "Alterar foto");
     inputFileImgIcon.classList.remove("fa-plus");
     inputFileImgIcon.classList.add("fa-trash-can");
@@ -77,16 +77,17 @@ function loadImage(e) {
     fileReader.readAsDataURL(selectedFile);
     inputFileImgLabelBtn.removeAttribute("for");
     inputFileImgLabelBtn.setAttribute("title", "Remover foto");
-    inputFileImgLabelBtn.setAttribute("onclick", "removeImgQuestion()");
+    inputFileImgLabelBtn.setAttribute("onclick", "removeImgConfirm()");
     inputFileImgLabel.setAttribute("title", "Alterar foto");
     inputFileImgIcon.classList.remove("fa-plus");
     inputFileImgIcon.classList.add("fa-trash-can");
+    inputFileImg.value = ''
   }
 }
 
 inputFileImg.addEventListener("change", loadImage);
 
-function removeImgQuestion() {
+function removeImgConfirm() {
   header.classList.add("pointerEventsNone");
   tasksContainer.classList.add("tasksContainerHide");
   noTaskTextContainer.classList.add("noTaskTextHide");
