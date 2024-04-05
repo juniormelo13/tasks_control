@@ -26,6 +26,12 @@ function checkTasksContainerHeight() {
   }
 }
 
+// Variáveis da janela de confirmação
+const confirmField = document.querySelector("#confirmField");
+const confirmFieldText = document.querySelector("#confirmFieldText");
+const btnYes = document.querySelector("#btnYes");
+const btnNo = document.querySelector("#btnNo");
+
 // Variáveis para guardar tarefas no banco de dados (Local Storage)
 let dbTasks = [];
 taskRecover();
@@ -34,21 +40,29 @@ taskRecover();
 
 const inputFileImg = document.querySelector("#inputFileImg");
 const uploadedImg = document.querySelector("#uploadedImg");
-const inputFileImgLabelIcon = document.querySelector('#inputFileImgLabelIcon')
-const inputFileImgIcon = document.querySelector('#inputFileImgIcon')
+const inputFileImgLabel = document.querySelector("#inputFileImgLabel");
+const inputFileImgLabelBtn = document.querySelector("#inputFileImgLabelBtn");
+const inputFileImgIcon = document.querySelector("#inputFileImgIcon");
 let dbInfoAccountImg = [];
 
 if (localStorage.getItem("infoAccountImg")) {
   dbInfoAccountImg = JSON.parse(localStorage.getItem("infoAccountImg"));
   window.onload = () => {
     uploadedImg.src = dbInfoAccountImg[0].img;
+    inputFileImgLabelBtn.removeAttribute("for");
+    inputFileImgLabelBtn.setAttribute("title", "Remover foto");
+    inputFileImgLabelBtn.setAttribute("onclick", "removeImgQuestion()");
+    inputFileImgLabel.setAttribute("title", "Alterar foto");
+    inputFileImgIcon.classList.remove("fa-plus");
+    inputFileImgIcon.classList.add("fa-trash-can");
   };
 }
 
 function loadImage(e) {
   const filePath = e.target;
   const file = filePath.files;
-  if (file.length > 0 && !file[0].type.includes("image")) {
+  const selectedFile = file[0]
+  if (file.length > 0 && !selectedFile.type.includes("image")) {
     alert("Por favor selecione uma imagem válida.");
   } else if (file.length > 0) {
     const imgAccountSave = new Object();
@@ -60,16 +74,78 @@ function loadImage(e) {
       dbInfoAccountImg.push(imgAccountSave);
       localStorage.setItem("infoAccountImg", JSON.stringify(dbInfoAccountImg));
     };
-    fileReader.readAsDataURL(file[0]);
-    inputFileImgLabelIcon.setAttribute("title", "Remover foto")
-    inputFileImg.setAttribute("title", "Alterar foto")
-    inputFileImgLabelIcon.removeAttribute("for")
-    inputFileImgIcon.classList.remove("fa-plus")
-    inputFileImgIcon.classList.add("fa-trash-can")
+    fileReader.readAsDataURL(selectedFile);
+    inputFileImgLabelBtn.removeAttribute("for");
+    inputFileImgLabelBtn.setAttribute("title", "Remover foto");
+    inputFileImgLabelBtn.setAttribute("onclick", "removeImgQuestion()");
+    inputFileImgLabel.setAttribute("title", "Alterar foto");
+    inputFileImgIcon.classList.remove("fa-plus");
+    inputFileImgIcon.classList.add("fa-trash-can");
   }
 }
 
 inputFileImg.addEventListener("change", loadImage);
+
+function removeImgQuestion() {
+  header.classList.add("pointerEventsNone");
+  tasksContainer.classList.add("tasksContainerHide");
+  noTaskTextContainer.classList.add("noTaskTextHide");
+  mainContainer.classList.add("pointerEventsNone");
+  confirmFieldText.innerText =
+    "Tem certeza de que deseja remover a foto de perfil?";
+  confirmField.classList.add("appearWindow");
+  confirmField.classList.remove("hide");
+
+  btnYes.onclick = removeImg;
+  btnYes.focus();
+
+  function removeImg() {
+    confirmField.classList.remove("appearWindow");
+    confirmField.classList.add("vanishWindow");
+    tasksContainer.classList.remove("tasksContainerHide");
+    tasksContainer.classList.add("tasksContainerAppear");
+    noTaskTextContainer.classList.remove("noTaskTextHide");
+    noTaskTextContainer.classList.add("noTaskTextAppear");
+
+    setTimeout(() => {
+      header.classList.remove("pointerEventsNone");
+      mainContainer.classList.remove("pointerEventsNone");
+      confirmField.classList.remove("vanishWindow");
+      confirmField.classList.add("hide");
+      tasksContainer.classList.remove("tasksContainerAppear");
+      noTaskTextContainer.classList.remove("noTaskTextAppear");
+      searchTaskInput.focus();
+
+      localStorage.removeItem("infoAccountImg");
+      uploadedImg.src = "./img/Profile-Avatar-PNG-Image.png";
+      inputFileImgLabelBtn.setAttribute("title", "Adicionar foto");
+      inputFileImg.setAttribute("title", "Adicionar foto");
+      inputFileImgLabelBtn.setAttribute("for", "inputFileImg");
+      inputFileImgLabelBtn.removeAttribute("onclick");
+      inputFileImgIcon.classList.remove("fa-trash-can");
+      inputFileImgIcon.classList.add("fa-plus");
+    }, 200);
+  }
+
+  btnNo.onclick = () => {
+    confirmField.classList.remove("appearWindow");
+    confirmField.classList.add("vanishWindow");
+    tasksContainer.classList.remove("tasksContainerHide");
+    tasksContainer.classList.add("tasksContainerAppear");
+    noTaskTextContainer.classList.remove("noTaskTextHide");
+    noTaskTextContainer.classList.add("noTaskTextAppear");
+
+    setTimeout(() => {
+      header.classList.remove("pointerEventsNone");
+      mainContainer.classList.remove("pointerEventsNone");
+      confirmField.classList.remove("vanishWindow");
+      confirmField.classList.add("hide");
+      tasksContainer.classList.remove("tasksContainerAppear");
+      noTaskTextContainer.classList.remove("noTaskTextAppear");
+      searchTaskInput.focus();
+    }, 200);
+  };
+}
 
 // Nome do usuário
 
@@ -97,8 +173,8 @@ function saveName() {
   nameIdentIcon.classList.remove("active");
   nameInput.classList.remove("active");
   if (nameInput.value.trim() == "" || nameInput.value == "Meu Task Control!") {
-    nameInput.value = "Meu Task Control!"
-    localStorage.removeItem("infoAccountName")
+    nameInput.value = "Meu Task Control!";
+    localStorage.removeItem("infoAccountName");
   } else {
     const nameAccountSave = new Object();
     dbInfoAccountName = [];
@@ -601,12 +677,6 @@ function insertTask() {
     checkTasksContainerHeight();
   }
 }
-
-// Variáveis da janela de confirmação
-const confirmField = document.querySelector("#confirmField");
-const confirmFieldText = document.querySelector("#confirmFieldText");
-const btnYes = document.querySelector("#btnYes");
-const btnNo = document.querySelector("#btnNo");
 
 // Configuração do botão para conclusão da tarefa
 const completeClick = (
@@ -1536,7 +1606,7 @@ const deleteClick = (taskField, infoTaskSave, notesInfo) => {
         dbTasks.splice(index, 1);
         localStorage.setItem("tasks", JSON.stringify(dbTasks));
         if (dbTasks.length < 1) {
-          localStorage.removeItem("tasks")
+          localStorage.removeItem("tasks");
         }
         taskField.remove();
         confirmField.classList.add("hide");
@@ -1608,7 +1678,7 @@ const deleteClick = (taskField, infoTaskSave, notesInfo) => {
       dbTasks.splice(index, 1);
       localStorage.setItem("tasks", JSON.stringify(dbTasks));
       if (dbTasks.length < 1) {
-        localStorage.removeItem("tasks")
+        localStorage.removeItem("tasks");
       }
       taskField.remove();
       newTaskInput.focus();

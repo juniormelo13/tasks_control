@@ -1059,12 +1059,12 @@ body {
 
 /* Classes de animações para janelas e elementos */
 
-#tasksContainer.tasksContainerHide {
+#tasksContainer.tasksContainerHide, #noTaskTextContainer.noTaskTextHide {
   pointer-events: none;
   animation: tasksContainerHide 0.2s ease-in forwards;
 }
 
-#tasksContainer.tasksContainerAppear {
+#tasksContainer.tasksContainerAppear, #noTaskTextContainer.noTaskTextAppear {
   animation: tasksContainerAppear 0.2s ease-in forwards;
 }
 
