@@ -313,6 +313,7 @@ searchTaskInputBtn.addEventListener("click", () => {
 const menuBtn = document.querySelector("#menuButton");
 const menu = document.querySelector(".menu");
 const menuBtnIcon = document.querySelector("#menuButtonIcon");
+const menuBtnIconMobile = document.querySelector("#menuButtonIconMobile");
 let menuOpen = false;
 
 function menuOpenFunction() {
@@ -321,6 +322,8 @@ function menuOpenFunction() {
   menu.classList.add("menuAppear");
   menuBtnIcon.classList.toggle("fa-angles-down");
   menuBtnIcon.classList.toggle("fa-xmark");
+  menuBtnIconMobile.classList.toggle("fa-angles-left");
+  menuBtnIconMobile.classList.toggle("fa-xmark");
   menuBtn.classList.toggle("active");
   menuBtn.disabled = true;
   setTimeout(() => {
@@ -335,6 +338,8 @@ function menuCloseFunction() {
   menu.classList.add("menuVanish");
   menuBtnIcon.classList.toggle("fa-angles-down");
   menuBtnIcon.classList.toggle("fa-xmark");
+  menuBtnIconMobile.classList.toggle("fa-angles-left");
+  menuBtnIconMobile.classList.toggle("fa-xmark");
   menuBtn.disabled = true;
   setTimeout(() => {
     menu.classList.add("hide");

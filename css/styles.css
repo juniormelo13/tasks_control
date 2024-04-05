@@ -55,15 +55,21 @@ body {
   justify-content: space-between;
   align-items: center;
   width: calc(100% - 2px);
-  height: 80px;
+  height: 5rem;
   padding: 0 5%;
   background-color: var(--color2);
   z-index: 1;
 }
 
-#header .logo img {
+#logoImg {
   width: 40px;
   height: 40px;
+}
+
+#logoImgMobile {
+  height: 50px;
+  width: auto;
+  display: none;
 }
 
 #menuButton {
@@ -84,6 +90,10 @@ body {
   background-color: var(--color2);
   color: var(--color4);
   box-shadow: 0 0 10px 2px var(--color4);
+}
+
+#menuButtonIconMobile {
+  display: none;
 }
 
 #header .menu {
@@ -414,16 +424,16 @@ body {
   position: relative;
   width: 100%;
   height: calc(100vh - 80px);
-  top: 80px;
+  top: 5rem;
   overflow-y: scroll;
   overflow-x: hidden;
 }
 
 #noTaskTextContainer {
   position: absolute;
-  top: 25%;
+  top: calc(5rem + 15%);
   left: 50%;
-  transform: translate(-50%, -25%);
+  transform: translate(-50%, -15%);
 }
 
 #noTaskText {
@@ -1059,12 +1069,14 @@ body {
 
 /* Classes de animações para janelas e elementos */
 
-#tasksContainer.tasksContainerHide, #noTaskTextContainer.noTaskTextHide {
+#tasksContainer.tasksContainerHide,
+#noTaskTextContainer.noTaskTextHide {
   pointer-events: none;
   animation: tasksContainerHide 0.2s ease-in forwards;
 }
 
-#tasksContainer.tasksContainerAppear, #noTaskTextContainer.noTaskTextAppear {
+#tasksContainer.tasksContainerAppear,
+#noTaskTextContainer.noTaskTextAppear {
   animation: tasksContainerAppear 0.2s ease-in forwards;
 }
 
@@ -1441,14 +1453,23 @@ body {
 
 @media (max-width: 700px) {
   #logoImg {
-    src: local("./img/task_control_logo.png");
+    display: none;
+  }
+  #logoImgMobile {
+    display: block;
   }
   #header .menu {
-    top: 160px;
+    top: 10rem;
     height: 100vh;
     border-radius: 0;
     box-shadow: none;
     right: -2px;
+  }
+  #menuButtonIcon {
+    display: none;
+  }
+  #menuButtonIconMobile {
+    display: block;
   }
   #header .menu.menuAppear {
     animation: menuAppearRightToLeft 0.3s forwards;
@@ -1457,19 +1478,22 @@ body {
     animation: menuVanishRightToLeft 0.3s forwards;
   }
   #mainContainer {
-    top: 160px;
+    top: 10rem;
     height: calc(100vh - 160px);
   }
   .newTaskContainer {
     position: absolute;
     background-color: var(--color2);
     padding: 0 5%;
-    top: 80px;
+    top: 5rem;
     left: 0;
     width: 100%;
   }
   .taskField {
     width: 100%;
+  }
+  #noTaskTextContainer {
+    top: calc(10rem + 15%);
   }
 }
 
@@ -1496,5 +1520,9 @@ body {
   }
   .btnField {
     gap: 15px;
+  }
+
+  #noTaskText {
+    font-size: 1.5rem;
   }
 }
