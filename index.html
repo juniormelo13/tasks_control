@@ -46,78 +46,11 @@
         </div>
         <input type="button" value="+" id="newTaskBtn" title="Adicionar" />
       </div>
-      <!-- Menu/filtros de tarefas -->
+      <!-- Botão de acesso ao menu/filtro -->
       <button id="menuButton">
         <i id="menuButtonIcon" class="fa-solid fa-angles-down"></i>
         <i id="menuButtonIconMobile" class="fa-solid fa-angles-left"></i>
       </button>
-      <div class="menu hide">
-        <div id="accountIdentBox">
-          <div class="imgIdentBox">
-            <label for="inputFileImg" id="inputFileImgLabel" title="Adicionar foto"></label>
-            <input
-              type="file"
-              name="inputFileImg"
-              id="inputFileImg"
-              accept="image/*" capture
-            />
-            <img
-              src="./img/Profile-Avatar-PNG-Image.png"
-              alt=""
-              id="uploadedImg"
-            />
-            <label for="inputFileImg" id="inputFileImgLabelBtn" title="Adicionar foto"
-              ><i id="inputFileImgIcon" class="fa-solid fa-plus"></i
-            ></label>
-          </div>
-          <div class="nameIdentBox">
-            <input
-              type="text"
-              name="nameInput"
-              id="nameInput"
-              value="Meu Task Control!"
-              spellcheck="false"
-              autocomplete="off"
-            />
-            <i class="fa-solid fa-pen" id="nameIdentIcon"></i>
-          </div>
-        </div>
-        <div class="searchContainer">
-          <input
-            type="search"
-            name="searchTaskInput"
-            id="searchTaskInput"
-            placeholder="Pesquisar tarefa"
-            spellcheck="false"
-            autocomplete="off"
-          />
-          <button id="searchCleanBtn" class="hide" title="Limpar">
-            <i class="fa-solid fa-xmark"></i>
-          </button>
-        </div>
-        <div id="filterContainer">
-          <a href="#" id="allTaskFilter"
-            ><p>Todas</p>
-            <span id="allTaskFilterAmount">0</span></a
-          >
-          <a href="#" id="pendingTaskFilter"
-            ><p>Pendentes</p>
-            <span id="pendingTaskFilterAmount">0</span></a
-          >
-          <a href="#" id="scheduleTaskFilter"
-            ><p>Agendadas</p>
-            <span id="scheduleTaskFilterAmount">0</span></a
-          >
-          <a href="#" id="expiredTaskFilter"
-            ><p>Expiradas</p>
-            <span id="expiredTaskFilterAmount">0</span></a
-          >
-          <a href="#" id="completedTaskFilter"
-            ><p>Concluídas</p>
-            <span id="completedTaskFilterAmount">0</span></a
-          >
-        </div>
-      </div>
     </header>
     <!-- Caixa principal do projeto, onde as tarefas serão adicionadas -->
     <main id="mainContainer">
@@ -175,5 +108,81 @@
     <div id="noTaskTextContainer" class="hide">
       <h1 id="noTaskText">Não há tarefas!</h1>
     </div>
+    <!-- Menu/filtros de tarefas -->
+    <nav id="menu" class="hide">
+      <div id="accountIdentBox">
+        <div class="imgIdentBox">
+          <label
+            for="inputFileImg"
+            id="inputFileImgLabel"
+            title="Adicionar foto"
+          ></label>
+          <input
+            type="file"
+            name="inputFileImg"
+            id="inputFileImg"
+            accept="image/*"
+            capture
+          />
+          <img
+            src="./img/Profile-Avatar-PNG-Image.png"
+            alt=""
+            id="uploadedImg"
+          />
+          <label
+            for="inputFileImg"
+            id="inputFileImgLabelBtn"
+            title="Adicionar foto"
+            ><i id="inputFileImgIcon" class="fa-solid fa-plus"></i
+          ></label>
+        </div>
+        <div class="nameIdentBox">
+          <input
+            type="text"
+            name="nameInput"
+            id="nameInput"
+            value="Meu Task Control!"
+            spellcheck="false"
+            autocomplete="off"
+          />
+          <i class="fa-solid fa-pen" id="nameIdentIcon"></i>
+        </div>
+      </div>
+      <div class="searchContainer">
+        <input
+          type="search"
+          name="searchTaskInput"
+          id="searchTaskInput"
+          placeholder="Pesquisar tarefa"
+          spellcheck="false"
+          autocomplete="off"
+        />
+        <button id="searchCleanBtn" class="hide" title="Limpar">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <div id="filterContainer">
+        <a href="#" id="allTaskFilter"
+          ><p>Todas</p>
+          <span id="allTaskFilterAmount">0</span></a
+        >
+        <a href="#" id="pendingTaskFilter"
+          ><p>Pendentes</p>
+          <span id="pendingTaskFilterAmount">0</span></a
+        >
+        <a href="#" id="scheduleTaskFilter"
+          ><p>Agendadas</p>
+          <span id="scheduleTaskFilterAmount">0</span></a
+        >
+        <a href="#" id="expiredTaskFilter"
+          ><p>Expiradas</p>
+          <span id="expiredTaskFilterAmount">0</span></a
+        >
+        <a href="#" id="completedTaskFilter"
+          ><p>Concluídas</p>
+          <span id="completedTaskFilterAmount">0</span></a
+        >
+      </div>
+    </nav>
   </body>
 </html>

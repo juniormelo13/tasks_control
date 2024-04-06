@@ -311,7 +311,7 @@ searchTaskInputBtn.addEventListener("click", () => {
 //Configuração do botão de Menu
 
 const menuBtn = document.querySelector("#menuButton");
-const menu = document.querySelector(".menu");
+const menu = document.querySelector("#menu");
 const menuBtnIcon = document.querySelector("#menuButtonIcon");
 const menuBtnIconMobile = document.querySelector("#menuButtonIconMobile");
 let menuOpen = false;

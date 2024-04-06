@@ -96,23 +96,31 @@ body {
   display: none;
 }
 
-#header .menu {
+#menu {
   position: absolute;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
   gap: 2rem;
-  top: 85px;
+  top: 6rem;
+  transform: translateY(0);
   right: 5%;
   background-color: var(--color2);
   border-radius: 5px;
   width: 12rem;
-  height: 26.5rem;
-  overflow: hidden;
   box-shadow: 6px 6px 10px 0px rgba(0, 0, 0, 0.5);
-  padding: 0 1rem;
+  padding: 1rem;
   user-select: none;
+}
+
+#menu::before {
+  content: '';
+  position: absolute;
+  top: -10px;
+  right: 20px;
+  transform: translateX(50%);
+  border-bottom: 10px solid var(--color2);
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
 }
 
 .newTaskContainer {
@@ -206,7 +214,6 @@ body {
   flex-direction: column;
   align-items: center;
   gap: 1rem;
-  padding-top: 1.3rem;
 }
 
 .imgIdentBox {
@@ -233,7 +240,6 @@ body {
   border-radius: 50%;
   transition: 0.3s;
   opacity: 0;
-  z-index: 1;
   cursor: pointer;
 }
 
@@ -258,7 +264,6 @@ body {
   width: 100%;
   height: 100%;
   border-radius: 50%;
-  z-index: 1;
   cursor: pointer;
 }
 
@@ -368,7 +373,6 @@ body {
   justify-content: center;
   gap: 5px;
   width: 100%;
-  padding-top: 2px;
 }
 
 #filterContainer a {
@@ -1130,20 +1134,20 @@ body {
   animation: shakeMove 0.2s ease-in;
 }
 
-#header .menu.menuAppear {
-  animation: menuAppear 0.3s forwards;
+#menu.menuAppear {
+  animation: menuAppear 0.3s forwards ease-out;
 }
 
-#header .menu.menuVanish {
-  animation: menuVanish 0.3s forwards;
+#menu.menuVanish {
+  animation: menuVanish 0.3s forwards ease-in;
 }
 
 .notePadContainer.notePadContainerAppear {
-  animation: notePadContainerAppear 0.3s forwards;
+  animation: notePadContainerAppear 0.3s forwards ease-out;
 }
 
 .notePadContainer.notePadContainerVanish {
-  animation: notePadContainerVanish 0.3s forwards;
+  animation: notePadContainerVanish 0.3s forwards ease-in;
 }
 
 #header.pointerEventsNone,
@@ -1154,7 +1158,7 @@ body {
   user-select: none;
 }
 
-#header .menu.hide,
+#menu.hide,
 .cleanNoteBtn.hide,
 .appointmentDate.hide,
 .appointmentTime.hide,
@@ -1301,45 +1305,45 @@ body {
 
 @keyframes menuAppear {
   0% {
-    height: 0rem;
-    opacity: 0.5;
+    transform: translateY(-26rem);
+    opacity: 0;
   }
   100% {
-    height: 26.5rem;
+    transform: translateY(0);
     opacity: 1;
   }
 }
 
 @keyframes menuVanish {
   0% {
-    height: 26.5rem;
+    transform: translateY(0);
     opacity: 1;
   }
   100% {
-    height: 0rem;
-    opacity: 0.5;
+    transform: translateY(-26rem);
+    opacity: 0;
   }
 }
 
 @keyframes menuAppearRightToLeft {
   0% {
-    right: calc(-12rem - 2px);
-    opacity: 0.5;
+    transform: translateX(12rem);
+    opacity: 0;
   }
   100% {
-    right: -2px;
+    transform: translateX(0);
     opacity: 1;
   }
 }
 
 @keyframes menuVanishRightToLeft {
   0% {
-    right: -2px;
+    transform: translateX(0);
     opacity: 1;
   }
   100% {
-    right: calc(-12rem - 2px);
-    opacity: 0.5;
+    transform: translateX(12rem);
+    opacity: 0;
   }
 }
 
@@ -1458,12 +1462,13 @@ body {
   #logoImgMobile {
     display: block;
   }
-  #header .menu {
+  #menu {
     top: 10rem;
     height: 100vh;
     border-radius: 0;
     box-shadow: none;
     right: -2px;
+    transform: translateX(0);
   }
   #menuButtonIcon {
     display: none;
@@ -1471,11 +1476,11 @@ body {
   #menuButtonIconMobile {
     display: block;
   }
-  #header .menu.menuAppear {
-    animation: menuAppearRightToLeft 0.3s forwards;
+  #menu.menuAppear {
+    animation: menuAppearRightToLeft 0.3s forwards ease-out;
   }
-  #header .menu.menuVanish {
-    animation: menuVanishRightToLeft 0.3s forwards;
+  #menu.menuVanish {
+    animation: menuVanishRightToLeft 0.3s forwards ease-in;
   }
   #mainContainer {
     top: 10rem;
