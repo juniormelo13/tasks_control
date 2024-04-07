@@ -27,7 +27,6 @@ body {
   background-color: var(--color1);
   width: 100%;
   height: 100vh;
-  overflow: hidden;
 }
 
 #mainContainer::-webkit-scrollbar {
@@ -102,7 +101,6 @@ body {
   flex-direction: column;
   gap: 2rem;
   top: 6rem;
-  transform: translateY(0);
   right: 5%;
   background-color: var(--color2);
   border-radius: 5px;
@@ -116,14 +114,14 @@ body {
   content: '';
   position: absolute;
   top: -10px;
-  right: 20px;
+  right: 22px;
   transform: translateX(50%);
   border-bottom: 10px solid var(--color2);
   border-left: 10px solid transparent;
   border-right: 10px solid transparent;
 }
 
-.newTaskContainer {
+#newTaskContainer {
   position: relative;
   display: flex;
   justify-content: center;
@@ -132,7 +130,7 @@ body {
   height: 100%;
 }
 
-.newTaskContainerInput {
+#newTaskContainerInput {
   position: relative;
   width: 37.5rem;
   height: 3rem;
@@ -216,7 +214,7 @@ body {
   gap: 1rem;
 }
 
-.imgIdentBox {
+#imgIdentBox {
   position: relative;
   background-color: var(--color4);
   height: 5rem;
@@ -225,7 +223,7 @@ body {
   transition: 0.3s;
 }
 
-.imgIdentBox label i {
+#inputFileImgLabelBtn {
   position: absolute;
   display: flex;
   justify-content: center;
@@ -243,16 +241,16 @@ body {
   cursor: pointer;
 }
 
-.imgIdentBox:hover,
+#imgIdentBox:hover,
 #nameInput:hover {
   cursor: pointer;
 }
 
-.imgIdentBox:hover.imgIdentBox label i {
+#imgIdentBox:hover #inputFileImgLabelBtn {
   opacity: 1;
 }
 
-.imgIdentBox img {
+#uploadedImg {
   width: 100%;
   height: 100%;
   border-radius: 50%;
@@ -271,7 +269,7 @@ body {
   display: none;
 }
 
-.nameIdentBox {
+#nameIdentBox {
   position: relative;
   display: flex;
   gap: 5px;
@@ -310,16 +308,16 @@ body {
   opacity: 0;
 }
 
-.nameIdentBox:hover #nameIdentIcon {
+#nameIdentBox:hover #nameIdentIcon {
   opacity: 0.5;
 }
 
-.nameIdentBox:hover #nameIdentIcon.active,
+#nameIdentBox:hover #nameIdentIcon.active,
 #nameIdentIcon.active {
   opacity: 1;
 }
 
-.searchContainer {
+#searchContainer {
   position: relative;
   width: 100%;
 }
@@ -425,16 +423,15 @@ body {
 }
 
 #mainContainer {
-  position: relative;
+  position: fixed;
   width: 100%;
-  height: calc(100vh - 80px);
+  height: calc(100vh - 5rem);
   top: 5rem;
   overflow-y: scroll;
-  overflow-x: hidden;
 }
 
 #noTaskTextContainer {
-  position: absolute;
+  position: fixed;
   top: calc(5rem + 15%);
   left: 50%;
   transform: translate(-50%, -15%);
@@ -656,8 +653,8 @@ body {
   padding: 15px;
 }
 
-.editFieldHeader,
-.scheduleFieldHeader {
+#editFieldHeader,
+#scheduleFieldHeader {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -665,8 +662,8 @@ body {
   padding-bottom: 10px;
 }
 
-.editFieldHeader h1,
-.scheduleFieldHeader h1 {
+#editFieldHeader h1,
+#scheduleFieldHeader h1 {
   font-family: "Lato", "Sans-Serif";
   text-transform: capitalize;
   font-size: 1.5rem;
@@ -693,14 +690,14 @@ body {
   color: var(--color8);
 }
 
-.editFieldCenter {
+#editFieldCenter {
   position: relative;
   width: 100%;
   height: 38px;
   margin-top: 2rem;
 }
 
-.scheduleFieldCenter {
+#scheduleFieldCenter {
   display: flex;
   justify-content: center;
   gap: 10px;
@@ -763,8 +760,8 @@ body {
   color: var(--color12);
 }
 
-.editFieldFooter,
-.scheduleFieldFooter {
+#editFieldFooter,
+#scheduleFieldFooter {
   display: flex;
   justify-content: center;
   gap: 10px;
@@ -940,7 +937,7 @@ body {
   user-select: none;
 }
 
-.btnFieldToConfirm {
+#btnFieldToConfirm {
   display: flex;
   justify-content: center;
   gap: 10px;
@@ -1305,44 +1302,62 @@ body {
 
 @keyframes menuAppear {
   0% {
-    transform: translateY(-26rem);
+    transform: translate(0, -26rem);
     opacity: 0;
   }
   100% {
-    transform: translateY(0);
+    transform: translate(0, 0);
     opacity: 1;
   }
 }
 
 @keyframes menuVanish {
   0% {
-    transform: translateY(0);
+    transform: translate(0, 0);
     opacity: 1;
   }
   100% {
-    transform: translateY(-26rem);
+    transform: translate(0, -26rem);
     opacity: 0;
   }
 }
 
 @keyframes menuAppearRightToLeft {
   0% {
-    transform: translateX(12rem);
+    width: 0;
     opacity: 0;
   }
+  25% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 0;
+  }
+  75% {
+    opacity: 1;
+  }
   100% {
-    transform: translateX(0);
+    width: 12rem;
     opacity: 1;
   }
 }
 
 @keyframes menuVanishRightToLeft {
   0% {
-    transform: translateX(0);
+    width: 12rem;
     opacity: 1;
   }
+  25% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+  75% {
+    opacity: 0;
+  }
   100% {
-    transform: translateX(12rem);
+    width: 0;
     opacity: 0;
   }
 }
@@ -1438,7 +1453,7 @@ body {
   .taskField {
     width: 600px;
   }
-  .newTaskContainer {
+  #newTaskContainer {
     width: 600px;
   }
 }
@@ -1447,10 +1462,10 @@ body {
   .taskField {
     width: 70%;
   }
-  .newTaskContainer {
+  #newTaskContainer {
     width: 70%;
   }
-  .newTaskContainerInput {
+  #newTaskContainerInput {
     width: 100%;
   }
 }
@@ -1464,11 +1479,12 @@ body {
   }
   #menu {
     top: 10rem;
-    height: 100vh;
+    min-height: 25.5rem;
+    height: calc(100vh - 10rem);
     border-radius: 0;
     box-shadow: none;
-    right: -2px;
-    transform: translateX(0);
+    right: 0;
+    overflow: hidden;
   }
   #menuButtonIcon {
     display: none;
@@ -1477,16 +1493,16 @@ body {
     display: block;
   }
   #menu.menuAppear {
-    animation: menuAppearRightToLeft 0.3s forwards ease-out;
+    animation: menuAppearRightToLeft 0.3s forwards ease-in;
   }
   #menu.menuVanish {
     animation: menuVanishRightToLeft 0.3s forwards ease-in;
   }
   #mainContainer {
     top: 10rem;
-    height: calc(100vh - 160px);
+    height: calc(100vh - 10rem);
   }
-  .newTaskContainer {
+  #newTaskContainer {
     position: absolute;
     background-color: var(--color2);
     padding: 0 5%;
