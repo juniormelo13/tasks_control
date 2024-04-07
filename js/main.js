@@ -115,7 +115,6 @@ function removeImgConfirm() {
       confirmField.classList.add("hide");
       tasksContainer.classList.remove("tasksContainerAppear");
       noTaskTextContainer.classList.remove("noTaskTextAppear");
-      searchTaskInput.focus();
 
       localStorage.removeItem("infoAccountImg");
       uploadedImg.src = "./img/Profile-Avatar-PNG-Image.png";
@@ -143,7 +142,6 @@ function removeImgConfirm() {
       confirmField.classList.add("hide");
       tasksContainer.classList.remove("tasksContainerAppear");
       noTaskTextContainer.classList.remove("noTaskTextAppear");
-      searchTaskInput.focus();
     }, 200);
   };
 }
@@ -328,7 +326,6 @@ function menuOpenFunction() {
   menuBtn.disabled = true;
   setTimeout(() => {
     menu.classList.remove("menuAppear");
-    searchTaskInput.focus();
     menuBtn.disabled = false;
   }, 300);
 }
@@ -345,7 +342,6 @@ function menuCloseFunction() {
     menu.classList.add("hide");
     menu.classList.remove("menuVanish");
     menuBtn.classList.toggle("active");
-    newTaskInput.focus();
     menuBtn.disabled = false;
   }, 300);
 }
@@ -409,13 +405,11 @@ function insertTask() {
 
     // Tarefa
     const taskField = document.createElement("div");
-    newTaskInput.blur();
     taskField.classList.add("taskField");
     taskField.classList.add("hover");
     taskField.classList.add("appearTask");
 
     setTimeout(() => {
-      newTaskInput.focus();
       taskField.classList.remove("appearTask");
     }, 200);
     if (!noTaskTextContainer.classList.contains("hide")) {
@@ -787,7 +781,6 @@ const completeClick = (
         schedulingRemoveBtn.classList.add("hide");
 
         checkBtn.setAttribute("title", "Restaurar");
-        newTaskInput.focus();
         pendingTasks = dbTasks.filter(
           (infoTaskSave) => !infoTaskSave.completeTask
         );
@@ -827,7 +820,6 @@ const completeClick = (
         confirmField.classList.remove("vanishWindow");
         confirmField.classList.add("hide");
         tasksContainer.classList.remove("tasksContainerAppear");
-        newTaskInput.focus();
       }, 200);
     };
   } else if (taskField.classList.contains("expiredTask")) {
@@ -866,7 +858,6 @@ const completeClick = (
       infoTextContent.innerText = "Tarefa concluída";
       completedTaskIcon.classList.remove("hide");
       schedulingRemoveBtn.classList.add("hide");
-      newTaskInput.focus();
       pendingTasks = dbTasks.filter(
         (infoTaskSave) => !infoTaskSave.completeTask
       );
@@ -923,7 +914,6 @@ const completeClick = (
         taskField.classList.remove("vanishTask");
         taskField.classList.add("appearTask");
         checkBtn.disabled = false;
-        newTaskInput.focus();
         pendingTasks = dbTasks.filter(
           (infoTaskSave) => !infoTaskSave.completeTask
         );
@@ -977,7 +967,6 @@ const completeClick = (
         completedTaskIcon.classList.remove("hide");
         schedulingRemoveBtn.classList.add("hide");
         checkBtn.disabled = false;
-        newTaskInput.focus();
         pendingTasks = dbTasks.filter(
           (infoTaskSave) => !infoTaskSave.completeTask
         );
@@ -1066,7 +1055,6 @@ const closeEditField = () => {
     tasksContainer.classList.remove("tasksContainerAppear");
     tasksContainer.classList.remove("tasksContainerHide");
     mainContainer.classList.remove("pointerEventsNone");
-    newTaskInput.focus();
   }, 200);
   if (editInput.classList.contains("inputError")) {
     editInput.classList.remove("inputError");
@@ -1127,7 +1115,6 @@ function editTask(taskContent, infoTaskSave) {
       for (const task of tasks) {
         task.classList.remove("pointerEventsNone");
       }
-      newTaskInput.focus();
     }, 600);
   }
 }
@@ -1240,7 +1227,6 @@ const closeScheduleField = () => {
     tasksContainer.classList.remove("tasksContainerHide");
     mainContainer.classList.remove("pointerEventsNone");
     scheduleField.classList.add("hide");
-    newTaskInput.focus();
   }, 200);
   if (scheduleInputDate.classList.contains("inputError")) {
     scheduleInputDate.classList.remove("inputError");
@@ -1329,8 +1315,6 @@ const confirmSchedule = (
       taskField.classList.add("scheduled");
       taskInfo.classList.add("scheduled");
       schedulingRemoveBtn.setAttribute("title", "Cancelar agendamento");
-      newTaskInput.focus();
-
       taskInfo.classList.remove("hide");
       taskInfo.classList.add("appearTaskInfo");
     }, 300);
@@ -1541,7 +1525,6 @@ const schedulingRemoveClick = (
     taskField.classList.add("pointerEventsNone");
     taskInfo.classList.add("hide");
     taskInfo.classList.remove("vanishTaskInfo");
-    newTaskInput.focus();
     setTimeout(() => {
       scheduledTasks = dbTasks.filter(
         (infoTaskSave) => infoTaskSave.scheduledTask
@@ -1621,7 +1604,6 @@ const deleteClick = (taskField, infoTaskSave, notesInfo) => {
         mainContainer.classList.remove("pointerEventsNone");
         tasksContainer.classList.remove("tasksContainerAppear");
         confirmField.classList.remove("vanishWindow");
-        newTaskInput.focus();
         pendingTasks = dbTasks.filter(
           (infoTaskSave) => !infoTaskSave.completeTask
         );
@@ -1664,7 +1646,6 @@ const deleteClick = (taskField, infoTaskSave, notesInfo) => {
         confirmField.classList.remove("vanishWindow");
         confirmField.classList.add("hide");
         tasksContainer.classList.remove("tasksContainerAppear");
-        newTaskInput.focus();
       }, 200);
     };
   } else {
@@ -1687,7 +1668,6 @@ const deleteClick = (taskField, infoTaskSave, notesInfo) => {
         localStorage.removeItem("tasks");
       }
       taskField.remove();
-      newTaskInput.focus();
       pendingTasks = dbTasks.filter(
         (infoTaskSave) => !infoTaskSave.completeTask
       );
@@ -1880,7 +1860,6 @@ function saveNoteClick(
           task.classList.remove("normalOpacity");
         }
       }
-      newTaskInput.focus();
     }, 800);
   } else {
     if (notesInfo.innerText == "") {
@@ -1911,7 +1890,6 @@ function saveNoteClick(
           task.classList.remove("normalOpacity");
         }
       }
-      newTaskInput.focus();
     }, 600);
   }
 }
@@ -2237,7 +2215,6 @@ allTaskFilter.addEventListener("click", () => {
   }
   allTaskFilter.classList.add("active");
   setTimeout(() => {
-    newTaskInput.focus();
     allTaskFilterFunction();
   }, 200);
 });
@@ -2263,7 +2240,6 @@ pendingTaskFilter.addEventListener("click", () => {
   }
   pendingTaskFilter.classList.add("active");
   setTimeout(() => {
-    newTaskInput.focus();
     pendingTaskFilterFunction();
   }, 200);
 });
@@ -2303,7 +2279,6 @@ scheduleTaskFilter.addEventListener("click", () => {
   }
   scheduleTaskFilter.classList.add("active");
   setTimeout(() => {
-    newTaskInput.focus();
     scheduleTaskFilterFunction();
   }, 200);
 });
@@ -2343,7 +2318,6 @@ expiredTaskFilter.addEventListener("click", () => {
   }
   expiredTaskFilter.classList.add("active");
   setTimeout(() => {
-    newTaskInput.focus();
     expiredTaskFilterFunction();
   }, 200);
 });
@@ -2383,7 +2357,6 @@ completedTaskFilter.addEventListener("click", () => {
   }
   completedTaskFilter.classList.add("active");
   setTimeout(() => {
-    newTaskInput.focus();
     completedTaskFilterFunction();
   }, 200);
 });
