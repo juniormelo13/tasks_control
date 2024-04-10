@@ -1328,9 +1328,9 @@ const confirmSchedule = (
       scheduleInputDateValue + " " + scheduleInputTimeValue
     );
 
-    const optionsSetDate = { dateStyle: "long" };
+    const optionsSetDate = { dateStyle: "short" };
     const optionsSetTime = { timeStyle: "short" };
-    const optionsSetDay = { weekday: "long" };
+    const optionsSetDay = { weekday: "short" };
 
     const dateForinfoTextContent = setDateForScheduling.toLocaleString(
       "pt-BR",
@@ -1343,7 +1343,10 @@ const confirmSchedule = (
     const dayForinfoTextContent = setDateForScheduling.toLocaleString(
       "pt-BR",
       optionsSetDay
-    );
+    ).charAt(0).toUpperCase() + setDateForScheduling.toLocaleString(
+      "pt-BR",
+      optionsSetDay
+    ).substring(1).replace(/[.]/g, ',');
 
     // Inclusão dos dados no campo de informações sobre o agendamento
     const difSeconds =
@@ -1355,34 +1358,32 @@ const confirmSchedule = (
 
     if (difDays >= 2) {
       infoTextContent.innerText =
-        "Agendado para " +
-        dayForinfoTextContent +
+        "Prazo: " +
+        dayForinfoTextContent + " " + dateForinfoTextContent +
         ", " +
-        dateForinfoTextContent +
-        " às " +
         timeForinfoTextContent;
     } else if (difDays > 1 && difDays < 2 && difDaysOfTheWeek >= 2) {
       infoTextContent.innerText =
-        "Agendado para " +
+        "Prazo: " +
         dayForinfoTextContent +
-        ", " +
+        " " +
         dateForinfoTextContent +
-        " às " +
+        ", " +
         timeForinfoTextContent;
     } else if (difDays > 1 && difDays < 2 && difDaysOfTheWeek == -5) {
       infoTextContent.innerText =
-        "Agendado para " +
+        "Prazo: " +
         dayForinfoTextContent +
-        ", " +
+        " " +
         dateForinfoTextContent +
-        " às " +
+        ", " +
         timeForinfoTextContent;
     } else if (
       (difDays < 2 && difDaysOfTheWeek == 1 && difMinutes > 60) ||
       (difDays < 2 && difDaysOfTheWeek == -6 && difMinutes > 60)
     ) {
       infoTextContent.innerText =
-        "Agendado para amanhã às " + scheduleInputTimeValue;
+        "Prazo: Amanhã, " + scheduleInputTimeValue;
     } else if (
       (difDays < 2 &&
         difDaysOfTheWeek == 1 &&
@@ -1393,12 +1394,12 @@ const confirmSchedule = (
         difMinutes > 30 &&
         difMinutes <= 60)
     ) {
-      infoTextContent.innerText =
-        "Agendado para amanhã às " +
-        scheduleInputTimeValue +
-        " - Expira em " +
-        Math.ceil(difMinutes) +
-        " min";
+        infoTextContent.innerText =
+          "Prazo: Amanhã, " +
+          scheduleInputTimeValue +
+          " - Faltam " +
+          Math.ceil(difMinutes) +
+          " min";
     } else if (
       (difDays < 2 &&
         difDaysOfTheWeek == 1 &&
@@ -1409,12 +1410,21 @@ const confirmSchedule = (
         difMinutes > 0 &&
         difMinutes <= 30)
     ) {
-      infoTextContent.innerText =
-        "Agendado para amanhã às " +
+      if (difMinutes <= 1) {
+        infoTextContent.innerText =
+        "Prazo: Amanhã, " +
         scheduleInputTimeValue +
-        " - Expira em " +
+        " - Falta " +
         Math.ceil(difMinutes) +
         " min";
+      } else {
+        infoTextContent.innerText =
+          "Prazo: Amanhã, " +
+          scheduleInputTimeValue +
+          " - Faltam " +
+          Math.ceil(difMinutes) +
+          " min";
+      }
       infoTaskSave.expireAlert = true;
       setTimeout(() => {
         taskField.classList.add("expireAlert");
@@ -1422,16 +1432,16 @@ const confirmSchedule = (
       }, 300);
     } else if (currentDate === scheduleInputDateValue && difMinutes > 60) {
       infoTextContent.innerText =
-        "Agendado para hoje às " + scheduleInputTimeValue;
+        "Prazo: Hoje, " + scheduleInputTimeValue;
     } else if (
       difMinutes > 30 &&
       difMinutes <= 60 &&
       currentDate === scheduleInputDateValue
     ) {
       infoTextContent.innerText =
-        "Agendado para hoje às " +
+        "Prazo: Hoje, " +
         scheduleInputTimeValue +
-        " - Expira em " +
+        " - Faltam " +
         Math.ceil(difMinutes) +
         " min";
     } else if (
@@ -1439,12 +1449,21 @@ const confirmSchedule = (
       difMinutes <= 30 &&
       currentDate === scheduleInputDateValue
     ) {
-      infoTextContent.innerText =
-        "Agendado para hoje às " +
+      if (difMinutes <= 1) {
+        infoTextContent.innerText =
+        "Prazo: Hoje, " +
         scheduleInputTimeValue +
-        " - Expira em " +
+        " - Falta " +
         Math.ceil(difMinutes) +
         " min";
+      } else {
+        infoTextContent.innerText =
+          "Prazo: Hoje, " +
+          scheduleInputTimeValue +
+          " - Faltam " +
+          Math.ceil(difMinutes) +
+          " min";
+      }
       infoTaskSave.expireAlert = true;
       setTimeout(() => {
         taskField.classList.add("expireAlert");
@@ -2457,18 +2476,18 @@ setInterval(() => {
         editBtn.classList.add("disabledBtn");
         if (currentDate === appointmentDate.innerText) {
           infoTextContent.innerText =
-            "Expirou hoje às " + appointmentTime.innerText;
+            "Expirou hoje, " + appointmentTime.innerText;
         } else if (difDays < 2 && difDaysFromScheduledToCurrent == 6) {
           infoTextContent.innerText =
-            "Expirou ontem às " + appointmentTime.innerText;
+            "Expirou ontem, " + appointmentTime.innerText;
         } else if (difDays < 2 && difDaysFromCurrentToScheduled == 1) {
           infoTextContent.innerText =
-            "Expirou ontem às " + appointmentTime.innerText;
+            "Expirou ontem, " + appointmentTime.innerText;
         } else {
           infoTextContent.innerText =
-            "Expirou em " +
+            "Expirou " +
             schedulingDate.toLocaleDateString("pt-BR") +
-            " às " +
+            ", " +
             appointmentTime.innerText;
         }
       } else if (
@@ -2476,12 +2495,21 @@ setInterval(() => {
         difTimeInMinutes <= 30 &&
         currentDate === appointmentDate.innerText
       ) {
-        infoTextContent.innerText =
-          "Agendado para hoje às " +
+        if(difTimeInMinutes <= 1) {
+          infoTextContent.innerText =
+          "Prazo: Hoje, " +
           appointmentTime.innerText +
-          " - Expira em " +
+          " - Falta " +
           Math.ceil(difTimeInMinutes) +
           " min";
+        } else {
+          infoTextContent.innerText =
+            "Prazo: Hoje, " +
+            appointmentTime.innerText +
+            " - Faltam " +
+            Math.ceil(difTimeInMinutes) +
+            " min";
+        }
         task.classList.add("expireAlert");
         taskInfo.classList.add("expireAlert");
 
@@ -2502,9 +2530,9 @@ setInterval(() => {
         currentDate === appointmentDate.innerText
       ) {
         infoTextContent.innerText =
-          "Agendado para hoje às " +
+          "Prazo: Hoje, " +
           appointmentTime.innerText +
-          " - Expira em " +
+          " - Faltam " +
           Math.ceil(difTimeInMinutes) +
           " min";
       } else if (
@@ -2512,7 +2540,7 @@ setInterval(() => {
         difTimeInMinutes > 60
       ) {
         infoTextContent.innerText =
-          "Agendado para hoje às " + appointmentTime.innerText;
+          "Prazo: Hoje, " + appointmentTime.innerText;
       } else if (
         (difTimeInDays < 2 &&
           difDaysFromScheduledToCurrent == -6 &&
@@ -2522,7 +2550,7 @@ setInterval(() => {
           difTimeInMinutes > 60)
       ) {
         infoTextContent.innerText =
-          "Agendado para amanhã às " + appointmentTime.innerText;
+          "Prazo: Amanhã, " + appointmentTime.innerText;
       } else if (
         (difTimeInDays < 2 &&
           difDaysFromScheduledToCurrent == -6 &&
@@ -2534,9 +2562,9 @@ setInterval(() => {
           difTimeInMinutes <= 60)
       ) {
         infoTextContent.innerText =
-          "Agendado para amanhã às " +
+          "Prazo: Amanhã, " +
           appointmentTime.innerText +
-          " - Expira em " +
+          " - Faltam " +
           Math.ceil(difTimeInMinutes) +
           " min";
       } else if (
@@ -2549,12 +2577,21 @@ setInterval(() => {
           difTimeInMinutes > 0 &&
           difTimeInMinutes <= 30)
       ) {
-        infoTextContent.innerText =
-          "Agendado para amanhã às " +
+        if(difTimeInMinutes <= 1) {
+          infoTextContent.innerText =
+          "Prazo: Amanhã, " +
           appointmentTime.innerText +
-          " - Expira em " +
+          " - Falta " +
           Math.ceil(difTimeInMinutes) +
           " min";
+        } else {
+          infoTextContent.innerText =
+            "Prazo: Amanhã, " +
+            appointmentTime.innerText +
+            " - Faltam " +
+            Math.ceil(difTimeInMinutes) +
+            " min";
+        }
         task.classList.add("expireAlert");
         taskInfo.classList.add("expireAlert");
 
