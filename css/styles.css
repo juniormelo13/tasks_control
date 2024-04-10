@@ -1517,31 +1517,40 @@ body {
 }
 
 @media (max-width: 450px) {
-  .taskInfo.scheduled {
-    padding: 5px 15px 5px 5px;
-    text-align: center;
-    left: 5px;
-  }
   .taskField {
     flex-direction: column;
-    justify-content: flex-end;
+    justify-content: space-evenly;
     align-items: center;
     padding: 5px 10px;
-    gap: 15px;
-    height: 6rem;
-  }
-  .taskField.scheduled {
-    gap: 12px;
+    gap: 0;
+    height: 5rem;
   }
   .taskContent {
     width: 100%;
     text-align: center;
   }
+  .infoTextContent {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
   .btnField {
     gap: 15px;
   }
-
   #noTaskText {
     font-size: 1.5rem;
+  }
+}
+
+@media (max-width: 300px) {
+  .taskField {
+    
+  }
+  .taskInfo {
+    left: 5px;
+  }
+  .btnField {
+    flex-wrap: wrap;
+    justify-content: center;
   }
 }
