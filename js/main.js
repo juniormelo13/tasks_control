@@ -621,7 +621,7 @@ function insertTask() {
     scheduleBtn.appendChild(scheduleIcon);
     scheduleIcon.classList.add("fa-solid");
     scheduleIcon.classList.add("fa-clock");
-    scheduleBtn.setAttribute("title", "Agendar");
+    scheduleBtn.setAttribute("title", "Definir prazo");
     scheduleBtn.addEventListener("click", () =>
       scheduleClick(
         taskField,
@@ -631,7 +631,7 @@ function insertTask() {
         taskInfo,
         infoTextContent,
         schedulingRemoveBtn,
-        infoTaskSave
+        infoTaskSave, btnField
       )
     );
 
@@ -1142,7 +1142,7 @@ const scheduleClick = (
   taskInfo,
   infoTextContent,
   schedulingRemoveBtn,
-  infoTaskSave
+  infoTaskSave, btnField
 ) => {
   header.classList.add("pointerEventsNone");
   tasksContainer.classList.add("tasksContainerHide");
@@ -1195,7 +1195,7 @@ const scheduleClick = (
       taskInfo,
       infoTextContent,
       schedulingRemoveBtn,
-      infoTaskSave
+      infoTaskSave, btnField
     );
 
   scheduleField.onkeypress = (e) => {
@@ -1208,7 +1208,7 @@ const scheduleClick = (
         taskInfo,
         infoTextContent,
         schedulingRemoveBtn,
-        infoTaskSave
+        infoTaskSave, btnField
       );
     }
   };
@@ -1250,7 +1250,8 @@ const confirmSchedule = (
   taskInfo,
   infoTextContent,
   schedulingRemoveBtn,
-  infoTaskSave
+  infoTaskSave,
+  btnField
 ) => {
   const currentFullDate = new Date();
   const scheduleInputDateValue = scheduleInputDate.value;
@@ -1317,11 +1318,17 @@ const confirmSchedule = (
       schedulingRemoveBtn.setAttribute("title", "Cancelar agendamento");
       taskInfo.classList.remove("hide");
       taskInfo.classList.add("appearTaskInfo");
+      btnField.classList.add("animeBtnMobile")
     }, 300);
 
     setTimeout(() => {
       taskInfo.classList.remove("appearTaskInfo");
+      btnField.classList.remove("animeBtnMobile")
     }, 500);
+
+    setTimeout(() => {
+      btnField.classList.remove("animeBtnMobile")
+    }, 800);
 
     // Recebimento dos valores colocados nos inputs
     const setDateForScheduling = new Date(
@@ -2103,7 +2110,7 @@ function taskRecover() {
     scheduleBtn.appendChild(scheduleIcon);
     scheduleIcon.classList.add("fa-solid");
     scheduleIcon.classList.add("fa-clock");
-    scheduleBtn.setAttribute("title", "Agendar");
+    scheduleBtn.setAttribute("title", "Definir prazo");
     scheduleBtn.addEventListener("click", () =>
       scheduleClick(
         taskField,
@@ -2113,7 +2120,7 @@ function taskRecover() {
         taskInfo,
         infoTextContent,
         schedulingRemoveBtn,
-        infoTaskSave
+        infoTaskSave, btnField
       )
     );
 
