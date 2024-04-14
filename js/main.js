@@ -36,6 +36,54 @@ const btnNo = document.querySelector("#btnNo");
 let dbTasks = [];
 taskRecover();
 
+//Configuração do botão de Menu
+
+const menuBtn = document.querySelector("#menuButton");
+const menu = document.querySelector("#menu");
+const menuBtnIcon = document.querySelector("#menuButtonIcon");
+const menuBtnIconMobile = document.querySelector("#menuButtonIconMobile");
+let menuOpen = false;
+
+function menuOpenFunction() {
+  menuOpen = !menuOpen;
+  menu.classList.remove("hide");
+  menu.classList.add("menuAppear");
+  menuBtnIcon.classList.toggle("fa-angles-down");
+  menuBtnIcon.classList.toggle("fa-xmark");
+  menuBtnIconMobile.classList.toggle("fa-angles-left");
+  menuBtnIconMobile.classList.toggle("fa-xmark");
+  menuBtn.classList.toggle("active");
+  menuBtn.disabled = true;
+  setTimeout(() => {
+    menu.classList.remove("menuAppear");
+    menuBtn.disabled = false;
+  }, 300);
+}
+
+function menuCloseFunction() {
+  menuOpen = !menuOpen;
+  menu.classList.add("menuVanish");
+  menuBtnIcon.classList.toggle("fa-angles-down");
+  menuBtnIcon.classList.toggle("fa-xmark");
+  menuBtnIconMobile.classList.toggle("fa-angles-left");
+  menuBtnIconMobile.classList.toggle("fa-xmark");
+  menuBtn.disabled = true;
+  setTimeout(() => {
+    menu.classList.add("hide");
+    menu.classList.remove("menuVanish");
+    menuBtn.classList.toggle("active");
+    menuBtn.disabled = false;
+  }, 300);
+}
+
+menuBtn.addEventListener("click", () => {
+  if (!menuOpen) {
+    menuOpenFunction();
+  } else {
+    menuCloseFunction();
+  }
+});
+
 // Configuração para guardar imagem do perfil do usuário no localStorage
 
 const inputFileImg = document.querySelector("#inputFileImg");
@@ -91,6 +139,7 @@ function removeImgConfirm() {
   header.classList.add("pointerEventsNone");
   tasksContainer.classList.add("tasksContainerHide");
   noTaskTextContainer.classList.add("noTaskTextHide");
+  menu.classList.add("menuBlur");
   mainContainer.classList.add("pointerEventsNone");
   confirmFieldText.innerText =
     "Tem certeza de que deseja remover a foto de perfil?";
@@ -107,6 +156,8 @@ function removeImgConfirm() {
     tasksContainer.classList.add("tasksContainerAppear");
     noTaskTextContainer.classList.remove("noTaskTextHide");
     noTaskTextContainer.classList.add("noTaskTextAppear");
+    menu.classList.remove("menuBlur");
+    menu.classList.add("menuOffBlur");
 
     setTimeout(() => {
       header.classList.remove("pointerEventsNone");
@@ -115,6 +166,7 @@ function removeImgConfirm() {
       confirmField.classList.add("hide");
       tasksContainer.classList.remove("tasksContainerAppear");
       noTaskTextContainer.classList.remove("noTaskTextAppear");
+      menu.classList.remove("menuOffBlur");
 
       localStorage.removeItem("infoAccountImg");
       uploadedImg.src = "./img/Profile-Avatar-PNG-Image.png";
@@ -134,6 +186,8 @@ function removeImgConfirm() {
     tasksContainer.classList.add("tasksContainerAppear");
     noTaskTextContainer.classList.remove("noTaskTextHide");
     noTaskTextContainer.classList.add("noTaskTextAppear");
+    menu.classList.remove("menuBlur");
+    menu.classList.add("menuOffBlur");
 
     setTimeout(() => {
       header.classList.remove("pointerEventsNone");
@@ -142,6 +196,7 @@ function removeImgConfirm() {
       confirmField.classList.add("hide");
       tasksContainer.classList.remove("tasksContainerAppear");
       noTaskTextContainer.classList.remove("noTaskTextAppear");
+      menu.classList.remove("menuOffBlur");
     }, 200);
   };
 }
@@ -306,54 +361,6 @@ searchTaskInputBtn.addEventListener("click", () => {
   allTaskFilterFunction();
 });
 
-//Configuração do botão de Menu
-
-const menuBtn = document.querySelector("#menuButton");
-const menu = document.querySelector("#menu");
-const menuBtnIcon = document.querySelector("#menuButtonIcon");
-const menuBtnIconMobile = document.querySelector("#menuButtonIconMobile");
-let menuOpen = false;
-
-function menuOpenFunction() {
-  menuOpen = !menuOpen;
-  menu.classList.remove("hide");
-  menu.classList.add("menuAppear");
-  menuBtnIcon.classList.toggle("fa-angles-down");
-  menuBtnIcon.classList.toggle("fa-xmark");
-  menuBtnIconMobile.classList.toggle("fa-angles-left");
-  menuBtnIconMobile.classList.toggle("fa-xmark");
-  menuBtn.classList.toggle("active");
-  menuBtn.disabled = true;
-  setTimeout(() => {
-    menu.classList.remove("menuAppear");
-    menuBtn.disabled = false;
-  }, 300);
-}
-
-function menuCloseFunction() {
-  menuOpen = !menuOpen;
-  menu.classList.add("menuVanish");
-  menuBtnIcon.classList.toggle("fa-angles-down");
-  menuBtnIcon.classList.toggle("fa-xmark");
-  menuBtnIconMobile.classList.toggle("fa-angles-left");
-  menuBtnIconMobile.classList.toggle("fa-xmark");
-  menuBtn.disabled = true;
-  setTimeout(() => {
-    menu.classList.add("hide");
-    menu.classList.remove("menuVanish");
-    menuBtn.classList.toggle("active");
-    menuBtn.disabled = false;
-  }, 300);
-}
-
-menuBtn.addEventListener("click", () => {
-  if (!menuOpen) {
-    menuOpenFunction();
-  } else {
-    menuCloseFunction();
-  }
-});
-
 // Botão para limpar o campo de texto principal
 const cleanInputBtn = document.querySelector("#cleanInputBtn");
 cleanInputBtn.setAttribute("title", "Limpar");
@@ -513,7 +520,7 @@ function insertTask() {
         appointmentTime,
         editBtn,
         infoTextContent,
-        infoTaskSave
+        infoTaskSave, btnField
       )
     );
 
@@ -1319,16 +1326,16 @@ const confirmSchedule = (
       taskInfo.classList.remove("hide");
       taskInfo.classList.add("appearTaskInfo");
       btnField.classList.add("animeBtnMobile")
+      btnField.classList.add("pointerEventsNone")
     }, 300);
 
     setTimeout(() => {
       taskInfo.classList.remove("appearTaskInfo");
-      btnField.classList.remove("animeBtnMobile")
     }, 500);
-
     setTimeout(() => {
       btnField.classList.remove("animeBtnMobile")
-    }, 800);
+      btnField.classList.remove("pointerEventsNone")
+    }, 600);
 
     // Recebimento dos valores colocados nos inputs
     const setDateForScheduling = new Date(
@@ -1511,10 +1518,10 @@ const schedulingRemoveClick = (
   appointmentTime,
   editBtn,
   infoTextContent,
-  infoTaskSave
+  infoTaskSave, btnField
 ) => {
   taskInfo.classList.add("vanishTaskInfo");
-
+  
   // Salvar ação no Local Storage
   infoTaskSave.deletedInfoTask = true;
   if (infoTaskSave.expiredTask) {
@@ -1527,7 +1534,7 @@ const schedulingRemoveClick = (
     delete infoTaskSave.scheduledTask;
   }
   localStorage.setItem("tasks", JSON.stringify(dbTasks));
-
+  
   setTimeout(() => {
     appointmentTime.innerText = "";
     appointmentDate.innerText = "";
@@ -1548,6 +1555,7 @@ const schedulingRemoveClick = (
     if (taskField.classList.contains("expireAlert")) {
       taskField.classList.remove("expireAlert");
     }
+    btnField.classList.add("animeBtnMobile")
     taskField.classList.add("pointerEventsNone");
     taskInfo.classList.add("hide");
     taskInfo.classList.remove("vanishTaskInfo");
@@ -1569,6 +1577,7 @@ const schedulingRemoveClick = (
     taskField.classList.remove("pointerEventsNone");
     scheduleBtn.classList.remove("disabledBtn");
     editBtn.classList.remove("disabledBtn");
+    btnField.classList.remove("animeBtnMobile")
   }, 500);
 };
 
@@ -2002,7 +2011,7 @@ function taskRecover() {
         appointmentTime,
         editBtn,
         infoTextContent,
-        infoTaskSave
+        infoTaskSave, btnField
       )
     );
 

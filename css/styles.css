@@ -921,6 +921,7 @@ body {
   border: 2px solid var(--color4);
   border-radius: 5px;
   padding: 15px;
+  z-index: 1;
 }
 
 #confirmFieldText {
@@ -1065,13 +1066,13 @@ body {
 /* Classes de animações para janelas e elementos */
 
 #tasksContainer.tasksContainerHide,
-#noTaskTextContainer.noTaskTextHide {
+#noTaskTextContainer.noTaskTextHide, #menu.menuBlur {
   pointer-events: none;
   animation: tasksContainerHide 0.2s ease-in forwards;
 }
 
 #tasksContainer.tasksContainerAppear,
-#noTaskTextContainer.noTaskTextAppear {
+#noTaskTextContainer.noTaskTextAppear, #menu.menuOffBlur {
   animation: tasksContainerAppear 0.2s ease-in forwards;
 }
 
@@ -1424,21 +1425,13 @@ body {
 }
 
 @keyframes animeBtnMobile {
-  0%, 100% {
-    transform: translate3d(0px, 0, 0);
+  0% {
+    transform: translateX(30px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0px);
     opacity: 1;
-  }
-  25% {
-    transform: translate3d(30px, 0, 0);
-    opacity: 0;
-  }
-  50% {
-    transform: translate3d(30px, 0, 0);
-    opacity: 0;
-  }
-  75% {
-    transform: translate3d(30px, 0, 0);
-    opacity: 0;
   }
 }
 
@@ -1496,14 +1489,8 @@ body {
     opacity: 1;
   }
   .btnField.animeBtnMobile {
-    animation: animeBtnMobile 0.5s ease-in;
+    animation: animeBtnMobile 0.3s ease-in forwards;
   }
-  /* .btnField.animeBtnMobileVanish {
-    animation: animeBtnMobileVanish 0.2s ease-in forwards;
-  }
-  .btnField.animeBtnMobileAppear {
-    animation: animeBtnMobileAppear 0.2s ease-in forwards;
-  } */
   .checkBtn,
   .scheduleBtn,
   .editBtn,
