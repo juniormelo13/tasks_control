@@ -1609,6 +1609,9 @@ body {
   .notesBtnAlert {
     bottom: -1px;
   }
+  .notePadContainer {
+    top: 6rem;
+  }
   #noTaskText {
     font-size: 1.5rem;
   }
