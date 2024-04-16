@@ -1029,7 +1029,6 @@ const editClick = (taskContent, infoTaskSave) => {
   };
 
   editInput.value = taskContent.innerText;
-  editInput.select();
   cleanEditInputBtn.style.display = "inline";
 
   confirmEditBtn.onclick = () => editTask(taskContent, infoTaskSave);
