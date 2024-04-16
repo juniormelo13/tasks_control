@@ -226,8 +226,8 @@ nameInput.onfocus = () => {
 function saveName() {
   nameIdentIcon.classList.remove("active");
   nameInput.classList.remove("active");
-  if (nameInput.value.trim() == "" || nameInput.value == "Meu Task Control!") {
-    nameInput.value = "Meu Task Control!";
+  if (nameInput.value.trim() == "" || nameInput.value == "Qual é o seu nome?") {
+    nameInput.value = "Qual é o seu nome?";
     localStorage.removeItem("infoAccountName");
   } else {
     const nameAccountSave = new Object();
