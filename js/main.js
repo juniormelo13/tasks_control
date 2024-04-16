@@ -551,7 +551,7 @@ function insertTask() {
     saveNoteBtn.classList.add("saveNoteBtn");
     saveNoteBtn.setAttribute("title", "Salvar");
     saveNoteBtnIcon.classList.add("fa-solid");
-    saveNoteBtnIcon.classList.add("fa-angles-left");
+    saveNoteBtnIcon.classList.add("fa-angles-up");
     notePadInput.setAttribute("spellcheck", "false");
     notesInfo.classList.add("notesInfo");
     notesInfo.classList.add("hide");
