@@ -541,6 +541,7 @@ function insertTask() {
     notePadTitle.classList.add("notePadTitle");
     notePadInput.classList.add("notePadInput");
     notePadInput.setAttribute("name", "notePadInput");
+    notePadInput.setAttribute("placeholder", "O que deseja anotar?");
     notePadBtnField.classList.add("notePadBtnField");
     cleanNoteBtn.classList.add("cleanNoteBtn");
     cleanNoteBtn.classList.add("hide");
@@ -1775,7 +1776,6 @@ function notesBtnClick(
   taskField.classList.remove("lowOpacity");
   notePadInput.value = notesInfo.innerText;
   notesBtn.disabled = true;
-  notePadInput.focus();
   if (notesInfo.innerText == "") {
     cleanNoteBtn.classList.add("hide");
   } else {
