@@ -109,7 +109,7 @@ if (localStorage.getItem("infoAccountImg")) {
 function loadImage(e) {
   const filePath = e.target;
   const file = filePath.files;
-  const selectedFile = file[0]
+  const selectedFile = file[0];
   if (file.length > 0 && !selectedFile.type.includes("image")) {
     alert("Por favor selecione uma imagem válida.");
   } else if (file.length > 0) {
@@ -129,7 +129,7 @@ function loadImage(e) {
     inputFileImgLabel.setAttribute("title", "Alterar foto");
     inputFileImgIcon.classList.remove("fa-plus");
     inputFileImgIcon.classList.add("fa-trash-can");
-    inputFileImg.value = ''
+    inputFileImg.value = "";
   }
 }
 
@@ -520,7 +520,8 @@ function insertTask() {
         appointmentTime,
         editBtn,
         infoTextContent,
-        infoTaskSave, btnField
+        infoTaskSave,
+        btnField
       )
     );
 
@@ -574,7 +575,7 @@ function insertTask() {
         notePadInput,
         notesInfo,
         notesBtnAlert,
-        infoTaskSave
+        infoTaskSave, taskInfo
       )
     );
     cleanNoteBtn.addEventListener("click", () =>
@@ -639,7 +640,8 @@ function insertTask() {
         taskInfo,
         infoTextContent,
         schedulingRemoveBtn,
-        infoTaskSave, btnField
+        infoTaskSave,
+        btnField
       )
     );
 
@@ -665,7 +667,7 @@ function insertTask() {
         notesInfo,
         notesBtn,
         notesBtnAlert,
-        infoTaskSave
+        infoTaskSave, taskInfo
       )
     );
 
@@ -1149,7 +1151,8 @@ const scheduleClick = (
   taskInfo,
   infoTextContent,
   schedulingRemoveBtn,
-  infoTaskSave, btnField
+  infoTaskSave,
+  btnField
 ) => {
   header.classList.add("pointerEventsNone");
   tasksContainer.classList.add("tasksContainerHide");
@@ -1202,7 +1205,8 @@ const scheduleClick = (
       taskInfo,
       infoTextContent,
       schedulingRemoveBtn,
-      infoTaskSave, btnField
+      infoTaskSave,
+      btnField
     );
 
   scheduleField.onkeypress = (e) => {
@@ -1215,7 +1219,8 @@ const scheduleClick = (
         taskInfo,
         infoTextContent,
         schedulingRemoveBtn,
-        infoTaskSave, btnField
+        infoTaskSave,
+        btnField
       );
     }
   };
@@ -1325,16 +1330,16 @@ const confirmSchedule = (
       schedulingRemoveBtn.setAttribute("title", "Cancelar agendamento");
       taskInfo.classList.remove("hide");
       taskInfo.classList.add("appearTaskInfo");
-      btnField.classList.add("animeBtnMobile")
-      btnField.classList.add("pointerEventsNone")
+      btnField.classList.add("animeBtnMobile");
+      btnField.classList.add("pointerEventsNone");
     }, 300);
 
     setTimeout(() => {
       taskInfo.classList.remove("appearTaskInfo");
     }, 500);
     setTimeout(() => {
-      btnField.classList.remove("animeBtnMobile")
-      btnField.classList.remove("pointerEventsNone")
+      btnField.classList.remove("animeBtnMobile");
+      btnField.classList.remove("pointerEventsNone");
     }, 600);
 
     // Recebimento dos valores colocados nos inputs
@@ -1354,13 +1359,15 @@ const confirmSchedule = (
       "pt-BR",
       optionsSetTime
     );
-    const dayForinfoTextContent = setDateForScheduling.toLocaleString(
-      "pt-BR",
-      optionsSetDay
-    ).charAt(0).toUpperCase() + setDateForScheduling.toLocaleString(
-      "pt-BR",
-      optionsSetDay
-    ).substring(1).replace(/[.]/g, ',');
+    const dayForinfoTextContent =
+      setDateForScheduling
+        .toLocaleString("pt-BR", optionsSetDay)
+        .charAt(0)
+        .toUpperCase() +
+      setDateForScheduling
+        .toLocaleString("pt-BR", optionsSetDay)
+        .substring(1)
+        .replace(/[.]/g, ",");
 
     // Inclusão dos dados no campo de informações sobre o agendamento
     const difSeconds =
@@ -1373,7 +1380,9 @@ const confirmSchedule = (
     if (difDays >= 2) {
       infoTextContent.innerText =
         "Prazo: " +
-        dayForinfoTextContent + " " + dateForinfoTextContent +
+        dayForinfoTextContent +
+        " " +
+        dateForinfoTextContent +
         ", " +
         timeForinfoTextContent;
     } else if (difDays > 1 && difDays < 2 && difDaysOfTheWeek >= 2) {
@@ -1396,8 +1405,7 @@ const confirmSchedule = (
       (difDays < 2 && difDaysOfTheWeek == 1 && difMinutes > 60) ||
       (difDays < 2 && difDaysOfTheWeek == -6 && difMinutes > 60)
     ) {
-      infoTextContent.innerText =
-        "Prazo: Amanhã, " + scheduleInputTimeValue;
+      infoTextContent.innerText = "Prazo: Amanhã, " + scheduleInputTimeValue;
     } else if (
       (difDays < 2 &&
         difDaysOfTheWeek == 1 &&
@@ -1408,12 +1416,12 @@ const confirmSchedule = (
         difMinutes > 30 &&
         difMinutes <= 60)
     ) {
-        infoTextContent.innerText =
-          "Prazo: Amanhã, " +
-          scheduleInputTimeValue +
-          " - Faltam " +
-          Math.ceil(difMinutes) +
-          " min";
+      infoTextContent.innerText =
+        "Prazo: Amanhã, " +
+        scheduleInputTimeValue +
+        " - Faltam " +
+        Math.ceil(difMinutes) +
+        " min";
     } else if (
       (difDays < 2 &&
         difDaysOfTheWeek == 1 &&
@@ -1426,11 +1434,11 @@ const confirmSchedule = (
     ) {
       if (difMinutes <= 1) {
         infoTextContent.innerText =
-        "Prazo: Amanhã, " +
-        scheduleInputTimeValue +
-        " - Falta " +
-        Math.ceil(difMinutes) +
-        " min";
+          "Prazo: Amanhã, " +
+          scheduleInputTimeValue +
+          " - Falta " +
+          Math.ceil(difMinutes) +
+          " min";
       } else {
         infoTextContent.innerText =
           "Prazo: Amanhã, " +
@@ -1445,8 +1453,7 @@ const confirmSchedule = (
         taskInfo.classList.add("expireAlert");
       }, 300);
     } else if (currentDate === scheduleInputDateValue && difMinutes > 60) {
-      infoTextContent.innerText =
-        "Prazo: Hoje, " + scheduleInputTimeValue;
+      infoTextContent.innerText = "Prazo: Hoje, " + scheduleInputTimeValue;
     } else if (
       difMinutes > 30 &&
       difMinutes <= 60 &&
@@ -1465,11 +1472,11 @@ const confirmSchedule = (
     ) {
       if (difMinutes <= 1) {
         infoTextContent.innerText =
-        "Prazo: Hoje, " +
-        scheduleInputTimeValue +
-        " - Falta " +
-        Math.ceil(difMinutes) +
-        " min";
+          "Prazo: Hoje, " +
+          scheduleInputTimeValue +
+          " - Falta " +
+          Math.ceil(difMinutes) +
+          " min";
       } else {
         infoTextContent.innerText =
           "Prazo: Hoje, " +
@@ -1518,10 +1525,11 @@ const schedulingRemoveClick = (
   appointmentTime,
   editBtn,
   infoTextContent,
-  infoTaskSave, btnField
+  infoTaskSave,
+  btnField
 ) => {
   taskInfo.classList.add("vanishTaskInfo");
-  
+
   // Salvar ação no Local Storage
   infoTaskSave.deletedInfoTask = true;
   if (infoTaskSave.expiredTask) {
@@ -1534,7 +1542,7 @@ const schedulingRemoveClick = (
     delete infoTaskSave.scheduledTask;
   }
   localStorage.setItem("tasks", JSON.stringify(dbTasks));
-  
+
   setTimeout(() => {
     appointmentTime.innerText = "";
     appointmentDate.innerText = "";
@@ -1555,7 +1563,7 @@ const schedulingRemoveClick = (
     if (taskField.classList.contains("expireAlert")) {
       taskField.classList.remove("expireAlert");
     }
-    btnField.classList.add("animeBtnMobile")
+    btnField.classList.add("animeBtnMobile");
     taskField.classList.add("pointerEventsNone");
     taskInfo.classList.add("hide");
     taskInfo.classList.remove("vanishTaskInfo");
@@ -1577,7 +1585,7 @@ const schedulingRemoveClick = (
     taskField.classList.remove("pointerEventsNone");
     scheduleBtn.classList.remove("disabledBtn");
     editBtn.classList.remove("disabledBtn");
-    btnField.classList.remove("animeBtnMobile")
+    btnField.classList.remove("animeBtnMobile");
   }, 500);
 };
 
@@ -1761,13 +1769,15 @@ function notesBtnClick(
   notesInfo,
   notesBtn,
   notesBtnAlert,
-  infoTaskSave
+  infoTaskSave, taskInfo
 ) {
   inputEquality = true;
   header.classList.add("pointerEventsNone");
   notePadContainer.classList.remove("hide");
   notePadContainer.classList.add("notePadContainerAppear");
   taskField.classList.remove("hover");
+  taskField.classList.add("active");
+  taskInfo.classList.add("active");
   const tasks = tasksContainer.childNodes;
   for (const task of tasks) {
     task.classList.add("pointerEventsNone");
@@ -1801,7 +1811,7 @@ function notesBtnClick(
         notePadInput,
         notesInfo,
         notesBtnAlert,
-        infoTaskSave
+        infoTaskSave, taskInfo
       );
     }
   };
@@ -1835,7 +1845,7 @@ function notesBtnClick(
         notePadInput,
         notesInfo,
         notesBtnAlert,
-        infoTaskSave
+        infoTaskSave, taskInfo
       );
     }
   };
@@ -1847,7 +1857,7 @@ function saveNoteClick(
   notePadInput,
   notesInfo,
   notesBtnAlert,
-  infoTaskSave
+  infoTaskSave, taskInfo
 ) {
   notePadContainer.classList.add("notePadContainerVanish");
   notesInfo.innerText = notePadInput.value.trim();
@@ -1882,6 +1892,8 @@ function saveNoteClick(
       }
       taskField.classList.remove("normalOpacity");
       taskField.classList.remove("shakeMove");
+      taskField.classList.remove("active");
+      taskInfo.classList.remove("active");
     }, 500);
 
     setTimeout(() => {
@@ -1912,6 +1924,8 @@ function saveNoteClick(
         task.classList.add("normalOpacity");
       }
       taskField.classList.remove("normalOpacity");
+      taskField.classList.remove("active");
+      taskInfo.classList.remove("active");
     }, 300);
 
     setTimeout(() => {
@@ -2010,7 +2024,8 @@ function taskRecover() {
         appointmentTime,
         editBtn,
         infoTextContent,
-        infoTaskSave, btnField
+        infoTaskSave,
+        btnField
       )
     );
 
@@ -2031,6 +2046,7 @@ function taskRecover() {
     notePadTitle.classList.add("notePadTitle");
     notePadInput.classList.add("notePadInput");
     notePadInput.setAttribute("name", "notePadInput");
+    notePadInput.setAttribute("placeholder", "O que deseja anotar?");
     notePadBtnField.classList.add("notePadBtnField");
     cleanNoteBtn.classList.add("cleanNoteBtn");
     cleanNoteBtn.classList.add("hide");
@@ -2040,7 +2056,7 @@ function taskRecover() {
     saveNoteBtn.classList.add("saveNoteBtn");
     saveNoteBtn.setAttribute("title", "Salvar");
     saveNoteBtnIcon.classList.add("fa-solid");
-    saveNoteBtnIcon.classList.add("fa-angles-left");
+    saveNoteBtnIcon.classList.add("fa-angles-up");
     notePadInput.setAttribute("spellcheck", "false");
     notesInfo.classList.add("notesInfo");
     notesInfo.classList.add("hide");
@@ -2063,7 +2079,7 @@ function taskRecover() {
         notePadInput,
         notesInfo,
         notesBtnAlert,
-        infoTaskSave
+        infoTaskSave, taskInfo
       )
     );
     cleanNoteBtn.addEventListener("click", () =>
@@ -2128,7 +2144,8 @@ function taskRecover() {
         taskInfo,
         infoTextContent,
         schedulingRemoveBtn,
-        infoTaskSave, btnField
+        infoTaskSave,
+        btnField
       )
     );
 
@@ -2154,7 +2171,7 @@ function taskRecover() {
         notesInfo,
         notesBtn,
         notesBtnAlert,
-        infoTaskSave
+        infoTaskSave, taskInfo
       )
     );
 
@@ -2510,13 +2527,13 @@ setInterval(() => {
         difTimeInMinutes <= 30 &&
         currentDate === appointmentDate.innerText
       ) {
-        if(difTimeInMinutes <= 1) {
+        if (difTimeInMinutes <= 1) {
           infoTextContent.innerText =
-          "Prazo: Hoje, " +
-          appointmentTime.innerText +
-          " - Falta " +
-          Math.ceil(difTimeInMinutes) +
-          " min";
+            "Prazo: Hoje, " +
+            appointmentTime.innerText +
+            " - Falta " +
+            Math.ceil(difTimeInMinutes) +
+            " min";
         } else {
           infoTextContent.innerText =
             "Prazo: Hoje, " +
@@ -2554,8 +2571,7 @@ setInterval(() => {
         currentDate === appointmentDate.innerText &&
         difTimeInMinutes > 60
       ) {
-        infoTextContent.innerText =
-          "Prazo: Hoje, " + appointmentTime.innerText;
+        infoTextContent.innerText = "Prazo: Hoje, " + appointmentTime.innerText;
       } else if (
         (difTimeInDays < 2 &&
           difDaysFromScheduledToCurrent == -6 &&
@@ -2592,13 +2608,13 @@ setInterval(() => {
           difTimeInMinutes > 0 &&
           difTimeInMinutes <= 30)
       ) {
-        if(difTimeInMinutes <= 1) {
+        if (difTimeInMinutes <= 1) {
           infoTextContent.innerText =
-          "Prazo: Amanhã, " +
-          appointmentTime.innerText +
-          " - Falta " +
-          Math.ceil(difTimeInMinutes) +
-          " min";
+            "Prazo: Amanhã, " +
+            appointmentTime.innerText +
+            " - Falta " +
+            Math.ceil(difTimeInMinutes) +
+            " min";
         } else {
           infoTextContent.innerText =
             "Prazo: Amanhã, " +
@@ -2630,4 +2646,4 @@ setInterval(() => {
       localStorage.setItem("tasks", JSON.stringify(dbTasks));
     }
   }
-}, 1000);
+}, 0);

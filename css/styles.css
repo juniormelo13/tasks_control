@@ -470,7 +470,7 @@ body {
   transition: border 0.3s, box-shadow 0.3s;
 }
 
-.taskField.hover:hover {
+.taskField.hover:hover, .taskField.active {
   box-shadow: 0 0 10px 2px var(--color4);
 }
 
@@ -478,7 +478,7 @@ body {
   border: 2px solid var(--color6);
 }
 
-.taskField.completed.hover:hover {
+.taskField.completed.hover:hover, .taskField.completed.active {
   box-shadow: 0 0 10px 2px var(--color6);
 }
 
@@ -486,7 +486,7 @@ body {
   border: 2px solid var(--color7);
 }
 
-.taskField.scheduled.hover:hover {
+.taskField.scheduled.hover:hover, .taskField.scheduled.active {
   box-shadow: 0 0 10px 2px var(--color7);
 }
 
@@ -494,7 +494,7 @@ body {
   border: 2px solid var(--color3);
 }
 
-.taskField.scheduled.expireAlert.hover:hover {
+.taskField.scheduled.expireAlert.hover:hover, .taskField.scheduled.expireAlert.active {
   box-shadow: 0 0 10px 2px var(--color3);
 }
 
@@ -502,23 +502,23 @@ body {
   border: 2px solid var(--color8);
 }
 
-.taskField.expiredTask.hover:hover {
+.taskField.expiredTask.hover:hover, .taskField.expiredTask.active {
   box-shadow: 0 0 10px 2px var(--color8);
 }
 
-.taskField.scheduled.hover:hover .taskInfo.scheduled {
+.taskField.scheduled.hover:hover .taskInfo.scheduled, .taskInfo.scheduled.active {
   box-shadow: 0 -3px 10px -1px var(--color7);
 }
 
-.taskField.scheduled.expireAlert.hover:hover .taskInfo.scheduled.expireAlert {
+.taskField.scheduled.expireAlert.hover:hover .taskInfo.scheduled.expireAlert, .taskInfo.scheduled.expireAlert.active {
   box-shadow: 0 -3px 10px -1px var(--color3);
 }
 
-.taskField.expiredTask.hover:hover .taskInfo.expiredTask {
+.taskField.expiredTask.hover:hover .taskInfo.expiredTask, .taskInfo.expiredTask.active {
   box-shadow: 0 -3px 10px -1px var(--color8);
 }
 
-.taskField.completed.hover:hover .taskInfo.completed {
+.taskField.completed.hover:hover .taskInfo.completed, .taskInfo.completed.active {
   box-shadow: 0 -3px 10px -1px var(--color6);
 }
 
@@ -968,7 +968,7 @@ body {
 .notePadContainer {
   position: absolute;
   right: 0;
-  top: 5rem;
+  top: 5.1rem;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -1138,7 +1138,7 @@ body {
 }
 
 .notePadContainer.notePadContainerAppear {
-  animation: notePadContainerAppear 0.3s forwards ease-out;
+  animation: notePadContainerAppear 0.3s forwards ease-in;
 }
 
 .notePadContainer.notePadContainerVanish {
@@ -1180,13 +1180,13 @@ body {
     opacity: 1;
   }
   100% {
-    opacity: 0.5;
+    opacity: 0.2;
   }
 }
 
 @keyframes normalOpacity {
   0% {
-    opacity: 0.5;
+    opacity: 0.2;
   }
   100% {
     opacity: 1;
@@ -1380,30 +1380,38 @@ body {
 
 @keyframes notePadContainerAppear {
   0% {
-    transform: translateX(-40px) scale(0.8);
+    transform: translateY(-40px) scale(0.8);
     opacity: 0;
   }
   50% {
-    transform: translateX(0px) scale(0.8);
+    transform: translateY(0px) scale(1);
+    opacity: 0.5;
+  }
+  75% {
+    transform: translateY(20px) scale(1.1);
     opacity: 1;
   }
   100% {
-    transform: translateX(0px) scale(1);
+    transform: translateY(0px) scale(1);
     opacity: 1;
   }
 }
 
 @keyframes notePadContainerVanish {
   0% {
-    transform: translateX(0px) scale(1);
+    transform: translateY(0px) scale(1);
     opacity: 1;
   }
   50% {
-    transform: translateX(0px) scale(0.8);
+    transform: translateY(20px) scale(1.1);
     opacity: 1;
   }
+  75% {
+    transform: translateY(0px) scale(1);
+    opacity: 0.5;
+  }
   100% {
-    transform: translateX(-40px) scale(0.8);
+    transform: translateY(-40px) scale(0.8);
     opacity: 0;
   }
 }
@@ -1610,7 +1618,7 @@ body {
     bottom: -1px;
   }
   .notePadContainer {
-    top: 6rem;
+    top: 6.1rem;
   }
   #noTaskText {
     font-size: 1.5rem;
@@ -1629,5 +1637,8 @@ body {
     flex-wrap: wrap;
     justify-content: center;
     gap: 8px;
+  }
+  .notePadContainer {
+    width: 100%;
   }
 }
