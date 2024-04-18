@@ -26,10 +26,6 @@ function checkTasksContainerHeight() {
   }
 }
 
-window.onload = () => {
-  checkTasksContainerHeight();
-}
-
 // Variáveis da janela de confirmação
 const confirmField = document.querySelector("#confirmField");
 const confirmFieldText = document.querySelector("#confirmFieldText");
@@ -269,6 +265,8 @@ const expiredTaskFilterAmount = document.querySelector(
 const completedTaskFilterAmount = document.querySelector(
   "#completedTaskFilterAmount"
 );
+const filterInformationBox = document.querySelector('#filterInformationBox')
+const filterInformation = document.querySelector('#filterInformation')
 
 const filters = allFilter.children;
 allTaskFilter.classList.add("active");
@@ -296,6 +294,9 @@ searchTaskInput.onkeyup = () => {
   if (inputValue != searchTaskInput.value.trim()) {
     filtred = true;
     inputValue = searchTaskInput.value.trim();
+    filterInformation.innerText = searchTaskInput.value.trim()
+    filterInformationBox.classList.remove('hide')
+    filterInformationBox.classList.add('filterInfoAppear')
     if (!allTaskFilter.classList.contains("active")) {
       for (const filter of filters) {
         if (filter.classList.contains("active")) {
@@ -317,6 +318,14 @@ searchTaskInput.onkeyup = () => {
     if (!searchTaskInputBtn.classList.contains("hide")) {
       searchTaskInputBtn.classList.add("hide");
     }
+    filterInformationBox.classList.remove('filterInfoAppear')
+    filterInformationBox.classList.add('filterInfoVanish')
+    searchTaskInput.blur()
+    setTimeout(()=> {
+      filterInformationBox.classList.remove('filterInfoVanish')
+      filterInformationBox.classList.add('hide')
+      searchTaskInput.focus()
+    }, 200)
   }
 };
 
@@ -2257,7 +2266,7 @@ function taskRecover() {
         break;
     }
   }
-  
+  checkTasksContainerHeight();
 }
 
 // Configuração dos filtros das tarefas

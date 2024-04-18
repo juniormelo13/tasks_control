@@ -450,7 +450,8 @@ body {
   display: flex;
   align-items: center;
   gap: 10px;
-  top: 3.5rem;
+  top: 5rem;
+  transform: translateY(-1.5rem);
   left: 5%;
   border: 2px solid var(--color4);
   border-radius: 5px;
@@ -1187,10 +1188,18 @@ body {
   animation: notePadContainerVanish 0.3s forwards ease-in;
 }
 
+#filterInformationBox.filterInfoAppear {
+  animation: filterInfoAppear 0.2s ease-in forwards;
+}
+
+#filterInformationBox.filterInfoVanish {
+  animation: filterInfoVanish 0.2s ease-in;
+}
+
 #header.pointerEventsNone,
 .taskField.pointerEventsNone,
 #mainContainer.pointerEventsNone,
-.btnField.pointerEventsNone {
+.btnField.pointerEventsNone, #searchTaskInput.pointerEventsNone {
   pointer-events: none;
   user-select: none;
 }
@@ -1485,6 +1494,28 @@ body {
   100% {
     transform: translateX(0px);
     opacity: 1;
+  }
+}
+
+@keyframes filterInfoAppear {
+  0% {
+    transform: translateY(-1.5rem);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes filterInfoVanish {
+  0% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-1.5rem);
+    opacity: 0;
   }
 }
 
