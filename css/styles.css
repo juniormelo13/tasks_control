@@ -445,6 +445,48 @@ body {
   user-select: none;
 }
 
+#filterInformationBox {
+  position: fixed;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  top: 3.5rem;
+  left: 5%;
+  border: 2px solid var(--color4);
+  border-radius: 5px;
+  border-top: none;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  padding: 2px 10px;
+  height: 1.5rem;
+}
+
+#filterInformationText {
+  font-family: "lato", "sans-serif";
+  color: var(--color4);
+  font-size: 0.8rem;
+  user-select: none;
+  font-style: italic;
+}
+
+#filterInformation {
+  margin-left: 5px;
+}
+
+#filterCleanBtn {
+  cursor: pointer;
+  border: none;
+  background: none;
+  outline: none;
+  color: var(--color4);
+  opacity: 0.7;
+  transition: 0.3s;
+}
+
+#filterCleanBtn:hover {
+  opacity: 1;
+}
+
 #tasksContainer {
   position: relative;
   display: flex;
@@ -1068,7 +1110,7 @@ body {
 
 #tasksContainer.tasksContainerHide,
 #noTaskTextContainer.noTaskTextHide,
-#menu.menuBlur {
+#menu.menuBlur, #filterInformationBox.filterInformationBlur {
   pointer-events: none;
   animation: tasksContainerHide 0.2s ease-in forwards;
 }
@@ -1168,7 +1210,7 @@ body {
 .notesBtnAlert.hide,
 #noTaskTextContainer.hide,
 .taskField.hide,
-#searchCleanBtn.hide {
+#searchCleanBtn.hide, #filterInformationBox.hide {
   display: none;
   pointer-events: none;
 }
