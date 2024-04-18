@@ -26,6 +26,10 @@ function checkTasksContainerHeight() {
   }
 }
 
+window.onload = () => {
+  checkTasksContainerHeight();
+}
+
 // Variáveis da janela de confirmação
 const confirmField = document.querySelector("#confirmField");
 const confirmFieldText = document.querySelector("#confirmFieldText");
@@ -2253,7 +2257,7 @@ function taskRecover() {
         break;
     }
   }
-  checkTasksContainerHeight();
+  
 }
 
 // Configuração dos filtros das tarefas
