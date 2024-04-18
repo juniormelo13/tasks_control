@@ -84,6 +84,12 @@ menuBtn.addEventListener("click", () => {
   }
 });
 
+document.addEventListener("click", e => {
+  if (!menu.contains(e.target) && !menuBtn.contains(e.target) && !menuBtnIcon.contains(e.target) && !confirmField.contains(e.target) && menuOpen) {
+    menuCloseFunction()
+  }
+})
+
 // Configuração para guardar imagem do perfil do usuário no localStorage
 
 const inputFileImg = document.querySelector("#inputFileImg");
