@@ -153,7 +153,7 @@ body {
 }
 
 #newTaskInput::placeholder,
-#searchTaskInput::placeholder, .notePadInput::placeholder {
+#searchTaskInput::placeholder {
   transition: 0.2s;
   color: var(--color13);
 }
@@ -454,6 +454,7 @@ body {
   transform: translateY(-1.5rem);
   left: 5%;
   border: 2px solid var(--color4);
+  background-color: var(--color2);
   border-radius: 5px;
   border-top: none;
   border-top-left-radius: 0;
@@ -461,6 +462,7 @@ body {
   padding: 2px 10px;
   height: 1.5rem;
 }
+
 
 #filterInformationText {
   font-family: "lato", "sans-serif";
@@ -1072,10 +1074,6 @@ body {
   font-weight: bold;
 }
 
-.notePadInput:focus::placeholder {
-  color: var(--color4);
-}
-
 .saveNoteBtn:hover {
   cursor: pointer;
   color: var(--color6);
@@ -1114,15 +1112,25 @@ body {
 /* Classes de animações para janelas e elementos */
 
 #tasksContainer.tasksContainerHide,
-#noTaskTextContainer.noTaskTextHide,
-#menu.menuBlur, #filterInformationBox.filterInformationBlur {
+#noTaskTextContainer.noTaskTextHide {
   pointer-events: none;
   animation: tasksContainerHide 0.2s ease-in forwards;
 }
 
+#filterInformationBox.filterInformationBlur, #menu.menuBlur {
+  pointer-events: none;
+  filter: blur(5px);
+  transition: 0.2s ease-in;
+}
+
+#filterInformationBox.filterInformationOffBlur, #menu.menuOffBlur {
+  pointer-events: visible;
+  filter: blur(0);
+  transition: 0.2s ease-in;
+}
+
 #tasksContainer.tasksContainerAppear,
-#noTaskTextContainer.noTaskTextAppear,
-#menu.menuOffBlur {
+#noTaskTextContainer.noTaskTextAppear {
   animation: tasksContainerAppear 0.2s ease-in forwards;
 }
 
@@ -1203,7 +1211,7 @@ body {
 #header.pointerEventsNone,
 .taskField.pointerEventsNone,
 #mainContainer.pointerEventsNone,
-.btnField.pointerEventsNone, #searchTaskInput.pointerEventsNone {
+.btnField.pointerEventsNone {
   pointer-events: none;
   user-select: none;
 }
@@ -1223,7 +1231,7 @@ body {
 .notesBtnAlert.hide,
 #noTaskTextContainer.hide,
 .taskField.hide,
-#searchCleanBtn.hide, #filterInformationBox.hide {
+#searchCleanBtn.hide {
   display: none;
   pointer-events: none;
 }
@@ -1662,9 +1670,15 @@ body {
   #confirmField {
     top: calc(10rem + 30%);
   }
+  #filterInformationBox {
+    top: 10rem;
+  }
 }
 
 @media (max-width: 450px) {
+  #tasksContainer {
+    padding: 3.5rem 5%;
+  }
   .taskField {
     flex-direction: column;
     justify-content: space-around;
