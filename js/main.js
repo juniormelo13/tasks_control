@@ -288,7 +288,7 @@ const completedTaskFilterAmount = document.querySelector(
 );
 const filterInformationBox = document.querySelector("#filterInformationBox");
 const filterInformation = document.querySelector("#filterInformation");
-const filterCleanBtn = document.querySelector("#filterCleanBtn");
+const cleanFilterBtn = document.querySelector("#filterCleanBtn");
 
 const filters = allFilter.children;
 allTaskFilter.classList.add("active");
@@ -385,10 +385,7 @@ function taskFilter() {
   }
 }
 
-searchTaskInputBtn.addEventListener("click", () => {
-  searchTaskInput.value = "";
-  searchTaskInput.focus();
-  searchTaskInputBtn.classList.add("hide");
+function cleanFilter() {
   filtred = false;
   inputValue = "";
   filterInformationBox.classList.remove("filterInfoAppear");
@@ -400,6 +397,19 @@ searchTaskInputBtn.addEventListener("click", () => {
   }
   allTaskFilter.classList.add("active");
   allTaskFilterFunction();
+}
+
+searchTaskInputBtn.addEventListener("click", () => {
+  searchTaskInput.value = "";
+  searchTaskInput.focus();
+  searchTaskInputBtn.classList.add("hide");
+  cleanFilter()
+});
+
+cleanFilterBtn.addEventListener("click", () => {
+  searchTaskInput.value = "";
+  searchTaskInputBtn.classList.add("hide");
+  cleanFilter()
 });
 
 // Botão para limpar o campo de texto principal
