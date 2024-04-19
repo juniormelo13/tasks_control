@@ -85,14 +85,16 @@ menuBtn.addEventListener("click", () => {
 });
 
 document.addEventListener("click", (e) => {
-  if (
-    !menu.contains(e.target) &&
-    !menuBtn.contains(e.target) &&
-    !menuBtnIcon.contains(e.target) &&
-    !confirmField.contains(e.target) &&
-    menuOpen
-  ) {
-    menuCloseFunction();
+  if (!confirmField.classList.contains("appearWindow")) {
+    if (
+      !menu.contains(e.target) &&
+      !menuBtn.contains(e.target) &&
+      !menuBtnIcon.contains(e.target) &&
+      !confirmField.contains(e.target) &&
+      menuOpen
+    ) {
+      menuCloseFunction();
+    }
   }
 });
 
