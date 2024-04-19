@@ -267,6 +267,7 @@ const completedTaskFilterAmount = document.querySelector(
 );
 const filterInformationBox = document.querySelector('#filterInformationBox')
 const filterInformation = document.querySelector('#filterInformation')
+const filterCleanBtn = document.querySelector('#filterCleanBtn')
 
 const filters = allFilter.children;
 allTaskFilter.classList.add("active");
@@ -294,8 +295,10 @@ searchTaskInput.onkeyup = () => {
   if (inputValue != searchTaskInput.value.trim()) {
     filtred = true;
     inputValue = searchTaskInput.value.trim();
-    filterInformation.innerText = searchTaskInput.value.trim()
-    filterInformationBox.classList.remove('hide')
+    if(inputValue.length >= 1) {
+      filterInformation.innerText = searchTaskInput.value.trim()
+    }
+    filterInformationBox.classList.remove('filterInfoVanish')
     filterInformationBox.classList.add('filterInfoAppear')
     if (!allTaskFilter.classList.contains("active")) {
       for (const filter of filters) {
@@ -314,18 +317,14 @@ searchTaskInput.onkeyup = () => {
       searchTaskInputBtn.classList.remove("hide");
     }
   } else {
-    filtred = false;
+    if(filtred) {
+      filterInformationBox.classList.remove('filterInfoAppear')
+      filterInformationBox.classList.add('filterInfoVanish')
+    }
     if (!searchTaskInputBtn.classList.contains("hide")) {
       searchTaskInputBtn.classList.add("hide");
     }
-    filterInformationBox.classList.remove('filterInfoAppear')
-    filterInformationBox.classList.add('filterInfoVanish')
-    searchTaskInput.blur()
-    setTimeout(()=> {
-      filterInformationBox.classList.remove('filterInfoVanish')
-      filterInformationBox.classList.add('hide')
-      searchTaskInput.focus()
-    }, 200)
+    filtred = false;
   }
 };
 
@@ -371,6 +370,8 @@ searchTaskInputBtn.addEventListener("click", () => {
   searchTaskInputBtn.classList.add("hide");
   filtred = false;
   inputValue = "";
+  filterInformationBox.classList.remove('filterInfoAppear')
+  filterInformationBox.classList.add('filterInfoVanish')
   for (const filter of filters) {
     if (filter.classList.contains("active")) {
       filter.classList.remove("active");
