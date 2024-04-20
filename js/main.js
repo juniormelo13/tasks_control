@@ -85,7 +85,7 @@ menuBtn.addEventListener("click", () => {
 });
 
 document.addEventListener("click", (e) => {
-  if (!confirmField.classList.contains("appearWindow")) {
+  if (!confirmField.classList.contains("appearWindow") || (document.querySelector(".checkBtn").contains(e.target) || document.querySelector(".removeBtn").contains(e.target))) {
     if (
       !menu.contains(e.target) &&
       !menuBtn.contains(e.target) &&
