@@ -388,6 +388,8 @@ function taskFilter() {
 function cleanFilter() {
   filtred = false;
   inputValue = "";
+  searchTaskInput.value = "";
+  searchTaskInputBtn.classList.add("hide");
   filterInformationBox.classList.remove("filterInfoAppear");
   filterInformationBox.classList.add("filterInfoVanish");
   for (const filter of filters) {
@@ -400,16 +402,12 @@ function cleanFilter() {
 }
 
 searchTaskInputBtn.addEventListener("click", () => {
-  searchTaskInput.value = "";
   searchTaskInput.focus();
-  searchTaskInputBtn.classList.add("hide");
-  cleanFilter()
+  cleanFilter();
 });
 
 cleanFilterBtn.addEventListener("click", () => {
-  searchTaskInput.value = "";
-  searchTaskInputBtn.classList.add("hide");
-  cleanFilter()
+  cleanFilter();
 });
 
 // Botão para limpar o campo de texto principal
@@ -489,16 +487,18 @@ function insertTask() {
 
     pendingTasks = dbTasks.filter((infoTaskSave) => !infoTaskSave.completeTask);
     if (filtred) {
-      filtred = false;
-      searchTaskInput.value = "";
-      inputValue = "";
-      searchTaskInputBtn.classList.add("hide");
+      if (inputValue != "") {
+        searchTaskInput.value = "";
+        inputValue = "";
+        searchTaskInputBtn.classList.add("hide");
+      }
       for (const filter of filters) {
         if (filter.classList.contains("active")) {
           filter.classList.remove("active");
         }
       }
       pendingTaskFilter.classList.add("active");
+      filterInformation.innerText = "Pendentes";
       tasksContainer.insertBefore(taskField, tasksContainer.childNodes[0]);
       allTaskFilterAmount.innerText = tasksContainer.childNodes.length;
       pendingTaskFilterAmount.innerText = pendingTasks.length;
@@ -521,6 +521,9 @@ function insertTask() {
           }
         }
         pendingTaskFilter.classList.add("active");
+        filterInformationBox.classList.remove("filterInfoVanish");
+        filterInformationBox.classList.add("filterInfoAppear");
+        filtred = true;
         tasksContainer.insertBefore(taskField, tasksContainer.childNodes[0]);
         allTaskFilterAmount.innerText = tasksContainer.childNodes.length;
         pendingTaskFilterAmount.innerText = pendingTasks.length;
@@ -1785,7 +1788,7 @@ const deleteClick = (taskField, infoTaskSave, notesInfo) => {
           noTaskTextContainer.classList.remove("hide");
         }
         checkTasksContainerHeight();
-        if (filtred) {
+        if (filtred && inputValue != "") {
           taskFilter();
         }
       }, 550);
@@ -1870,7 +1873,7 @@ const deleteClick = (taskField, infoTaskSave, notesInfo) => {
         }
       }
       checkTasksContainerHeight();
-      if (filtred) {
+      if (filtred && inputValue != "") {
         taskFilter();
       }
     }, 350);
@@ -2380,8 +2383,7 @@ function taskRecover() {
 // Configuração dos filtros das tarefas
 
 allTaskFilter.addEventListener("click", () => {
-  if (filtred) {
-    filtred = false;
+  if (filtred && inputValue != "") {
     searchTaskInput.value = "";
     inputValue = "";
     searchTaskInputBtn.classList.add("hide");
@@ -2392,9 +2394,12 @@ allTaskFilter.addEventListener("click", () => {
     }
   }
   allTaskFilter.classList.add("active");
-  setTimeout(() => {
+  if (filtred) {
+    filterInformationBox.classList.remove("filterInfoAppear");
+    filterInformationBox.classList.add("filterInfoVanish");
+    filtred = false;
+  }
     allTaskFilterFunction();
-  }, 200);
 });
 
 function allTaskFilterFunction() {
@@ -2405,8 +2410,7 @@ function allTaskFilterFunction() {
 }
 
 pendingTaskFilter.addEventListener("click", () => {
-  if (filtred) {
-    filtred = false;
+  if (filtred && inputValue != "") {
     searchTaskInput.value = "";
     inputValue = "";
     searchTaskInputBtn.classList.add("hide");
@@ -2417,9 +2421,13 @@ pendingTaskFilter.addEventListener("click", () => {
     }
   }
   pendingTaskFilter.classList.add("active");
-  setTimeout(() => {
+  if (!filtred) {
+    filterInformationBox.classList.remove("filterInfoVanish");
+    filterInformationBox.classList.add("filterInfoAppear");
+    filtred = true;
+  }
+  filterInformation.innerText = "Pendentes";
     pendingTaskFilterFunction();
-  }, 200);
 });
 
 function pendingTaskFilterFunction() {
@@ -2444,8 +2452,7 @@ function pendingTaskFilterFunction() {
 }
 
 scheduleTaskFilter.addEventListener("click", () => {
-  if (filtred) {
-    filtred = false;
+  if (filtred && inputValue != "") {
     searchTaskInput.value = "";
     inputValue = "";
     searchTaskInputBtn.classList.add("hide");
@@ -2456,9 +2463,13 @@ scheduleTaskFilter.addEventListener("click", () => {
     }
   }
   scheduleTaskFilter.classList.add("active");
-  setTimeout(() => {
+  if (!filtred) {
+    filterInformationBox.classList.remove("filterInfoVanish");
+    filterInformationBox.classList.add("filterInfoAppear");
+    filtred = true;
+  }
+  filterInformation.innerText = "Agendadas";
     scheduleTaskFilterFunction();
-  }, 200);
 });
 
 function scheduleTaskFilterFunction() {
@@ -2483,8 +2494,7 @@ function scheduleTaskFilterFunction() {
 }
 
 expiredTaskFilter.addEventListener("click", () => {
-  if (filtred) {
-    filtred = false;
+  if (filtred && inputValue != "") {
     searchTaskInput.value = "";
     inputValue = "";
     searchTaskInputBtn.classList.add("hide");
@@ -2495,9 +2505,13 @@ expiredTaskFilter.addEventListener("click", () => {
     }
   }
   expiredTaskFilter.classList.add("active");
-  setTimeout(() => {
+  if (!filtred) {
+    filterInformationBox.classList.remove("filterInfoVanish");
+    filterInformationBox.classList.add("filterInfoAppear");
+    filtred = true;
+  }
+  filterInformation.innerText = "Expiradas";
     expiredTaskFilterFunction();
-  }, 200);
 });
 
 function expiredTaskFilterFunction() {
@@ -2522,8 +2536,7 @@ function expiredTaskFilterFunction() {
 }
 
 completedTaskFilter.addEventListener("click", () => {
-  if (filtred) {
-    filtred = false;
+  if (filtred && inputValue != "") {
     searchTaskInput.value = "";
     inputValue = "";
     searchTaskInputBtn.classList.add("hide");
@@ -2534,9 +2547,13 @@ completedTaskFilter.addEventListener("click", () => {
     }
   }
   completedTaskFilter.classList.add("active");
-  setTimeout(() => {
+  if (!filtred) {
+    filterInformationBox.classList.remove("filterInfoVanish");
+    filterInformationBox.classList.add("filterInfoAppear");
+    filtred = true;
+  }
+  filterInformation.innerText = "Concluídas";
     completedTaskFilterFunction();
-  }, 200);
 });
 
 function completedTaskFilterFunction() {
