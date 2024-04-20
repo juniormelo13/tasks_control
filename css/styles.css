@@ -1605,6 +1605,12 @@ body {
   .notesBtn:hover .notesBtnAlert {
     margin-bottom: 0;
   }
+  .saveNoteBtn {
+    color: var(--color6);
+  }
+  .cleanNoteBtn {
+    color: var(--color8);    
+  }
 }
 
 @media (max-width: 950px) {
