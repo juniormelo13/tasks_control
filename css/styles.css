@@ -421,6 +421,96 @@ body {
   border-left: 4px solid var(--color8);
 }
 
+#themeBox, #layoutConfigBox {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+#themeTitle, #layoutConfigTitle {
+  color: var(--color4);
+  font-family: "lato", "sans-serif";
+  font-size: 0.875rem;
+  text-transform: capitalize;
+  font-weight: bold;
+}
+
+#themeCheckBox {
+  display: none;
+}
+
+#themeCheckBoxLabel {
+  background-color: var(--color4);
+  width: 3.5rem;
+  height: 1.75rem;
+  border-radius: 20px;
+  position: relative;
+  cursor: pointer;
+}
+
+#themeCheckBoxLabel:hover #themeBall {
+  opacity: 1;
+}
+
+#themeBall {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #000;
+  height: 100%;
+  width: 50%;
+  border-radius: 50%;
+  color: var(--color4);
+  scale: 0.9;
+  transition: 0.2s;
+  right: 50%;
+  opacity: 0.8;
+}
+
+#themeBallSun {
+  display: none;
+}
+
+#themeCheckBox:checked ~ #themeBall {
+  right: 0;
+}
+
+#themeCheckBox:checked ~ #themeBall #themeBallMoon {
+  display: none;
+}
+
+#themeCheckBox:checked ~ #themeBall #themeBallSun {
+  display: block;
+}
+
+#layoutOptionsBox {
+  display: flex;
+  gap: 10px;
+}
+
+#listOptionBtn, #gridOptionBtn {
+  border: 2px solid var(--color2);
+  border-radius: 5px;
+  outline: none;
+  background-color: var(--color2);
+  color: var(--color4);
+  height: 2rem;
+  width: 2rem;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+#listOptionBtn:hover, #gridOptionBtn:hover, #listOptionBtn.active, #gridOptionBtn.active {
+  border: 2px solid var(--color4);
+}
+
+#listOptionBtn i, #gridOptionBtn i {
+  font-size: 1.2rem;
+}
+
 #mainContainer {
   position: fixed;
   width: 100%;
@@ -1185,19 +1275,19 @@ body {
 }
 
 #menu.menuAppear {
-  animation: menuAppear 0.3s forwards ease-out;
+  animation: menuAppear 0.2s forwards ease-out;
 }
 
 #menu.menuVanish {
-  animation: menuVanish 0.3s forwards ease-in;
+  animation: menuVanish 0.2s forwards ease-in;
 }
 
 .notePadContainer.notePadContainerAppear {
-  animation: notePadContainerAppear 0.3s forwards ease-in;
+  animation: notePadContainerAppear 0.2s forwards ease-in;
 }
 
 .notePadContainer.notePadContainerVanish {
-  animation: notePadContainerVanish 0.3s forwards ease-in;
+  animation: notePadContainerVanish 0.2s forwards ease-in;
 }
 
 #filterInformationBox.filterInfoAppear {
@@ -1211,7 +1301,7 @@ body {
 #header.pointerEventsNone,
 .taskField.pointerEventsNone,
 #mainContainer.pointerEventsNone,
-.btnField.pointerEventsNone {
+.btnField.pointerEventsNone, #menu.pointerEventsNone {
   pointer-events: none;
   user-select: none;
 }

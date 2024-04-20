@@ -57,11 +57,12 @@ function menuOpenFunction() {
   setTimeout(() => {
     menu.classList.remove("menuAppear");
     menuBtn.disabled = false;
-  }, 300);
+  }, 200);
 }
 
 function menuCloseFunction() {
   menuOpen = !menuOpen;
+  menu.classList.add("pointerEventsNone");
   menu.classList.add("menuVanish");
   menuBtnIcon.classList.toggle("fa-angles-down");
   menuBtnIcon.classList.toggle("fa-xmark");
@@ -69,11 +70,12 @@ function menuCloseFunction() {
   menuBtnIconMobile.classList.toggle("fa-xmark");
   menuBtn.disabled = true;
   setTimeout(() => {
+    menu.classList.remove("pointerEventsNone");
     menu.classList.add("hide");
     menu.classList.remove("menuVanish");
     menuBtn.classList.toggle("active");
     menuBtn.disabled = false;
-  }, 300);
+  }, 200);
 }
 
 menuBtn.addEventListener("click", () => {
@@ -1920,10 +1922,10 @@ function notesBtnClick(
     notePadContainer.classList.remove("notePadContainerAppear");
     notePadContainer.classList.add("pointerEventsVisible");
     notesBtn.disabled = false;
-  }, 300);
+  }, 200);
   setTimeout(() => {
     notePadContainerShow = !notePadContainerShow;
-  }, 500);
+  }, 400);
   document.onclick = (e) => {
     if (
       notePadContainerShow &&
@@ -2004,7 +2006,7 @@ function saveNoteClick(
         taskField.classList.add("shakeMove");
         break;
     }
-  }, 300);
+  }, 200);
   if (notesInfo.innerText != "" && !inputEquality) {
     // Salvar ação no Local Storage
     infoTaskSave.savedNote = [true, notesInfo.innerText];
