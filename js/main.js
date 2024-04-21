@@ -87,16 +87,20 @@ menuBtn.addEventListener("click", () => {
 });
 
 document.addEventListener("click", (e) => {
-  if (!confirmField.classList.contains("appearWindow") || (document.querySelector(".checkBtn").contains(e.target) || document.querySelector(".removeBtn").contains(e.target))) {
-    if (
-      !menu.contains(e.target) &&
-      !menuBtn.contains(e.target) &&
-      !menuBtnIcon.contains(e.target) &&
-      !confirmField.contains(e.target) &&
-      menuOpen
-    ) {
-      menuCloseFunction();
-    }
+  if (
+    !menu.contains(e.target) &&
+    !menuBtn.contains(e.target) &&
+    !menuBtnIcon.contains(e.target) &&
+    !confirmField.contains(e.target) &&
+    menuOpen &&
+    !confirmField.classList.contains("appearWindow")
+  ) {
+    menuCloseFunction();
+  } else if (
+    (confirmField.classList.contains("appearWindow") &&
+    menuOpen && !menu.contains(e.target)) && !menu.classList.contains("menuBlur")
+  ) {
+    menuCloseFunction();
   }
 });
 
@@ -2401,7 +2405,7 @@ allTaskFilter.addEventListener("click", () => {
     filterInformationBox.classList.add("filterInfoVanish");
     filtred = false;
   }
-    allTaskFilterFunction();
+  allTaskFilterFunction();
 });
 
 function allTaskFilterFunction() {
@@ -2429,7 +2433,7 @@ pendingTaskFilter.addEventListener("click", () => {
     filtred = true;
   }
   filterInformation.innerText = "Pendentes";
-    pendingTaskFilterFunction();
+  pendingTaskFilterFunction();
 });
 
 function pendingTaskFilterFunction() {
@@ -2471,7 +2475,7 @@ scheduleTaskFilter.addEventListener("click", () => {
     filtred = true;
   }
   filterInformation.innerText = "Agendadas";
-    scheduleTaskFilterFunction();
+  scheduleTaskFilterFunction();
 });
 
 function scheduleTaskFilterFunction() {
@@ -2513,7 +2517,7 @@ expiredTaskFilter.addEventListener("click", () => {
     filtred = true;
   }
   filterInformation.innerText = "Expiradas";
-    expiredTaskFilterFunction();
+  expiredTaskFilterFunction();
 });
 
 function expiredTaskFilterFunction() {
@@ -2555,7 +2559,7 @@ completedTaskFilter.addEventListener("click", () => {
     filtred = true;
   }
   filterInformation.innerText = "Concluídas";
-    completedTaskFilterFunction();
+  completedTaskFilterFunction();
 });
 
 function completedTaskFilterFunction() {
