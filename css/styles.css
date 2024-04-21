@@ -8,23 +8,41 @@
 }
 
 :root {
-  --color1: rgb(45, 45, 45);
-  --color2: rgb(36, 36, 35);
-  --color3: rgb(250, 190, 44);
-  --color4: rgb(232, 237, 223);
-  --color5: rgb(207, 219, 213);
-  --color6: rgb(127, 252, 45);
-  --color7: rgb(125, 157, 244);
-  --color8: rgb(243, 53, 53);
-  --color9: rgb(150, 150, 150);
-  --color10: rgba(150, 150, 150, 0.2);
-  --color11: rgba(150, 150, 150, 0.3);
-  --color12: rgb(200, 200, 200);
-  --color13: rgb(155, 155, 155);
+  --black: rgb(0, 0, 0);
+  --dark_50: rgb(45, 45, 45);
+  --dark_100: rgb(35, 35, 35);
+  --white: rgb(250, 250, 250);
+  --white_50: rgb(210, 210, 210);
+  --white_100: rgb(230, 230, 230);
+  --green: rgb(127, 252, 45);
+  --yellow: rgb(250, 190, 44);
+  --blue: rgb(125, 157, 244);
+  --red: rgb(243, 53, 53);
+  --grey: rgb(150, 150, 150);
+  --grey_50: rgb(200, 200, 200);
+  --grey_Opacity_2: rgba(150, 150, 150, 0.2);
+  --grey_Opacity_3: rgba(150, 150, 150, 0.3);
+}
+
+.white:root {
+  --black: rgb(250, 250, 250);
+  --dark_50: rgb(230, 230, 230);
+  --dark_100: rgb(210, 210, 210);
+  --white: rgb(0, 0, 0);
+  --white_50: rgb(45, 45, 45);
+  --white_100: rgb(35, 35, 35);
+  --green: rgb(127, 252, 45);
+  --yellow: rgb(250, 190, 44);
+  --blue: rgb(125, 157, 244);
+  --red: rgb(243, 53, 53);
+  --grey: rgb(150, 150, 150);
+  --grey_50: rgb(200, 200, 200);
+  --grey_Opacity_2: rgba(150, 150, 150, 0.2);
+  --grey_Opacity_3: rgba(150, 150, 150, 0.3);
 }
 
 body {
-  background-color: var(--color1);
+  background-color: var(--dark_50);
   width: 100%;
   height: 100vh;
 }
@@ -35,16 +53,16 @@ body {
 }
 
 #mainContainer.scrollActive::-webkit-scrollbar {
-  background: #fff;
+  background: var(--white);
 }
 
 #mainContainer::-webkit-scrollbar-thumb {
   background: linear-gradient(
     45deg,
-    var(--color8),
-    var(--color7),
-    var(--color3),
-    var(--color6)
+    var(--red),
+    var(--blue),
+    var(--yellow),
+    var(--green)
   );
 }
 
@@ -56,7 +74,7 @@ body {
   width: calc(100% - 2px);
   height: 5rem;
   padding: 0 5%;
-  background-color: var(--color2);
+  background-color: var(--dark_100);
   z-index: 1;
 }
 
@@ -72,11 +90,11 @@ body {
 }
 
 #menuButton {
-  color: var(--color2);
-  background: var(--color4);
+  color: var(--dark_100);
+  background: var(--white_100);
   width: 40px;
   height: 40px;
-  border: 2px solid var(--color4);
+  border: 2px solid var(--white_100);
   border-radius: 5px;
   font-size: 1.25rem;
   outline: none;
@@ -86,9 +104,9 @@ body {
 #menuButton:hover,
 #menuButton.active {
   cursor: pointer;
-  background-color: var(--color2);
-  color: var(--color4);
-  box-shadow: 0 0 10px 2px var(--color4);
+  background-color: var(--dark_100);
+  color: var(--white_100);
+  box-shadow: 0 0 10px 2px var(--white_100);
 }
 
 #menuButtonIconMobile {
@@ -102,7 +120,7 @@ body {
   gap: 1.5rem;
   top: 6rem;
   right: 5%;
-  background-color: var(--color2);
+  background-color: var(--dark_100);
   border-radius: 5px;
   width: 12rem;
   box-shadow: 6px 6px 10px 0px rgba(0, 0, 0, 0.5);
@@ -116,7 +134,7 @@ body {
   top: -10px;
   right: 22px;
   transform: translateX(50%);
-  border-bottom: 10px solid var(--color2);
+  border-bottom: 10px solid var(--dark_100);
   border-left: 10px solid transparent;
   border-right: 10px solid transparent;
 }
@@ -142,20 +160,22 @@ body {
   height: 100%;
   border-radius: 5px;
   outline: none;
-  border: 2px solid var(--color4);
-  background-color: var(--color2);
+  border: 2px solid var(--white_100);
+  background-color: var(--dark_100);
   padding: 5px 50px 5px 10px;
   font-family: "lato", "sans-serif";
   font-size: 1.1rem;
   font-weight: bold;
-  color: var(--color4);
+  color: var(--white_100);
   transition: 0.2s;
 }
 
 #newTaskInput::placeholder,
-#searchTaskInput::placeholder {
+#searchTaskInput::placeholder,
+#editInput::placeholder,
+.notePadInput::placeholder {
   transition: 0.2s;
-  color: var(--color13);
+  color: var(--grey);
 }
 
 #newTaskBtn {
@@ -166,20 +186,20 @@ body {
   font-size: 2.5rem;
   border-radius: 5px;
   padding: 5px 7px 7px 7px;
-  border: 2px solid var(--color4);
+  border: 2px solid var(--white_100);
   height: 48px;
   width: 40px;
   font-weight: bold;
-  background-color: var(--color4);
-  color: var(--color2);
+  background-color: var(--white_100);
+  color: var(--dark_100);
   transition: 0.2s;
 }
 
 #newTaskBtn:hover {
   cursor: pointer;
-  background-color: var(--color2);
-  color: var(--color4);
-  box-shadow: 0 0 10px 2px var(--color4);
+  background-color: var(--dark_100);
+  color: var(--white_100);
+  box-shadow: 0 0 10px 2px var(--white_100);
 }
 
 #cleanInputBtn {
@@ -189,21 +209,21 @@ body {
   font-family: "lato", "sans-serif";
   font-size: 1.1rem;
   font-weight: bold;
-  color: var(--color9);
+  color: var(--grey);
   border: none;
   outline: none;
-  background-color: var(--color10);
+  background-color: var(--grey_Opacity_2);
   border-top-right-radius: 5px;
   border-bottom-right-radius: 5px;
   transition: 0.2s;
   right: 0;
+  cursor: pointer;
   display: none;
 }
 
 #cleanInputBtn:hover {
-  cursor: pointer;
-  background-color: var(--color11);
-  color: var(--color12);
+  background-color: var(--grey_Opacity_3);
+  color: var(--grey_50);
 }
 
 #accountIdentBox {
@@ -215,7 +235,7 @@ body {
 
 #imgIdentBox {
   position: relative;
-  background-color: var(--color4);
+  background-color: var(--white_100);
   height: 5rem;
   width: 5rem;
   border-radius: 50%;
@@ -229,7 +249,7 @@ body {
   align-items: center;
   font-size: 0.75rem;
   background-color: rgba(0, 0, 0, 0.8);
-  color: #fff;
+  color: var(--white);
   height: 1.5rem;
   width: 1.5rem;
   bottom: 0;
@@ -261,6 +281,7 @@ body {
   width: 100%;
   height: 100%;
   border-radius: 50%;
+  border: 2px solid var(--white_100);
   cursor: pointer;
 }
 
@@ -281,7 +302,7 @@ body {
   font-weight: bold;
   width: 100%;
   background-color: transparent;
-  color: var(--color4);
+  color: var(--white_100);
   text-align: center;
   padding: 5px 20px;
   outline: none;
@@ -293,13 +314,13 @@ body {
 
 #nameInput.active {
   cursor: auto;
-  border-bottom: 2px solid var(--color4);
+  border-bottom: 2px solid var(--white_100);
 }
 
 #nameIdentIcon {
   position: absolute;
   font-size: 0.75rem;
-  color: var(--color4);
+  color: var(--white_100);
   top: 50%;
   right: 0;
   transform: translate(0%, -50%);
@@ -327,13 +348,13 @@ body {
   height: 100%;
   border-radius: 5px;
   outline: none;
-  border: 2px solid var(--color4);
-  background-color: var(--color2);
+  border: 2px solid var(--white_100);
+  background-color: var(--dark_100);
   padding: 8px 23px 8px 8px;
   font-family: "lato", "sans-serif";
   font-size: 0.85rem;
   font-weight: bold;
-  color: var(--color4);
+  color: var(--white_100);
   transition: 0.2s;
 }
 
@@ -351,7 +372,7 @@ body {
   border: none;
   background: none;
   outline: none;
-  color: var(--color4);
+  color: var(--white_100);
   height: 100%;
   width: 23px;
   opacity: 0.7;
@@ -377,13 +398,13 @@ body {
   width: 100%;
   display: flex;
   justify-content: space-between;
-  border-left: 4px solid var(--color2);
+  border-left: 4px solid var(--dark_100);
   padding: 5px 10px;
   transition: 0.2s;
 }
 #filterContainer a,
 #filterContainer a p span {
-  color: var(--color13);
+  color: var(--grey);
   font-family: "lato", "sans-serif";
   font-size: 0.875rem;
   text-transform: capitalize;
@@ -393,35 +414,36 @@ body {
 #filterContainer a:hover,
 #filterContainer a.active {
   cursor: pointer;
-  color: var(--color4);
+  color: var(--white_100);
 }
 
 #filterContainer #allTaskFilter:hover,
 #allTaskFilter.active {
-  border-left: 4px solid var(--color4);
+  border-left: 4px solid var(--white_100);
 }
 
 #filterContainer #pendingTaskFilter:hover,
 #pendingTaskFilter.active {
-  border-left: 4px solid var(--color3);
+  border-left: 4px solid var(--yellow);
 }
 
 #filterContainer #completedTaskFilter:hover,
 #completedTaskFilter.active {
-  border-left: 4px solid var(--color6);
+  border-left: 4px solid var(--green);
 }
 
 #filterContainer #scheduleTaskFilter:hover,
 #scheduleTaskFilter.active {
-  border-left: 4px solid var(--color7);
+  border-left: 4px solid var(--blue);
 }
 
 #filterContainer #expiredTaskFilter:hover,
 #expiredTaskFilter.active {
-  border-left: 4px solid var(--color8);
+  border-left: 4px solid var(--red);
 }
 
-#themeBox, #layoutConfigBox {
+#themeBox,
+#layoutConfigBox {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -429,8 +451,9 @@ body {
   gap: 1rem;
 }
 
-#themeTitle, #layoutConfigTitle {
-  color: var(--color4);
+#themeTitle,
+#layoutConfigTitle {
+  color: var(--white_100);
   font-family: "lato", "sans-serif";
   font-size: 0.875rem;
   text-transform: capitalize;
@@ -442,7 +465,7 @@ body {
 }
 
 #themeCheckBoxLabel {
-  background-color: var(--color4);
+  background-color: var(--white_100);
   width: 3.5rem;
   height: 1.75rem;
   border-radius: 20px;
@@ -459,11 +482,11 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #000;
+  background-color: var(--black);
   height: 100%;
   width: 50%;
   border-radius: 50%;
-  color: var(--color4);
+  color: var(--white_100);
   scale: 0.9;
   transition: 0.2s;
   right: 50%;
@@ -491,23 +514,28 @@ body {
   gap: 10px;
 }
 
-#listOptionBtn, #gridOptionBtn {
-  border: 2px solid var(--color2);
+#listOptionBtn,
+#gridOptionBtn {
+  border: 2px solid var(--dark_100);
   border-radius: 5px;
   outline: none;
-  background-color: var(--color2);
-  color: var(--color4);
+  background-color: var(--dark_100);
+  color: var(--white_100);
   height: 2rem;
   width: 2rem;
   cursor: pointer;
   transition: 0.2s;
 }
 
-#listOptionBtn:hover, #gridOptionBtn:hover, #listOptionBtn.active, #gridOptionBtn.active {
-  border: 2px solid var(--color4);
+#listOptionBtn:hover,
+#gridOptionBtn:hover,
+#listOptionBtn.active,
+#gridOptionBtn.active {
+  border: 2px solid var(--white_100);
 }
 
-#listOptionBtn i, #gridOptionBtn i {
+#listOptionBtn i,
+#gridOptionBtn i {
   font-size: 1.2rem;
 }
 
@@ -527,7 +555,7 @@ body {
 }
 
 #noTaskText {
-  color: var(--color4);
+  color: var(--white_100);
   text-align: center;
   font-family: "lato", "sans-serif";
   font-size: 2rem;
@@ -543,8 +571,8 @@ body {
   top: 5rem;
   transform: translateY(-1.5rem);
   left: 5%;
-  border: 2px solid var(--color4);
-  background-color: var(--color2);
+  border: 2px solid var(--white_100);
+  background-color: var(--dark_100);
   border-radius: 5px;
   border-top: none;
   border-top-left-radius: 0;
@@ -553,10 +581,9 @@ body {
   height: 1.5rem;
 }
 
-
 #filterInformationText {
   font-family: "lato", "sans-serif";
-  color: var(--color4);
+  color: var(--white_100);
   font-size: 0.8rem;
   user-select: none;
   font-style: italic;
@@ -571,7 +598,7 @@ body {
   border: none;
   background: none;
   outline: none;
-  color: var(--color4);
+  color: var(--white_100);
   opacity: 0.7;
   transition: 0.3s;
 }
@@ -598,69 +625,78 @@ body {
   gap: 15px;
   width: 31.4%;
   height: 4rem;
-  background-color: var(--color2);
+  background-color: var(--dark_100);
   border-radius: 5px;
   padding: 0 20px;
-  border: 2px solid var(--color4);
+  border: 2px solid var(--white_100);
   transition: border 0.3s, box-shadow 0.3s;
 }
 
-.taskField.hover:hover, .taskField.active {
-  box-shadow: 0 0 10px 2px var(--color4);
+.taskField.hover:hover,
+.taskField.active {
+  box-shadow: 0 0 10px 2px var(--white_100);
 }
 
 .taskField.completed {
-  border: 2px solid var(--color6);
+  border: 2px solid var(--green);
 }
 
-.taskField.completed.hover:hover, .taskField.completed.active {
-  box-shadow: 0 0 10px 2px var(--color6);
+.taskField.completed.hover:hover,
+.taskField.completed.active {
+  box-shadow: 0 0 10px 2px var(--green);
 }
 
 .taskField.scheduled {
-  border: 2px solid var(--color7);
+  border: 2px solid var(--blue);
 }
 
-.taskField.scheduled.hover:hover, .taskField.scheduled.active {
-  box-shadow: 0 0 10px 2px var(--color7);
+.taskField.scheduled.hover:hover,
+.taskField.scheduled.active {
+  box-shadow: 0 0 10px 2px var(--blue);
 }
 
 .taskField.scheduled.expireAlert {
-  border: 2px solid var(--color3);
+  border: 2px solid var(--yellow);
 }
 
-.taskField.scheduled.expireAlert.hover:hover, .taskField.scheduled.expireAlert.active {
-  box-shadow: 0 0 10px 2px var(--color3);
+.taskField.scheduled.expireAlert.hover:hover,
+.taskField.scheduled.expireAlert.active {
+  box-shadow: 0 0 10px 2px var(--yellow);
 }
 
 .taskField.expiredTask {
-  border: 2px solid var(--color8);
+  border: 2px solid var(--red);
 }
 
-.taskField.expiredTask.hover:hover, .taskField.expiredTask.active {
-  box-shadow: 0 0 10px 2px var(--color8);
+.taskField.expiredTask.hover:hover,
+.taskField.expiredTask.active {
+  box-shadow: 0 0 10px 2px var(--red);
 }
 
-.taskField.scheduled.hover:hover .taskInfo.scheduled, .taskInfo.scheduled.active {
-  box-shadow: 0 -3px 10px -1px var(--color7);
+.taskField.scheduled.hover:hover .taskInfo.scheduled,
+.taskInfo.scheduled.active {
+  box-shadow: 0 -3px 10px -1px var(--blue);
 }
 
-.taskField.scheduled.expireAlert.hover:hover .taskInfo.scheduled.expireAlert, .taskInfo.scheduled.expireAlert.active {
-  box-shadow: 0 -3px 10px -1px var(--color3);
+.taskField.scheduled.expireAlert.hover:hover .taskInfo.scheduled.expireAlert,
+.taskInfo.scheduled.expireAlert.active {
+  box-shadow: 0 -3px 10px -1px var(--yellow);
 }
 
-.taskField.expiredTask.hover:hover .taskInfo.expiredTask, .taskInfo.expiredTask.active {
-  box-shadow: 0 -3px 10px -1px var(--color8);
+.taskField.expiredTask.hover:hover .taskInfo.expiredTask,
+.taskInfo.expiredTask.active {
+  box-shadow: 0 -3px 10px -1px var(--red);
 }
 
-.taskField.completed.hover:hover .taskInfo.completed, .taskInfo.completed.active {
-  box-shadow: 0 -3px 10px -1px var(--color6);
+.taskField.completed.hover:hover .taskInfo.completed,
+.taskInfo.completed.active {
+  box-shadow: 0 -3px 10px -1px var(--green);
 }
 
 .taskContent {
   font-family: "lato", "sans-serif";
   font-size: 1rem;
-  color: var(--color4);
+  color: var(--white_100);
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
@@ -712,27 +748,27 @@ body {
 }
 
 .checkBtn {
-  color: var(--color6);
+  color: var(--green);
 }
 
 .checkBtn i.fa-rotate {
-  color: var(--color4);
+  color: var(--white_100);
 }
 
 .editBtn {
-  color: var(--color3);
+  color: var(--yellow);
 }
 
 .scheduleBtn {
-  color: var(--color7);
+  color: var(--blue);
 }
 
 .removeBtn {
-  color: var(--color8);
+  color: var(--red);
 }
 
 .notesBtn {
-  color: var(--color4);
+  color: var(--white_100);
 }
 
 .checkBtn:hover,
@@ -748,9 +784,9 @@ body {
   position: absolute;
   width: 8px;
   height: 8px;
-  background-color: var(--color6);
+  background-color: var(--green);
   border-radius: 50%;
-  border: 1px solid var(--color2);
+  border: 1px solid var(--dark_100);
   bottom: 4px;
   right: -2px;
   transition: 0.3s;
@@ -768,10 +804,10 @@ body {
   justify-content: space-between;
   left: 50%;
   top: calc(5rem + 37%);
-  background-color: var(--color2);
+  background-color: var(--dark_100);
   width: 20rem;
   height: 15rem;
-  border: 2px solid var(--color4);
+  border: 2px solid var(--white_100);
   border-radius: 5px;
   padding: 15px;
 }
@@ -781,7 +817,7 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 2px solid var(--color4);
+  border-bottom: 2px solid var(--white_100);
   padding-bottom: 10px;
 }
 
@@ -790,7 +826,7 @@ body {
   font-family: "Lato", "Sans-Serif";
   text-transform: capitalize;
   font-size: 1.3rem;
-  color: var(--color4);
+  color: var(--white_100);
   user-select: none;
 }
 
@@ -803,14 +839,14 @@ body {
   border: none;
   outline: none;
   background: none;
-  color: var(--color4);
+  color: var(--white_100);
   transition: 0.2s;
 }
 
 #closeEditFieldBtn:hover,
 #scheduleFieldCloseBtn:hover {
   cursor: pointer;
-  color: var(--color8);
+  color: var(--red);
 }
 
 #editFieldCenter {
@@ -831,9 +867,9 @@ body {
   font-family: "lato", "sans-serif";
   font-size: 1.1rem;
   font-weight: bold;
-  color: var(--color4);
-  background-color: var(--color2);
-  border: 2px solid var(--color4);
+  color: var(--white_100);
+  background-color: var(--dark_100);
+  border: 2px solid var(--white_100);
   border-radius: 5px;
   outline: none;
   transition: 0.2s;
@@ -850,11 +886,6 @@ body {
   padding: 5px 10px;
 }
 
-#editInput::placeholder {
-  transition: 0.2s;
-  color: var(--color13);
-}
-
 #cleanEditInputBtn {
   position: absolute;
   right: 0;
@@ -863,20 +894,20 @@ body {
   font-family: "lato", "sans-serif";
   font-size: 1.1rem;
   font-weight: bold;
-  color: var(--color9);
+  color: var(--grey);
   border: none;
   outline: none;
-  background-color: var(--color10);
+  background-color: var(--grey_Opacity_2);
   border-top-right-radius: 5px;
   border-bottom-right-radius: 5px;
   transition: 0.2s;
+  cursor: pointer;
   display: none;
 }
 
 #cleanEditInputBtn:hover {
-  cursor: pointer;
-  background-color: var(--color11);
-  color: var(--color12);
+  background-color: var(--grey_Opacity_3);
+  color: var(--grey_50);
 }
 
 #editFieldFooter,
@@ -901,8 +932,8 @@ body {
   height: 100%;
   text-transform: capitalize;
   font-weight: bold;
-  background-color: var(--color4);
-  color: var(--color2);
+  background-color: var(--white_100);
+  color: var(--dark_100);
   transition: 0.2s;
   line-height: 0;
 }
@@ -922,7 +953,7 @@ body {
 #confirmEditBtn,
 #confirmScheduleBtn,
 #btnYes {
-  border: 2px solid var(--color4);
+  border: 2px solid var(--white_100);
 }
 
 #cancelEditBtn,
@@ -935,9 +966,9 @@ body {
 #confirmScheduleBtn:hover,
 #btnYes:hover {
   cursor: pointer;
-  background-color: var(--color2);
-  color: var(--color4);
-  box-shadow: 0 0 10px 2px var(--color4);
+  background-color: var(--dark_100);
+  color: var(--white_100);
+  box-shadow: 0 0 10px 2px var(--white_100);
 }
 
 #cancelEditBtn:hover,
@@ -960,42 +991,42 @@ body {
   position: absolute;
   border-radius: 5px;
   padding: 5px 20px 5px 20px;
-  background-color: var(--color2);
+  background-color: var(--dark_100);
   right: 5px;
   top: -25px;
   transition: box-shadow 0.3s, border 0.3s;
 }
 
 .completedTaskIcon {
-  color: var(--color6);
+  color: var(--green);
 }
 
 .taskInfo.scheduled {
-  border: 2px solid var(--color7);
+  border: 2px solid var(--blue);
 }
 
 .taskInfo.completed {
-  border: 2px solid var(--color6);
+  border: 2px solid var(--green);
   gap: 10px;
 }
 
 .taskInfo.completed:hover {
-  box-shadow: 0 -3px 10px -1px var(--color6);
+  box-shadow: 0 -3px 10px -1px var(--green);
 }
 
 .taskInfo.expireAlert {
-  border: 2px solid var(--color3);
+  border: 2px solid var(--yellow);
   animation: expireAlert 0.5s infinite alternate;
 }
 
 .taskInfo.expiredTask {
-  border: 2px solid var(--color8);
+  border: 2px solid var(--red);
   animation: expiredTask 0.5s infinite alternate;
 }
 
 .infoTextContent {
   font-size: 0.8rem;
-  color: var(--color4);
+  color: var(--white_100);
   font-family: "lato", "sans-serif";
   user-select: none;
 }
@@ -1004,7 +1035,7 @@ body {
   position: absolute;
   top: -10px;
   right: -5px;
-  background-color: var(--color2);
+  background-color: var(--dark_100);
   border-radius: 50%;
   border: none;
   font-size: 1.25rem;
@@ -1019,15 +1050,15 @@ body {
 }
 
 .taskInfo.scheduled .schedulingRemoveBtn {
-  color: var(--color7);
+  color: var(--blue);
 }
 
 .taskInfo.scheduled.expireAlert .schedulingRemoveBtn {
-  color: var(--color3);
+  color: var(--yellow);
 }
 
 .taskInfo.expiredTask .schedulingRemoveBtn {
-  color: var(--color8);
+  color: var(--red);
 }
 
 .schedulingRemoveBtn:hover {
@@ -1036,11 +1067,11 @@ body {
 
 .schedulingRemoveBtn:hover,
 .taskInfo.scheduled .schedulingRemoveBtn:hover {
-  color: var(--color8);
+  color: var(--red);
 }
 
 .taskInfo.expiredTask .schedulingRemoveBtn:hover {
-  color: var(--color4);
+  color: var(--white_100);
 }
 
 #confirmField {
@@ -1050,10 +1081,10 @@ body {
   justify-content: space-evenly;
   left: 50%;
   top: calc(5rem + 37%);
-  background-color: var(--color2);
+  background-color: var(--dark_100);
   width: 20rem;
   height: 15rem;
-  border: 2px solid var(--color4);
+  border: 2px solid var(--white_100);
   border-radius: 5px;
   padding: 15px;
   z-index: 1;
@@ -1063,7 +1094,7 @@ body {
   font-family: "Lato", "Sans-Serif";
   font-size: 1.1rem;
   text-align: center;
-  color: var(--color4);
+  color: var(--white_100);
   user-select: none;
 }
 
@@ -1080,22 +1111,23 @@ body {
 #scheduleInputDate:focus,
 #scheduleInputTime:focus,
 #searchTaskInput:focus {
-  border: 2px solid var(--color4);
-  box-shadow: 0 0 10px 2px var(--color4);
+  border: 2px solid var(--white_100);
+  box-shadow: 0 0 10px 2px var(--white_100);
 }
 
 #newTaskInput.inputError,
 #editInput.inputError,
 #scheduleInputDate.inputError,
 #scheduleInputTime.inputError {
-  border: 2px solid var(--color8);
-  box-shadow: 0 0 10px 2px var(--color8);
+  border: 2px solid var(--red);
+  box-shadow: 0 0 10px 2px var(--red);
 }
 
 #newTaskInput:focus::placeholder,
 #editInput:focus::placeholder,
-#searchTaskInput:focus::placeholder {
-  color: var(--color4);
+#searchTaskInput:focus::placeholder,
+.notePadInput:focus::placeholder {
+  color: var(--white_50);
 }
 
 /* Estilização do bloco de anotações */
@@ -1110,7 +1142,7 @@ body {
   justify-content: space-between;
   width: 14rem;
   height: 12rem;
-  background-color: var(--color2);
+  background-color: var(--dark_100);
   border-radius: 0px 5px 5px;
   padding: 0px 10px;
   box-shadow: 6px 6px 10px 0px rgba(0, 0, 0, 0.5);
@@ -1123,7 +1155,7 @@ body {
   top: -10px;
   right: 1rem;
   transform: translateX(50%);
-  border-bottom: 10px solid var(--color2);
+  border-bottom: 10px solid var(--dark_100);
   border-left: 10px solid transparent;
   border-right: 10px solid transparent;
 }
@@ -1134,7 +1166,7 @@ body {
   align-items: center;
   width: 100%;
   height: 20%;
-  border-bottom: 2px solid var(--color4);
+  border-bottom: 2px solid var(--white_100);
 }
 
 .notePadTitle {
@@ -1142,18 +1174,18 @@ body {
   text-transform: capitalize;
   font-size: 1rem;
   font-weight: bold;
-  color: var(--color4);
+  color: var(--white_100);
 }
 
 .saveNoteBtn {
-  color: var(--color4);
+  color: var(--white_100);
 }
 
 .notePadInput {
   width: 100%;
   height: 60%;
-  color: var(--color4);
-  background: var(--color2);
+  color: var(--white_100);
+  background: var(--dark_100);
   padding: 5px 0;
   margin: 10px 0 5px 0;
   outline: none;
@@ -1166,7 +1198,7 @@ body {
 
 .saveNoteBtn:hover {
   cursor: pointer;
-  color: var(--color6);
+  color: var(--green);
 }
 
 .notePadBtnField {
@@ -1180,7 +1212,7 @@ body {
 .cleanNoteBtn,
 .saveNoteBtn {
   border: none;
-  background: var(--color2);
+  background: var(--dark_100);
   border-radius: 50%;
   transition: 0.3s;
 }
@@ -1191,12 +1223,12 @@ body {
 
 .cleanNoteBtn {
   font-size: 1rem;
-  color: var(--color4);
+  color: var(--white_100);
 }
 
 .cleanNoteBtn:hover {
   cursor: pointer;
-  color: var(--color8);
+  color: var(--red);
 }
 
 /* Classes de animações para janelas e elementos */
@@ -1207,13 +1239,15 @@ body {
   animation: tasksContainerHide 0.2s ease-in forwards;
 }
 
-#filterInformationBox.filterInformationBlur, #menu.menuBlur {
+#filterInformationBox.filterInformationBlur,
+#menu.menuBlur {
   pointer-events: none;
   filter: blur(5px);
   transition: 0.2s ease-in;
 }
 
-#filterInformationBox.filterInformationOffBlur, #menu.menuOffBlur {
+#filterInformationBox.filterInformationOffBlur,
+#menu.menuOffBlur {
   pointer-events: visible;
   filter: blur(0);
   transition: 0.2s ease-in;
@@ -1301,7 +1335,8 @@ body {
 #header.pointerEventsNone,
 .taskField.pointerEventsNone,
 #mainContainer.pointerEventsNone,
-.btnField.pointerEventsNone, #menu.pointerEventsNone {
+.btnField.pointerEventsNone,
+#menu.pointerEventsNone {
   pointer-events: none;
   user-select: none;
 }
@@ -1518,7 +1553,7 @@ body {
     box-shadow: none;
   }
   100% {
-    box-shadow: 0 -4px 10px -1px var(--color8);
+    box-shadow: 0 -4px 10px -1px var(--red);
   }
 }
 
@@ -1527,7 +1562,7 @@ body {
     box-shadow: none;
   }
   100% {
-    box-shadow: 0 -4px 10px -1px var(--color3);
+    box-shadow: 0 -4px 10px -1px var(--yellow);
   }
 }
 
@@ -1652,20 +1687,20 @@ body {
 
 @media (max-width: 1024px) {
   #newTaskBtn:hover {
-    background-color: var(--color4);
-    color: var(--color2);
+    background-color: var(--white_100);
+    color: var(--dark_100);
     box-shadow: none;
   }
   #menuButton:hover {
-    background-color: var(--color4);
-    color: var(--color2);
+    background-color: var(--white_100);
+    color: var(--dark_100);
     box-shadow: none;
   }
   #menuButton.active {
     cursor: pointer;
-    background-color: var(--color2);
-    color: var(--color4);
-    box-shadow: 0 0 10px 2px var(--color4);
+    background-color: var(--dark_100);
+    color: var(--white_100);
+    box-shadow: 0 0 10px 2px var(--white_100);
   }
   #inputFileImgLabelBtn {
     opacity: 1;
@@ -1696,10 +1731,10 @@ body {
     margin-bottom: 0;
   }
   .saveNoteBtn {
-    color: var(--color6);
+    color: var(--green);
   }
   .cleanNoteBtn {
-    color: var(--color8);    
+    color: var(--red);
   }
 }
 
@@ -1749,7 +1784,7 @@ body {
   }
   #newTaskContainer {
     position: absolute;
-    background-color: var(--color2);
+    background-color: var(--dark_100);
     padding: 0 5%;
     top: 5rem;
     left: 0;
