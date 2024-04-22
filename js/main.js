@@ -2590,22 +2590,22 @@ const logoImgMobile = document.querySelector("#logoImgMobile");
 
 if(localStorage.getItem("theme")) {
   themeCheckBox.checked = true
-  html.classList.add('whiteTheme')
-  scheduleInputDate.classList.add('whiteTheme')
-  scheduleInputTime.classList.add('whiteTheme')
+  html.classList.add('darkTheme')
+  scheduleInputDate.classList.add('darkTheme')
+  scheduleInputTime.classList.add('darkTheme')
   logoImgMobile.src = "./img/logo_dark_mobile.png"
 }
 
 themeCheckBox.addEventListener("change", () => {
-  html.classList.toggle('whiteTheme')
-  scheduleInputDate.classList.toggle('whiteTheme')
-  scheduleInputTime.classList.toggle('whiteTheme')
-  if(html.classList.contains('whiteTheme')) {
-    localStorage.setItem("theme", "whiteMode")
-    logoImgMobile.src = "./img/logo_dark_mobile.png"
+  html.classList.toggle('darkTheme')
+  scheduleInputDate.classList.toggle('darkTheme')
+  scheduleInputTime.classList.toggle('darkTheme')
+  if(html.classList.contains('darkTheme')) {
+    localStorage.setItem("theme", "darkTheme")
+    logoImgMobile.src = "./img/logo_light_mobile.png"
   } else {
     localStorage.removeItem("theme")
-    logoImgMobile.src = "./img/logo_light_mobile.png"
+    logoImgMobile.src = "./img/logo_dark_mobile.png"
   }
 })
 

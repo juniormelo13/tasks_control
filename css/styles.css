@@ -8,33 +8,14 @@
 }
 
 :root {
-  --black: rgb(0, 0, 0);
-  --dark_50: rgb(45, 45, 45);
-  --dark_100: rgb(35, 35, 35);
+  --white_black: rgb(250, 250, 250);
+  --white50_dark50: rgb(210, 210, 210);
+  --white100_dark100: rgb(230, 230, 230);
   --dark_shadow: rgba(0, 0, 0, 0.5);
-  --dark_shadow_50: rgba(0, 0, 0, 0.8);
-  --white: rgb(250, 250, 250);
-  --white_50: rgb(210, 210, 210);
-  --white_100: rgb(230, 230, 230);
-  --green: rgb(127, 252, 45);
-  --yellow: rgb(250, 190, 44);
-  --blue: rgb(125, 157, 244);
-  --red: rgb(243, 53, 53);
-  --grey: rgb(150, 150, 150);
-  --grey_50: rgb(200, 200, 200);
-  --grey_Opacity_2: rgba(150, 150, 150, 0.2);
-  --grey_Opacity_3: rgba(150, 150, 150, 0.3);
-}
-
-.whiteTheme:root {
-  --black: rgb(250, 250, 250);
-  --dark_50: rgb(210, 210, 210);
-  --dark_100: rgb(230, 230, 230);
-  --dark_shadow: rgba(0, 0, 0, 0.5);
-  --dark_shadow_50: rgba(250, 250, 250, 0.9);
-  --white: rgb(0, 0, 0);
-  --white_50: rgb(45, 45, 45);
-  --white_100: rgb(35, 35, 35);
+  --whiteShadow50_darkShadow50: rgba(250, 250, 250, 0.9);
+  --black_white: rgb(0, 0, 0);
+  --black50_white50: rgb(45, 45, 45);
+  --black100_white100: rgb(35, 35, 35);
   --green: rgb(70, 175, 0);
   --yellow: rgb(190, 155, 0);
   --blue: rgb(50, 85, 175);
@@ -45,8 +26,27 @@
   --grey_Opacity_3: rgba(150, 150, 150, 0.3);
 }
 
+.darkTheme:root {
+  --white_black: rgb(0, 0, 0);
+  --white50_dark50: rgb(45, 45, 45);
+  --white100_dark100: rgb(35, 35, 35);
+  --dark_shadow: rgba(0, 0, 0, 0.5);
+  --whiteShadow50_darkShadow50: rgba(0, 0, 0, 0.8);
+  --black_white: rgb(250, 250, 250);
+  --black50_white50: rgb(210, 210, 210);
+  --black100_white100: rgb(230, 230, 230);
+  --green: rgb(127, 252, 45);
+  --yellow: rgb(250, 190, 44);
+  --blue: rgb(125, 157, 244);
+  --red: rgb(243, 53, 53);
+  --grey: rgb(150, 150, 150);
+  --grey_50: rgb(200, 200, 200);
+  --grey_Opacity_2: rgba(150, 150, 150, 0.2);
+  --grey_Opacity_3: rgba(150, 150, 150, 0.3);
+}
+
 body {
-  background-color: var(--dark_50);
+  background-color: var(--white50_dark50);
   width: 100%;
   height: 100vh;
   overflow-x: hidden;
@@ -58,7 +58,7 @@ body {
 }
 
 #mainContainer.scrollActive::-webkit-scrollbar {
-  background: var(--white);
+  background: var(--black_white);
 }
 
 #mainContainer::-webkit-scrollbar-thumb {
@@ -79,7 +79,7 @@ body {
   width: calc(100% - 2px);
   height: 5rem;
   padding: 0 5%;
-  background-color: var(--dark_100);
+  background-color: var(--white100_dark100);
   z-index: 1;
 }
 
@@ -95,11 +95,11 @@ body {
 }
 
 #menuButton {
-  color: var(--dark_100);
-  background: var(--white_100);
+  color: var(--white100_dark100);
+  background: var(--black100_white100);
   width: 40px;
   height: 40px;
-  border: 2px solid var(--white_100);
+  border: 2px solid var(--black100_white100);
   border-radius: 5px;
   font-size: 1.25rem;
   outline: none;
@@ -109,9 +109,9 @@ body {
 #menuButton:hover,
 #menuButton.active {
   cursor: pointer;
-  background-color: var(--dark_100);
-  color: var(--white_100);
-  box-shadow: 0 0 10px 2px var(--white_100);
+  background-color: var(--white100_dark100);
+  color: var(--black100_white100);
+  box-shadow: 0 0 10px 2px var(--black100_white100);
 }
 
 #menuButtonIconMobile {
@@ -125,13 +125,12 @@ body {
   gap: 1.5rem;
   top: 6rem;
   right: 5%;
-  background-color: var(--dark_100);
+  background-color: var(--white100_dark100);
   border-radius: 5px;
   width: 12rem;
   box-shadow: 6px 6px 10px 0px var(--dark_shadow);
   padding: 1rem;
   user-select: none;
-  overflow-x: hidden;
 }
 
 #menu::before {
@@ -140,7 +139,7 @@ body {
   top: -10px;
   right: 22px;
   transform: translateX(50%);
-  border-bottom: 10px solid var(--dark_100);
+  border-bottom: 10px solid var(--white100_dark100);
   border-left: 10px solid transparent;
   border-right: 10px solid transparent;
 }
@@ -167,12 +166,12 @@ body {
   border-radius: 5px;
   outline: none;
   border: 2px solid var(--grey_50);
-  background-color: var(--dark_100);
+  background-color: var(--white100_dark100);
   padding: 5px 50px 5px 10px;
   font-family: "lato", "sans-serif";
   font-size: 1.1rem;
   font-weight: bold;
-  color: var(--white_100);
+  color: var(--black100_white100);
   transition: 0.2s;
 }
 
@@ -192,20 +191,20 @@ body {
   font-size: 2.5rem;
   border-radius: 5px;
   padding: 5px 7px 7px 7px;
-  border: 2px solid var(--white_100);
+  border: 2px solid var(--black100_white100);
   height: 48px;
   width: 40px;
   font-weight: bold;
-  background-color: var(--white_100);
-  color: var(--dark_100);
+  background-color: var(--black100_white100);
+  color: var(--white100_dark100);
   transition: 0.2s;
 }
 
 #newTaskBtn:hover {
   cursor: pointer;
-  background-color: var(--dark_100);
-  color: var(--white_100);
-  box-shadow: 0 0 10px 2px var(--white_100);
+  background-color: var(--white100_dark100);
+  color: var(--black100_white100);
+  box-shadow: 0 0 10px 2px var(--black100_white100);
 }
 
 #cleanInputBtn {
@@ -241,7 +240,7 @@ body {
 
 #imgIdentBox {
   position: relative;
-  background-color: var(--white_100);
+  background-color: var(--black100_white100);
   height: 5rem;
   width: 5rem;
   border-radius: 50%;
@@ -254,8 +253,8 @@ body {
   justify-content: center;
   align-items: center;
   font-size: 0.75rem;
-  background-color: var(--dark_shadow_50);
-  color: var(--white);
+  background-color: var(--whiteShadow50_darkShadow50);
+  color: var(--black_white);
   height: 1.5rem;
   width: 1.5rem;
   bottom: 0;
@@ -287,7 +286,7 @@ body {
   width: 100%;
   height: 100%;
   border-radius: 50%;
-  border: 2px solid var(--white_100);
+  border: 2px solid var(--black100_white100);
   cursor: pointer;
 }
 
@@ -308,7 +307,7 @@ body {
   font-weight: bold;
   width: 100%;
   background-color: transparent;
-  color: var(--white_100);
+  color: var(--black100_white100);
   text-align: center;
   padding: 5px 20px;
   outline: none;
@@ -320,13 +319,13 @@ body {
 
 #nameInput.active {
   cursor: auto;
-  border-bottom: 2px solid var(--white_100);
+  border-bottom: 2px solid var(--black100_white100);
 }
 
 #nameIdentIcon {
   position: absolute;
   font-size: 0.75rem;
-  color: var(--white_100);
+  color: var(--black100_white100);
   top: 50%;
   right: 0;
   transform: translate(0%, -50%);
@@ -354,13 +353,13 @@ body {
   height: 100%;
   border-radius: 5px;
   outline: none;
-  border: 2px solid var(--white_100);
-  background-color: var(--dark_100);
+  border: 2px solid var(--grey_50);
+  background-color: var(--white100_dark100);
   padding: 8px 23px 8px 8px;
   font-family: "lato", "sans-serif";
   font-size: 0.85rem;
   font-weight: bold;
-  color: var(--white_100);
+  color: var(--black100_white100);
   transition: 0.2s;
 }
 
@@ -378,7 +377,7 @@ body {
   border: none;
   background: none;
   outline: none;
-  color: var(--white_100);
+  color: var(--black100_white100);
   height: 100%;
   width: 23px;
   opacity: 0.7;
@@ -404,7 +403,7 @@ body {
   width: 100%;
   display: flex;
   justify-content: space-between;
-  border-left: 4px solid var(--dark_100);
+  border-left: 4px solid var(--white100_dark100);
   padding: 5px 10px;
   transition: 0.2s;
 }
@@ -420,12 +419,12 @@ body {
 #filterContainer a:hover,
 #filterContainer a.active {
   cursor: pointer;
-  color: var(--white_100);
+  color: var(--black100_white100);
 }
 
 #filterContainer #allTaskFilter:hover,
 #allTaskFilter.active {
-  border-left: 4px solid var(--white_100);
+  border-left: 4px solid var(--black100_white100);
 }
 
 #filterContainer #pendingTaskFilter:hover,
@@ -459,7 +458,7 @@ body {
 
 #themeTitle,
 #layoutConfigTitle {
-  color: var(--white_100);
+  color: var(--black100_white100);
   font-family: "lato", "sans-serif";
   font-size: 0.875rem;
   text-transform: capitalize;
@@ -489,18 +488,18 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: var(--black);
+  background-color: var(--white_black);
   height: 100%;
   width: 50%;
   border-radius: 50%;
-  color: var(--white_100);
+  color: var(--black100_white100);
   scale: 0.9;
   transition: 0.2s;
   right: 50%;
   opacity: 0.8;
 }
 
-#themeBallSun {
+#themeBallMoon {
   display: none;
 }
 
@@ -509,11 +508,11 @@ body {
 }
 
 #themeCheckBox:checked ~ #themeBall #themeBallMoon {
-  display: none;
+  display: block;
 }
 
 #themeCheckBox:checked ~ #themeBall #themeBallSun {
-  display: block;
+  display: none;
 }
 
 #layoutOptionsBox {
@@ -523,11 +522,11 @@ body {
 
 #listOptionBtn,
 #gridOptionBtn {
-  border: 2px solid var(--dark_100);
+  border: 2px solid var(--white100_dark100);
   border-radius: 5px;
   outline: none;
-  background-color: var(--dark_100);
-  color: var(--white_100);
+  background-color: var(--white100_dark100);
+  color: var(--black100_white100);
   height: 2rem;
   width: 2rem;
   cursor: pointer;
@@ -538,7 +537,7 @@ body {
 #gridOptionBtn:hover,
 #listOptionBtn.active,
 #gridOptionBtn.active {
-  border: 2px solid var(--white_100);
+  border: 2px solid var(--black100_white100);
 }
 
 #listOptionBtn i,
@@ -563,7 +562,7 @@ body {
 }
 
 #noTaskText {
-  color: var(--white_100);
+  color: var(--black100_white100);
   text-align: center;
   font-family: "lato", "sans-serif";
   font-size: 2rem;
@@ -579,8 +578,8 @@ body {
   top: 5rem;
   transform: translateY(-1.5rem);
   left: 5%;
-  border: 2px solid var(--white_100);
-  background-color: var(--dark_100);
+  border: 2px solid var(--black100_white100);
+  background-color: var(--white100_dark100);
   border-radius: 5px;
   border-top: none;
   border-top-left-radius: 0;
@@ -591,7 +590,7 @@ body {
 
 #filterInformationText {
   font-family: "lato", "sans-serif";
-  color: var(--white_100);
+  color: var(--black100_white100);
   font-size: 0.8rem;
   user-select: none;
   font-style: italic;
@@ -606,7 +605,7 @@ body {
   border: none;
   background: none;
   outline: none;
-  color: var(--white_100);
+  color: var(--black100_white100);
   opacity: 0.7;
   transition: 0.3s;
 }
@@ -633,7 +632,7 @@ body {
   gap: 15px;
   width: 31.4%;
   height: 4rem;
-  background-color: var(--dark_100);
+  background-color: var(--white100_dark100);
   border-radius: 5px;
   padding: 0 20px;
   border: 2px solid var(--grey_50);
@@ -704,7 +703,7 @@ body {
 .taskContent {
   font-family: "lato", "sans-serif";
   font-size: 1rem;
-  color: var(--white_100);
+  color: var(--black100_white100);
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
@@ -760,7 +759,7 @@ body {
 }
 
 .checkBtn i.fa-rotate {
-  color: var(--white_100);
+  color: var(--black100_white100);
 }
 
 .editBtn {
@@ -794,7 +793,7 @@ body {
   height: 8px;
   background-color: var(--green);
   border-radius: 50%;
-  border: 1px solid var(--dark_100);
+  border: 1px solid var(--white100_dark100);
   bottom: 4px;
   right: -2px;
   transition: 0.3s;
@@ -812,10 +811,10 @@ body {
   justify-content: space-between;
   left: 50%;
   top: calc(5rem + 37%);
-  background-color: var(--dark_100);
+  background-color: var(--white100_dark100);
   width: 20rem;
   height: 15rem;
-  border: 2px solid var(--white_100);
+  border: 2px solid var(--black100_white100);
   border-radius: 5px;
   padding: 15px;
 }
@@ -825,7 +824,7 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 2px solid var(--white_100);
+  border-bottom: 2px solid var(--black100_white100);
   padding-bottom: 10px;
 }
 
@@ -834,7 +833,7 @@ body {
   font-family: "Lato", "Sans-Serif";
   text-transform: capitalize;
   font-size: 1.3rem;
-  color: var(--white_100);
+  color: var(--black100_white100);
   user-select: none;
 }
 
@@ -847,7 +846,7 @@ body {
   border: none;
   outline: none;
   background: none;
-  color: var(--white_100);
+  color: var(--black100_white100);
   transition: 0.2s;
 }
 
@@ -875,9 +874,9 @@ body {
   font-family: "lato", "sans-serif";
   font-size: 1.1rem;
   font-weight: bold;
-  color: var(--white_100);
-  background-color: var(--dark_100);
-  border: 2px solid var(--white_100);
+  color: var(--black100_white100);
+  background-color: var(--white100_dark100);
+  border: 2px solid var(--grey_50);
   border-radius: 5px;
   outline: none;
   transition: 0.2s;
@@ -940,8 +939,8 @@ body {
   height: 100%;
   text-transform: capitalize;
   font-weight: bold;
-  background-color: var(--white_100);
-  color: var(--dark_100);
+  background-color: var(--black100_white100);
+  color: var(--white100_dark100);
   transition: 0.2s;
   line-height: 0;
 }
@@ -961,7 +960,7 @@ body {
 #confirmEditBtn,
 #confirmScheduleBtn,
 #btnYes {
-  border: 2px solid var(--white_100);
+  border: 2px solid var(--black100_white100);
 }
 
 #cancelEditBtn,
@@ -974,9 +973,9 @@ body {
 #confirmScheduleBtn:hover,
 #btnYes:hover {
   cursor: pointer;
-  background-color: var(--dark_100);
-  color: var(--white_100);
-  box-shadow: 0 0 10px 2px var(--white_100);
+  background-color: var(--white100_dark100);
+  color: var(--black100_white100);
+  box-shadow: 0 0 10px 2px var(--black100_white100);
 }
 
 #cancelEditBtn:hover,
@@ -989,13 +988,13 @@ body {
 #scheduleInputDate::-webkit-calendar-picker-indicator,
 #scheduleInputTime::-webkit-calendar-picker-indicator {
   cursor: pointer;
-  filter: invert(1) brightness(100%) sepia(100%) saturate(100%);
+  filter: invert(0) brightness(100%) sepia(100%) saturate(100%);
 }
 
-#scheduleInputDate.whiteTheme::-webkit-calendar-picker-indicator,
-#scheduleInputTime.whiteTheme::-webkit-calendar-picker-indicator {
+#scheduleInputDate.darkTheme::-webkit-calendar-picker-indicator,
+#scheduleInputTime.darkTheme::-webkit-calendar-picker-indicator {
   cursor: pointer;
-  filter: invert(0) brightness(100%) sepia(100%) saturate(100%);
+  filter: invert(1) brightness(100%) sepia(100%) saturate(100%);
 }
 
 .taskInfo {
@@ -1005,7 +1004,7 @@ body {
   position: absolute;
   border-radius: 5px;
   padding: 5px 20px 5px 20px;
-  background-color: var(--dark_100);
+  background-color: var(--white100_dark100);
   right: 5px;
   top: -25px;
   transition: box-shadow 0.3s, border 0.3s;
@@ -1030,17 +1029,15 @@ body {
 
 .taskInfo.expireAlert {
   border: 2px solid var(--yellow);
-  animation: expireAlert 0.5s infinite alternate;
 }
 
 .taskInfo.expiredTask {
   border: 2px solid var(--red);
-  animation: expiredTask 0.5s infinite alternate;
 }
 
 .infoTextContent {
   font-size: 0.8rem;
-  color: var(--white_100);
+  color: var(--black100_white100);
   font-family: "lato", "sans-serif";
   user-select: none;
 }
@@ -1049,7 +1046,7 @@ body {
   position: absolute;
   top: -10px;
   right: -5px;
-  background-color: var(--dark_100);
+  background-color: var(--white100_dark100);
   border-radius: 50%;
   border: none;
   font-size: 1.25rem;
@@ -1085,7 +1082,7 @@ body {
 }
 
 .taskInfo.expiredTask .schedulingRemoveBtn:hover {
-  color: var(--white_100);
+  color: var(--black100_white100);
 }
 
 #confirmField {
@@ -1095,10 +1092,10 @@ body {
   justify-content: space-evenly;
   left: 50%;
   top: calc(5rem + 37%);
-  background-color: var(--dark_100);
+  background-color: var(--white100_dark100);
   width: 20rem;
   height: 15rem;
-  border: 2px solid var(--white_100);
+  border: 2px solid var(--black100_white100);
   border-radius: 5px;
   padding: 15px;
   z-index: 1;
@@ -1108,7 +1105,7 @@ body {
   font-family: "Lato", "Sans-Serif";
   font-size: 1.1rem;
   text-align: center;
-  color: var(--white_100);
+  color: var(--black100_white100);
   user-select: none;
 }
 
@@ -1141,7 +1138,7 @@ body {
 #editInput:focus::placeholder,
 #searchTaskInput:focus::placeholder,
 .notePadInput:focus::placeholder {
-  color: var(--white_50);
+  color: var(--black50_white50);
 }
 
 /* Estilização do bloco de anotações */
@@ -1156,7 +1153,7 @@ body {
   justify-content: space-between;
   width: 14rem;
   height: 12rem;
-  background-color: var(--dark_100);
+  background-color: var(--white100_dark100);
   border-radius: 0px 5px 5px;
   padding: 0px 10px;
   box-shadow: 6px 6px 10px 0px var(--dark_shadow);
@@ -1169,7 +1166,7 @@ body {
   top: -10px;
   right: 1rem;
   transform: translateX(50%);
-  border-bottom: 10px solid var(--dark_100);
+  border-bottom: 10px solid var(--white100_dark100);
   border-left: 10px solid transparent;
   border-right: 10px solid transparent;
 }
@@ -1180,7 +1177,7 @@ body {
   align-items: center;
   width: 100%;
   height: 20%;
-  border-bottom: 2px solid var(--white_100);
+  border-bottom: 2px solid var(--black100_white100);
 }
 
 .notePadTitle {
@@ -1188,18 +1185,18 @@ body {
   text-transform: capitalize;
   font-size: 1rem;
   font-weight: bold;
-  color: var(--white_100);
+  color: var(--black100_white100);
 }
 
 .saveNoteBtn {
-  color: var(--white_100);
+  color: var(--black100_white100);
 }
 
 .notePadInput {
   width: 100%;
   height: 60%;
-  color: var(--white_100);
-  background: var(--dark_100);
+  color: var(--black100_white100);
+  background: var(--white100_dark100);
   padding: 5px 0;
   margin: 10px 0 5px 0;
   outline: none;
@@ -1226,7 +1223,7 @@ body {
 .cleanNoteBtn,
 .saveNoteBtn {
   border: none;
-  background: var(--dark_100);
+  background: var(--white100_dark100);
   border-radius: 50%;
   transition: 0.3s;
 }
@@ -1237,7 +1234,7 @@ body {
 
 .cleanNoteBtn {
   font-size: 1rem;
-  color: var(--white_100);
+  color: var(--black100_white100);
 }
 
 .cleanNoteBtn:hover {
@@ -1701,20 +1698,20 @@ body {
 
 @media (max-width: 1024px) {
   #newTaskBtn:hover {
-    background-color: var(--white_100);
-    color: var(--dark_100);
+    background-color: var(--black100_white100);
+    color: var(--white100_dark100);
     box-shadow: none;
   }
   #menuButton:hover {
-    background-color: var(--white_100);
-    color: var(--dark_100);
+    background-color: var(--black100_white100);
+    color: var(--white100_dark100);
     box-shadow: none;
   }
   #menuButton.active {
     cursor: pointer;
-    background-color: var(--dark_100);
-    color: var(--white_100);
-    box-shadow: 0 0 10px 2px var(--white_100);
+    background-color: var(--white100_dark100);
+    color: var(--black100_white100);
+    box-shadow: 0 0 10px 2px var(--black100_white100);
   }
   #inputFileImgLabelBtn {
     opacity: 1;
@@ -1778,6 +1775,7 @@ body {
     border-radius: 0;
     box-shadow: none;
     right: 0;
+    overflow-x: hidden;
   }
   #menuButtonIcon {
     display: none;
@@ -1797,7 +1795,7 @@ body {
   }
   #newTaskContainer {
     position: absolute;
-    background-color: var(--dark_100);
+    background-color: var(--white100_dark100);
     padding: 0 5%;
     top: 5rem;
     left: 0;
