@@ -166,7 +166,7 @@ body {
   height: 100%;
   border-radius: 5px;
   outline: none;
-  border: 2px solid var(--white_100);
+  border: 2px solid var(--grey_50);
   background-color: var(--dark_100);
   padding: 5px 50px 5px 10px;
   font-family: "lato", "sans-serif";
@@ -471,16 +471,17 @@ body {
 }
 
 #themeCheckBoxLabel {
-  background-color: var(--white_100);
+  background-color: var(--grey);
   width: 3.5rem;
   height: 1.75rem;
   border-radius: 20px;
   position: relative;
   cursor: pointer;
+  transition: 0.2s;
 }
 
-#themeCheckBoxLabel:hover #themeBall {
-  opacity: 1;
+#themeCheckBoxLabel:hover {
+  background-color: var(--grey_50);
 }
 
 #themeBall {
@@ -635,13 +636,13 @@ body {
   background-color: var(--dark_100);
   border-radius: 5px;
   padding: 0 20px;
-  border: 2px solid var(--white_100);
+  border: 2px solid var(--grey_50);
   transition: border 0.3s, box-shadow 0.3s;
 }
 
 .taskField.hover:hover,
 .taskField.active {
-  box-shadow: 0 0 10px 2px var(--white_100);
+  box-shadow: 0 0 10px 2px var(--grey_50);
 }
 
 .taskField.completed {
@@ -775,7 +776,7 @@ body {
 }
 
 .notesBtn {
-  color: var(--white_100);
+  color: var(--grey_50);
 }
 
 .checkBtn:hover,
@@ -991,6 +992,12 @@ body {
   filter: invert(1) brightness(100%) sepia(100%) saturate(100%);
 }
 
+#scheduleInputDate.whiteTheme::-webkit-calendar-picker-indicator,
+#scheduleInputTime.whiteTheme::-webkit-calendar-picker-indicator {
+  cursor: pointer;
+  filter: invert(0) brightness(100%) sepia(100%) saturate(100%);
+}
+
 .taskInfo {
   display: flex;
   justify-content: center;
@@ -1118,8 +1125,8 @@ body {
 #scheduleInputDate:focus,
 #scheduleInputTime:focus,
 #searchTaskInput:focus {
-  border: 2px solid var(--white_100);
-  box-shadow: 0 0 10px 2px var(--white_100);
+  border: 2px solid var(--grey_50);
+  box-shadow: 0 0 10px 2px var(--grey_50);
 }
 
 #newTaskInput.inputError,
