@@ -220,7 +220,7 @@ function removeImgConfirm() {
       filterInformationBox.classList.remove("filterInformationOffBlur");
 
       localStorage.removeItem("infoAccountImg");
-      uploadedImg.src = "./img/Profile-Avatar-PNG-Image.png";
+      uploadedImg.src = "./img/profile-avatar.png";
       inputFileImgLabelBtn.setAttribute("title", "Adicionar foto");
       inputFileImg.setAttribute("title", "Adicionar foto");
       inputFileImgLabelBtn.setAttribute("for", "inputFileImg");
