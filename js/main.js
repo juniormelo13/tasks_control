@@ -13,6 +13,28 @@ const noTaskTextContainer = document.querySelector("#noTaskTextContainer");
 // Container principal do projeto
 const mainContainer = document.querySelector("#mainContainer");
 
+// Configuração para alternar entre dark/white mode
+const html = document.querySelector("html");
+const themeCheckBox = document.querySelector("#themeCheckBox");
+const logoImgMobile = document.querySelector("#logoImgMobile");
+
+if(localStorage.getItem("theme")) {
+  themeCheckBox.checked = true
+  html.classList.add('whiteTheme')
+  logoImgMobile.src = "./img/logo_dark_mobile.png"
+}
+
+themeCheckBox.addEventListener("change", () => {
+  html.classList.toggle('whiteTheme')
+  if(html.classList.contains('whiteTheme')) {
+    localStorage.setItem("theme", "whiteMode")
+    logoImgMobile.src = "./img/logo_dark_mobile.png"
+  } else {
+    localStorage.removeItem("theme")
+    logoImgMobile.src = "./img/logo_light_mobile.png"
+  }
+})
+
 // Checagem/controle de altura do container onde as tarefas serão adicionadas
 const currentHeightMain = mainContainer.offsetHeight;
 let currentHeightTasksContainer = tasksContainer.offsetHeight;

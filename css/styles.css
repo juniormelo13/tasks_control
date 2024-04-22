@@ -11,6 +11,8 @@
   --black: rgb(0, 0, 0);
   --dark_50: rgb(45, 45, 45);
   --dark_100: rgb(35, 35, 35);
+  --dark_shadow: rgba(0, 0, 0, 0.5);
+  --dark_shadow_50: rgba(0, 0, 0, 0.8);
   --white: rgb(250, 250, 250);
   --white_50: rgb(210, 210, 210);
   --white_100: rgb(230, 230, 230);
@@ -24,19 +26,21 @@
   --grey_Opacity_3: rgba(150, 150, 150, 0.3);
 }
 
-.white:root {
+.whiteTheme:root {
   --black: rgb(250, 250, 250);
-  --dark_50: rgb(230, 230, 230);
-  --dark_100: rgb(210, 210, 210);
+  --dark_50: rgb(210, 210, 210);
+  --dark_100: rgb(230, 230, 230);
+  --dark_shadow: rgba(0, 0, 0, 0.5);
+  --dark_shadow_50: rgba(250, 250, 250, 0.9);
   --white: rgb(0, 0, 0);
   --white_50: rgb(45, 45, 45);
   --white_100: rgb(35, 35, 35);
-  --green: rgb(127, 252, 45);
-  --yellow: rgb(250, 190, 44);
-  --blue: rgb(125, 157, 244);
-  --red: rgb(243, 53, 53);
+  --green: rgb(70, 175, 0);
+  --yellow: rgb(190, 155, 0);
+  --blue: rgb(50, 85, 175);
+  --red: rgb(195, 40, 20);
   --grey: rgb(150, 150, 150);
-  --grey_50: rgb(200, 200, 200);
+  --grey_50: rgb(100, 100, 100);
   --grey_Opacity_2: rgba(150, 150, 150, 0.2);
   --grey_Opacity_3: rgba(150, 150, 150, 0.3);
 }
@@ -123,7 +127,7 @@ body {
   background-color: var(--dark_100);
   border-radius: 5px;
   width: 12rem;
-  box-shadow: 6px 6px 10px 0px rgba(0, 0, 0, 0.5);
+  box-shadow: 6px 6px 10px 0px var(--dark_shadow);
   padding: 1rem;
   user-select: none;
 }
@@ -248,7 +252,7 @@ body {
   justify-content: center;
   align-items: center;
   font-size: 0.75rem;
-  background-color: rgba(0, 0, 0, 0.8);
+  background-color: var(--dark_shadow_50);
   color: var(--white);
   height: 1.5rem;
   width: 1.5rem;
@@ -1145,7 +1149,7 @@ body {
   background-color: var(--dark_100);
   border-radius: 0px 5px 5px;
   padding: 0px 10px;
-  box-shadow: 6px 6px 10px 0px rgba(0, 0, 0, 0.5);
+  box-shadow: 6px 6px 10px 0px var(--dark_shadow);
   z-index: 1;
 }
 
@@ -1759,12 +1763,11 @@ body {
   }
   #menu {
     top: 10rem;
-    min-height: 25.5rem;
+    min-height: 35.6rem;
     height: calc(100vh - 10rem);
     border-radius: 0;
     box-shadow: none;
     right: 0;
-    overflow: hidden;
   }
   #menuButtonIcon {
     display: none;
