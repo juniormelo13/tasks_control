@@ -1340,7 +1340,7 @@ body {
 }
 
 #filterInformationBox.filterInfoVanish {
-  animation: filterInfoVanish 0.2s ease-in;
+  animation: filterInfoVanish 0.2s ease-in forwards;
 }
 
 #header.pointerEventsNone,
@@ -1701,21 +1701,22 @@ body {
   }
 }
 
-@media (max-width: 1589px) {
+@media (max-width: 1591px) {
   .taskField {
-    width: 30%;
+    width: 30.8%;
   }
 }
 
 @media (max-width: 1500px) {
   .taskField {
-    width: 40%;
+    width: 100%;
   }
 }
 
-@media (max-width: 1125px) {
+@media (max-width: 1263px) {
   .taskField {
-    width: 600px;
+    width: 47%;
+    max-width: 600px;
   }
   #newTaskContainer {
     width: 600px;
@@ -1741,6 +1742,10 @@ body {
   }
   #inputFileImgLabelBtn {
     opacity: 1;
+  }
+  .taskField {
+    width: 600px;
+    max-width: 600px;
   }
   .schedulingRemoveBtn {
     transform: translateY(0px);
@@ -1838,6 +1843,7 @@ body {
   }
   .taskField {
     width: 100%;
+    max-width: 700px;
   }
   #noTaskTextContainer {
     top: calc(10rem + 15%);
