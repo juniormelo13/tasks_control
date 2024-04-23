@@ -16,10 +16,10 @@
   --black_white: rgb(0, 0, 0);
   --black50_white50: rgb(45, 45, 45);
   --black100_white100: rgb(35, 35, 35);
-  --green: rgb(70, 175, 0);
-  --yellow: rgb(190, 155, 0);
-  --blue: rgb(50, 85, 175);
-  --red: rgb(195, 40, 20);
+  --green: rgb(59, 148, 0);
+  --yellow: rgb(182, 148, 0);
+  --blue: rgb(0, 90, 173);
+  --red: rgb(190, 22, 0);
   --grey: rgb(150, 150, 150);
   --grey_50: rgb(100, 100, 100);
   --grey_Opacity_2: rgba(150, 150, 150, 0.2);
@@ -620,7 +620,7 @@ body {
   justify-content: center;
   flex-wrap: wrap;
   width: 100%;
-  padding: 3.125rem 5%;
+  padding: 3.125rem 5% 6.250rem;
   gap: 50px;
 }
 
@@ -759,7 +759,7 @@ body {
 }
 
 .checkBtn i.fa-rotate {
-  color: var(--black100_white100);
+  color: var(--grey_50);
 }
 
 .editBtn {
@@ -1720,6 +1720,9 @@ body {
     transform: translateY(0px);
     opacity: 1;
   }
+  .btnField {
+    height: auto;
+  }
   .btnField.animeBtnMobile {
     animation: animeBtnMobile 0.3s ease-in forwards;
   }
@@ -1738,6 +1741,9 @@ body {
   .notesBtn:hover {
     padding-bottom: 0;
   }
+  .notesBtnAlert {
+    bottom: -2px;
+  }
   .notesBtn:hover .notesBtnAlert {
     margin-bottom: 0;
   }
@@ -1745,6 +1751,9 @@ body {
     color: var(--green);
   }
   .cleanNoteBtn {
+    color: var(--red);
+  }
+  #closeEditFieldBtn, #scheduleFieldCloseBtn {
     color: var(--red);
   }
 }
@@ -1819,7 +1828,7 @@ body {
 
 @media (max-width: 450px) {
   #tasksContainer {
-    padding: 3.5rem 5%;
+    padding: 3.5rem 5% 7rem;
   }
   .taskField {
     flex-direction: column;
@@ -1856,9 +1865,16 @@ body {
   #noTaskText {
     font-size: 1.5rem;
   }
+}
+
+@media (max-width: 350px) {
   #editField,
   #scheduleField,
   #confirmField {
+    width: calc(90%);
+  }
+  #scheduleFieldCenter {
+    flex-direction: column;
   }
 }
 

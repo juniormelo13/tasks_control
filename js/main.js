@@ -1996,11 +1996,6 @@ function saveNoteClick(
   notePadContainer.classList.add("notePadContainerVanish");
   notesInfo.innerText = notePadInput.value.trim();
   notePadContainer.classList.remove("pointerEventsVisible");
-  if (notesInfo.innerText != "") {
-    notesBtnAlert.classList.remove("hide");
-  } else {
-    notesBtnAlert.classList.add("hide");
-  }
   notePadContainerShow = !notePadContainerShow;
   setTimeout(() => {
     notePadContainer.classList.remove("notePadContainerVanish");
@@ -2009,7 +2004,12 @@ function saveNoteClick(
       case true:
         taskField.classList.add("shakeMove");
         break;
-    }
+      }
+      if (notesInfo.innerText != "") {
+        notesBtnAlert.classList.remove("hide");
+      } else {
+        notesBtnAlert.classList.add("hide");
+      }
   }, 200);
   if (notesInfo.innerText != "" && !inputEquality) {
     // Salvar ação no Local Storage
