@@ -2570,7 +2570,7 @@ if(localStorage.getItem("theme")) {
   html.classList.add('darkTheme')
   scheduleInputDate.classList.add('darkTheme')
   scheduleInputTime.classList.add('darkTheme')
-  logoImgMobile.src = "./img/logo_dark_mobile.png"
+  logoImgMobile.src = "./img/logo_light_mobile.png"
 }
 
 themeCheckBox.addEventListener("change", () => {

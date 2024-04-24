@@ -1667,6 +1667,28 @@ body {
   }
 }
 
+@keyframes filterInfoAppearMobile {
+  0% {
+    top: 8.5rem;
+    opacity: 0;
+  }
+  100% {
+    top: 10rem;
+    opacity: 1;
+  }
+}
+
+@keyframes filterInfoVanishMobile {
+  0% {
+    top: 10rem;
+    opacity: 1;
+  }
+  100% {
+    top: 8.5rem;
+    opacity: 0;
+  }
+}
+
 /* Responsividade da aplicação */
 
 @media (min-width: 1921px) {
@@ -1817,6 +1839,16 @@ body {
     right: 0;
     overflow-x: hidden;
   }
+  #filterInformationBox {
+    top: 8.5rem;
+  }
+  #filterInformationBox.filterInfoAppear {
+    animation: filterInfoAppearMobile 0.2s ease-in forwards;
+  }
+  
+  #filterInformationBox.filterInfoVanish {
+    animation: filterInfoVanishMobile 0.2s ease-in forwards;
+  }
   #menuButtonIcon {
     display: none;
   }
@@ -1852,9 +1884,6 @@ body {
   #scheduleField,
   #confirmField {
     top: calc(10rem + 30%);
-  }
-  #filterInformationBox {
-    top: 10rem;
   }
 }
 
