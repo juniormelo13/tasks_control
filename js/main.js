@@ -450,7 +450,6 @@ function insertTask() {
     };
   } else {
     // Caso o valor do input seja válido: Criação dos parágrafos e botões referentes a cada tarefa adicionada
-
     cleanInputBtn.style.display = "none";
 
     // Tarefa
@@ -1869,6 +1868,65 @@ const deleteClick = (taskField, infoTaskSave, notesInfo) => {
     }, 350);
   }
 };
+
+// Configuração do botão para exclusão de todas as tarefas
+
+const removeAllTaskBtn = document.querySelector("#removeAllTaskBtn");
+
+removeAllTaskBtn.addEventListener("click", () => {
+  header.classList.add("pointerEventsNone");
+  tasksContainer.classList.add("tasksContainerHide");
+  menu.classList.add("menuBlur");
+  if (filtred) {
+    filterInformationBox.classList.add("filterInformationBlur");
+  }
+  mainContainer.classList.add("pointerEventsNone");
+  confirmFieldText.innerText =
+    "Esta ação irá excluir todas as tarefas, tem certeza de que deseja removê-las?";
+  confirmField.classList.add("appearWindow");
+  confirmField.classList.remove("hide");
+
+  btnYes.focus();
+  btnYes.addEventListener("click", () => {
+    confirmField.classList.remove("appearWindow");
+    confirmField.classList.add("vanishWindow");
+    tasksContainer.classList.remove("tasksContainerHide");
+    tasksContainer.classList.add("tasksContainerAppear");
+    if (filtred) {
+      filterInformationBox.classList.remove("filterInformationBlur");
+      filterInformationBox.classList.add("filterInformationOffBlur");
+    }
+    menu.classList.remove("menuBlur");
+    menu.classList.add("menuOffBlur");
+    const tasks = tasksContainer.childNodes;
+    setTimeout(() => {
+      header.classList.remove("pointerEventsNone");
+      mainContainer.classList.remove("pointerEventsNone");
+      confirmField.classList.add("hide");
+      confirmField.classList.remove("vanishWindow");
+      tasksContainer.classList.remove("tasksContainerAppear");
+      menu.classList.remove("menuOffBlur");
+      if (filtred) {
+        filterInformationBox.classList.remove("filterInformationOffBlur");
+        filtred = false;
+        filterInformationBox.classList.remove("filterInfoAppear");
+        filterInformationBox.classList.add("filterInfoVanish");
+      }
+      for (const task of tasks) {
+        task.classList.add("vanishTask");
+      }
+    }, 200);
+    setInterval(() => {
+      dbTasks.splice(0, dbTasks.length);
+      localStorage.setItem("tasks", JSON.stringify(dbTasks));
+      localStorage.removeItem("tasks");
+      for (const task of tasks) {
+        task.remove();
+      }
+      noTaskTextContainer.classList.remove("hide");
+    }, 400);
+  });
+});
 
 // Configuração do botão de anotações
 
