@@ -1900,12 +1900,12 @@ body {
   }
   #menu {
     top: 10rem;
-    min-height: 35.6rem;
+    min-height: 39.5rem;
     height: calc(100vh - 10rem);
     border-radius: 0;
     box-shadow: none;
     right: 0;
-    overflow-x: hidden;
+    overflow: hidden;
   }
   #filterInformationBox {
     top: 8.5rem;

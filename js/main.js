@@ -84,8 +84,10 @@ document.addEventListener("click", (e) => {
   ) {
     menuCloseFunction();
   } else if (
-    (confirmField.classList.contains("appearWindow") &&
-    menuOpen && !menu.contains(e.target)) && !menu.classList.contains("menuBlur")
+    confirmField.classList.contains("appearWindow") &&
+    menuOpen &&
+    !menu.contains(e.target) &&
+    !menu.classList.contains("menuBlur")
   ) {
     menuCloseFunction();
   }
@@ -1986,12 +1988,12 @@ function saveNoteClick(
       case true:
         taskField.classList.add("shakeMove");
         break;
-      }
-      if (notesInfo.innerText != "") {
-        notesBtnAlert.classList.remove("hide");
-      } else {
-        notesBtnAlert.classList.add("hide");
-      }
+    }
+    if (notesInfo.innerText != "") {
+      notesBtnAlert.classList.remove("hide");
+    } else {
+      notesBtnAlert.classList.add("hide");
+    }
   }, 200);
   if (notesInfo.innerText != "" && !inputEquality) {
     // Salvar ação no Local Storage
@@ -2565,26 +2567,26 @@ const html = document.querySelector("html");
 const themeCheckBox = document.querySelector("#themeCheckBox");
 const logoImgMobile = document.querySelector("#logoImgMobile");
 
-if(localStorage.getItem("theme")) {
-  themeCheckBox.checked = true
-  html.classList.add('darkTheme')
-  scheduleInputDate.classList.add('darkTheme')
-  scheduleInputTime.classList.add('darkTheme')
-  logoImgMobile.src = "./img/logo_light_mobile.png"
+if (localStorage.getItem("theme")) {
+  themeCheckBox.checked = true;
+  html.classList.add("darkTheme");
+  scheduleInputDate.classList.add("darkTheme");
+  scheduleInputTime.classList.add("darkTheme");
+  logoImgMobile.src = "./img/logo_light_mobile.png";
 }
 
 themeCheckBox.addEventListener("change", () => {
-  html.classList.toggle('darkTheme')
-  scheduleInputDate.classList.toggle('darkTheme')
-  scheduleInputTime.classList.toggle('darkTheme')
-  if(html.classList.contains('darkTheme')) {
-    localStorage.setItem("theme", "darkTheme")
-    logoImgMobile.src = "./img/logo_light_mobile.png"
+  html.classList.toggle("darkTheme");
+  scheduleInputDate.classList.toggle("darkTheme");
+  scheduleInputTime.classList.toggle("darkTheme");
+  if (html.classList.contains("darkTheme")) {
+    localStorage.setItem("theme", "darkTheme");
+    logoImgMobile.src = "./img/logo_light_mobile.png";
   } else {
-    localStorage.removeItem("theme")
-    logoImgMobile.src = "./img/logo_dark_mobile.png"
+    localStorage.removeItem("theme");
+    logoImgMobile.src = "./img/logo_dark_mobile.png";
   }
-})
+});
 
 // Verificação do status do agendamento em tempo real
 setInterval(() => {
