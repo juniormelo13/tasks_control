@@ -8,7 +8,7 @@
 }
 
 :root {
-  --white_black: rgb(250, 250, 250);
+  --white_dark: rgb(250, 250, 250);
   --white50_dark50: rgb(210, 210, 210);
   --white100_dark100: rgb(230, 230, 230);
   --whiteShadow50_darkShadow50: rgba(250, 250, 250, 0.9);
@@ -27,7 +27,7 @@
 }
 
 .darkTheme:root {
-  --white_black: rgb(0, 0, 0);
+  --white_dark: rgb(0, 0, 0);
   --white50_dark50: rgb(45, 45, 45);
   --white100_dark100: rgb(35, 35, 35);
   --whiteShadow50_darkShadow50: rgba(0, 0, 0, 0.8);
@@ -283,7 +283,7 @@ body {
   width: 100%;
   height: 100%;
   border-radius: 50%;
-  border: 2px solid var(--dark100_white100);
+  border: 2px solid var(--grey);
   cursor: pointer;
 }
 
@@ -496,7 +496,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: var(--white_black);
+  background-color: var(--white_dark);
   height: 100%;
   width: 50%;
   border-radius: 50%;
@@ -600,7 +600,7 @@ body {
 #removeAllTaskBtn.hover:hover,
 #removeAllConfigBtn.hover:hover {
   cursor: pointer;
-  background-color: var(--white_black);
+  background-color: var(--white_dark);
   border: 2px solid var(--red);
 }
 

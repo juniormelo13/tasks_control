@@ -211,7 +211,7 @@ function saveName() {
 }
 
 // Filtros das tarefas
-const allFilter = document.querySelector("#filterContainer");
+const filterContainer = document.querySelector("#filterContainer");
 const allTaskFilter = document.querySelector("#allTaskFilter");
 const pendingTaskFilter = document.querySelector("#pendingTaskFilter");
 const scheduleTaskFilter = document.querySelector("#scheduleTaskFilter");
@@ -233,10 +233,7 @@ const completedTaskFilterAmount = document.querySelector(
 const filterInformationBox = document.querySelector("#filterInformationBox");
 const filterInformation = document.querySelector("#filterInformation");
 const cleanFilterBtn = document.querySelector("#filterCleanBtn");
-
-const filters = allFilter.children;
-allTaskFilter.classList.add("active");
-allTaskFilterAmount.innerText = tasksContainer.childNodes.length;
+const filters = filterContainer.children;
 let pendingTasks = dbTasks.filter((infoTaskSave) => !infoTaskSave.completeTask);
 let scheduledTasks = dbTasks.filter(
   (infoTaskSave) => infoTaskSave.scheduledTask
@@ -245,16 +242,36 @@ let expiredTasks = dbTasks.filter((infoTaskSave) => infoTaskSave.expiredTask);
 let completedTasks = dbTasks.filter(
   (infoTaskSave) => infoTaskSave.completeTask
 );
-pendingTaskFilterAmount.innerText = pendingTasks.length;
-scheduleTaskFilterAmount.innerText = scheduledTasks.length;
-expiredTaskFilterAmount.innerText = expiredTasks.length;
-completedTaskFilterAmount.innerText = completedTasks.length;
+
+function checkAmountFilteredTasks() {
+  pendingTasks = dbTasks.filter((infoTaskSave) => !infoTaskSave.completeTask);
+  scheduledTasks = dbTasks.filter((infoTaskSave) => infoTaskSave.scheduledTask);
+  expiredTasks = dbTasks.filter((infoTaskSave) => infoTaskSave.expiredTask);
+  completedTasks = dbTasks.filter((infoTaskSave) => infoTaskSave.completeTask);
+  allTaskFilterAmount.innerText = tasksContainer.childNodes.length;
+  pendingTaskFilterAmount.innerText = pendingTasks.length;
+  scheduleTaskFilterAmount.innerText = scheduledTasks.length;
+  expiredTaskFilterAmount.innerText = expiredTasks.length;
+  completedTaskFilterAmount.innerText = completedTasks.length;
+}
+
+allTaskFilter.classList.add("active");
 
 const searchTaskInput = document.querySelector("#searchTaskInput");
 const searchTaskInputBtn = document.querySelector("#searchCleanBtn");
 let inputValue = "";
 let filtred = false;
 let containsHide = [];
+
+function activateClassFilter(classFilter, funct) {
+  for (const filter of filters) {
+    if (filter.classList.contains("active")) {
+      filter.classList.remove("active");
+    }
+  }
+  classFilter.classList.add("active");
+  funct();
+}
 
 searchTaskInput.onkeyup = () => {
   if (inputValue != searchTaskInput.value.trim()) {
@@ -266,13 +283,7 @@ searchTaskInput.onkeyup = () => {
     filterInformationBox.classList.remove("filterInfoVanish");
     filterInformationBox.classList.add("filterInfoAppear");
     if (!allTaskFilter.classList.contains("active")) {
-      for (const filter of filters) {
-        if (filter.classList.contains("active")) {
-          filter.classList.remove("active");
-        }
-      }
-      allTaskFilter.classList.add("active");
-      allTaskFilterFunction();
+      activateClassFilter(allTaskFilter, allTaskFilterFunction);
     }
     taskFilter();
   }
@@ -1911,11 +1922,7 @@ function removeAllTasks() {
       }
       allTaskFilter.classList.add("active");
     }
-    allTaskFilterAmount.innerText = "0";
-    pendingTaskFilterAmount.innerText = "0";
-    scheduleTaskFilterAmount.innerText = "0";
-    expiredTaskFilterAmount.innerText = "0";
-    completedTaskFilterAmount.innerText = "0";
+    checkAmountFilteredTasks();
     noTaskTextContainer.classList.remove("hide");
   }, 200);
 }
@@ -1924,7 +1931,7 @@ function confirmRemoveAllTasks() {
   hideConfirmWindow();
   setTimeout(() => {
     removeAllTasks();
-    checkRemoveAllConfigBtn()
+    checkRemoveAllConfigBtn();
   }, 200);
 }
 
@@ -2198,7 +2205,7 @@ function taskRecover() {
     }
     enableBtn(removeAllTaskBtn);
   }
-  checkRemoveAllConfigBtn()
+  checkRemoveAllConfigBtn();
   tasksContainer.innerHTML = "";
   for (let i = 0; i < dbTasks.length; i++) {
     // Recuperação dos dados de cada tarefa no array e renderização em tela
