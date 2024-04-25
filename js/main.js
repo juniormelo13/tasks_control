@@ -1873,60 +1873,101 @@ const deleteClick = (taskField, infoTaskSave, notesInfo) => {
 
 const removeAllTaskBtn = document.querySelector("#removeAllTaskBtn");
 
-removeAllTaskBtn.addEventListener("click", () => {
+function showConfirmWindow(text, funct) {
   header.classList.add("pointerEventsNone");
+  mainContainer.classList.add("pointerEventsNone");
   tasksContainer.classList.add("tasksContainerHide");
-  menu.classList.add("menuBlur");
+  if (!noTaskTextContainer.classList.contains("hide")) {
+    noTaskTextContainer.classList.add("noTaskTextHide");
+  }
+  confirmField.classList.remove("hide");
+  confirmField.classList.add("appearWindow");
+  btnYes.focus();
+  if (menuOpen) {
+    menu.classList.add("menuBlur");
+  }
   if (filtred) {
     filterInformationBox.classList.add("filterInformationBlur");
   }
-  mainContainer.classList.add("pointerEventsNone");
-  confirmFieldText.innerText =
-    "Esta ação irá excluir todas as tarefas, tem certeza de que deseja removê-las?";
-  confirmField.classList.add("appearWindow");
-  confirmField.classList.remove("hide");
+  confirmFieldText.innerText = text;
+  btnYes.addEventListener("click", funct);
+  btnNo.addEventListener("click", hideConfirmWindow);
+}
 
-  btnYes.focus();
-  btnYes.addEventListener("click", () => {
-    confirmField.classList.remove("appearWindow");
-    confirmField.classList.add("vanishWindow");
-    tasksContainer.classList.remove("tasksContainerHide");
-    tasksContainer.classList.add("tasksContainerAppear");
-    if (filtred) {
-      filterInformationBox.classList.remove("filterInformationBlur");
-      filterInformationBox.classList.add("filterInformationOffBlur");
-    }
+function hideConfirmWindow() {
+  tasksContainer.classList.remove("tasksContainerHide");
+  tasksContainer.classList.add("tasksContainerAppear");
+  if (!noTaskTextContainer.classList.contains("hide")) {
+    noTaskTextContainer.classList.remove("noTaskTextHide");
+    noTaskTextContainer.classList.add("noTaskTextAppear");
+  }
+  confirmField.classList.remove("appearWindow");
+  confirmField.classList.add("vanishWindow");
+  if (filtred) {
+    filterInformationBox.classList.remove("filterInformationBlur");
+    filterInformationBox.classList.add("filterInformationOffBlur");
+  }
+  if (menuOpen) {
     menu.classList.remove("menuBlur");
     menu.classList.add("menuOffBlur");
-    const tasks = tasksContainer.childNodes;
-    setTimeout(() => {
-      header.classList.remove("pointerEventsNone");
-      mainContainer.classList.remove("pointerEventsNone");
-      confirmField.classList.add("hide");
-      confirmField.classList.remove("vanishWindow");
-      tasksContainer.classList.remove("tasksContainerAppear");
+  }
+  setTimeout(() => {
+    header.classList.remove("pointerEventsNone");
+    mainContainer.classList.remove("pointerEventsNone");
+    tasksContainer.classList.remove("tasksContainerAppear");
+    if (!noTaskTextContainer.classList.contains("hide")) {
+      noTaskTextContainer.classList.remove("noTaskTextAppear");
+    }
+    confirmField.classList.remove("vanishWindow");
+    confirmField.classList.add("hide");
+    if (menuOpen) {
       menu.classList.remove("menuOffBlur");
-      if (filtred) {
-        filterInformationBox.classList.remove("filterInformationOffBlur");
-        filtred = false;
-        filterInformationBox.classList.remove("filterInfoAppear");
-        filterInformationBox.classList.add("filterInfoVanish");
-      }
-      for (const task of tasks) {
-        task.classList.add("vanishTask");
-      }
-    }, 200);
-    setInterval(() => {
-      dbTasks.splice(0, dbTasks.length);
-      localStorage.setItem("tasks", JSON.stringify(dbTasks));
-      localStorage.removeItem("tasks");
-      for (const task of tasks) {
-        task.remove();
-      }
-      noTaskTextContainer.classList.remove("hide");
-    }, 400);
-  });
+    }
+  }, 200);
+}
+
+removeAllTaskBtn.addEventListener("click", () => {
+  showConfirmWindow(
+    "Esta ação irá excluir todas as tarefas, tem certeza de que deseja removê-las?",
+    removeAlltasks
+  );
 });
+
+function removeAlltasks() {
+  const tasks = tasksContainer.childNodes;
+  hideConfirmWindow()
+  setTimeout(() => {
+    for (const task of tasks) {
+      task.classList.add("vanishTask");
+    }
+  }, 200)
+  setTimeout(() => {
+    dbTasks.splice(0, dbTasks.length);
+    localStorage.setItem("tasks", JSON.stringify(dbTasks));
+    localStorage.removeItem("tasks");
+    tasksContainer.innerHTML = ""
+    if (filtred) {
+      filterInformationBox.classList.remove("filterInformationOffBlur");
+      filterInformationBox.classList.remove("filterInfoAppear");
+      filterInformationBox.classList.add("filterInfoVanish");
+      filtred = false;
+    }
+    if(!allTaskFilter.classList.contains("active")) {
+      for (const filter of filters) {
+        if (filter.classList.contains("active")) {
+          filter.classList.remove("active");
+        }
+      }
+      allTaskFilter.classList.add("active");
+    }
+    allTaskFilterAmount.innerText = "0";
+    pendingTaskFilterAmount.innerText = "0";
+    scheduleTaskFilterAmount.innerText = "0";
+    expiredTaskFilterAmount.innerText = "0";
+    completedTaskFilterAmount.innerText = "0";
+    noTaskTextContainer.classList.remove("hide");
+  }, 400);
+}
 
 // Configuração do botão de anotações
 
