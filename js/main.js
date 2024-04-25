@@ -169,10 +169,9 @@ function confirmRemoveImg() {
 
 const nameInput = document.querySelector("#nameInput");
 const nameIdentIcon = document.querySelector("#nameIdentIcon");
-let dbInfoAccountName = [];
+
 if (localStorage.getItem("infoAccountName")) {
-  dbInfoAccountName = JSON.parse(localStorage.getItem("infoAccountName"));
-  nameInput.value = dbInfoAccountName[0].name.trim();
+  nameInput.value = localStorage.getItem("infoAccountName")
 }
 
 nameInput.addEventListener("blur", saveName);
@@ -187,19 +186,19 @@ nameInput.onfocus = () => {
   nameInput.classList.add("active");
 };
 
+function deleteName() {
+  nameInput.value = "Qual é o seu nome?";
+  localStorage.removeItem("infoAccountName");
+}
+
 function saveName() {
   nameIdentIcon.classList.remove("active");
   nameInput.classList.remove("active");
   if (nameInput.value.trim() == "" || nameInput.value == "Qual é o seu nome?") {
-    nameInput.value = "Qual é o seu nome?";
-    localStorage.removeItem("infoAccountName");
+    deleteName()
   } else {
-    const nameAccountSave = new Object();
-    dbInfoAccountName = [];
-    nameAccountSave.name = nameInput.value.trim();
     nameInput.value = nameInput.value.trim();
-    dbInfoAccountName.push(nameAccountSave);
-    localStorage.setItem("infoAccountName", JSON.stringify(dbInfoAccountName));
+    localStorage.setItem("infoAccountName", nameInput.value.trim());
   }
 }
 
@@ -1922,13 +1921,23 @@ function confirmRemoveAllTasks() {
 removeAllConfigBtn.addEventListener("click", () =>
   showConfirmWindow(
     "Esta ação irá excluir todas as configurações já realizadas e todas as tarefas, tem certeza?",
-    removeAllConfig
+    confirmRemoveAllConfig
   )
 );
 
 function removeAllConfig() {
+  removeAllTasks()
+  removeImg()
+  deleteName()
+  toLightTheme()
+  disableBtn(removeAllConfigBtn)
+}
+
+function confirmRemoveAllConfig() {
   hideConfirmWindow();
-  removeAlltasks();
+  setTimeout(() => {
+    removeAllConfig()
+  }, 200)
 }
 
 function disableBtn(btn) {
@@ -2644,24 +2653,36 @@ const html = document.querySelector("html");
 const themeCheckBox = document.querySelector("#themeCheckBox");
 const logoImgMobile = document.querySelector("#logoImgMobile");
 
-if (localStorage.getItem("theme")) {
-  themeCheckBox.checked = true;
+function toDarkTheme() {
   html.classList.add("darkTheme");
   scheduleInputDate.classList.add("darkTheme");
   scheduleInputTime.classList.add("darkTheme");
   logoImgMobile.src = "./img/logo_light_mobile.png";
+  localStorage.setItem("theme", "darkTheme");
+  themeCheckBox.checked = true;
+  if(removeAllConfigBtn.disabled) {
+    enableBtn(removeAllConfigBtn)
+  }
+}
+
+function toLightTheme() {
+  html.classList.remove("darkTheme");
+  scheduleInputDate.classList.remove("darkTheme");
+  scheduleInputTime.classList.remove("darkTheme");
+  logoImgMobile.src = "./img/logo_dark_mobile.png";
+  localStorage.removeItem("theme");
+  themeCheckBox.checked = false;
+}
+
+if (localStorage.getItem("theme")) {
+  toDarkTheme()
 }
 
 themeCheckBox.addEventListener("change", () => {
-  html.classList.toggle("darkTheme");
-  scheduleInputDate.classList.toggle("darkTheme");
-  scheduleInputTime.classList.toggle("darkTheme");
-  if (html.classList.contains("darkTheme")) {
-    localStorage.setItem("theme", "darkTheme");
-    logoImgMobile.src = "./img/logo_light_mobile.png";
+  if (!html.classList.contains("darkTheme")) {
+    toDarkTheme()
   } else {
-    localStorage.removeItem("theme");
-    logoImgMobile.src = "./img/logo_dark_mobile.png";
+    toLightTheme()
   }
 });
 
