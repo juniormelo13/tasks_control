@@ -6,6 +6,8 @@ newTaskInput.focus();
 
 // Campo onde as novas tarefas serão adicionadas
 const tasksContainer = document.querySelector("#tasksContainer");
+// Botão para exclusão de todas as tarefas
+const removeAllTaskBtn = document.querySelector("#removeAllTaskBtn");
 
 // Função para identificar se o campo de tarefas está vazio
 const noTaskTextContainer = document.querySelector("#noTaskTextContainer");
@@ -463,6 +465,7 @@ function insertTask() {
     }, 200);
     if (!noTaskTextContainer.classList.contains("hide")) {
       noTaskTextContainer.classList.add("hide");
+      enableBtn(removeAllTaskBtn)
     }
 
     // Texto da tarefa
@@ -1777,6 +1780,7 @@ const deleteClick = (taskField, infoTaskSave, notesInfo) => {
         }, 150);
         if (tasksContainer.childNodes.length <= 0) {
           noTaskTextContainer.classList.remove("hide");
+          disableBtn(removeAllTaskBtn)
         }
         if (filtred && inputValue != "") {
           taskFilter();
@@ -1861,6 +1865,7 @@ const deleteClick = (taskField, infoTaskSave, notesInfo) => {
         if (noTaskTextContainer.classList.contains("hide")) {
           noTaskTextContainer.classList.remove("hide");
         }
+        disableBtn(removeAllTaskBtn)
       }
       if (filtred && inputValue != "") {
         taskFilter();
@@ -1870,8 +1875,6 @@ const deleteClick = (taskField, infoTaskSave, notesInfo) => {
 };
 
 // Configuração do botão para exclusão de todas as tarefas
-
-const removeAllTaskBtn = document.querySelector("#removeAllTaskBtn");
 
 function showConfirmWindow(text, funct) {
   header.classList.add("pointerEventsNone");
@@ -1961,7 +1964,22 @@ function removeAlltasks() {
     expiredTaskFilterAmount.innerText = "0";
     completedTaskFilterAmount.innerText = "0";
     noTaskTextContainer.classList.remove("hide");
+    disableBtn(removeAllTaskBtn)
   }, 400);
+}
+
+function disableBtn(btn) {
+  btn.classList.remove("normalOpacity")
+  btn.classList.add("lowOpacity")
+  btn.classList.remove("hover")
+  btn.disabled = true
+}
+
+function enableBtn(btn) {
+  btn.classList.remove("lowOpacity")
+  btn.classList.add("normalOpacity")
+  btn.classList.add("hover")
+  btn.disabled = false
 }
 
 // Configuração do botão de anotações
@@ -2170,9 +2188,11 @@ function taskRecover() {
   }
   if (dbTasks.length == 0) {
     noTaskTextContainer.classList.remove("hide");
+    disableBtn(removeAllTaskBtn)
   } else {
     if (!noTaskTextContainer.classList.contains("hide")) {
       noTaskTextContainer.classList.add("hide");
+      enableBtn(removeAllTaskBtn)
     }
   }
   tasksContainer.innerHTML = "";

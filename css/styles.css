@@ -580,7 +580,6 @@ body {
   border: 2px solid var(--grey_50);
   border-radius: 5px;
   background-color: var(--white50_dark50);
-  cursor: pointer;
   transition: 0.2s;
 }
 
@@ -598,14 +597,15 @@ body {
   transition: 0.2s;
 }
 
-#removeAllTaskBtn:hover,
-#removeAllConfigBtn:hover {
+#removeAllTaskBtn.hover:hover,
+#removeAllConfigBtn.hover:hover {
+  cursor: pointer;
   background-color: var(--white_black);
   border: 2px solid var(--red);
 }
 
-#removeAllTaskBtn:hover i,
-#removeAllConfigBtn:hover i {
+#removeAllTaskBtn.hover:hover i,
+#removeAllConfigBtn.hover:hover i {
   color: var(--red);
 }
 
@@ -1373,11 +1373,11 @@ body {
   pointer-events: visible;
 }
 
-.taskField.lowOpacity {
+.lowOpacity {
   animation: lowOpacity 0.3s forwards;
 }
 
-.taskField.normalOpacity {
+.normalOpacity {
   animation: normalOpacity 0.3s forwards;
 }
 
