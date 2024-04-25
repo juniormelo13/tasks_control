@@ -138,6 +138,9 @@ function loadImage(e) {
     inputFileBtnPlus.classList.add("hide");
     inputFileBtnDel.classList.remove("hide");
     inputFileImgLabel.setAttribute("title", "Alterar foto");
+    if (removeAllConfigBtn.disabled) {
+      enableBtn(removeAllConfigBtn);
+    }
     inputFileImg.value = "";
   }
 }
@@ -162,6 +165,7 @@ function confirmRemoveImg() {
   hideConfirmWindow();
   setTimeout(() => {
     removeImg();
+    checkRemoveAllConfigBtn();
   }, 200);
 }
 
@@ -171,7 +175,7 @@ const nameInput = document.querySelector("#nameInput");
 const nameIdentIcon = document.querySelector("#nameIdentIcon");
 
 if (localStorage.getItem("infoAccountName")) {
-  nameInput.value = localStorage.getItem("infoAccountName")
+  nameInput.value = localStorage.getItem("infoAccountName");
 }
 
 nameInput.addEventListener("blur", saveName);
@@ -195,9 +199,13 @@ function saveName() {
   nameIdentIcon.classList.remove("active");
   nameInput.classList.remove("active");
   if (nameInput.value.trim() == "" || nameInput.value == "Qual é o seu nome?") {
-    deleteName()
+    deleteName();
+    checkRemoveAllConfigBtn();
   } else {
     nameInput.value = nameInput.value.trim();
+    if (removeAllConfigBtn.disabled) {
+      enableBtn(removeAllConfigBtn);
+    }
     localStorage.setItem("infoAccountName", nameInput.value.trim());
   }
 }
@@ -405,6 +413,9 @@ function insertTask() {
     if (!noTaskTextContainer.classList.contains("hide")) {
       noTaskTextContainer.classList.add("hide");
       enableBtn(removeAllTaskBtn);
+    }
+    if (removeAllConfigBtn.disabled) {
+      enableBtn(removeAllConfigBtn);
     }
 
     // Texto da tarefa
@@ -1717,9 +1728,10 @@ const deleteClick = (taskField, infoTaskSave, notesInfo) => {
             task.childNodes[1].classList.remove("pointerEventsNone");
           }
         }, 150);
-        if (tasksContainer.childNodes.length <= 0) {
+        if (tasksContainer.childNodes.length == 0) {
           noTaskTextContainer.classList.remove("hide");
           disableBtn(removeAllTaskBtn);
+          checkRemoveAllConfigBtn();
         }
         if (filtred && inputValue != "") {
           taskFilter();
@@ -1801,10 +1813,9 @@ const deleteClick = (taskField, infoTaskSave, notesInfo) => {
         }
       }, 150);
       if (tasksContainer.childNodes.length == 0) {
-        if (noTaskTextContainer.classList.contains("hide")) {
-          noTaskTextContainer.classList.remove("hide");
-        }
+        noTaskTextContainer.classList.remove("hide");
         disableBtn(removeAllTaskBtn);
+        checkRemoveAllConfigBtn();
       }
       if (filtred && inputValue != "") {
         taskFilter();
@@ -1839,8 +1850,8 @@ function showConfirmWindow(text, funct) {
     filterInformationBox.classList.add("filterInformationBlur");
   }
   confirmFieldText.innerText = text;
-  btnYes.addEventListener("click", funct);
-  btnNo.addEventListener("click", hideConfirmWindow);
+  btnYes.onclick = () => funct();
+  btnNo.onclick = () => hideConfirmWindow();
 }
 
 function hideConfirmWindow() {
@@ -1880,10 +1891,11 @@ function removeAllTasks() {
   for (const task of tasks) {
     task.classList.add("vanishTask");
   }
+  dbTasks.splice(0, dbTasks.length);
+  localStorage.setItem("tasks", JSON.stringify(dbTasks));
+  localStorage.removeItem("tasks");
+  disableBtn(removeAllTaskBtn);
   setTimeout(() => {
-    dbTasks.splice(0, dbTasks.length);
-    localStorage.setItem("tasks", JSON.stringify(dbTasks));
-    localStorage.removeItem("tasks");
     tasksContainer.innerHTML = "";
     if (filtred) {
       filterInformationBox.classList.remove("filterInformationOffBlur");
@@ -1905,7 +1917,6 @@ function removeAllTasks() {
     expiredTaskFilterAmount.innerText = "0";
     completedTaskFilterAmount.innerText = "0";
     noTaskTextContainer.classList.remove("hide");
-    disableBtn(removeAllTaskBtn);
   }, 200);
 }
 
@@ -1913,6 +1924,7 @@ function confirmRemoveAllTasks() {
   hideConfirmWindow();
   setTimeout(() => {
     removeAllTasks();
+    checkRemoveAllConfigBtn()
   }, 200);
 }
 
@@ -1926,18 +1938,26 @@ removeAllConfigBtn.addEventListener("click", () =>
 );
 
 function removeAllConfig() {
-  removeAllTasks()
-  removeImg()
-  deleteName()
-  toLightTheme()
-  disableBtn(removeAllConfigBtn)
+  if (localStorage.getItem("tasks")) {
+    removeAllTasks();
+  }
+  if (localStorage.getItem("infoAccountImg")) {
+    removeImg();
+  }
+  if (localStorage.getItem("infoAccountName")) {
+    deleteName();
+  }
+  if (localStorage.getItem("theme")) {
+    toLightTheme();
+  }
+  disableBtn(removeAllConfigBtn);
 }
 
 function confirmRemoveAllConfig() {
   hideConfirmWindow();
   setTimeout(() => {
-    removeAllConfig()
-  }, 200)
+    removeAllConfig();
+  }, 200);
 }
 
 function disableBtn(btn) {
@@ -1952,6 +1972,17 @@ function enableBtn(btn) {
   btn.classList.add("normalOpacity");
   btn.classList.add("hover");
   btn.disabled = false;
+}
+
+function checkRemoveAllConfigBtn() {
+  if (
+    !localStorage.getItem("tasks") &&
+    !localStorage.getItem("infoAccountImg") &&
+    !localStorage.getItem("infoAccountName") &&
+    !localStorage.getItem("theme")
+  ) {
+    disableBtn(removeAllConfigBtn);
+  }
 }
 
 // Configuração do botão de anotações
@@ -2164,9 +2195,10 @@ function taskRecover() {
   } else {
     if (!noTaskTextContainer.classList.contains("hide")) {
       noTaskTextContainer.classList.add("hide");
-      enableBtn(removeAllTaskBtn);
     }
+    enableBtn(removeAllTaskBtn);
   }
+  checkRemoveAllConfigBtn()
   tasksContainer.innerHTML = "";
   for (let i = 0; i < dbTasks.length; i++) {
     // Recuperação dos dados de cada tarefa no array e renderização em tela
@@ -2660,8 +2692,8 @@ function toDarkTheme() {
   logoImgMobile.src = "./img/logo_light_mobile.png";
   localStorage.setItem("theme", "darkTheme");
   themeCheckBox.checked = true;
-  if(removeAllConfigBtn.disabled) {
-    enableBtn(removeAllConfigBtn)
+  if (removeAllConfigBtn.disabled) {
+    enableBtn(removeAllConfigBtn);
   }
 }
 
@@ -2675,14 +2707,15 @@ function toLightTheme() {
 }
 
 if (localStorage.getItem("theme")) {
-  toDarkTheme()
+  toDarkTheme();
 }
 
 themeCheckBox.addEventListener("change", () => {
   if (!html.classList.contains("darkTheme")) {
-    toDarkTheme()
+    toDarkTheme();
   } else {
-    toLightTheme()
+    toLightTheme();
+    checkRemoveAllConfigBtn();
   }
 });
 
