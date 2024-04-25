@@ -244,7 +244,7 @@ body {
   transition: 0.3s;
 }
 
-#inputFileImgLabelBtn {
+#inputFileBtnPlus, #inputFileBtnDel {
   position: absolute;
   display: flex;
   justify-content: center;
@@ -267,7 +267,7 @@ body {
   cursor: pointer;
 }
 
-#imgIdentBox:hover #inputFileImgLabelBtn {
+#imgIdentBox:hover #inputFileBtnPlus, #imgIdentBox:hover #inputFileBtnDel {
   opacity: 1;
 }
 
@@ -1434,7 +1434,7 @@ body {
 .notesBtnAlert.hide,
 #noTaskTextContainer.hide,
 .taskField.hide,
-#searchCleanBtn.hide {
+#searchCleanBtn.hide, #inputFileBtnDel.hide, #inputFileBtnPlus.hide {
   display: none;
   pointer-events: none;
 }
@@ -1829,7 +1829,7 @@ body {
     color: var(--dark100_white100);
     box-shadow: 0 0 10px 2px var(--dark100_white100);
   }
-  #inputFileImgLabelBtn {
+  #inputFileBtnPlus, #inputFileBtnDel {
     opacity: 1;
   }
   .taskField {

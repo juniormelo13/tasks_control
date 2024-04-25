@@ -6,8 +6,12 @@ newTaskInput.focus();
 
 // Campo onde as novas tarefas serão adicionadas
 const tasksContainer = document.querySelector("#tasksContainer");
+
 // Botão para exclusão de todas as tarefas
 const removeAllTaskBtn = document.querySelector("#removeAllTaskBtn");
+
+// Botão para restaurar todas as configurações de fábrica
+const removeAllConfigBtn = document.querySelector("#removeAllConfigBtn");
 
 // Função para identificar se o campo de tarefas está vazio
 const noTaskTextContainer = document.querySelector("#noTaskTextContainer");
@@ -100,20 +104,17 @@ document.addEventListener("click", (e) => {
 const inputFileImg = document.querySelector("#inputFileImg");
 const uploadedImg = document.querySelector("#uploadedImg");
 const inputFileImgLabel = document.querySelector("#inputFileImgLabel");
-const inputFileImgLabelBtn = document.querySelector("#inputFileImgLabelBtn");
-const inputFileImgIcon = document.querySelector("#inputFileImgIcon");
+const inputFileBtnPlus = document.querySelector("#inputFileBtnPlus");
+const inputFileBtnDel = document.querySelector("#inputFileBtnDel");
 let dbInfoAccountImg = [];
 
 if (localStorage.getItem("infoAccountImg")) {
   dbInfoAccountImg = JSON.parse(localStorage.getItem("infoAccountImg"));
   window.onload = () => {
     uploadedImg.src = dbInfoAccountImg[0].img;
-    inputFileImgLabelBtn.removeAttribute("for");
-    inputFileImgLabelBtn.setAttribute("title", "Remover foto");
-    inputFileImgLabelBtn.setAttribute("onclick", "removeImgConfirm()");
+    inputFileBtnPlus.classList.add("hide");
+    inputFileBtnDel.classList.remove("hide");
     inputFileImgLabel.setAttribute("title", "Alterar foto");
-    inputFileImgIcon.classList.remove("fa-plus");
-    inputFileImgIcon.classList.add("fa-trash-can");
   };
 }
 
@@ -134,95 +135,34 @@ function loadImage(e) {
       localStorage.setItem("infoAccountImg", JSON.stringify(dbInfoAccountImg));
     };
     fileReader.readAsDataURL(selectedFile);
-    inputFileImgLabelBtn.removeAttribute("for");
-    inputFileImgLabelBtn.setAttribute("title", "Remover foto");
-    inputFileImgLabelBtn.setAttribute("onclick", "removeImgConfirm()");
+    inputFileBtnPlus.classList.add("hide");
+    inputFileBtnDel.classList.remove("hide");
     inputFileImgLabel.setAttribute("title", "Alterar foto");
-    inputFileImgIcon.classList.remove("fa-plus");
-    inputFileImgIcon.classList.add("fa-trash-can");
     inputFileImg.value = "";
   }
 }
 
 inputFileImg.addEventListener("change", loadImage);
+inputFileBtnDel.addEventListener("click", () =>
+  showConfirmWindow(
+    "Tem certeza de que deseja remover a foto de perfil?",
+    confirmRemoveImg
+  )
+);
 
-function removeImgConfirm() {
-  header.classList.add("pointerEventsNone");
-  tasksContainer.classList.add("tasksContainerHide");
-  noTaskTextContainer.classList.add("noTaskTextHide");
-  menu.classList.add("menuBlur");
-  if (filtred) {
-    filterInformationBox.classList.add("filterInformationBlur");
-  }
-  mainContainer.classList.add("pointerEventsNone");
-  confirmFieldText.innerText =
-    "Tem certeza de que deseja remover a foto de perfil?";
-  confirmField.classList.add("appearWindow");
-  confirmField.classList.remove("hide");
+function removeImg() {
+  localStorage.removeItem("infoAccountImg");
+  uploadedImg.src = "./img/profile-avatar.png";
+  inputFileBtnPlus.classList.remove("hide");
+  inputFileBtnDel.classList.add("hide");
+  inputFileImg.setAttribute("title", "Adicionar foto");
+}
 
-  btnYes.onclick = removeImg;
-  btnYes.focus();
-
-  function removeImg() {
-    confirmField.classList.remove("appearWindow");
-    confirmField.classList.add("vanishWindow");
-    tasksContainer.classList.remove("tasksContainerHide");
-    tasksContainer.classList.add("tasksContainerAppear");
-    noTaskTextContainer.classList.remove("noTaskTextHide");
-    noTaskTextContainer.classList.add("noTaskTextAppear");
-    menu.classList.remove("menuBlur");
-    menu.classList.add("menuOffBlur");
-    inputFileImgLabel.setAttribute("title", "Adicionar foto");
-    if (filtred) {
-      filterInformationBox.classList.remove("filterInformationBlur");
-      filterInformationBox.classList.add("filterInformationOffBlur");
-    }
-
-    setTimeout(() => {
-      header.classList.remove("pointerEventsNone");
-      mainContainer.classList.remove("pointerEventsNone");
-      confirmField.classList.remove("vanishWindow");
-      confirmField.classList.add("hide");
-      tasksContainer.classList.remove("tasksContainerAppear");
-      noTaskTextContainer.classList.remove("noTaskTextAppear");
-      menu.classList.remove("menuOffBlur");
-      filterInformationBox.classList.remove("filterInformationOffBlur");
-
-      localStorage.removeItem("infoAccountImg");
-      uploadedImg.src = "./img/profile-avatar.png";
-      inputFileImgLabelBtn.setAttribute("title", "Adicionar foto");
-      inputFileImg.setAttribute("title", "Adicionar foto");
-      inputFileImgLabelBtn.setAttribute("for", "inputFileImg");
-      inputFileImgLabelBtn.removeAttribute("onclick");
-      inputFileImgIcon.classList.remove("fa-trash-can");
-      inputFileImgIcon.classList.add("fa-plus");
-    }, 200);
-  }
-
-  btnNo.onclick = () => {
-    confirmField.classList.remove("appearWindow");
-    confirmField.classList.add("vanishWindow");
-    tasksContainer.classList.remove("tasksContainerHide");
-    tasksContainer.classList.add("tasksContainerAppear");
-    noTaskTextContainer.classList.remove("noTaskTextHide");
-    noTaskTextContainer.classList.add("noTaskTextAppear");
-    menu.classList.remove("menuBlur");
-    menu.classList.add("menuOffBlur");
-    if (filtred) {
-      filterInformationBox.classList.remove("filterInformationBlur");
-      filterInformationBox.classList.add("filterInformationOffBlur");
-    }
-    setTimeout(() => {
-      header.classList.remove("pointerEventsNone");
-      mainContainer.classList.remove("pointerEventsNone");
-      confirmField.classList.remove("vanishWindow");
-      confirmField.classList.add("hide");
-      tasksContainer.classList.remove("tasksContainerAppear");
-      noTaskTextContainer.classList.remove("noTaskTextAppear");
-      menu.classList.remove("menuOffBlur");
-      filterInformationBox.classList.remove("filterInformationOffBlur");
-    }, 200);
-  };
+function confirmRemoveImg() {
+  hideConfirmWindow();
+  setTimeout(() => {
+    removeImg();
+  }, 200);
 }
 
 // Nome do usuário
@@ -465,7 +405,7 @@ function insertTask() {
     }, 200);
     if (!noTaskTextContainer.classList.contains("hide")) {
       noTaskTextContainer.classList.add("hide");
-      enableBtn(removeAllTaskBtn)
+      enableBtn(removeAllTaskBtn);
     }
 
     // Texto da tarefa
@@ -1780,7 +1720,7 @@ const deleteClick = (taskField, infoTaskSave, notesInfo) => {
         }, 150);
         if (tasksContainer.childNodes.length <= 0) {
           noTaskTextContainer.classList.remove("hide");
-          disableBtn(removeAllTaskBtn)
+          disableBtn(removeAllTaskBtn);
         }
         if (filtred && inputValue != "") {
           taskFilter();
@@ -1865,7 +1805,7 @@ const deleteClick = (taskField, infoTaskSave, notesInfo) => {
         if (noTaskTextContainer.classList.contains("hide")) {
           noTaskTextContainer.classList.remove("hide");
         }
-        disableBtn(removeAllTaskBtn)
+        disableBtn(removeAllTaskBtn);
       }
       if (filtred && inputValue != "") {
         taskFilter();
@@ -1875,6 +1815,13 @@ const deleteClick = (taskField, infoTaskSave, notesInfo) => {
 };
 
 // Configuração do botão para exclusão de todas as tarefas
+
+removeAllTaskBtn.addEventListener("click", () =>
+  showConfirmWindow(
+    "Esta ação irá excluir todas as tarefas, tem certeza de que deseja removê-las?",
+    confirmRemoveAllTasks
+  )
+);
 
 function showConfirmWindow(text, funct) {
   header.classList.add("pointerEventsNone");
@@ -1929,28 +1876,23 @@ function hideConfirmWindow() {
   }, 200);
 }
 
-removeAllTaskBtn.addEventListener("click", () => showConfirmWindow("Esta ação irá excluir todas as tarefas, tem certeza de que deseja removê-las?", removeAlltasks));
-
-function removeAlltasks() {
+function removeAllTasks() {
   const tasks = tasksContainer.childNodes;
-  hideConfirmWindow()
-  setTimeout(() => {
-    for (const task of tasks) {
-      task.classList.add("vanishTask");
-    }
-  }, 200)
+  for (const task of tasks) {
+    task.classList.add("vanishTask");
+  }
   setTimeout(() => {
     dbTasks.splice(0, dbTasks.length);
     localStorage.setItem("tasks", JSON.stringify(dbTasks));
     localStorage.removeItem("tasks");
-    tasksContainer.innerHTML = ""
+    tasksContainer.innerHTML = "";
     if (filtred) {
       filterInformationBox.classList.remove("filterInformationOffBlur");
       filterInformationBox.classList.remove("filterInfoAppear");
       filterInformationBox.classList.add("filterInfoVanish");
       filtred = false;
     }
-    if(!allTaskFilter.classList.contains("active")) {
+    if (!allTaskFilter.classList.contains("active")) {
       for (const filter of filters) {
         if (filter.classList.contains("active")) {
           filter.classList.remove("active");
@@ -1964,22 +1906,43 @@ function removeAlltasks() {
     expiredTaskFilterAmount.innerText = "0";
     completedTaskFilterAmount.innerText = "0";
     noTaskTextContainer.classList.remove("hide");
-    disableBtn(removeAllTaskBtn)
-  }, 400);
+    disableBtn(removeAllTaskBtn);
+  }, 200);
+}
+
+function confirmRemoveAllTasks() {
+  hideConfirmWindow();
+  setTimeout(() => {
+    removeAllTasks();
+  }, 200);
+}
+
+// Configuração do botão para restaurar todas as configurações de fábrica
+
+removeAllConfigBtn.addEventListener("click", () =>
+  showConfirmWindow(
+    "Esta ação irá excluir todas as configurações já realizadas e todas as tarefas, tem certeza?",
+    removeAllConfig
+  )
+);
+
+function removeAllConfig() {
+  hideConfirmWindow();
+  removeAlltasks();
 }
 
 function disableBtn(btn) {
-  btn.classList.remove("normalOpacity")
-  btn.classList.add("lowOpacity")
-  btn.classList.remove("hover")
-  btn.disabled = true
+  btn.classList.remove("normalOpacity");
+  btn.classList.add("lowOpacity");
+  btn.classList.remove("hover");
+  btn.disabled = true;
 }
 
 function enableBtn(btn) {
-  btn.classList.remove("lowOpacity")
-  btn.classList.add("normalOpacity")
-  btn.classList.add("hover")
-  btn.disabled = false
+  btn.classList.remove("lowOpacity");
+  btn.classList.add("normalOpacity");
+  btn.classList.add("hover");
+  btn.disabled = false;
 }
 
 // Configuração do botão de anotações
@@ -2188,11 +2151,11 @@ function taskRecover() {
   }
   if (dbTasks.length == 0) {
     noTaskTextContainer.classList.remove("hide");
-    disableBtn(removeAllTaskBtn)
+    disableBtn(removeAllTaskBtn);
   } else {
     if (!noTaskTextContainer.classList.contains("hide")) {
       noTaskTextContainer.classList.add("hide");
-      enableBtn(removeAllTaskBtn)
+      enableBtn(removeAllTaskBtn);
     }
   }
   tasksContainer.innerHTML = "";
