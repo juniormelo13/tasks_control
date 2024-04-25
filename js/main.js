@@ -1926,12 +1926,7 @@ function hideConfirmWindow() {
   }, 200);
 }
 
-removeAllTaskBtn.addEventListener("click", () => {
-  showConfirmWindow(
-    "Esta ação irá excluir todas as tarefas, tem certeza de que deseja removê-las?",
-    removeAlltasks
-  );
-});
+removeAllTaskBtn.addEventListener("click", () => showConfirmWindow("Esta ação irá excluir todas as tarefas, tem certeza de que deseja removê-las?", removeAlltasks));
 
 function removeAlltasks() {
   const tasks = tasksContainer.childNodes;
