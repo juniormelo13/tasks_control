@@ -27,10 +27,49 @@ const btnNo = document.querySelector("#btnNo");
 
 // Variáveis para guardar tarefas no banco de dados (Local Storage)
 let dbTasks = [];
+
+// Variáveis dos filtros das tarefas
+const filterContainer = document.querySelector("#filterContainer");
+const allTaskFilter = document.querySelector("#allTaskFilter");
+const pendingTaskFilter = document.querySelector("#pendingTaskFilter");
+const scheduleTaskFilter = document.querySelector("#scheduleTaskFilter");
+const expiredTaskFilter = document.querySelector("#expiredTaskFilter");
+const completedTaskFilter = document.querySelector("#completedTaskFilter");
+const allTaskFilterAmount = document.querySelector("#allTaskFilterAmount");
+const pendingTaskFilterAmount = document.querySelector(
+  "#pendingTaskFilterAmount"
+);
+const scheduleTaskFilterAmount = document.querySelector(
+  "#scheduleTaskFilterAmount"
+);
+const expiredTaskFilterAmount = document.querySelector(
+  "#expiredTaskFilterAmount"
+);
+const completedTaskFilterAmount = document.querySelector(
+  "#completedTaskFilterAmount"
+);
+const filterInformationBox = document.querySelector("#filterInformationBox");
+const filterInformation = document.querySelector("#filterInformation");
+const cleanFilterBtn = document.querySelector("#filterCleanBtn");
+const searchTaskInput = document.querySelector("#searchTaskInput");
+const searchTaskInputBtn = document.querySelector("#searchCleanBtn");
+let inputValue = "";
+let filtred = false;
+let containsHide = [];
+const filters = filterContainer.children;
+let pendingTasks = dbTasks.filter((infoTaskSave) => !infoTaskSave.completeTask);
+let scheduledTasks = dbTasks.filter(
+  (infoTaskSave) => infoTaskSave.scheduledTask
+);
+let expiredTasks = dbTasks.filter((infoTaskSave) => infoTaskSave.expiredTask);
+let completedTasks = dbTasks.filter(
+  (infoTaskSave) => infoTaskSave.completeTask
+);
+
+// recuperação das tarefas e outras informações do banco de dados
 taskRecover();
 
 //Configuração do botão de Menu
-
 const menuBtn = document.querySelector("#menuButton");
 const menu = document.querySelector("#menu");
 const menuBtnIcon = document.querySelector("#menuButtonIcon");
@@ -100,7 +139,6 @@ document.addEventListener("click", (e) => {
 });
 
 // Configuração para guardar imagem do perfil do usuário no localStorage
-
 const inputFileImg = document.querySelector("#inputFileImg");
 const uploadedImg = document.querySelector("#uploadedImg");
 const inputFileImgLabel = document.querySelector("#inputFileImgLabel");
@@ -170,7 +208,6 @@ function confirmRemoveImg() {
 }
 
 // Nome do usuário
-
 const nameInput = document.querySelector("#nameInput");
 const nameIdentIcon = document.querySelector("#nameIdentIcon");
 
@@ -211,38 +248,6 @@ function saveName() {
 }
 
 // Filtros das tarefas
-const filterContainer = document.querySelector("#filterContainer");
-const allTaskFilter = document.querySelector("#allTaskFilter");
-const pendingTaskFilter = document.querySelector("#pendingTaskFilter");
-const scheduleTaskFilter = document.querySelector("#scheduleTaskFilter");
-const expiredTaskFilter = document.querySelector("#expiredTaskFilter");
-const completedTaskFilter = document.querySelector("#completedTaskFilter");
-const allTaskFilterAmount = document.querySelector("#allTaskFilterAmount");
-const pendingTaskFilterAmount = document.querySelector(
-  "#pendingTaskFilterAmount"
-);
-const scheduleTaskFilterAmount = document.querySelector(
-  "#scheduleTaskFilterAmount"
-);
-const expiredTaskFilterAmount = document.querySelector(
-  "#expiredTaskFilterAmount"
-);
-const completedTaskFilterAmount = document.querySelector(
-  "#completedTaskFilterAmount"
-);
-const filterInformationBox = document.querySelector("#filterInformationBox");
-const filterInformation = document.querySelector("#filterInformation");
-const cleanFilterBtn = document.querySelector("#filterCleanBtn");
-const filters = filterContainer.children;
-let pendingTasks = dbTasks.filter((infoTaskSave) => !infoTaskSave.completeTask);
-let scheduledTasks = dbTasks.filter(
-  (infoTaskSave) => infoTaskSave.scheduledTask
-);
-let expiredTasks = dbTasks.filter((infoTaskSave) => infoTaskSave.expiredTask);
-let completedTasks = dbTasks.filter(
-  (infoTaskSave) => infoTaskSave.completeTask
-);
-
 function checkAmountFilteredTasks() {
   pendingTasks = dbTasks.filter((infoTaskSave) => !infoTaskSave.completeTask);
   scheduledTasks = dbTasks.filter((infoTaskSave) => infoTaskSave.scheduledTask);
@@ -257,12 +262,6 @@ function checkAmountFilteredTasks() {
 
 allTaskFilter.classList.add("active");
 
-const searchTaskInput = document.querySelector("#searchTaskInput");
-const searchTaskInputBtn = document.querySelector("#searchCleanBtn");
-let inputValue = "";
-let filtred = false;
-let containsHide = [];
-
 function activateClassFilter(classFilter, funct) {
   for (const filter of filters) {
     if (filter.classList.contains("active")) {
@@ -275,16 +274,14 @@ function activateClassFilter(classFilter, funct) {
 
 searchTaskInput.onkeyup = () => {
   if (inputValue != searchTaskInput.value.trim()) {
-    filtred = true;
     inputValue = searchTaskInput.value.trim();
     if (inputValue.length >= 1) {
       filterInformation.innerText = searchTaskInput.value.trim();
     }
-    filterInformationBox.classList.remove("filterInfoVanish");
-    filterInformationBox.classList.add("filterInfoAppear");
     if (!allTaskFilter.classList.contains("active")) {
       activateClassFilter(allTaskFilter, allTaskFilterFunction);
     }
+    addFilterInfo();
     taskFilter();
   }
   if (searchTaskInput.value != "") {
@@ -293,13 +290,11 @@ searchTaskInput.onkeyup = () => {
     }
   } else {
     if (filtred) {
-      filterInformationBox.classList.remove("filterInfoAppear");
-      filterInformationBox.classList.add("filterInfoVanish");
+      removeFilterInfo();
     }
     if (!searchTaskInputBtn.classList.contains("hide")) {
       searchTaskInputBtn.classList.add("hide");
     }
-    filtred = false;
   }
 };
 
@@ -308,7 +303,6 @@ function taskFilter() {
   for (let i = 0; i < dbTasks.length; i++) {
     const infoTaskSave = dbTasks[i];
     const task = tasksContainer.childNodes[i];
-
     if (
       !infoTaskSave.taskContent
         .toLowerCase()
@@ -339,29 +333,19 @@ function taskFilter() {
   }
 }
 
-function cleanFilter() {
-  filtred = false;
-  inputValue = "";
-  searchTaskInput.value = "";
-  searchTaskInputBtn.classList.add("hide");
-  filterInformationBox.classList.remove("filterInfoAppear");
-  filterInformationBox.classList.add("filterInfoVanish");
-  for (const filter of filters) {
-    if (filter.classList.contains("active")) {
-      filter.classList.remove("active");
-    }
-  }
-  allTaskFilter.classList.add("active");
-  allTaskFilterFunction();
+function clearFilter() {
+  clearFilterInput();
+  removeFilterInfo();
+  activateClassFilter(allTaskFilter, allTaskFilterFunction);
 }
 
 searchTaskInputBtn.addEventListener("click", () => {
   searchTaskInput.focus();
-  cleanFilter();
+  clearFilter();
 });
 
 cleanFilterBtn.addEventListener("click", () => {
-  cleanFilter();
+  clearFilter();
 });
 
 // Botão para limpar o campo de texto principal
@@ -2192,6 +2176,208 @@ function cleanNoteClick(notePadInput, cleanNoteBtn, notePadContainer) {
   }, 300);
 }
 
+// Configuração dos filtros das tarefas
+
+function clearFilterInput() {
+  searchTaskInput.value = "";
+  inputValue = "";
+  searchTaskInputBtn.classList.add("hide");
+}
+
+function removeFilterInfo() {
+  filterInformationBox.classList.remove("filterInfoAppear");
+  filterInformationBox.classList.add("filterInfoVanish");
+  filtred = false;
+}
+
+function addFilterInfo() {
+  filterInformationBox.classList.remove("filterInfoVanish");
+  filterInformationBox.classList.add("filterInfoAppear");
+  filtred = true;
+}
+
+allTaskFilter.addEventListener("click", () => {
+  if (filtred && inputValue != "") {
+    clearFilterInput();
+  }
+  if (filtred) {
+    removeFilterInfo();
+  }
+  activateClassFilter(allTaskFilter, allTaskFilterFunction);
+});
+
+function allTaskFilterFunction() {
+  if (tasksContainer.childNodes.length != 0) {
+    noTaskTextContainer.classList.add("hide");
+  }
+  taskRecover();
+}
+
+pendingTaskFilter.addEventListener("click", () => {
+  if (filtred && inputValue != "") {
+    clearFilterInput();
+  }
+  if (!filtred) {
+    addFilterInfo();
+  }
+  filterInformation.innerText = "Pendentes";
+  activateClassFilter(pendingTaskFilter, pendingTaskFilterFunction);
+});
+
+function pendingTaskFilterFunction() {
+  for (i = 0; i < dbTasks.length; i++) {
+    const infoTaskSave = dbTasks[i];
+    const task = tasksContainer.childNodes[i];
+
+    if (pendingTasks.length != 0) {
+      noTaskTextContainer.classList.add("hide");
+    }
+    if (task.classList.contains("hide")) {
+      task.classList.remove("hide");
+    }
+    if (infoTaskSave.completeTask) {
+      task.classList.add("hide");
+    }
+    if (pendingTasks.length == 0) {
+      noTaskTextContainer.classList.remove("hide");
+    }
+  }
+}
+
+scheduleTaskFilter.addEventListener("click", () => {
+  if (filtred && inputValue != "") {
+    clearFilterInput();
+  }
+  if (!filtred) {
+    addFilterInfo();
+  }
+  filterInformation.innerText = "Agendadas";
+  activateClassFilter(scheduleTaskFilter, scheduleTaskFilterFunction);
+});
+
+function scheduleTaskFilterFunction() {
+  for (i = 0; i < dbTasks.length; i++) {
+    const infoTaskSave = dbTasks[i];
+    const task = tasksContainer.childNodes[i];
+
+    if (scheduledTasks.length != 0) {
+      noTaskTextContainer.classList.add("hide");
+    }
+    if (task.classList.contains("hide")) {
+      task.classList.remove("hide");
+    }
+    if (!infoTaskSave.scheduledTask) {
+      task.classList.add("hide");
+    }
+    if (scheduledTasks.length == 0) {
+      noTaskTextContainer.classList.remove("hide");
+    }
+  }
+}
+
+expiredTaskFilter.addEventListener("click", () => {
+  if (filtred && inputValue != "") {
+    clearFilterInput();
+  }
+  if (!filtred) {
+    addFilterInfo();
+  }
+  filterInformation.innerText = "Expiradas";
+  activateClassFilter(expiredTaskFilter, expiredTaskFilterFunction);
+});
+
+function expiredTaskFilterFunction() {
+  for (i = 0; i < dbTasks.length; i++) {
+    const infoTaskSave = dbTasks[i];
+    const task = tasksContainer.childNodes[i];
+
+    if (expiredTasks.length != 0) {
+      noTaskTextContainer.classList.add("hide");
+    }
+    if (task.classList.contains("hide")) {
+      task.classList.remove("hide");
+    }
+    if (!infoTaskSave.expiredTask) {
+      task.classList.add("hide");
+    }
+    if (expiredTasks.length == 0) {
+      noTaskTextContainer.classList.remove("hide");
+    }
+  }
+}
+
+completedTaskFilter.addEventListener("click", () => {
+  if (filtred && inputValue != "") {
+    clearFilterInput();
+  }
+  if (!filtred) {
+    addFilterInfo();
+  }
+  filterInformation.innerText = "Concluídas";
+  activateClassFilter(completedTaskFilter, completedTaskFilterFunction);
+});
+
+function completedTaskFilterFunction() {
+  for (i = 0; i < dbTasks.length; i++) {
+    const infoTaskSave = dbTasks[i];
+    const task = tasksContainer.childNodes[i];
+
+    if (completedTasks.length != 0) {
+      noTaskTextContainer.classList.add("hide");
+    }
+    if (task.classList.contains("hide")) {
+      task.classList.remove("hide");
+    }
+    if (!infoTaskSave.completeTask) {
+      task.classList.add("hide");
+    }
+    if (completedTasks.length == 0) {
+      noTaskTextContainer.classList.remove("hide");
+    }
+  }
+}
+
+// Configuração para alternar entre dark/white mode
+const html = document.querySelector("html");
+const themeCheckBox = document.querySelector("#themeCheckBox");
+const logoImgMobile = document.querySelector("#logoImgMobile");
+
+function toDarkTheme() {
+  html.classList.add("darkTheme");
+  scheduleInputDate.classList.add("darkTheme");
+  scheduleInputTime.classList.add("darkTheme");
+  logoImgMobile.src = "./img/logo_light_mobile.png";
+  localStorage.setItem("theme", "darkTheme");
+  themeCheckBox.checked = true;
+  if (removeAllConfigBtn.disabled) {
+    enableBtn(removeAllConfigBtn);
+  }
+}
+
+function toLightTheme() {
+  html.classList.remove("darkTheme");
+  scheduleInputDate.classList.remove("darkTheme");
+  scheduleInputTime.classList.remove("darkTheme");
+  logoImgMobile.src = "./img/logo_dark_mobile.png";
+  localStorage.removeItem("theme");
+  themeCheckBox.checked = false;
+}
+
+if (localStorage.getItem("theme")) {
+  toDarkTheme();
+}
+
+themeCheckBox.addEventListener("change", () => {
+  if (!html.classList.contains("darkTheme")) {
+    toDarkTheme();
+  } else {
+    toLightTheme();
+    checkRemoveAllConfigBtn();
+  }
+});
+
+// Função responsável por recuperar as tarefas e outras informações do banco de dados
+
 function taskRecover() {
   if (localStorage.getItem("tasks")) {
     dbTasks = JSON.parse(localStorage.getItem("tasks"));
@@ -2206,6 +2392,7 @@ function taskRecover() {
     enableBtn(removeAllTaskBtn);
   }
   checkRemoveAllConfigBtn();
+  checkAmountFilteredTasks();
   tasksContainer.innerHTML = "";
   for (let i = 0; i < dbTasks.length; i++) {
     // Recuperação dos dados de cada tarefa no array e renderização em tela
@@ -2494,238 +2681,6 @@ function taskRecover() {
   }
 }
 
-// Configuração dos filtros das tarefas
-
-allTaskFilter.addEventListener("click", () => {
-  if (filtred && inputValue != "") {
-    searchTaskInput.value = "";
-    inputValue = "";
-    searchTaskInputBtn.classList.add("hide");
-  }
-  for (const filter of filters) {
-    if (filter.classList.contains("active")) {
-      filter.classList.remove("active");
-    }
-  }
-  allTaskFilter.classList.add("active");
-  if (filtred) {
-    filterInformationBox.classList.remove("filterInfoAppear");
-    filterInformationBox.classList.add("filterInfoVanish");
-    filtred = false;
-  }
-  allTaskFilterFunction();
-});
-
-function allTaskFilterFunction() {
-  if (tasksContainer.childNodes.length != 0) {
-    noTaskTextContainer.classList.add("hide");
-  }
-  taskRecover();
-}
-
-pendingTaskFilter.addEventListener("click", () => {
-  if (filtred && inputValue != "") {
-    searchTaskInput.value = "";
-    inputValue = "";
-    searchTaskInputBtn.classList.add("hide");
-  }
-  for (const filter of filters) {
-    if (filter.classList.contains("active")) {
-      filter.classList.remove("active");
-    }
-  }
-  pendingTaskFilter.classList.add("active");
-  if (!filtred) {
-    filterInformationBox.classList.remove("filterInfoVanish");
-    filterInformationBox.classList.add("filterInfoAppear");
-    filtred = true;
-  }
-  filterInformation.innerText = "Pendentes";
-  pendingTaskFilterFunction();
-});
-
-function pendingTaskFilterFunction() {
-  for (i = 0; i < dbTasks.length; i++) {
-    const infoTaskSave = dbTasks[i];
-    const task = tasksContainer.childNodes[i];
-
-    if (pendingTasks.length != 0) {
-      noTaskTextContainer.classList.add("hide");
-    }
-    if (task.classList.contains("hide")) {
-      task.classList.remove("hide");
-    }
-    if (infoTaskSave.completeTask) {
-      task.classList.add("hide");
-    }
-    if (pendingTasks.length == 0) {
-      noTaskTextContainer.classList.remove("hide");
-    }
-  }
-}
-
-scheduleTaskFilter.addEventListener("click", () => {
-  if (filtred && inputValue != "") {
-    searchTaskInput.value = "";
-    inputValue = "";
-    searchTaskInputBtn.classList.add("hide");
-  }
-  for (const filter of filters) {
-    if (filter.classList.contains("active")) {
-      filter.classList.remove("active");
-    }
-  }
-  scheduleTaskFilter.classList.add("active");
-  if (!filtred) {
-    filterInformationBox.classList.remove("filterInfoVanish");
-    filterInformationBox.classList.add("filterInfoAppear");
-    filtred = true;
-  }
-  filterInformation.innerText = "Agendadas";
-  scheduleTaskFilterFunction();
-});
-
-function scheduleTaskFilterFunction() {
-  for (i = 0; i < dbTasks.length; i++) {
-    const infoTaskSave = dbTasks[i];
-    const task = tasksContainer.childNodes[i];
-
-    if (scheduledTasks.length != 0) {
-      noTaskTextContainer.classList.add("hide");
-    }
-    if (task.classList.contains("hide")) {
-      task.classList.remove("hide");
-    }
-    if (!infoTaskSave.scheduledTask) {
-      task.classList.add("hide");
-    }
-    if (scheduledTasks.length == 0) {
-      noTaskTextContainer.classList.remove("hide");
-    }
-  }
-}
-
-expiredTaskFilter.addEventListener("click", () => {
-  if (filtred && inputValue != "") {
-    searchTaskInput.value = "";
-    inputValue = "";
-    searchTaskInputBtn.classList.add("hide");
-  }
-  for (const filter of filters) {
-    if (filter.classList.contains("active")) {
-      filter.classList.remove("active");
-    }
-  }
-  expiredTaskFilter.classList.add("active");
-  if (!filtred) {
-    filterInformationBox.classList.remove("filterInfoVanish");
-    filterInformationBox.classList.add("filterInfoAppear");
-    filtred = true;
-  }
-  filterInformation.innerText = "Expiradas";
-  expiredTaskFilterFunction();
-});
-
-function expiredTaskFilterFunction() {
-  for (i = 0; i < dbTasks.length; i++) {
-    const infoTaskSave = dbTasks[i];
-    const task = tasksContainer.childNodes[i];
-
-    if (expiredTasks.length != 0) {
-      noTaskTextContainer.classList.add("hide");
-    }
-    if (task.classList.contains("hide")) {
-      task.classList.remove("hide");
-    }
-    if (!infoTaskSave.expiredTask) {
-      task.classList.add("hide");
-    }
-    if (expiredTasks.length == 0) {
-      noTaskTextContainer.classList.remove("hide");
-    }
-  }
-}
-
-completedTaskFilter.addEventListener("click", () => {
-  if (filtred && inputValue != "") {
-    searchTaskInput.value = "";
-    inputValue = "";
-    searchTaskInputBtn.classList.add("hide");
-  }
-  for (const filter of filters) {
-    if (filter.classList.contains("active")) {
-      filter.classList.remove("active");
-    }
-  }
-  completedTaskFilter.classList.add("active");
-  if (!filtred) {
-    filterInformationBox.classList.remove("filterInfoVanish");
-    filterInformationBox.classList.add("filterInfoAppear");
-    filtred = true;
-  }
-  filterInformation.innerText = "Concluídas";
-  completedTaskFilterFunction();
-});
-
-function completedTaskFilterFunction() {
-  for (i = 0; i < dbTasks.length; i++) {
-    const infoTaskSave = dbTasks[i];
-    const task = tasksContainer.childNodes[i];
-
-    if (completedTasks.length != 0) {
-      noTaskTextContainer.classList.add("hide");
-    }
-    if (task.classList.contains("hide")) {
-      task.classList.remove("hide");
-    }
-    if (!infoTaskSave.completeTask) {
-      task.classList.add("hide");
-    }
-    if (completedTasks.length == 0) {
-      noTaskTextContainer.classList.remove("hide");
-    }
-  }
-}
-
-// Configuração para alternar entre dark/white mode
-const html = document.querySelector("html");
-const themeCheckBox = document.querySelector("#themeCheckBox");
-const logoImgMobile = document.querySelector("#logoImgMobile");
-
-function toDarkTheme() {
-  html.classList.add("darkTheme");
-  scheduleInputDate.classList.add("darkTheme");
-  scheduleInputTime.classList.add("darkTheme");
-  logoImgMobile.src = "./img/logo_light_mobile.png";
-  localStorage.setItem("theme", "darkTheme");
-  themeCheckBox.checked = true;
-  if (removeAllConfigBtn.disabled) {
-    enableBtn(removeAllConfigBtn);
-  }
-}
-
-function toLightTheme() {
-  html.classList.remove("darkTheme");
-  scheduleInputDate.classList.remove("darkTheme");
-  scheduleInputTime.classList.remove("darkTheme");
-  logoImgMobile.src = "./img/logo_dark_mobile.png";
-  localStorage.removeItem("theme");
-  themeCheckBox.checked = false;
-}
-
-if (localStorage.getItem("theme")) {
-  toDarkTheme();
-}
-
-themeCheckBox.addEventListener("change", () => {
-  if (!html.classList.contains("darkTheme")) {
-    toDarkTheme();
-  } else {
-    toLightTheme();
-    checkRemoveAllConfigBtn();
-  }
-});
-
 // Verificação do status do agendamento em tempo real
 setInterval(() => {
   const currentFullDate = new Date();
@@ -2939,4 +2894,4 @@ setInterval(() => {
       localStorage.setItem("tasks", JSON.stringify(dbTasks));
     }
   }
-}, 0);
+}, 1000);
