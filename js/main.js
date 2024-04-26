@@ -143,14 +143,16 @@ const inputFileBtnPlus = document.querySelector("#inputFileBtnPlus");
 const inputFileBtnDel = document.querySelector("#inputFileBtnDel");
 let dbInfoAccountImg = [];
 
+function inputFileBtnToggle() {
+  inputFileBtnPlus.classList.toggle("hide");
+  inputFileBtnDel.classList.toggle("hide");
+}
+
 if (localStorage.getItem("infoAccountImg")) {
   dbInfoAccountImg = JSON.parse(localStorage.getItem("infoAccountImg"));
-  window.onload = () => {
-    uploadedImg.src = dbInfoAccountImg[0].img;
-    inputFileBtnPlus.classList.add("hide");
-    inputFileBtnDel.classList.remove("hide");
-    inputFileImgLabel.setAttribute("title", "Alterar foto");
-  };
+  uploadedImg.src = dbInfoAccountImg[0].img;
+  inputFileImgLabel.setAttribute("title", "Alterar foto");
+  inputFileBtnToggle()
 }
 
 function loadImage(e) {
@@ -170,9 +172,8 @@ function loadImage(e) {
       localStorage.setItem("infoAccountImg", JSON.stringify(dbInfoAccountImg));
     };
     fileReader.readAsDataURL(selectedFile);
-    inputFileBtnPlus.classList.add("hide");
-    inputFileBtnDel.classList.remove("hide");
     inputFileImgLabel.setAttribute("title", "Alterar foto");
+    inputFileBtnToggle()
     if (removeAllConfigBtn.disabled) {
       enableBtn(removeAllConfigBtn);
     }
@@ -191,8 +192,7 @@ inputFileBtnDel.addEventListener("click", () =>
 function removeImg() {
   localStorage.removeItem("infoAccountImg");
   uploadedImg.src = "./img/profile-avatar.png";
-  inputFileBtnPlus.classList.remove("hide");
-  inputFileBtnDel.classList.add("hide");
+  inputFileBtnToggle()
   inputFileImg.setAttribute("title", "Adicionar foto");
 }
 
