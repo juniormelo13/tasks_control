@@ -425,28 +425,28 @@ body {
   color: var(--dark100_white100);
 }
 
-#filterContainer #allTaskFilter:hover,
-#allTaskFilter.active {
+#filterContainer #allTasksFilterBtn:hover,
+#allTasksFilterBtn.active {
   border-left: 4px solid var(--dark100_white100);
 }
 
-#filterContainer #pendingTaskFilter:hover,
-#pendingTaskFilter.active {
+#filterContainer #pendingTasksFilterBtn:hover,
+#pendingTasksFilterBtn.active {
   border-left: 4px solid var(--yellow);
 }
 
-#filterContainer #completedTaskFilter:hover,
-#completedTaskFilter.active {
+#filterContainer #completedTasksFilterBtn:hover,
+#completedTasksFilterBtn.active {
   border-left: 4px solid var(--green);
 }
 
-#filterContainer #scheduleTaskFilter:hover,
-#scheduleTaskFilter.active {
+#filterContainer #scheduledTasksFilterBtn:hover,
+#scheduledTasksFilterBtn.active {
   border-left: 4px solid var(--blue);
 }
 
-#filterContainer #expiredTaskFilter:hover,
-#expiredTaskFilter.active {
+#filterContainer #expiredTasksFilterBtn:hover,
+#expiredTasksFilterBtn.active {
   border-left: 4px solid var(--red);
 }
 

@@ -26,28 +26,24 @@ const btnYes = document.querySelector("#btnYes");
 const btnNo = document.querySelector("#btnNo");
 
 // Variáveis para guardar tarefas no banco de dados (Local Storage)
-let dbTasks = [];
+let dbAllTasks = [];
 
 // Variáveis dos filtros das tarefas
 const filterContainer = document.querySelector("#filterContainer");
-const allTaskFilter = document.querySelector("#allTaskFilter");
-const pendingTaskFilter = document.querySelector("#pendingTaskFilter");
-const scheduleTaskFilter = document.querySelector("#scheduleTaskFilter");
-const expiredTaskFilter = document.querySelector("#expiredTaskFilter");
-const completedTaskFilter = document.querySelector("#completedTaskFilter");
-const allTaskFilterAmount = document.querySelector("#allTaskFilterAmount");
-const pendingTaskFilterAmount = document.querySelector(
-  "#pendingTaskFilterAmount"
+const allTasksFilterBtn = document.querySelector("#allTasksFilterBtn");
+const pendingTasksFilterBtn = document.querySelector("#pendingTasksFilterBtn");
+const scheduledTasksFilterBtn = document.querySelector(
+  "#scheduledTasksFilterBtn"
 );
-const scheduleTaskFilterAmount = document.querySelector(
-  "#scheduleTaskFilterAmount"
+const expiredTasksFilterBtn = document.querySelector("#expiredTasksFilterBtn");
+const completedTasksFilterBtn = document.querySelector(
+  "#completedTasksFilterBtn"
 );
-const expiredTaskFilterAmount = document.querySelector(
-  "#expiredTaskFilterAmount"
-);
-const completedTaskFilterAmount = document.querySelector(
-  "#completedTaskFilterAmount"
-);
+const amountAllTasks = document.querySelector("#amountAllTasks");
+const amountPendingTasks = document.querySelector("#amountPendingTasks");
+const amountScheduledTasks = document.querySelector("#amountScheduledTasks");
+const amountExpiredTasks = document.querySelector("#amountExpiredTasks");
+const amountCompletedTasks = document.querySelector("#amountCompletedTasks");
 const filterInformationBox = document.querySelector("#filterInformationBox");
 const filterInformation = document.querySelector("#filterInformation");
 const cleanFilterBtn = document.querySelector("#filterCleanBtn");
@@ -57,13 +53,17 @@ let inputValue = "";
 let filtred = false;
 let containsHide = [];
 const filters = filterContainer.children;
-let pendingTasks = dbTasks.filter((infoTaskSave) => !infoTaskSave.completeTask);
-let scheduledTasks = dbTasks.filter(
+let pendingTasks = dbAllTasks.filter(
+  (infoTaskSave) => !infoTaskSave.completedTask
+);
+let scheduledTasks = dbAllTasks.filter(
   (infoTaskSave) => infoTaskSave.scheduledTask
 );
-let expiredTasks = dbTasks.filter((infoTaskSave) => infoTaskSave.expiredTask);
-let completedTasks = dbTasks.filter(
-  (infoTaskSave) => infoTaskSave.completeTask
+let expiredTasks = dbAllTasks.filter(
+  (infoTaskSave) => infoTaskSave.expiredTask
+);
+let completedTasks = dbAllTasks.filter(
+  (infoTaskSave) => infoTaskSave.completedTask
 );
 
 // recuperação das tarefas e outras informações do banco de dados
@@ -91,7 +91,7 @@ function menuOpenFunction() {
   menu.classList.remove("hide");
   menu.classList.remove("menuVanish");
   menu.classList.add("menuAppear");
-  menuIconToggle()
+  menuIconToggle();
   menuBtn.disabled = false;
 }
 
@@ -100,7 +100,7 @@ function menuCloseFunction() {
   menu.classList.add("pointerEventsNone");
   menu.classList.remove("menuAppear");
   menu.classList.add("menuVanish");
-  menuIconToggle()
+  menuIconToggle();
   setTimeout(() => {
     menu.classList.add("hide");
     menuBtn.disabled = false;
@@ -152,7 +152,7 @@ if (localStorage.getItem("infoAccountImg")) {
   dbInfoAccountImg = JSON.parse(localStorage.getItem("infoAccountImg"));
   uploadedImg.src = dbInfoAccountImg[0].img;
   inputFileImgLabel.setAttribute("title", "Alterar foto");
-  inputFileBtnToggle()
+  inputFileBtnToggle();
 }
 
 function loadImage(e) {
@@ -173,7 +173,7 @@ function loadImage(e) {
     };
     fileReader.readAsDataURL(selectedFile);
     inputFileImgLabel.setAttribute("title", "Alterar foto");
-    inputFileBtnToggle()
+    inputFileBtnToggle();
     if (removeAllConfigBtn.disabled) {
       enableBtn(removeAllConfigBtn);
     }
@@ -192,7 +192,7 @@ inputFileBtnDel.addEventListener("click", () =>
 function removeImg() {
   localStorage.removeItem("infoAccountImg");
   uploadedImg.src = "./img/profile-avatar.png";
-  inputFileBtnToggle()
+  inputFileBtnToggle();
   inputFileImg.setAttribute("title", "Adicionar foto");
 }
 
@@ -245,28 +245,69 @@ function saveName() {
 }
 
 // Filtros das tarefas
-function checkAmountFilteredTasks() {
-  pendingTasks = dbTasks.filter((infoTaskSave) => !infoTaskSave.completeTask);
-  scheduledTasks = dbTasks.filter((infoTaskSave) => infoTaskSave.scheduledTask);
-  expiredTasks = dbTasks.filter((infoTaskSave) => infoTaskSave.expiredTask);
-  completedTasks = dbTasks.filter((infoTaskSave) => infoTaskSave.completeTask);
-  allTaskFilterAmount.innerText = tasksContainer.childNodes.length;
-  pendingTaskFilterAmount.innerText = pendingTasks.length;
-  scheduleTaskFilterAmount.innerText = scheduledTasks.length;
-  expiredTaskFilterAmount.innerText = expiredTasks.length;
-  completedTaskFilterAmount.innerText = completedTasks.length;
+allTasksFilterBtn.classList.add("active");
+
+function cleanInputFilter() {
+  searchTaskInput.value = "";
+  inputValue = "";
+  searchTaskInputBtn.classList.add("hide");
 }
 
-allTaskFilter.classList.add("active");
+function removeFilterInfo() {
+  filterInformationBox.classList.remove("filterInfoAppear");
+  filterInformationBox.classList.add("filterInfoVanish");
+  filtred = false;
+}
 
-function activateClassFilter(classFilter, funct) {
+function addFilterInfo() {
+  filterInformationBox.classList.remove("filterInfoVanish");
+  filterInformationBox.classList.add("filterInfoAppear");
+  filtred = true;
+}
+
+function removeFilter() {
+  if (filtred && inputValue != "") {
+    cleanInputFilter();
+  }
+  if (filtred) {
+    removeFilterInfo();
+  }
+}
+
+function addFilter() {
+  if (filtred && inputValue != "") {
+    cleanInputFilter();
+  }
+  if (!filtred) {
+    addFilterInfo();
+  }
+}
+
+function calculateNumberOfTasks() {
+  pendingTasks = dbAllTasks.filter(
+    (infoTaskSave) => !infoTaskSave.completedTask
+  );
+  scheduledTasks = dbAllTasks.filter(
+    (infoTaskSave) => infoTaskSave.scheduledTask
+  );
+  expiredTasks = dbAllTasks.filter((infoTaskSave) => infoTaskSave.expiredTask);
+  completedTasks = dbAllTasks.filter(
+    (infoTaskSave) => infoTaskSave.completedTask
+  );
+  amountAllTasks.innerText = tasksContainer.childNodes.length;
+  amountPendingTasks.innerText = pendingTasks.length;
+  amountScheduledTasks.innerText = scheduledTasks.length;
+  amountExpiredTasks.innerText = expiredTasks.length;
+  amountCompletedTasks.innerText = completedTasks.length;
+}
+
+function activateFilterBtn(filterBtn) {
   for (const filter of filters) {
     if (filter.classList.contains("active")) {
       filter.classList.remove("active");
     }
   }
-  classFilter.classList.add("active");
-  funct();
+  filterBtn.classList.add("active");
 }
 
 searchTaskInput.onkeyup = () => {
@@ -275,11 +316,11 @@ searchTaskInput.onkeyup = () => {
     if (inputValue.length >= 1) {
       filterInformation.innerText = searchTaskInput.value.trim();
     }
-    if (!allTaskFilter.classList.contains("active")) {
-      activateClassFilter(allTaskFilter, allTaskFilterFunction);
+    if (!allTasksFilterBtn.classList.contains("active")) {
+      activateFilterBtn(allTasksFilterBtn, taskRecover);
     }
     addFilterInfo();
-    taskFilter();
+    filterTaskByInput();
   }
   if (searchTaskInput.value != "") {
     if (searchTaskInputBtn.classList.contains("hide")) {
@@ -295,10 +336,10 @@ searchTaskInput.onkeyup = () => {
   }
 };
 
-function taskFilter() {
+function filterTaskByInput() {
   containsHide = [];
-  for (let i = 0; i < dbTasks.length; i++) {
-    const infoTaskSave = dbTasks[i];
+  for (let i = 0; i < dbAllTasks.length; i++) {
+    const infoTaskSave = dbAllTasks[i];
     const task = tasksContainer.childNodes[i];
     if (
       !infoTaskSave.taskContent
@@ -330,19 +371,55 @@ function taskFilter() {
   }
 }
 
-function clearFilter() {
-  clearFilterInput();
-  removeFilterInfo();
-  activateClassFilter(allTaskFilter, allTaskFilterFunction);
-}
-
 searchTaskInputBtn.addEventListener("click", () => {
   searchTaskInput.focus();
-  clearFilter();
+  removeFilter();
+  activateFilterBtn(allTasksFilterBtn);
+  taskRecover()
 });
 
 cleanFilterBtn.addEventListener("click", () => {
-  clearFilter();
+  removeFilter();
+  activateFilterBtn(allTasksFilterBtn);
+  taskRecover()
+});
+
+allTasksFilterBtn.addEventListener("click", () => {
+  removeFilter();
+  activateFilterBtn(allTasksFilterBtn);
+  taskRecover()
+});
+
+pendingTasksFilterBtn.addEventListener("click", () => {
+  addFilter();
+  filterInformation.innerText = "Pendentes";
+  activateFilterBtn(pendingTasksFilterBtn);
+  pendingTasksFilter()
+  checkTasksOnScreen(pendingTasks);
+});
+
+scheduledTasksFilterBtn.addEventListener("click", () => {
+  addFilter();
+  filterInformation.innerText = "Agendadas";
+  activateFilterBtn(scheduledTasksFilterBtn);
+  scheduledTasksFilter()
+  checkTasksOnScreen(scheduledTasks);
+});
+
+expiredTasksFilterBtn.addEventListener("click", () => {
+  addFilter();
+  filterInformation.innerText = "Expiradas";
+  activateFilterBtn(expiredTasksFilterBtn);
+  expiredTasksFilter()
+  checkTasksOnScreen(expiredTasks);
+});
+
+completedTasksFilterBtn.addEventListener("click", () => {
+  addFilter();
+  filterInformation.innerText = "Concluídas";
+  activateFilterBtn(completedTasksFilterBtn);
+  completedTaskFilter()
+  checkTasksOnScreen(completedTasks);
 });
 
 // Botão para limpar o campo de texto principal
@@ -420,10 +497,12 @@ function insertTask() {
     // Salvar tarefa no Local Storage
     const infoTaskSave = new Object();
     infoTaskSave.taskContent = taskContent.innerText;
-    dbTasks.unshift(infoTaskSave);
-    localStorage.setItem("tasks", JSON.stringify(dbTasks));
+    dbAllTasks.unshift(infoTaskSave);
+    localStorage.setItem("tasks", JSON.stringify(dbAllTasks));
 
-    pendingTasks = dbTasks.filter((infoTaskSave) => !infoTaskSave.completeTask);
+    pendingTasks = dbAllTasks.filter(
+      (infoTaskSave) => !infoTaskSave.completedTask
+    );
     if (filtred) {
       if (inputValue != "") {
         searchTaskInput.value = "";
@@ -435,37 +514,37 @@ function insertTask() {
           filter.classList.remove("active");
         }
       }
-      pendingTaskFilter.classList.add("active");
+      pendingTasksFilterBtn.classList.add("active");
       filterInformation.innerText = "Pendentes";
       tasksContainer.insertBefore(taskField, tasksContainer.childNodes[0]);
-      allTaskFilterAmount.innerText = tasksContainer.childNodes.length;
-      pendingTaskFilterAmount.innerText = pendingTasks.length;
-      pendingTaskFilterFunction();
+      amountAllTasks.innerText = tasksContainer.childNodes.length;
+      amountPendingTasks.innerText = pendingTasks.length;
+      pendingTasksFilter();
     } else {
       if (
-        allTaskFilter.classList.contains("active") ||
-        pendingTaskFilter.classList.contains("active")
+        allTasksFilterBtn.classList.contains("active") ||
+        pendingTasksFilterBtn.classList.contains("active")
       ) {
         tasksContainer.insertBefore(taskField, tasksContainer.childNodes[0]);
-        allTaskFilterAmount.innerText = tasksContainer.childNodes.length;
-        pendingTaskFilterAmount.innerText = pendingTasks.length;
+        amountAllTasks.innerText = tasksContainer.childNodes.length;
+        amountPendingTasks.innerText = pendingTasks.length;
       } else if (
-        !pendingTaskFilter.classList.contains("active") &&
-        !allTaskFilter.classList.contains("active")
+        !pendingTasksFilterBtn.classList.contains("active") &&
+        !allTasksFilterBtn.classList.contains("active")
       ) {
         for (const filter of filters) {
           if (filter.classList.contains("active")) {
             filter.classList.remove("active");
           }
         }
-        pendingTaskFilter.classList.add("active");
+        pendingTasksFilterBtn.classList.add("active");
         filterInformationBox.classList.remove("filterInfoVanish");
         filterInformationBox.classList.add("filterInfoAppear");
         filtred = true;
         tasksContainer.insertBefore(taskField, tasksContainer.childNodes[0]);
-        allTaskFilterAmount.innerText = tasksContainer.childNodes.length;
-        pendingTaskFilterAmount.innerText = pendingTasks.length;
-        pendingTaskFilterFunction();
+        amountAllTasks.innerText = tasksContainer.childNodes.length;
+        amountPendingTasks.innerText = pendingTasks.length;
+        pendingTasksFilter();
       }
     }
 
@@ -750,8 +829,8 @@ const completeClick = (
         delete infoTaskSave.expireAlert;
       }
       delete infoTaskSave.scheduledTask;
-      infoTaskSave.completeTask = true;
-      localStorage.setItem("tasks", JSON.stringify(dbTasks));
+      infoTaskSave.completedTask = true;
+      localStorage.setItem("tasks", JSON.stringify(dbAllTasks));
 
       setTimeout(() => {
         taskField.classList.add("vanishTask");
@@ -793,23 +872,23 @@ const completeClick = (
         schedulingRemoveBtn.classList.add("hide");
 
         checkBtn.setAttribute("title", "Restaurar");
-        pendingTasks = dbTasks.filter(
-          (infoTaskSave) => !infoTaskSave.completeTask
+        pendingTasks = dbAllTasks.filter(
+          (infoTaskSave) => !infoTaskSave.completedTask
         );
-        completedTasks = dbTasks.filter(
-          (infoTaskSave) => infoTaskSave.completeTask
+        completedTasks = dbAllTasks.filter(
+          (infoTaskSave) => infoTaskSave.completedTask
         );
-        scheduledTasks = dbTasks.filter(
+        scheduledTasks = dbAllTasks.filter(
           (infoTaskSave) => infoTaskSave.scheduledTask
         );
-        if (scheduleTaskFilter.classList.contains("active")) {
-          scheduleTaskFilterFunction();
-        } else if (pendingTaskFilter.classList.contains("active")) {
-          pendingTaskFilterFunction();
+        if (scheduledTasksFilterBtn.classList.contains("active")) {
+          scheduledTasksFilter();
+        } else if (pendingTasksFilterBtn.classList.contains("active")) {
+          pendingTasksFilter();
         }
-        pendingTaskFilterAmount.innerText = pendingTasks.length;
-        completedTaskFilterAmount.innerText = completedTasks.length;
-        scheduleTaskFilterAmount.innerText = scheduledTasks.length;
+        amountPendingTasks.innerText = pendingTasks.length;
+        amountCompletedTasks.innerText = completedTasks.length;
+        amountScheduledTasks.innerText = scheduledTasks.length;
       }, 500);
       setTimeout(() => {
         taskField.classList.remove("appearTask");
@@ -853,8 +932,8 @@ const completeClick = (
     if (infoTaskSave.expiredTask) {
       delete infoTaskSave.expiredTask;
     }
-    infoTaskSave.completeTask = true;
-    localStorage.setItem("tasks", JSON.stringify(dbTasks));
+    infoTaskSave.completedTask = true;
+    localStorage.setItem("tasks", JSON.stringify(dbAllTasks));
 
     setTimeout(() => {
       appointmentTime.innerText = "";
@@ -877,21 +956,23 @@ const completeClick = (
       infoTextContent.innerText = "Tarefa concluída";
       completedTaskIcon.classList.remove("hide");
       schedulingRemoveBtn.classList.add("hide");
-      pendingTasks = dbTasks.filter(
-        (infoTaskSave) => !infoTaskSave.completeTask
+      pendingTasks = dbAllTasks.filter(
+        (infoTaskSave) => !infoTaskSave.completedTask
       );
-      completedTasks = dbTasks.filter(
-        (infoTaskSave) => infoTaskSave.completeTask
+      completedTasks = dbAllTasks.filter(
+        (infoTaskSave) => infoTaskSave.completedTask
       );
-      expiredTasks = dbTasks.filter((infoTaskSave) => infoTaskSave.expiredTask);
-      if (expiredTaskFilter.classList.contains("active")) {
-        expiredTaskFilterFunction();
-      } else if (pendingTaskFilter.classList.contains("active")) {
-        pendingTaskFilterFunction();
+      expiredTasks = dbAllTasks.filter(
+        (infoTaskSave) => infoTaskSave.expiredTask
+      );
+      if (expiredTasksFilterBtn.classList.contains("active")) {
+        expiredTasksFilter();
+      } else if (pendingTasksFilterBtn.classList.contains("active")) {
+        pendingTasksFilter();
       }
-      pendingTaskFilterAmount.innerText = pendingTasks.length;
-      completedTaskFilterAmount.innerText = completedTasks.length;
-      expiredTaskFilterAmount.innerText = expiredTasks.length;
+      amountPendingTasks.innerText = pendingTasks.length;
+      amountCompletedTasks.innerText = completedTasks.length;
+      amountExpiredTasks.innerText = expiredTasks.length;
     }, 300);
     setTimeout(() => {
       taskField.classList.remove("appearTask");
@@ -913,8 +994,8 @@ const completeClick = (
       newTaskInput.blur();
 
       // Salvar ação no Local Storage
-      delete infoTaskSave.completeTask;
-      localStorage.setItem("tasks", JSON.stringify(dbTasks));
+      delete infoTaskSave.completedTask;
+      localStorage.setItem("tasks", JSON.stringify(dbAllTasks));
 
       setTimeout(() => {
         checkBtn.setAttribute("title", "Concluir");
@@ -933,17 +1014,17 @@ const completeClick = (
         taskField.classList.remove("vanishTask");
         taskField.classList.add("appearTask");
         checkBtn.disabled = false;
-        pendingTasks = dbTasks.filter(
-          (infoTaskSave) => !infoTaskSave.completeTask
+        pendingTasks = dbAllTasks.filter(
+          (infoTaskSave) => !infoTaskSave.completedTask
         );
-        completedTasks = dbTasks.filter(
-          (infoTaskSave) => infoTaskSave.completeTask
+        completedTasks = dbAllTasks.filter(
+          (infoTaskSave) => infoTaskSave.completedTask
         );
-        if (completedTaskFilter.classList.contains("active")) {
-          completedTaskFilterFunction();
+        if (completedTasksFilterBtn.classList.contains("active")) {
+          completedTaskFilter();
         }
-        pendingTaskFilterAmount.innerText = pendingTasks.length;
-        completedTaskFilterAmount.innerText = completedTasks.length;
+        amountPendingTasks.innerText = pendingTasks.length;
+        amountCompletedTasks.innerText = completedTasks.length;
       }, 300);
       setTimeout(() => {
         taskField.classList.remove("appearTask");
@@ -966,8 +1047,8 @@ const completeClick = (
       if (infoTaskSave.deletedInfoTask) {
         delete infoTaskSave.deletedInfoTask;
       }
-      infoTaskSave.completeTask = true;
-      localStorage.setItem("tasks", JSON.stringify(dbTasks));
+      infoTaskSave.completedTask = true;
+      localStorage.setItem("tasks", JSON.stringify(dbAllTasks));
 
       setTimeout(() => {
         taskField.classList.remove("vanishTask");
@@ -986,17 +1067,17 @@ const completeClick = (
         completedTaskIcon.classList.remove("hide");
         schedulingRemoveBtn.classList.add("hide");
         checkBtn.disabled = false;
-        pendingTasks = dbTasks.filter(
-          (infoTaskSave) => !infoTaskSave.completeTask
+        pendingTasks = dbAllTasks.filter(
+          (infoTaskSave) => !infoTaskSave.completedTask
         );
-        completedTasks = dbTasks.filter(
-          (infoTaskSave) => infoTaskSave.completeTask
+        completedTasks = dbAllTasks.filter(
+          (infoTaskSave) => infoTaskSave.completedTask
         );
-        if (pendingTaskFilter.classList.contains("active")) {
-          pendingTaskFilterFunction();
+        if (pendingTasksFilterBtn.classList.contains("active")) {
+          pendingTasksFilter();
         }
-        pendingTaskFilterAmount.innerText = pendingTasks.length;
-        completedTaskFilterAmount.innerText = completedTasks.length;
+        amountPendingTasks.innerText = pendingTasks.length;
+        amountCompletedTasks.innerText = completedTasks.length;
       }, 300);
       setTimeout(() => {
         taskField.classList.remove("appearTask");
@@ -1125,7 +1206,7 @@ function editTask(taskContent, infoTaskSave) {
 
     // Salvar ação no Local Storage
     infoTaskSave["taskContent"] = editInput.value;
-    localStorage.setItem("tasks", JSON.stringify(dbTasks));
+    localStorage.setItem("tasks", JSON.stringify(dbAllTasks));
 
     setTimeout(() => {
       editField.classList.remove("vanishWindow");
@@ -1548,13 +1629,13 @@ const confirmSchedule = (
       scheduleInputTimeValue,
       infoTextContent.innerText,
     ];
-    localStorage.setItem("tasks", JSON.stringify(dbTasks));
+    localStorage.setItem("tasks", JSON.stringify(dbAllTasks));
 
     setTimeout(() => {
-      scheduledTasks = dbTasks.filter(
+      scheduledTasks = dbAllTasks.filter(
         (infoTaskSave) => infoTaskSave.scheduledTask
       );
-      scheduleTaskFilterAmount.innerText = scheduledTasks.length;
+      amountScheduledTasks.innerText = scheduledTasks.length;
     }, 300);
   }
 };
@@ -1584,7 +1665,7 @@ const schedulingRemoveClick = (
   if (infoTaskSave.scheduledTask) {
     delete infoTaskSave.scheduledTask;
   }
-  localStorage.setItem("tasks", JSON.stringify(dbTasks));
+  localStorage.setItem("tasks", JSON.stringify(dbAllTasks));
 
   setTimeout(() => {
     appointmentTime.innerText = "";
@@ -1611,17 +1692,19 @@ const schedulingRemoveClick = (
     taskInfo.classList.add("hide");
     taskInfo.classList.remove("vanishTaskInfo");
     setTimeout(() => {
-      scheduledTasks = dbTasks.filter(
+      scheduledTasks = dbAllTasks.filter(
         (infoTaskSave) => infoTaskSave.scheduledTask
       );
-      expiredTasks = dbTasks.filter((infoTaskSave) => infoTaskSave.expiredTask);
-      if (scheduleTaskFilter.classList.contains("active")) {
-        scheduleTaskFilterFunction();
-      } else if (expiredTaskFilter.classList.contains("active")) {
-        expiredTaskFilterFunction();
+      expiredTasks = dbAllTasks.filter(
+        (infoTaskSave) => infoTaskSave.expiredTask
+      );
+      if (scheduledTasksFilterBtn.classList.contains("active")) {
+        scheduledTasksFilter();
+      } else if (expiredTasksFilterBtn.classList.contains("active")) {
+        expiredTasksFilter();
       }
-      scheduleTaskFilterAmount.innerText = scheduledTasks.length;
-      expiredTaskFilterAmount.innerText = expiredTasks.length;
+      amountScheduledTasks.innerText = scheduledTasks.length;
+      amountExpiredTasks.innerText = expiredTasks.length;
     }, 100);
   }, 200);
   setTimeout(() => {
@@ -1678,16 +1761,16 @@ const deleteClick = (taskField, infoTaskSave, notesInfo) => {
 
       // Salvar ação no Local Storage
       infoTaskSave.deletedInfoTask = true;
-      localStorage.setItem("tasks", JSON.stringify(dbTasks));
+      localStorage.setItem("tasks", JSON.stringify(dbAllTasks));
 
       setTimeout(() => {
         taskField.classList.add("vanishTask");
       }, 200);
       setTimeout(() => {
-        const index = dbTasks.indexOf(infoTaskSave);
-        dbTasks.splice(index, 1);
-        localStorage.setItem("tasks", JSON.stringify(dbTasks));
-        if (dbTasks.length < 1) {
+        const index = dbAllTasks.indexOf(infoTaskSave);
+        dbAllTasks.splice(index, 1);
+        localStorage.setItem("tasks", JSON.stringify(dbAllTasks));
+        if (dbAllTasks.length < 1) {
           localStorage.removeItem("tasks");
         }
         taskField.remove();
@@ -1700,20 +1783,20 @@ const deleteClick = (taskField, infoTaskSave, notesInfo) => {
         mainContainer.classList.remove("pointerEventsNone");
         tasksContainer.classList.remove("tasksContainerAppear");
         confirmField.classList.remove("vanishWindow");
-        pendingTasks = dbTasks.filter(
-          (infoTaskSave) => !infoTaskSave.completeTask
+        pendingTasks = dbAllTasks.filter(
+          (infoTaskSave) => !infoTaskSave.completedTask
         );
-        scheduledTasks = dbTasks.filter(
+        scheduledTasks = dbAllTasks.filter(
           (infoTaskSave) => infoTaskSave.scheduledTask
         );
-        if (scheduleTaskFilter.classList.contains("active")) {
-          scheduleTaskFilterFunction();
-        } else if (pendingTaskFilter.classList.contains("active")) {
-          pendingTaskFilterFunction();
+        if (scheduledTasksFilterBtn.classList.contains("active")) {
+          scheduledTasksFilter();
+        } else if (pendingTasksFilterBtn.classList.contains("active")) {
+          pendingTasksFilter();
         }
-        allTaskFilterAmount.innerText = tasksContainer.childNodes.length;
-        pendingTaskFilterAmount.innerText = pendingTasks.length;
-        scheduleTaskFilterAmount.innerText = scheduledTasks.length;
+        amountAllTasks.innerText = tasksContainer.childNodes.length;
+        amountPendingTasks.innerText = pendingTasks.length;
+        amountScheduledTasks.innerText = scheduledTasks.length;
         setTimeout(() => {
           for (const task of tasks) {
             task.classList.add("hover");
@@ -1726,7 +1809,7 @@ const deleteClick = (taskField, infoTaskSave, notesInfo) => {
           checkRemoveAllConfigBtn();
         }
         if (filtred && inputValue != "") {
-          taskFilter();
+          filterTaskByInput();
         }
       }, 550);
     }
@@ -1762,42 +1845,44 @@ const deleteClick = (taskField, infoTaskSave, notesInfo) => {
 
     // Salvar ação no Local Storage
     infoTaskSave.deletedInfoTask = true;
-    localStorage.setItem("tasks", JSON.stringify(dbTasks));
+    localStorage.setItem("tasks", JSON.stringify(dbAllTasks));
 
     setTimeout(() => {
-      const index = dbTasks.indexOf(infoTaskSave);
-      dbTasks.splice(index, 1);
-      localStorage.setItem("tasks", JSON.stringify(dbTasks));
-      if (dbTasks.length < 1) {
+      const index = dbAllTasks.indexOf(infoTaskSave);
+      dbAllTasks.splice(index, 1);
+      localStorage.setItem("tasks", JSON.stringify(dbAllTasks));
+      if (dbAllTasks.length < 1) {
         localStorage.removeItem("tasks");
       }
       taskField.remove();
-      pendingTasks = dbTasks.filter(
-        (infoTaskSave) => !infoTaskSave.completeTask
+      pendingTasks = dbAllTasks.filter(
+        (infoTaskSave) => !infoTaskSave.completedTask
       );
-      completedTasks = dbTasks.filter(
-        (infoTaskSave) => infoTaskSave.completeTask
+      completedTasks = dbAllTasks.filter(
+        (infoTaskSave) => infoTaskSave.completedTask
       );
-      expiredTasks = dbTasks.filter((infoTaskSave) => infoTaskSave.expiredTask);
-      scheduledTasks = dbTasks.filter(
+      expiredTasks = dbAllTasks.filter(
+        (infoTaskSave) => infoTaskSave.expiredTask
+      );
+      scheduledTasks = dbAllTasks.filter(
         (infoTaskSave) => infoTaskSave.scheduledTask
       );
-      if (expiredTaskFilter.classList.contains("active")) {
-        expiredTaskFilterFunction();
-        expiredTaskFilterAmount.innerText = expiredTasks.length;
-      } else if (completedTaskFilter.classList.contains("active")) {
-        completedTaskFilterFunction();
-        completedTaskFilterAmount.innerText = completedTasks.length;
-      } else if (pendingTaskFilter.classList.contains("active")) {
-        pendingTaskFilterFunction();
-        expiredTaskFilterAmount.innerText = expiredTasks.length;
-        completedTaskFilterAmount.innerText = completedTasks.length;
+      if (expiredTasksFilterBtn.classList.contains("active")) {
+        expiredTasksFilter();
+        amountExpiredTasks.innerText = expiredTasks.length;
+      } else if (completedTasksFilterBtn.classList.contains("active")) {
+        completedTaskFilter();
+        amountCompletedTasks.innerText = completedTasks.length;
+      } else if (pendingTasksFilterBtn.classList.contains("active")) {
+        pendingTasksFilter();
+        amountExpiredTasks.innerText = expiredTasks.length;
+        amountCompletedTasks.innerText = completedTasks.length;
       } else {
-        expiredTaskFilterAmount.innerText = expiredTasks.length;
-        completedTaskFilterAmount.innerText = completedTasks.length;
+        amountExpiredTasks.innerText = expiredTasks.length;
+        amountCompletedTasks.innerText = completedTasks.length;
       }
-      allTaskFilterAmount.innerText = tasksContainer.childNodes.length;
-      pendingTaskFilterAmount.innerText = pendingTasks.length;
+      amountAllTasks.innerText = tasksContainer.childNodes.length;
+      amountPendingTasks.innerText = pendingTasks.length;
       setTimeout(() => {
         for (const task of tasks) {
           task.classList.add("hover");
@@ -1810,7 +1895,7 @@ const deleteClick = (taskField, infoTaskSave, notesInfo) => {
         checkRemoveAllConfigBtn();
       }
       if (filtred && inputValue != "") {
-        taskFilter();
+        filterTaskByInput();
       }
     }, 350);
   }
@@ -1883,8 +1968,8 @@ function removeAllTasks() {
   for (const task of tasks) {
     task.classList.add("vanishTask");
   }
-  dbTasks.splice(0, dbTasks.length);
-  localStorage.setItem("tasks", JSON.stringify(dbTasks));
+  dbAllTasks.splice(0, dbAllTasks.length);
+  localStorage.setItem("tasks", JSON.stringify(dbAllTasks));
   localStorage.removeItem("tasks");
   disableBtn(removeAllTaskBtn);
   setTimeout(() => {
@@ -1895,15 +1980,15 @@ function removeAllTasks() {
       filterInformationBox.classList.add("filterInfoVanish");
       filtred = false;
     }
-    if (!allTaskFilter.classList.contains("active")) {
+    if (!allTasksFilterBtn.classList.contains("active")) {
       for (const filter of filters) {
         if (filter.classList.contains("active")) {
           filter.classList.remove("active");
         }
       }
-      allTaskFilter.classList.add("active");
+      allTasksFilterBtn.classList.add("active");
     }
-    checkAmountFilteredTasks();
+    calculateNumberOfTasks();
     noTaskTextContainer.classList.remove("hide");
   }, 200);
 }
@@ -2101,7 +2186,7 @@ function saveNoteClick(
   if (notesInfo.innerText != "" && !inputEquality) {
     // Salvar ação no Local Storage
     infoTaskSave.savedNote = [true, notesInfo.innerText];
-    localStorage.setItem("tasks", JSON.stringify(dbTasks));
+    localStorage.setItem("tasks", JSON.stringify(dbAllTasks));
 
     setTimeout(() => {
       const tasks = tasksContainer.childNodes;
@@ -2133,7 +2218,7 @@ function saveNoteClick(
       // Salvar ação no Local Storage
       if (infoTaskSave.savedNote) {
         delete infoTaskSave.savedNote;
-        localStorage.setItem("tasks", JSON.stringify(dbTasks));
+        localStorage.setItem("tasks", JSON.stringify(dbAllTasks));
       }
     }
     setTimeout(() => {
@@ -2175,161 +2260,90 @@ function cleanNoteClick(notePadInput, cleanNoteBtn, notePadContainer) {
 
 // Configuração dos filtros das tarefas
 
-function clearFilterInput() {
-  searchTaskInput.value = "";
-  inputValue = "";
-  searchTaskInputBtn.classList.add("hide");
-}
-
-function removeFilterInfo() {
-  filterInformationBox.classList.remove("filterInfoAppear");
-  filterInformationBox.classList.add("filterInfoVanish");
-  filtred = false;
-}
-
-function addFilterInfo() {
-  filterInformationBox.classList.remove("filterInfoVanish");
-  filterInformationBox.classList.add("filterInfoAppear");
-  filtred = true;
-}
-
-allTaskFilter.addEventListener("click", () => {
-  if (filtred && inputValue != "") {
-    clearFilterInput();
-  }
-  if (filtred) {
-    removeFilterInfo();
-  }
-  activateClassFilter(allTaskFilter, allTaskFilterFunction);
-});
-
-function allTaskFilterFunction() {
-  if (tasksContainer.childNodes.length != 0) {
+function checkTasksOnScreen(taskClass) {
+  if (taskClass.length > 0) {
     noTaskTextContainer.classList.add("hide");
+  } else {
+    noTaskTextContainer.classList.remove("hide");
   }
-  taskRecover();
 }
 
-pendingTaskFilter.addEventListener("click", () => {
-  if (filtred && inputValue != "") {
-    clearFilterInput();
-  }
-  if (!filtred) {
-    addFilterInfo();
-  }
-  filterInformation.innerText = "Pendentes";
-  activateClassFilter(pendingTaskFilter, pendingTaskFilterFunction);
-});
-
-function pendingTaskFilterFunction() {
-  for (i = 0; i < dbTasks.length; i++) {
-    const infoTaskSave = dbTasks[i];
+function filterTaskByClass(taskClass) {
+  for (i = 0; i < dbAllTasks.length; i++) {
+    const infoTaskSave = dbAllTasks[i];
     const task = tasksContainer.childNodes[i];
+    if (infoTaskSave.completedTask) {
+      if (infoTaskSave.completedTask) {
+        task.classList.add("hide");
+      } else {
+        if (task.classList.contains("hide")) {
+          task.classList.remove("hide");
+        }
+      }
+    } else {
+      if (!infoTaskSave.taskClass) {
+        task.classList.add("hide");
+      } else {
+        if (task.classList.contains("hide")) {
+          task.classList.remove("hide");
+        }
+      }
+    }
+  }
+}
 
-    if (pendingTasks.length != 0) {
-      noTaskTextContainer.classList.add("hide");
-    }
-    if (task.classList.contains("hide")) {
-      task.classList.remove("hide");
-    }
-    if (infoTaskSave.completeTask) {
+function pendingTasksFilter() {
+  for (i = 0; i < dbAllTasks.length; i++) {
+    const infoTaskSave = dbAllTasks[i];
+    const task = tasksContainer.childNodes[i];
+    if (infoTaskSave.completedTask) {
       task.classList.add("hide");
-    }
-    if (pendingTasks.length == 0) {
-      noTaskTextContainer.classList.remove("hide");
+    } else {
+      if (task.classList.contains("hide")) {
+        task.classList.remove("hide");
+      }
     }
   }
 }
 
-scheduleTaskFilter.addEventListener("click", () => {
-  if (filtred && inputValue != "") {
-    clearFilterInput();
-  }
-  if (!filtred) {
-    addFilterInfo();
-  }
-  filterInformation.innerText = "Agendadas";
-  activateClassFilter(scheduleTaskFilter, scheduleTaskFilterFunction);
-});
-
-function scheduleTaskFilterFunction() {
-  for (i = 0; i < dbTasks.length; i++) {
-    const infoTaskSave = dbTasks[i];
+function scheduledTasksFilter() {
+  for (i = 0; i < dbAllTasks.length; i++) {
+    const infoTaskSave = dbAllTasks[i];
     const task = tasksContainer.childNodes[i];
-
-    if (scheduledTasks.length != 0) {
-      noTaskTextContainer.classList.add("hide");
-    }
-    if (task.classList.contains("hide")) {
-      task.classList.remove("hide");
-    }
     if (!infoTaskSave.scheduledTask) {
       task.classList.add("hide");
-    }
-    if (scheduledTasks.length == 0) {
-      noTaskTextContainer.classList.remove("hide");
+    } else {
+      if (task.classList.contains("hide")) {
+        task.classList.remove("hide");
+      }
     }
   }
 }
 
-expiredTaskFilter.addEventListener("click", () => {
-  if (filtred && inputValue != "") {
-    clearFilterInput();
-  }
-  if (!filtred) {
-    addFilterInfo();
-  }
-  filterInformation.innerText = "Expiradas";
-  activateClassFilter(expiredTaskFilter, expiredTaskFilterFunction);
-});
-
-function expiredTaskFilterFunction() {
-  for (i = 0; i < dbTasks.length; i++) {
-    const infoTaskSave = dbTasks[i];
+function expiredTasksFilter() {
+  for (i = 0; i < dbAllTasks.length; i++) {
+    const infoTaskSave = dbAllTasks[i];
     const task = tasksContainer.childNodes[i];
-
-    if (expiredTasks.length != 0) {
-      noTaskTextContainer.classList.add("hide");
-    }
-    if (task.classList.contains("hide")) {
-      task.classList.remove("hide");
-    }
     if (!infoTaskSave.expiredTask) {
       task.classList.add("hide");
-    }
-    if (expiredTasks.length == 0) {
-      noTaskTextContainer.classList.remove("hide");
+    } else {
+      if (task.classList.contains("hide")) {
+        task.classList.remove("hide");
+      }
     }
   }
 }
 
-completedTaskFilter.addEventListener("click", () => {
-  if (filtred && inputValue != "") {
-    clearFilterInput();
-  }
-  if (!filtred) {
-    addFilterInfo();
-  }
-  filterInformation.innerText = "Concluídas";
-  activateClassFilter(completedTaskFilter, completedTaskFilterFunction);
-});
-
-function completedTaskFilterFunction() {
-  for (i = 0; i < dbTasks.length; i++) {
-    const infoTaskSave = dbTasks[i];
+function completedTaskFilter() {
+  for (i = 0; i < dbAllTasks.length; i++) {
+    const infoTaskSave = dbAllTasks[i];
     const task = tasksContainer.childNodes[i];
-
-    if (completedTasks.length != 0) {
-      noTaskTextContainer.classList.add("hide");
-    }
-    if (task.classList.contains("hide")) {
-      task.classList.remove("hide");
-    }
-    if (!infoTaskSave.completeTask) {
+    if (!infoTaskSave.completedTask) {
       task.classList.add("hide");
-    }
-    if (completedTasks.length == 0) {
-      noTaskTextContainer.classList.remove("hide");
+    } else {
+      if (task.classList.contains("hide")) {
+        task.classList.remove("hide");
+      }
     }
   }
 }
@@ -2377,9 +2391,9 @@ themeCheckBox.addEventListener("change", () => {
 
 function taskRecover() {
   if (localStorage.getItem("tasks")) {
-    dbTasks = JSON.parse(localStorage.getItem("tasks"));
+    dbAllTasks = JSON.parse(localStorage.getItem("tasks"));
   }
-  if (dbTasks.length == 0) {
+  if (dbAllTasks.length == 0) {
     noTaskTextContainer.classList.remove("hide");
     disableBtn(removeAllTaskBtn);
   } else {
@@ -2389,12 +2403,12 @@ function taskRecover() {
     enableBtn(removeAllTaskBtn);
   }
   checkRemoveAllConfigBtn();
-  checkAmountFilteredTasks();
+  calculateNumberOfTasks();
   tasksContainer.innerHTML = "";
-  for (let i = 0; i < dbTasks.length; i++) {
+  for (let i = 0; i < dbAllTasks.length; i++) {
     // Recuperação dos dados de cada tarefa no array e renderização em tela
 
-    const infoTaskSave = dbTasks[i];
+    const infoTaskSave = dbAllTasks[i];
 
     // Tarefa
     const taskField = document.createElement("div");
@@ -2617,7 +2631,7 @@ function taskRecover() {
       deleteClick(taskField, infoTaskSave, notesInfo)
     );
 
-    switch (infoTaskSave.completeTask) {
+    switch (infoTaskSave.completedTask) {
       case true:
         taskContent.classList.toggle("completed");
         taskField.classList.toggle("completed");
@@ -2683,9 +2697,9 @@ setInterval(() => {
   const currentFullDate = new Date();
   const currentDate = currentFullDate.toLocaleDateString("fr-CA");
 
-  for (let i = 0; i < dbTasks.length; i++) {
+  for (let i = 0; i < dbAllTasks.length; i++) {
     const task = tasksContainer.childNodes[i];
-    const infoTaskSave = dbTasks[i];
+    const infoTaskSave = dbAllTasks[i];
 
     if (infoTaskSave.scheduledTask || infoTaskSave.expiredTask) {
       const taskInfo = task.childNodes[2];
@@ -2728,19 +2742,19 @@ setInterval(() => {
         }
 
         // Filtro de tarefas
-        expiredTasks = dbTasks.filter(
+        expiredTasks = dbAllTasks.filter(
           (infoTaskSave) => infoTaskSave.expiredTask
         );
-        scheduledTasks = dbTasks.filter(
+        scheduledTasks = dbAllTasks.filter(
           (infoTaskSave) => infoTaskSave.scheduledTask
         );
-        if (expiredTaskFilter.classList.contains("active")) {
-          expiredTaskFilterFunction();
-        } else if (scheduleTaskFilter.classList.contains("active")) {
-          scheduleTaskFilterFunction();
+        if (expiredTasksFilterBtn.classList.contains("active")) {
+          expiredTasksFilter();
+        } else if (scheduledTasksFilterBtn.classList.contains("active")) {
+          scheduledTasksFilter();
         }
-        expiredTaskFilterAmount.innerText = expiredTasks.length;
-        scheduleTaskFilterAmount.innerText = scheduledTasks.length;
+        amountExpiredTasks.innerText = expiredTasks.length;
+        amountScheduledTasks.innerText = scheduledTasks.length;
 
         // Renderização na tela
         taskInfo.classList.remove("scheduled");
@@ -2888,7 +2902,7 @@ setInterval(() => {
       if (infoTaskSave.scheduledTask) {
         infoTaskSave.scheduledTask[3] = infoTextContent.innerText;
       }
-      localStorage.setItem("tasks", JSON.stringify(dbTasks));
+      localStorage.setItem("tasks", JSON.stringify(dbAllTasks));
     }
   }
 }, 1000);
