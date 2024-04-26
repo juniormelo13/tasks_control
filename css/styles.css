@@ -1437,6 +1437,7 @@ body {
 #searchCleanBtn.hide, #inputFileBtnDel.hide, #inputFileBtnPlus.hide {
   display: none;
   pointer-events: none;
+  user-select: none;
 }
 
 /* Animações */

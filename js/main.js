@@ -76,36 +76,33 @@ const menuBtnIcon = document.querySelector("#menuButtonIcon");
 const menuBtnIconMobile = document.querySelector("#menuButtonIconMobile");
 let menuOpen = false;
 
-function menuOpenFunction() {
-  menuOpen = !menuOpen;
-  menu.classList.remove("hide");
-  menu.classList.add("menuAppear");
+function menuIconToggle() {
   menuBtnIcon.classList.toggle("fa-angles-down");
   menuBtnIcon.classList.toggle("fa-xmark");
   menuBtnIconMobile.classList.toggle("fa-angles-left");
   menuBtnIconMobile.classList.toggle("fa-xmark");
   menuBtn.classList.toggle("active");
   menuBtn.disabled = true;
-  setTimeout(() => {
-    menu.classList.remove("menuAppear");
-    menuBtn.disabled = false;
-  }, 200);
+}
+
+function menuOpenFunction() {
+  menuOpen = !menuOpen;
+  menu.classList.remove("pointerEventsNone");
+  menu.classList.remove("hide");
+  menu.classList.remove("menuVanish");
+  menu.classList.add("menuAppear");
+  menuIconToggle()
+  menuBtn.disabled = false;
 }
 
 function menuCloseFunction() {
   menuOpen = !menuOpen;
   menu.classList.add("pointerEventsNone");
+  menu.classList.remove("menuAppear");
   menu.classList.add("menuVanish");
-  menuBtnIcon.classList.toggle("fa-angles-down");
-  menuBtnIcon.classList.toggle("fa-xmark");
-  menuBtnIconMobile.classList.toggle("fa-angles-left");
-  menuBtnIconMobile.classList.toggle("fa-xmark");
-  menuBtn.disabled = true;
+  menuIconToggle()
   setTimeout(() => {
-    menu.classList.remove("pointerEventsNone");
     menu.classList.add("hide");
-    menu.classList.remove("menuVanish");
-    menuBtn.classList.toggle("active");
     menuBtn.disabled = false;
   }, 200);
 }
