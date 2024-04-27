@@ -49,7 +49,6 @@ const filterInformation = document.querySelector("#filterInformation");
 const cleanFilterBtn = document.querySelector("#filterCleanBtn");
 const searchTaskInput = document.querySelector("#searchTaskInput");
 const searchTaskInputBtn = document.querySelector("#searchCleanBtn");
-let inputValue = "";
 let filtred = false;
 let containsHide = [];
 const filters = filterContainer.children;
@@ -85,7 +84,7 @@ function menuIconToggle() {
   menuBtn.disabled = true;
 }
 
-function menuOpenFunction() {
+function menuShow() {
   menuOpen = !menuOpen;
   menu.classList.remove("pointerEventsNone");
   menu.classList.remove("hide");
@@ -95,7 +94,7 @@ function menuOpenFunction() {
   menuBtn.disabled = false;
 }
 
-function menuCloseFunction() {
+function menuHide() {
   menuOpen = !menuOpen;
   menu.classList.add("pointerEventsNone");
   menu.classList.remove("menuAppear");
@@ -109,9 +108,9 @@ function menuCloseFunction() {
 
 menuBtn.addEventListener("click", () => {
   if (!menuOpen) {
-    menuOpenFunction();
+    menuShow();
   } else {
-    menuCloseFunction();
+    menuHide();
   }
 });
 
@@ -124,14 +123,14 @@ document.addEventListener("click", (e) => {
     menuOpen &&
     !confirmField.classList.contains("appearWindow")
   ) {
-    menuCloseFunction();
+    menuHide();
   } else if (
     confirmField.classList.contains("appearWindow") &&
     menuOpen &&
     !menu.contains(e.target) &&
     !menu.classList.contains("menuBlur")
   ) {
-    menuCloseFunction();
+    menuHide();
   }
 });
 
@@ -249,38 +248,19 @@ allTasksFilterBtn.classList.add("active");
 
 function cleanInputFilter() {
   searchTaskInput.value = "";
-  inputValue = "";
   searchTaskInputBtn.classList.add("hide");
 }
 
-function removeFilterInfo() {
+function removeFilter() {
   filterInformationBox.classList.remove("filterInfoAppear");
   filterInformationBox.classList.add("filterInfoVanish");
   filtred = false;
 }
 
-function addFilterInfo() {
+function addFilter() {
   filterInformationBox.classList.remove("filterInfoVanish");
   filterInformationBox.classList.add("filterInfoAppear");
   filtred = true;
-}
-
-function removeFilter() {
-  if (filtred && inputValue != "") {
-    cleanInputFilter();
-  }
-  if (filtred) {
-    removeFilterInfo();
-  }
-}
-
-function addFilter() {
-  if (filtred && inputValue != "") {
-    cleanInputFilter();
-  }
-  if (!filtred) {
-    addFilterInfo();
-  }
 }
 
 function calculateNumberOfTasks() {
@@ -318,93 +298,77 @@ function checkTasksOnScreen(taskClass) {
   }
 }
 
-function pendingTasksFilter() {
+function filterTaskByClass(taskClass) {
   for (i = 0; i < dbAllTasks.length; i++) {
     const infoTaskSave = dbAllTasks[i];
     const task = tasksContainer.childNodes[i];
-    if (infoTaskSave.completedTask) {
-      task.classList.add("hide");
+    if (taskClass == "pendingTask") {
+      if (infoTaskSave.completedTask) {
+        if (!task.classList.contains("hide")) {
+          task.classList.add("hide");
+        }
+      } else {
+        if (task.classList.contains("hide")) {
+          task.classList.remove("hide");
+        }
+      }
     } else {
-      if (task.classList.contains("hide")) {
-        task.classList.remove("hide");
+      if (!infoTaskSave.hasOwnProperty(taskClass)) {
+        if (!task.classList.contains("hide")) {
+          task.classList.add("hide");
+        }
+      } else {
+        if (task.classList.contains("hide")) {
+          task.classList.remove("hide");
+        }
       }
     }
   }
-  filterInformation.innerText = "Pendentes";
-  checkTasksOnScreen(pendingTasks);
+  if (taskClass == "pendingTask") {
+    filterInformation.innerText = "Pendentes";
+    checkTasksOnScreen(pendingTasks);
+  } else if (taskClass == "scheduledTask") {
+    filterInformation.innerText = "Agendadas";
+    checkTasksOnScreen(scheduledTasks);
+  } else if (taskClass == "expiredTask") {
+    filterInformation.innerText = "Expiradas";
+    checkTasksOnScreen(expiredTasks);
+  } else if (taskClass == "completedTask") {
+    filterInformation.innerText = "Concluídas";
+    checkTasksOnScreen(completedTasks);
+  }
 }
 
-function scheduledTasksFilter() {
-  for (i = 0; i < dbAllTasks.length; i++) {
-    const infoTaskSave = dbAllTasks[i];
-    const task = tasksContainer.childNodes[i];
-    if (!infoTaskSave.scheduledTask) {
-      task.classList.add("hide");
-    } else {
-      if (task.classList.contains("hide")) {
-        task.classList.remove("hide");
-      }
+function validateInputFilterValue() {
+  if (searchTaskInput.value.trim() != "") {
+    if (searchTaskInputBtn.classList.contains("hide")) {
+      searchTaskInputBtn.classList.remove("hide");
     }
-  }
-  filterInformation.innerText = "Agendadas";
-  checkTasksOnScreen(scheduledTasks);
-}
-
-function expiredTasksFilter() {
-  for (i = 0; i < dbAllTasks.length; i++) {
-    const infoTaskSave = dbAllTasks[i];
-    const task = tasksContainer.childNodes[i];
-    if (!infoTaskSave.expiredTask) {
-      task.classList.add("hide");
-    } else {
-      if (task.classList.contains("hide")) {
-        task.classList.remove("hide");
-      }
+    return true;
+  } else {
+    if (!searchTaskInputBtn.classList.contains("hide")) {
+      searchTaskInputBtn.classList.add("hide");
     }
+    return false;
   }
-  filterInformation.innerText = "Expiradas";
-  checkTasksOnScreen(expiredTasks);
-}
-
-function completedTaskFilter() {
-  for (i = 0; i < dbAllTasks.length; i++) {
-    const infoTaskSave = dbAllTasks[i];
-    const task = tasksContainer.childNodes[i];
-    if (!infoTaskSave.completedTask) {
-      task.classList.add("hide");
-    } else {
-      if (task.classList.contains("hide")) {
-        task.classList.remove("hide");
-      }
-    }
-  }
-  filterInformation.innerText = "Concluídas";
-  checkTasksOnScreen(completedTasks);
 }
 
 searchTaskInput.onkeyup = () => {
-  if (inputValue != searchTaskInput.value.trim()) {
-    inputValue = searchTaskInput.value.trim();
-    if (inputValue.length >= 1) {
+  validateInputFilterValue();
+  if (validateInputFilterValue()) {
+    if (searchTaskInput.value.length >= 1) {
       filterInformation.innerText = searchTaskInput.value.trim();
     }
     if (!allTasksFilterBtn.classList.contains("active")) {
       activateFilterBtn(allTasksFilterBtn);
       taskRecover();
     }
-    addFilterInfo();
+    addFilter();
     filterTaskByInput();
-  }
-  if (searchTaskInput.value != "") {
-    if (searchTaskInputBtn.classList.contains("hide")) {
-      searchTaskInputBtn.classList.remove("hide");
-    }
   } else {
     if (filtred) {
-      removeFilterInfo();
-    }
-    if (!searchTaskInputBtn.classList.contains("hide")) {
-      searchTaskInputBtn.classList.add("hide");
+      removeFilter();
+      taskRecover();
     }
   }
 };
@@ -420,7 +384,7 @@ function filterTaskByInput() {
         .normalize("NFD")
         .replace(/[\u0300-\u036f]/g, "")
         .includes(
-          inputValue
+          searchTaskInput.value
             .toLowerCase()
             .normalize("NFD")
             .replace(/[\u0300-\u036f]/g, "")
@@ -446,45 +410,52 @@ function filterTaskByInput() {
 
 searchTaskInputBtn.addEventListener("click", () => {
   searchTaskInput.focus();
+  cleanInputFilter();
   removeFilter();
   activateFilterBtn(allTasksFilterBtn);
   taskRecover();
 });
 
 cleanFilterBtn.addEventListener("click", () => {
+  cleanInputFilter();
   removeFilter();
   activateFilterBtn(allTasksFilterBtn);
   taskRecover();
 });
 
 allTasksFilterBtn.addEventListener("click", () => {
+  cleanInputFilter();
   removeFilter();
   activateFilterBtn(allTasksFilterBtn);
   taskRecover();
 });
 
 pendingTasksFilterBtn.addEventListener("click", () => {
+  cleanInputFilter();
   addFilter();
   activateFilterBtn(pendingTasksFilterBtn);
-  pendingTasksFilter();
+  filterTaskByClass("pendingTask");
 });
 
 scheduledTasksFilterBtn.addEventListener("click", () => {
+  cleanInputFilter();
   addFilter();
   activateFilterBtn(scheduledTasksFilterBtn);
-  scheduledTasksFilter();
+  filterTaskByClass("scheduledTask");
 });
 
 expiredTasksFilterBtn.addEventListener("click", () => {
+  cleanInputFilter();
   addFilter();
   activateFilterBtn(expiredTasksFilterBtn);
-  expiredTasksFilter();
+  filterTaskByClass("expiredTask");
 });
 
 completedTasksFilterBtn.addEventListener("click", () => {
+  cleanInputFilter();
   addFilter();
   activateFilterBtn(completedTasksFilterBtn);
-  completedTaskFilter();
+  filterTaskByClass("completedTask");
 });
 
 // Botão para limpar o campo de texto principal
@@ -561,7 +532,7 @@ function insertTask() {
       cleanInputFilter();
       activateFilterBtn(pendingTasksFilterBtn);
       tasksContainer.insertBefore(taskField, tasksContainer.childNodes[0]);
-      pendingTasksFilter();
+      filterTaskByClass("pendingTask");
     } else {
       tasksContainer.insertBefore(taskField, tasksContainer.childNodes[0]);
     }
@@ -904,9 +875,9 @@ const completeClick = (
           (infoTaskSave) => infoTaskSave.scheduledTask
         );
         if (scheduledTasksFilterBtn.classList.contains("active")) {
-          scheduledTasksFilter();
+          filterTaskByClass("scheduledTask");
         } else if (pendingTasksFilterBtn.classList.contains("active")) {
-          pendingTasksFilter();
+          filterTaskByClass("pendingTask");
         }
         amountPendingTasks.innerText = pendingTasks.length;
         amountCompletedTasks.innerText = completedTasks.length;
@@ -988,9 +959,9 @@ const completeClick = (
         (infoTaskSave) => infoTaskSave.expiredTask
       );
       if (expiredTasksFilterBtn.classList.contains("active")) {
-        expiredTasksFilter();
+        filterTaskByClass("expiredTask");
       } else if (pendingTasksFilterBtn.classList.contains("active")) {
-        pendingTasksFilter();
+        filterTaskByClass("pendingTask");
       }
       amountPendingTasks.innerText = pendingTasks.length;
       amountCompletedTasks.innerText = completedTasks.length;
@@ -1043,7 +1014,7 @@ const completeClick = (
           (infoTaskSave) => infoTaskSave.completedTask
         );
         if (completedTasksFilterBtn.classList.contains("active")) {
-          completedTaskFilter();
+          filterTaskByClass("completedTask");
         }
         amountPendingTasks.innerText = pendingTasks.length;
         amountCompletedTasks.innerText = completedTasks.length;
@@ -1096,7 +1067,7 @@ const completeClick = (
           (infoTaskSave) => infoTaskSave.completedTask
         );
         if (pendingTasksFilterBtn.classList.contains("active")) {
-          pendingTasksFilter();
+          filterTaskByClass("pendingTask");
         }
         amountPendingTasks.innerText = pendingTasks.length;
         amountCompletedTasks.innerText = completedTasks.length;
@@ -1721,9 +1692,9 @@ const schedulingRemoveClick = (
         (infoTaskSave) => infoTaskSave.expiredTask
       );
       if (scheduledTasksFilterBtn.classList.contains("active")) {
-        scheduledTasksFilter();
+        filterTaskByClass("scheduledTask");
       } else if (expiredTasksFilterBtn.classList.contains("active")) {
-        expiredTasksFilter();
+        filterTaskByClass("expiredTask");
       }
       amountScheduledTasks.innerText = scheduledTasks.length;
       amountExpiredTasks.innerText = expiredTasks.length;
@@ -1812,9 +1783,9 @@ const deleteClick = (taskField, infoTaskSave, notesInfo) => {
           (infoTaskSave) => infoTaskSave.scheduledTask
         );
         if (scheduledTasksFilterBtn.classList.contains("active")) {
-          scheduledTasksFilter();
+          filterTaskByClass("scheduledTask");
         } else if (pendingTasksFilterBtn.classList.contains("active")) {
-          pendingTasksFilter();
+          filterTaskByClass("pendingTask");
         }
         amountAllTasks.innerText = tasksContainer.childNodes.length;
         amountPendingTasks.innerText = pendingTasks.length;
@@ -1830,7 +1801,7 @@ const deleteClick = (taskField, infoTaskSave, notesInfo) => {
           disableBtn(removeAllTaskBtn);
           checkRemoveAllConfigBtn();
         }
-        if (filtred && inputValue != "") {
+        if (filtred && searchTaskInput.value != "") {
           filterTaskByInput();
         }
       }, 550);
@@ -1890,13 +1861,13 @@ const deleteClick = (taskField, infoTaskSave, notesInfo) => {
         (infoTaskSave) => infoTaskSave.scheduledTask
       );
       if (expiredTasksFilterBtn.classList.contains("active")) {
-        expiredTasksFilter();
+        filterTaskByClass("expiredTask");
         amountExpiredTasks.innerText = expiredTasks.length;
       } else if (completedTasksFilterBtn.classList.contains("active")) {
-        completedTaskFilter();
+        filterTaskByClass("completedTask");
         amountCompletedTasks.innerText = completedTasks.length;
       } else if (pendingTasksFilterBtn.classList.contains("active")) {
-        pendingTasksFilter();
+        filterTaskByClass("pendingTask");
         amountExpiredTasks.innerText = expiredTasks.length;
         amountCompletedTasks.innerText = completedTasks.length;
       } else {
@@ -1916,7 +1887,7 @@ const deleteClick = (taskField, infoTaskSave, notesInfo) => {
         disableBtn(removeAllTaskBtn);
         checkRemoveAllConfigBtn();
       }
-      if (filtred && inputValue != "") {
+      if (filtred && searchTaskInput.value != "") {
         filterTaskByInput();
       }
     }, 350);
@@ -2687,9 +2658,9 @@ setInterval(() => {
           (infoTaskSave) => infoTaskSave.scheduledTask
         );
         if (expiredTasksFilterBtn.classList.contains("active")) {
-          expiredTasksFilter();
+          filterTaskByClass("expiredTask");
         } else if (scheduledTasksFilterBtn.classList.contains("active")) {
-          scheduledTasksFilter();
+          filterTaskByClass("scheduledTask");
         }
         amountExpiredTasks.innerText = expiredTasks.length;
         amountScheduledTasks.innerText = scheduledTasks.length;
