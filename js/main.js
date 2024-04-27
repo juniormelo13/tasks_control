@@ -244,7 +244,7 @@ function saveName() {
   }
 }
 
-// Filtros das tarefas
+// Configuração dos filtros das tarefas
 allTasksFilterBtn.classList.add("active");
 
 function cleanInputFilter() {
@@ -294,7 +294,7 @@ function calculateNumberOfTasks() {
   completedTasks = dbAllTasks.filter(
     (infoTaskSave) => infoTaskSave.completedTask
   );
-  amountAllTasks.innerText = tasksContainer.childNodes.length;
+  amountAllTasks.innerText = dbAllTasks.length;
   amountPendingTasks.innerText = pendingTasks.length;
   amountScheduledTasks.innerText = scheduledTasks.length;
   amountExpiredTasks.innerText = expiredTasks.length;
@@ -310,6 +310,78 @@ function activateFilterBtn(filterBtn) {
   filterBtn.classList.add("active");
 }
 
+function checkTasksOnScreen(taskClass) {
+  if (taskClass.length > 0) {
+    noTaskTextContainer.classList.add("hide");
+  } else {
+    noTaskTextContainer.classList.remove("hide");
+  }
+}
+
+function pendingTasksFilter() {
+  for (i = 0; i < dbAllTasks.length; i++) {
+    const infoTaskSave = dbAllTasks[i];
+    const task = tasksContainer.childNodes[i];
+    if (infoTaskSave.completedTask) {
+      task.classList.add("hide");
+    } else {
+      if (task.classList.contains("hide")) {
+        task.classList.remove("hide");
+      }
+    }
+  }
+  filterInformation.innerText = "Pendentes";
+  checkTasksOnScreen(pendingTasks);
+}
+
+function scheduledTasksFilter() {
+  for (i = 0; i < dbAllTasks.length; i++) {
+    const infoTaskSave = dbAllTasks[i];
+    const task = tasksContainer.childNodes[i];
+    if (!infoTaskSave.scheduledTask) {
+      task.classList.add("hide");
+    } else {
+      if (task.classList.contains("hide")) {
+        task.classList.remove("hide");
+      }
+    }
+  }
+  filterInformation.innerText = "Agendadas";
+  checkTasksOnScreen(scheduledTasks);
+}
+
+function expiredTasksFilter() {
+  for (i = 0; i < dbAllTasks.length; i++) {
+    const infoTaskSave = dbAllTasks[i];
+    const task = tasksContainer.childNodes[i];
+    if (!infoTaskSave.expiredTask) {
+      task.classList.add("hide");
+    } else {
+      if (task.classList.contains("hide")) {
+        task.classList.remove("hide");
+      }
+    }
+  }
+  filterInformation.innerText = "Expiradas";
+  checkTasksOnScreen(expiredTasks);
+}
+
+function completedTaskFilter() {
+  for (i = 0; i < dbAllTasks.length; i++) {
+    const infoTaskSave = dbAllTasks[i];
+    const task = tasksContainer.childNodes[i];
+    if (!infoTaskSave.completedTask) {
+      task.classList.add("hide");
+    } else {
+      if (task.classList.contains("hide")) {
+        task.classList.remove("hide");
+      }
+    }
+  }
+  filterInformation.innerText = "Concluídas";
+  checkTasksOnScreen(completedTasks);
+}
+
 searchTaskInput.onkeyup = () => {
   if (inputValue != searchTaskInput.value.trim()) {
     inputValue = searchTaskInput.value.trim();
@@ -317,7 +389,8 @@ searchTaskInput.onkeyup = () => {
       filterInformation.innerText = searchTaskInput.value.trim();
     }
     if (!allTasksFilterBtn.classList.contains("active")) {
-      activateFilterBtn(allTasksFilterBtn, taskRecover);
+      activateFilterBtn(allTasksFilterBtn);
+      taskRecover();
     }
     addFilterInfo();
     filterTaskByInput();
@@ -375,51 +448,43 @@ searchTaskInputBtn.addEventListener("click", () => {
   searchTaskInput.focus();
   removeFilter();
   activateFilterBtn(allTasksFilterBtn);
-  taskRecover()
+  taskRecover();
 });
 
 cleanFilterBtn.addEventListener("click", () => {
   removeFilter();
   activateFilterBtn(allTasksFilterBtn);
-  taskRecover()
+  taskRecover();
 });
 
 allTasksFilterBtn.addEventListener("click", () => {
   removeFilter();
   activateFilterBtn(allTasksFilterBtn);
-  taskRecover()
+  taskRecover();
 });
 
 pendingTasksFilterBtn.addEventListener("click", () => {
   addFilter();
-  filterInformation.innerText = "Pendentes";
   activateFilterBtn(pendingTasksFilterBtn);
-  pendingTasksFilter()
-  checkTasksOnScreen(pendingTasks);
+  pendingTasksFilter();
 });
 
 scheduledTasksFilterBtn.addEventListener("click", () => {
   addFilter();
-  filterInformation.innerText = "Agendadas";
   activateFilterBtn(scheduledTasksFilterBtn);
-  scheduledTasksFilter()
-  checkTasksOnScreen(scheduledTasks);
+  scheduledTasksFilter();
 });
 
 expiredTasksFilterBtn.addEventListener("click", () => {
   addFilter();
-  filterInformation.innerText = "Expiradas";
   activateFilterBtn(expiredTasksFilterBtn);
-  expiredTasksFilter()
-  checkTasksOnScreen(expiredTasks);
+  expiredTasksFilter();
 });
 
 completedTasksFilterBtn.addEventListener("click", () => {
   addFilter();
-  filterInformation.innerText = "Concluídas";
   activateFilterBtn(completedTasksFilterBtn);
-  completedTaskFilter()
-  checkTasksOnScreen(completedTasks);
+  completedTaskFilter();
 });
 
 // Botão para limpar o campo de texto principal
@@ -475,17 +540,9 @@ function insertTask() {
     taskField.classList.add("taskField");
     taskField.classList.add("hover");
     taskField.classList.add("appearTask");
-
     setTimeout(() => {
       taskField.classList.remove("appearTask");
     }, 200);
-    if (!noTaskTextContainer.classList.contains("hide")) {
-      noTaskTextContainer.classList.add("hide");
-      enableBtn(removeAllTaskBtn);
-    }
-    if (removeAllConfigBtn.disabled) {
-      enableBtn(removeAllConfigBtn);
-    }
 
     // Texto da tarefa
     const taskContent = document.createElement("p");
@@ -500,53 +557,19 @@ function insertTask() {
     dbAllTasks.unshift(infoTaskSave);
     localStorage.setItem("tasks", JSON.stringify(dbAllTasks));
 
-    pendingTasks = dbAllTasks.filter(
-      (infoTaskSave) => !infoTaskSave.completedTask
-    );
     if (filtred) {
-      if (inputValue != "") {
-        searchTaskInput.value = "";
-        inputValue = "";
-        searchTaskInputBtn.classList.add("hide");
-      }
-      for (const filter of filters) {
-        if (filter.classList.contains("active")) {
-          filter.classList.remove("active");
-        }
-      }
-      pendingTasksFilterBtn.classList.add("active");
-      filterInformation.innerText = "Pendentes";
+      cleanInputFilter();
+      activateFilterBtn(pendingTasksFilterBtn);
       tasksContainer.insertBefore(taskField, tasksContainer.childNodes[0]);
-      amountAllTasks.innerText = tasksContainer.childNodes.length;
-      amountPendingTasks.innerText = pendingTasks.length;
       pendingTasksFilter();
     } else {
-      if (
-        allTasksFilterBtn.classList.contains("active") ||
-        pendingTasksFilterBtn.classList.contains("active")
-      ) {
-        tasksContainer.insertBefore(taskField, tasksContainer.childNodes[0]);
-        amountAllTasks.innerText = tasksContainer.childNodes.length;
-        amountPendingTasks.innerText = pendingTasks.length;
-      } else if (
-        !pendingTasksFilterBtn.classList.contains("active") &&
-        !allTasksFilterBtn.classList.contains("active")
-      ) {
-        for (const filter of filters) {
-          if (filter.classList.contains("active")) {
-            filter.classList.remove("active");
-          }
-        }
-        pendingTasksFilterBtn.classList.add("active");
-        filterInformationBox.classList.remove("filterInfoVanish");
-        filterInformationBox.classList.add("filterInfoAppear");
-        filtred = true;
-        tasksContainer.insertBefore(taskField, tasksContainer.childNodes[0]);
-        amountAllTasks.innerText = tasksContainer.childNodes.length;
-        amountPendingTasks.innerText = pendingTasks.length;
-        pendingTasksFilter();
-      }
+      tasksContainer.insertBefore(taskField, tasksContainer.childNodes[0]);
     }
+
+    calculateNumberOfTasks();
+    checkTasksOnScreen(dbAllTasks);
+    checkRemoveAllTaskBtn();
+    checkRemoveAllConfigBtn();
 
     // Campo dos botões/ícones
     const btnField = document.createElement("div");
@@ -638,7 +661,6 @@ function insertTask() {
     saveNoteBtn.appendChild(saveNoteBtnIcon);
     notePadBtnField.appendChild(cleanNoteBtn);
     cleanNoteBtn.appendChild(cleanNoteBtnIcon);
-
     saveNoteBtn.addEventListener("click", () =>
       saveNoteClick(
         notePadContainer,
@@ -654,7 +676,7 @@ function insertTask() {
       cleanNoteClick(notePadInput, cleanNoteBtn, notePadContainer)
     );
 
-    // Botão para conclusão a tarefa
+    // Botão para conclusão da tarefa
     const checkBtn = document.createElement("button");
     btnField.appendChild(checkBtn);
     checkBtn.classList.add("checkBtn");
@@ -1981,15 +2003,11 @@ function removeAllTasks() {
       filtred = false;
     }
     if (!allTasksFilterBtn.classList.contains("active")) {
-      for (const filter of filters) {
-        if (filter.classList.contains("active")) {
-          filter.classList.remove("active");
-        }
-      }
-      allTasksFilterBtn.classList.add("active");
+      activateFilterBtn(allTasksFilterBtn);
+      taskRecover();
     }
     calculateNumberOfTasks();
-    noTaskTextContainer.classList.remove("hide");
+    checkTasksOnScreen(dbAllTasks);
   }, 200);
 }
 
@@ -2047,6 +2065,18 @@ function enableBtn(btn) {
   btn.disabled = false;
 }
 
+function checkRemoveAllTaskBtn() {
+  if (dbAllTasks.length > 0) {
+    if (removeAllTaskBtn.disabled) {
+      enableBtn(removeAllTaskBtn);
+    }
+  } else {
+    if (!removeAllTaskBtn.disabled) {
+      disableBtn(removeAllTaskBtn);
+    }
+  }
+}
+
 function checkRemoveAllConfigBtn() {
   if (
     !localStorage.getItem("tasks") &&
@@ -2054,7 +2084,13 @@ function checkRemoveAllConfigBtn() {
     !localStorage.getItem("infoAccountName") &&
     !localStorage.getItem("theme")
   ) {
-    disableBtn(removeAllConfigBtn);
+    if (!removeAllConfigBtn.disabled) {
+      disableBtn(removeAllConfigBtn);
+    }
+  } else {
+    if (removeAllConfigBtn.disabled) {
+      enableBtn(removeAllConfigBtn);
+    }
   }
 }
 
@@ -2258,96 +2294,6 @@ function cleanNoteClick(notePadInput, cleanNoteBtn, notePadContainer) {
   }, 300);
 }
 
-// Configuração dos filtros das tarefas
-
-function checkTasksOnScreen(taskClass) {
-  if (taskClass.length > 0) {
-    noTaskTextContainer.classList.add("hide");
-  } else {
-    noTaskTextContainer.classList.remove("hide");
-  }
-}
-
-function filterTaskByClass(taskClass) {
-  for (i = 0; i < dbAllTasks.length; i++) {
-    const infoTaskSave = dbAllTasks[i];
-    const task = tasksContainer.childNodes[i];
-    if (infoTaskSave.completedTask) {
-      if (infoTaskSave.completedTask) {
-        task.classList.add("hide");
-      } else {
-        if (task.classList.contains("hide")) {
-          task.classList.remove("hide");
-        }
-      }
-    } else {
-      if (!infoTaskSave.taskClass) {
-        task.classList.add("hide");
-      } else {
-        if (task.classList.contains("hide")) {
-          task.classList.remove("hide");
-        }
-      }
-    }
-  }
-}
-
-function pendingTasksFilter() {
-  for (i = 0; i < dbAllTasks.length; i++) {
-    const infoTaskSave = dbAllTasks[i];
-    const task = tasksContainer.childNodes[i];
-    if (infoTaskSave.completedTask) {
-      task.classList.add("hide");
-    } else {
-      if (task.classList.contains("hide")) {
-        task.classList.remove("hide");
-      }
-    }
-  }
-}
-
-function scheduledTasksFilter() {
-  for (i = 0; i < dbAllTasks.length; i++) {
-    const infoTaskSave = dbAllTasks[i];
-    const task = tasksContainer.childNodes[i];
-    if (!infoTaskSave.scheduledTask) {
-      task.classList.add("hide");
-    } else {
-      if (task.classList.contains("hide")) {
-        task.classList.remove("hide");
-      }
-    }
-  }
-}
-
-function expiredTasksFilter() {
-  for (i = 0; i < dbAllTasks.length; i++) {
-    const infoTaskSave = dbAllTasks[i];
-    const task = tasksContainer.childNodes[i];
-    if (!infoTaskSave.expiredTask) {
-      task.classList.add("hide");
-    } else {
-      if (task.classList.contains("hide")) {
-        task.classList.remove("hide");
-      }
-    }
-  }
-}
-
-function completedTaskFilter() {
-  for (i = 0; i < dbAllTasks.length; i++) {
-    const infoTaskSave = dbAllTasks[i];
-    const task = tasksContainer.childNodes[i];
-    if (!infoTaskSave.completedTask) {
-      task.classList.add("hide");
-    } else {
-      if (task.classList.contains("hide")) {
-        task.classList.remove("hide");
-      }
-    }
-  }
-}
-
 // Configuração para alternar entre dark/white mode
 const html = document.querySelector("html");
 const themeCheckBox = document.querySelector("#themeCheckBox");
@@ -2393,22 +2339,14 @@ function taskRecover() {
   if (localStorage.getItem("tasks")) {
     dbAllTasks = JSON.parse(localStorage.getItem("tasks"));
   }
-  if (dbAllTasks.length == 0) {
-    noTaskTextContainer.classList.remove("hide");
-    disableBtn(removeAllTaskBtn);
-  } else {
-    if (!noTaskTextContainer.classList.contains("hide")) {
-      noTaskTextContainer.classList.add("hide");
-    }
-    enableBtn(removeAllTaskBtn);
-  }
+  checkRemoveAllTaskBtn();
   checkRemoveAllConfigBtn();
-  calculateNumberOfTasks();
   tasksContainer.innerHTML = "";
   for (let i = 0; i < dbAllTasks.length; i++) {
     // Recuperação dos dados de cada tarefa no array e renderização em tela
-
     const infoTaskSave = dbAllTasks[i];
+    calculateNumberOfTasks();
+    checkTasksOnScreen(dbAllTasks);
 
     // Tarefa
     const taskField = document.createElement("div");
