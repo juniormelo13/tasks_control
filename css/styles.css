@@ -204,10 +204,9 @@ body {
   box-shadow: 0 0 10px 2px var(--dark100_white100);
 }
 
-#cleanInputBtn {
+#cleanNewTaskInputBtn, #cleanEditInputBtn {
   position: absolute;
   height: 100%;
-  width: 50px;
   font-family: "lato", "sans-serif";
   font-size: 1.1rem;
   font-weight: bold;
@@ -220,10 +219,17 @@ body {
   transition: 0.2s;
   right: 0;
   cursor: pointer;
-  display: none;
 }
 
-#cleanInputBtn:hover {
+#cleanNewTaskInputBtn {
+  width: 50px;
+}
+
+#cleanEditInputBtn {
+  width: 40px;
+}
+
+#cleanNewTaskInputBtn:hover, #cleanEditInputBtn:hover {
   background-color: var(--grey_Opacity_3);
   color: var(--grey_50);
 }
@@ -370,7 +376,7 @@ body {
   display: none;
 }
 
-#searchCleanBtn {
+#cleanInputSearchBtn {
   position: absolute;
   text-align: center;
   right: 2px;
@@ -387,7 +393,7 @@ body {
   transition: 0.3s;
 }
 
-#searchCleanBtn:hover {
+#cleanInputSearchBtn:hover {
   opacity: 1;
 }
 
@@ -665,7 +671,7 @@ body {
   margin-left: 5px;
 }
 
-#filterCleanBtn {
+#cleanFilterBtn {
   cursor: pointer;
   border: none;
   background: none;
@@ -675,7 +681,7 @@ body {
   transition: 0.3s;
 }
 
-#filterCleanBtn:hover {
+#cleanFilterBtn:hover {
   opacity: 1;
 }
 
@@ -958,30 +964,6 @@ body {
 #scheduleInputDate,
 #scheduleInputTime {
   padding: 5px 10px;
-}
-
-#cleanEditInputBtn {
-  position: absolute;
-  right: 0;
-  height: 100%;
-  width: 40px;
-  font-family: "lato", "sans-serif";
-  font-size: 1.1rem;
-  font-weight: bold;
-  color: var(--grey);
-  border: none;
-  outline: none;
-  background-color: var(--grey_Opacity_2);
-  border-top-right-radius: 5px;
-  border-bottom-right-radius: 5px;
-  transition: 0.2s;
-  cursor: pointer;
-  display: none;
-}
-
-#cleanEditInputBtn:hover {
-  background-color: var(--grey_Opacity_3);
-  color: var(--grey_50);
 }
 
 #editFieldFooter,
@@ -1434,7 +1416,7 @@ body {
 .notesBtnAlert.hide,
 #noTaskTextContainer.hide,
 .taskField.hide,
-#searchCleanBtn.hide, #inputFileBtnDel.hide, #inputFileBtnPlus.hide {
+#cleanInputSearchBtn.hide, #inputFileBtnDel.hide, #inputFileBtnPlus.hide, #cleanNewTaskInputBtn.hide, #cleanEditInputBtn.hide {
   display: none;
   pointer-events: none;
   user-select: none;

@@ -46,9 +46,9 @@ const amountExpiredTasks = document.querySelector("#amountExpiredTasks");
 const amountCompletedTasks = document.querySelector("#amountCompletedTasks");
 const filterInformationBox = document.querySelector("#filterInformationBox");
 const filterInformation = document.querySelector("#filterInformation");
-const cleanFilterBtn = document.querySelector("#filterCleanBtn");
+const cleanFilterBtn = document.querySelector("#cleanFilterBtn");
 const searchTaskInput = document.querySelector("#searchTaskInput");
-const searchTaskInputBtn = document.querySelector("#searchCleanBtn");
+const cleanInputSearchBtn = document.querySelector("#cleanInputSearchBtn");
 let filtred = false;
 let containsHide = [];
 const filters = filterContainer.children;
@@ -248,7 +248,7 @@ allTasksFilterBtn.classList.add("active");
 
 function cleanInputFilter() {
   searchTaskInput.value = "";
-  searchTaskInputBtn.classList.add("hide");
+  cleanInputSearchBtn.classList.add("hide");
 }
 
 function removeFilter() {
@@ -339,23 +339,23 @@ function filterTaskByClass(taskClass) {
   }
 }
 
-function validateInputFilterValue() {
-  if (searchTaskInput.value.trim() != "") {
-    if (searchTaskInputBtn.classList.contains("hide")) {
-      searchTaskInputBtn.classList.remove("hide");
+function validateInputValue(input, cleanBtn) {
+  if (input.value.trim() != "") {
+    if (cleanBtn.classList.contains("hide")) {
+      cleanBtn.classList.remove("hide");
     }
     return true;
   } else {
-    if (!searchTaskInputBtn.classList.contains("hide")) {
-      searchTaskInputBtn.classList.add("hide");
+    if (!cleanBtn.classList.contains("hide")) {
+      cleanBtn.classList.add("hide");
     }
     return false;
   }
 }
 
 searchTaskInput.onkeyup = () => {
-  validateInputFilterValue();
-  if (validateInputFilterValue()) {
+  validateInputValue(searchTaskInput, cleanInputSearchBtn);
+  if (validateInputValue(searchTaskInput, cleanInputSearchBtn)) {
     if (searchTaskInput.value.length >= 1) {
       filterInformation.innerText = searchTaskInput.value.trim();
     }
@@ -408,7 +408,7 @@ function filterTaskByInput() {
   }
 }
 
-searchTaskInputBtn.addEventListener("click", () => {
+cleanInputSearchBtn.addEventListener("click", () => {
   searchTaskInput.focus();
   cleanInputFilter();
   removeFilter();
@@ -458,53 +458,44 @@ completedTasksFilterBtn.addEventListener("click", () => {
   filterTaskByClass("completedTask");
 });
 
-// Botão para limpar o campo de texto principal
-const cleanInputBtn = document.querySelector("#cleanInputBtn");
-cleanInputBtn.setAttribute("title", "Limpar");
-cleanInputBtn.addEventListener("click", () => {
-  cleanInputBtn.style.display = "none";
+// ----- Input principal -----
+const newTaskBtn = document.querySelector("#newTaskBtn");
+const cleanNewTaskInputBtn = document.querySelector("#cleanNewTaskInputBtn");
+
+// Botão para limpar o input
+newTaskInput.onkeyup = () => validateInputValue(newTaskInput, cleanNewTaskInputBtn);
+cleanNewTaskInputBtn.addEventListener("click", () => {
+  cleanNewTaskInputBtn.classList.add("hide");
   newTaskInput.value = "";
   newTaskInput.focus();
 });
 
-newTaskInput.onkeyup = () => {
-  const validateField = () => newTaskInput.value != "";
-  if (!validateField()) {
-    cleanInputBtn.style.display = "none";
-  } else {
-    cleanInputBtn.style.display = "inline";
+// Evento de foco, para tirar o "erro" do input
+newTaskInput.onfocus = () => {
+  if (newTaskInput.classList.contains("inputError")) {
+    newTaskInput.classList.remove("inputError");
+    newTaskInput.value = "";
   }
 };
 
 // Botão para adicionar a nova tarefa
-const newTaskBtn = document.querySelector("#newTaskBtn");
-
+newTaskBtn.addEventListener("click", insertTask);
 newTaskInput.addEventListener("keypress", (e) => {
   if (e.key === "Enter") {
     insertTask();
   }
 });
 
-newTaskBtn.addEventListener("click", insertTask);
-
 function insertTask() {
   // Validação do input principal
-  const validateField = () => newTaskInput.value.trim() != "";
-  if (!validateField()) {
-    // Caso o valor do input seja inválido: Será adicionado a class abaixo no input
+  if (!validateInputValue(newTaskInput, cleanNewTaskInputBtn)) {
+    // Caso o valor do input seja inválido: Será adicionado a classe abaixo no input
     newTaskInput.classList.add("inputError");
+    newTaskInput.value = "";
     newTaskInput.blur();
-    // Evento de foco, para tirar o "erro" do input
-    newTaskInput.onfocus = () => {
-      if (newTaskInput.classList.contains("inputError")) {
-        newTaskInput.classList.remove("inputError");
-        cleanInputBtn.style.display = "none";
-        newTaskInput.value = "";
-      }
-    };
   } else {
     // Caso o valor do input seja válido: Criação dos parágrafos e botões referentes a cada tarefa adicionada
-    cleanInputBtn.style.display = "none";
+    cleanNewTaskInputBtn.classList.add("hide");
 
     // Tarefa
     const taskField = document.createElement("div");
@@ -657,7 +648,7 @@ function insertTask() {
     checkIcon.classList.add("fa-thumbs-up");
     checkBtn.setAttribute("title", "Concluir");
     checkBtn.addEventListener("click", () =>
-      completeClick(
+      completeTaskClick(
         taskField,
         taskContent,
         scheduleBtn,
@@ -753,7 +744,7 @@ function insertTask() {
 }
 
 // Configuração do botão para conclusão da tarefa
-const completeClick = (
+const completeTaskClick = (
   taskField,
   taskContent,
   scheduleBtn,
@@ -769,33 +760,11 @@ const completeClick = (
   infoTaskSave
 ) => {
   if (taskField.classList.contains("scheduled")) {
-    header.classList.add("pointerEventsNone");
-    tasksContainer.classList.add("tasksContainerHide");
-    if (filtred) {
-      filterInformationBox.classList.add("filterInformationBlur");
-    }
-    mainContainer.classList.add("pointerEventsNone");
-    confirmFieldText.innerText =
-      "Esta tarefa possui um agendamento, tem certeza que deseja concluí-la?";
-    confirmField.classList.add("appearWindow");
-    confirmField.classList.remove("hide");
-
-    btnYes.onclick = confirmCompletedAction;
-    btnYes.focus();
-
-    function confirmCompletedAction() {
+    showConfirmWindow("Esta tarefa possui um agendamento, tem certeza que deseja concluí-la?", confirmCompleteTask)
+   
+    function completeTask() {
       const tasks = tasksContainer.childNodes;
-      header.classList.remove("pointerEventsNone");
-      tasksContainer.classList.remove("tasksContainerHide");
-      if (filtred) {
-        filterInformationBox.classList.remove("filterInformationBlur");
-        filterInformationBox.classList.add("filterInformationOffBlur");
-      }
-      mainContainer.classList.remove("pointerEventsNone");
-      tasksContainer.classList.add("tasksContainerAppear");
-      confirmField.classList.remove("appearWindow");
-      confirmField.classList.add("vanishWindow");
-
+      
       checkIcon.classList.remove("fa-thumbs-up");
       checkIcon.classList.add("fa-rotate");
       checkIcon.classList.add("fa-spin");
@@ -892,27 +861,6 @@ const completeClick = (
       }, 800);
     }
 
-    btnNo.onclick = () => {
-      header.classList.remove("pointerEventsNone");
-      tasksContainer.classList.remove("tasksContainerHide");
-      if (filtred) {
-        filterInformationBox.classList.remove("filterInformationBlur");
-        filterInformationBox.classList.add("filterInformationOffBlur");
-      }
-      mainContainer.classList.remove("pointerEventsNone");
-      tasksContainer.classList.add("tasksContainerAppear");
-      confirmField.classList.remove("appearWindow");
-      confirmField.classList.add("vanishWindow");
-
-      setTimeout(() => {
-        confirmField.classList.remove("vanishWindow");
-        confirmField.classList.add("hide");
-        tasksContainer.classList.remove("tasksContainerAppear");
-        if (filtred) {
-          filterInformationBox.classList.remove("filterInformationOffBlur");
-        }
-      }, 200);
-    };
   } else if (taskField.classList.contains("expiredTask")) {
     const tasks = tasksContainer.childNodes;
     for (const task of tasks) {
@@ -2447,7 +2395,7 @@ function taskRecover() {
     checkIcon.classList.add("fa-thumbs-up");
     checkBtn.setAttribute("title", "Concluir");
     checkBtn.addEventListener("click", () =>
-      completeClick(
+      completeTaskClick(
         taskField,
         taskContent,
         scheduleBtn,

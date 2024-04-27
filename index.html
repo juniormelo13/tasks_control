@@ -42,7 +42,7 @@
             spellcheck="false"
             autocomplete="off"
           />
-          <input type="button" value="X" id="cleanInputBtn" />
+          <input type="button" value="X" id="cleanNewTaskInputBtn" class="hide" title="Limpar" />
         </div>
         <input type="button" value="+" id="newTaskBtn" title="Adicionar" />
       </div>
@@ -73,7 +73,7 @@
           autocomplete="off"
           spellcheck="false"
         />
-        <input type="button" value="X" id="cleanEditInputBtn" />
+        <input type="button" value="X" id="cleanEditInputBtn" class="hide" title="Limpar"/>
       </div>
       <div id="editFieldFooter">
         <input type="button" value="editar" id="confirmEditBtn" />
@@ -112,7 +112,7 @@
       <p id="filterInformationText">
         Filtro:<span id="filterInformation"></span>
       </p>
-      <button id="filterCleanBtn" title="Remover filtro">
+      <button id="cleanFilterBtn" title="Remover filtro">
         <i class="fa-solid fa-xmark"></i>
       </button>
     </div>
@@ -165,7 +165,7 @@
           spellcheck="false"
           autocomplete="off"
         />
-        <button id="searchCleanBtn" class="hide" title="Limpar">
+        <button id="cleanInputSearchBtn" class="hide" title="Limpar">
           <i class="fa-solid fa-xmark"></i>
         </button>
       </div>
