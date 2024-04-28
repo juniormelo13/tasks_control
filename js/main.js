@@ -292,9 +292,15 @@ function activateFilterBtn(filterBtn) {
 
 function checkTasksOnScreen(taskClass) {
   if (taskClass.length > 0) {
-    noTaskTextContainer.classList.add("hide");
+    if(!noTaskTextContainer.classList.contains("hide")) {
+      noTaskTextContainer.classList.add("hide");
+      console.log("Sim")
+    }
   } else {
-    noTaskTextContainer.classList.remove("hide");
+    if(noTaskTextContainer.classList.contains("hide")) {
+      noTaskTextContainer.classList.remove("hide");
+      console.log("Não")
+    }
   }
 }
 
@@ -774,6 +780,7 @@ const completeTaskClick = (
           checkBtn,
           checkIcon,
           editBtn,
+          scheduleBtn,
           appointmentDate,
           appointmentTime,
           taskInfo,
@@ -784,169 +791,22 @@ const completeTaskClick = (
         );
       }, 200);
     }
-  } else if (taskField.classList.contains("expiredTask")) {
-    const tasks = tasksContainer.childNodes;
-    for (const task of tasks) {
-      task.classList.remove("hover");
-      task.childNodes[1].classList.add("pointerEventsNone");
-    }
-    taskField.classList.add("vanishTask");
-
-    // Salvar ação no Local Storage
-    if (infoTaskSave.expiredTask) {
-      delete infoTaskSave.expiredTask;
-    }
-    infoTaskSave.completedTask = true;
-    localStorage.setItem("tasks", JSON.stringify(dbAllTasks));
-
-    setTimeout(() => {
-      appointmentTime.innerText = "";
-      appointmentDate.innerText = "";
-      infoTextContent.innerText = "";
-      taskInfo.classList.add("hide");
-      taskInfo.classList.remove("expiredTask");
-      taskInfo.classList.remove("scheduled");
-      taskField.classList.remove("expiredTask");
-      taskField.classList.remove("vanishTask");
-      taskField.classList.add("appearTask");
-      checkIcon.classList.remove("fa-thumbs-up");
-      taskContent.classList.add("completed");
-      taskField.classList.add("completed");
-      checkIcon.classList.add("fa-rotate");
-      checkIcon.classList.add("fa-spin");
-      checkBtn.setAttribute("title", "Restaurar");
-      taskInfo.classList.add("completed");
-      taskInfo.classList.remove("hide");
-      infoTextContent.innerText = "Tarefa concluída";
-      completedTaskIcon.classList.remove("hide");
-      schedulingRemoveBtn.classList.add("hide");
-      pendingTasks = dbAllTasks.filter(
-        (infoTaskSave) => !infoTaskSave.completedTask
-      );
-      completedTasks = dbAllTasks.filter(
-        (infoTaskSave) => infoTaskSave.completedTask
-      );
-      expiredTasks = dbAllTasks.filter(
-        (infoTaskSave) => infoTaskSave.expiredTask
-      );
-      if (expiredTasksFilterBtn.classList.contains("active")) {
-        filterTaskByClass("expiredTask");
-      } else if (pendingTasksFilterBtn.classList.contains("active")) {
-        filterTaskByClass("pendingTask");
-      }
-      amountPendingTasks.innerText = pendingTasks.length;
-      amountCompletedTasks.innerText = completedTasks.length;
-      amountExpiredTasks.innerText = expiredTasks.length;
-    }, 300);
-    setTimeout(() => {
-      taskField.classList.remove("appearTask");
-      for (const task of tasks) {
-        task.classList.add("hover");
-        task.childNodes[1].classList.remove("pointerEventsNone");
-      }
-    }, 500);
   } else {
-    if (taskField.classList.contains("completed")) {
-      const tasks = tasksContainer.childNodes;
-      for (const task of tasks) {
-        task.classList.remove("hover");
-        task.childNodes[1].classList.add("pointerEventsNone");
-      }
-      taskField.classList.add("vanishTask");
-      taskField.classList.remove("hover");
-      checkBtn.disabled = true;
-      newTaskInput.blur();
-
-      // Salvar ação no Local Storage
-      delete infoTaskSave.completedTask;
-      localStorage.setItem("tasks", JSON.stringify(dbAllTasks));
-
-      setTimeout(() => {
-        checkBtn.setAttribute("title", "Concluir");
-        taskContent.classList.toggle("completed");
-        taskField.classList.toggle("completed");
-        editBtn.classList.toggle("disabledBtn");
-        scheduleBtn.classList.toggle("disabledBtn");
-        completeTaskIconToggle();
-        taskInfo.classList.remove("completed");
-        taskInfo.classList.add("hide");
-        infoTextContent.innerText = "";
-        completedTaskIcon.classList.add("hide");
-        schedulingRemoveBtn.classList.remove("hide");
-        taskField.classList.remove("vanishTask");
-        taskField.classList.add("appearTask");
-        checkBtn.disabled = false;
-        pendingTasks = dbAllTasks.filter(
-          (infoTaskSave) => !infoTaskSave.completedTask
-        );
-        completedTasks = dbAllTasks.filter(
-          (infoTaskSave) => infoTaskSave.completedTask
-        );
-        if (completedTasksFilterBtn.classList.contains("active")) {
-          filterTaskByClass("completedTask");
-        }
-        amountPendingTasks.innerText = pendingTasks.length;
-        amountCompletedTasks.innerText = completedTasks.length;
-      }, 300);
-      setTimeout(() => {
-        taskField.classList.remove("appearTask");
-        for (const task of tasks) {
-          task.classList.add("hover");
-          task.childNodes[1].classList.remove("pointerEventsNone");
-        }
-      }, 500);
-    } else {
-      const tasks = tasksContainer.childNodes;
-      for (const task of tasks) {
-        task.classList.remove("hover");
-        task.childNodes[1].classList.add("pointerEventsNone");
-      }
-      taskField.classList.add("vanishTask");
-      checkBtn.disabled = true;
-      newTaskInput.blur();
-
-      // Salvar ação no Local Storage
-      if (infoTaskSave.deletedInfoTask) {
-        delete infoTaskSave.deletedInfoTask;
-      }
-      infoTaskSave.completedTask = true;
-      localStorage.setItem("tasks", JSON.stringify(dbAllTasks));
-
-      setTimeout(() => {
-        taskField.classList.remove("vanishTask");
-        taskField.classList.add("appearTask");
-        taskContent.classList.toggle("completed");
-        taskField.classList.toggle("completed");
-        editBtn.classList.toggle("disabledBtn");
-        scheduleBtn.classList.toggle("disabledBtn");
-        completeTaskIconToggle();
-        checkBtn.setAttribute("title", "Restaurar");
-        taskInfo.classList.add("completed");
-        taskInfo.classList.remove("hide");
-        infoTextContent.innerText = "Tarefa concluída";
-        completedTaskIcon.classList.remove("hide");
-        schedulingRemoveBtn.classList.add("hide");
-        checkBtn.disabled = false;
-        pendingTasks = dbAllTasks.filter(
-          (infoTaskSave) => !infoTaskSave.completedTask
-        );
-        completedTasks = dbAllTasks.filter(
-          (infoTaskSave) => infoTaskSave.completedTask
-        );
-        if (pendingTasksFilterBtn.classList.contains("active")) {
-          filterTaskByClass("pendingTask");
-        }
-        amountPendingTasks.innerText = pendingTasks.length;
-        amountCompletedTasks.innerText = completedTasks.length;
-      }, 300);
-      setTimeout(() => {
-        taskField.classList.remove("appearTask");
-        for (const task of tasks) {
-          task.classList.add("hover");
-          task.childNodes[1].classList.remove("pointerEventsNone");
-        }
-      }, 500);
-    }
+    completeTask(
+      taskField,
+      taskContent,
+      checkBtn,
+      checkIcon,
+      editBtn,
+      scheduleBtn,
+      appointmentDate,
+      appointmentTime,
+      taskInfo,
+      infoTextContent,
+      schedulingRemoveBtn,
+      completedTaskIcon,
+      infoTaskSave
+    );
   }
 };
 
@@ -2173,71 +2033,90 @@ themeCheckBox.addEventListener("change", () => {
 
 // ----- Funções auxiliares -----
 
-function completeTaskIconToggle(checkIcon) {
+function completeTaskBtnToggle(taskField, taskContent, checkIcon, checkBtn, scheduleBtn, editBtn, completedTaskIcon, schedulingRemoveBtn) {
   checkIcon.classList.toggle("fa-thumbs-up");
   checkIcon.classList.toggle("fa-rotate");
   checkIcon.classList.toggle("fa-spin");
+  editBtn.classList.toggle("disabledBtn");
+  if (!taskField.classList.contains("scheduled")) {
+    scheduleBtn.classList.toggle("disabledBtn");
+  }
+  completedTaskIcon.classList.toggle("hide");
+  schedulingRemoveBtn.classList.toggle("hide");
+  taskContent.classList.toggle("completed");
+  if(!taskField.classList.contains("completed")) {
+    checkBtn.setAttribute("title", "Restaurar");
+  } else {
+    checkBtn.setAttribute("title", "Concluir");
+  }
 }
 
 function saveCompleteTaskAction(infoTaskSave) {
   if (infoTaskSave.deletedInfoTask) {
     delete infoTaskSave.deletedInfoTask;
   }
-  if (infoTaskSave.expiredTask) {
-    delete infoTaskSave.expiredTask;
+  if (infoTaskSave.scheduledTask) {
+    delete infoTaskSave.scheduledTask;
   }
   if (infoTaskSave.expireAlert) {
     delete infoTaskSave.expireAlert;
   }
-  delete infoTaskSave.scheduledTask;
-  infoTaskSave.completedTask = true;
+  if (infoTaskSave.expiredTask) {
+    delete infoTaskSave.expiredTask;
+  }
+  if (!infoTaskSave.completedTask) {
+    infoTaskSave.completedTask = true;
+  } else {
+    delete infoTaskSave.completedTask;
+  }
   localStorage.setItem("tasks", JSON.stringify(dbAllTasks));
 }
 
-function clearScheduledTask(
+function clearTaskClass(
   appointmentTime,
   appointmentDate,
   infoTextContent,
   taskInfo,
   taskField
 ) {
-  appointmentTime.innerText = "";
-  appointmentDate.innerText = "";
-  infoTextContent.innerText = "";
-  taskInfo.classList.add("hide");
-  taskField.classList.remove("scheduled");
-  taskInfo.classList.remove("scheduled");
+  if (
+    taskField.classList.contains("scheduled") ||
+    taskField.classList.contains("expiredTask")
+  ) {
+    appointmentTime.innerText = "";
+    appointmentDate.innerText = "";
+    infoTextContent.innerText = "";
+  }
+  if (!taskInfo.classList.contains("hide")) {
+    taskInfo.classList.add("hide");
+  }
+  if (taskInfo.classList.contains("scheduled")) {
+    taskField.classList.remove("scheduled");
+    taskInfo.classList.remove("scheduled");
+  }
   if (taskField.classList.contains("expireAlert")) {
     taskField.classList.remove("expireAlert");
+    taskInfo.classList.remove("expireAlert");
   }
   if (taskField.classList.contains("expiredTask")) {
     taskField.classList.remove("expiredTask");
-  }
-  if (taskInfo.classList.contains("expireAlert")) {
-    taskInfo.classList.remove("expireAlert");
-  }
-  if (taskInfo.classList.contains("expiredTask")) {
     taskInfo.classList.remove("expiredTask");
+  }
+  if (taskField.classList.contains("completed")) {
+    taskField.classList.remove("completed");
+    taskInfo.classList.remove("completed");
   }
 }
 
 function putCompletedTask(
-  taskContent,
   taskField,
   taskInfo,
   infoTextContent,
-  completedTaskIcon,
-  schedulingRemoveBtn,
-  checkBtn
 ) {
-  taskContent.classList.add("completed");
   taskField.classList.add("completed");
   taskInfo.classList.add("completed");
   taskInfo.classList.remove("hide");
   infoTextContent.innerText = "Tarefa concluída";
-  completedTaskIcon.classList.remove("hide");
-  schedulingRemoveBtn.classList.add("hide");
-  checkBtn.setAttribute("title", "Restaurar");
 }
 
 function transitionClickProtection(option) {
@@ -2261,6 +2140,7 @@ function completeTask(
   checkBtn,
   checkIcon,
   editBtn,
+  scheduleBtn,
   appointmentDate,
   appointmentTime,
   taskInfo,
@@ -2271,41 +2151,57 @@ function completeTask(
 ) {
   transitionClickProtection("add");
   taskField.classList.add("vanishTask");
-  completeTaskIconToggle(checkIcon);
-  editBtn.classList.add("disabledBtn");
   saveCompleteTaskAction(infoTaskSave);
   setTimeout(() => {
-    if (taskField.classList.contains("scheduled")) {
-      clearScheduledTask(
+    completeTaskBtnToggle(taskField, taskContent, checkIcon, checkBtn, scheduleBtn, editBtn, completedTaskIcon, schedulingRemoveBtn);
+    if (scheduledTasksFilterBtn.classList.contains("active")) {
+      filterTaskByClass("scheduledTask");
+    } else if (pendingTasksFilterBtn.classList.contains("active")) {
+      filterTaskByClass("pendingTask");
+    } else if (expiredTasksFilterBtn.classList.contains("active")) {
+      filterTaskByClass("expiredTask");
+    } else if (completedTasksFilterBtn.classList.contains("active")) {
+      filterTaskByClass("completedTask");
+    }
+    calculateNumberOfTasks();
+    if (taskField.classList.contains("completed")) {
+      clearTaskClass(
         appointmentTime,
         appointmentDate,
         infoTextContent,
         taskInfo,
         taskField
       );
+    } else if (
+      taskField.classList.contains("scheduled") ||
+      taskField.classList.contains("expiredTask")
+    ) {
+      clearTaskClass(
+        appointmentTime,
+        appointmentDate,
+        infoTextContent,
+        taskInfo,
+        taskField
+      );
+      putCompletedTask(
+        taskField,
+        taskInfo,
+        infoTextContent
+      );
+    } else {
+      putCompletedTask(
+        taskField,
+        taskInfo,
+        infoTextContent
+      );
     }
-    putCompletedTask(
-      taskContent,
-      taskField,
-      taskInfo,
-      infoTextContent,
-      completedTaskIcon,
-      schedulingRemoveBtn,
-      checkBtn
-    );
     taskField.classList.remove("vanishTask");
     taskField.classList.add("appearTask");
-    if (scheduledTasksFilterBtn.classList.contains("active")) {
-      filterTaskByClass("scheduledTask");
-    } else if (pendingTasksFilterBtn.classList.contains("active")) {
-      filterTaskByClass("pendingTask");
-    }
-    calculateNumberOfTasks();
-  }, 200);
+  }, 300);
   setTimeout(() => {
     taskField.classList.remove("appearTask");
     transitionClickProtection("remove");
-  }, 400);
+  }, 500);
 }
 
 // Função responsável por recuperar as tarefas e outras informações do banco de dados
@@ -2316,12 +2212,12 @@ function taskRecover() {
   }
   checkRemoveAllTaskBtn();
   checkRemoveAllConfigBtn();
+  calculateNumberOfTasks();
+  checkTasksOnScreen(dbAllTasks);
   tasksContainer.innerHTML = "";
   for (let i = 0; i < dbAllTasks.length; i++) {
     // Recuperação dos dados de cada tarefa no array e renderização em tela
     const infoTaskSave = dbAllTasks[i];
-    calculateNumberOfTasks();
-    checkTasksOnScreen(dbAllTasks);
 
     // Tarefa
     const taskField = document.createElement("div");
