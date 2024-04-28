@@ -463,7 +463,8 @@ const newTaskBtn = document.querySelector("#newTaskBtn");
 const cleanNewTaskInputBtn = document.querySelector("#cleanNewTaskInputBtn");
 
 // Botão para limpar o input
-newTaskInput.onkeyup = () => validateInputValue(newTaskInput, cleanNewTaskInputBtn);
+newTaskInput.onkeyup = () =>
+  validateInputValue(newTaskInput, cleanNewTaskInputBtn);
 cleanNewTaskInputBtn.addEventListener("click", () => {
   cleanNewTaskInputBtn.classList.add("hide");
   newTaskInput.value = "";
@@ -760,107 +761,29 @@ const completeTaskClick = (
   infoTaskSave
 ) => {
   if (taskField.classList.contains("scheduled")) {
-    showConfirmWindow("Esta tarefa possui um agendamento, tem certeza que deseja concluí-la?", confirmCompleteTask)
-   
-    function completeTask() {
-      const tasks = tasksContainer.childNodes;
-      
-      checkIcon.classList.remove("fa-thumbs-up");
-      checkIcon.classList.add("fa-rotate");
-      checkIcon.classList.add("fa-spin");
-
-      switch (editBtn.classList.contains("disabledBtn")) {
-        case false:
-          editBtn.classList.add("disabledBtn");
-          break;
-      }
-
-      for (const task of tasks) {
-        task.classList.remove("hover");
-        task.childNodes[1].classList.add("pointerEventsNone");
-      }
-
-      // Salvar ação no Local Storage
-      if (infoTaskSave.deletedInfoTask) {
-        delete infoTaskSave.deletedInfoTask;
-      }
-      if (infoTaskSave.expiredTask) {
-        delete infoTaskSave.expiredTask;
-      }
-      if (infoTaskSave.expireAlert) {
-        delete infoTaskSave.expireAlert;
-      }
-      delete infoTaskSave.scheduledTask;
-      infoTaskSave.completedTask = true;
-      localStorage.setItem("tasks", JSON.stringify(dbAllTasks));
-
+    showConfirmWindow(
+      "Esta tarefa possui um agendamento, tem certeza que deseja concluí-la?",
+      confirmCompleteTask
+    );
+    function confirmCompleteTask() {
+      hideConfirmWindow();
       setTimeout(() => {
-        taskField.classList.add("vanishTask");
+        completeTask(
+          taskField,
+          taskContent,
+          checkBtn,
+          checkIcon,
+          editBtn,
+          appointmentDate,
+          appointmentTime,
+          taskInfo,
+          infoTextContent,
+          schedulingRemoveBtn,
+          completedTaskIcon,
+          infoTaskSave
+        );
       }, 200);
-
-      setTimeout(() => {
-        appointmentTime.innerText = "";
-        appointmentDate.innerText = "";
-        infoTextContent.innerText = "";
-        taskInfo.classList.add("hide");
-        taskField.classList.remove("scheduled");
-        taskInfo.classList.remove("scheduled");
-        if (taskField.classList.contains("expireAlert")) {
-          taskField.classList.remove("expireAlert");
-        }
-        if (taskField.classList.contains("expiredTask")) {
-          taskField.classList.remove("expiredTask");
-        }
-        if (taskInfo.classList.contains("expireAlert")) {
-          taskInfo.classList.remove("expireAlert");
-        }
-        if (taskInfo.classList.contains("expiredTask")) {
-          taskInfo.classList.remove("expiredTask");
-        }
-        tasksContainer.classList.remove("tasksContainerAppear");
-        if (filtred) {
-          filterInformationBox.classList.remove("filterInformationOffBlur");
-        }
-        confirmField.classList.remove("vanishWindow");
-        confirmField.classList.add("hide");
-        taskField.classList.remove("vanishTask");
-        taskField.classList.add("appearTask");
-        taskContent.classList.add("completed");
-        taskField.classList.add("completed");
-        taskInfo.classList.add("completed");
-        taskInfo.classList.remove("hide");
-        infoTextContent.innerText = "Tarefa concluída";
-        completedTaskIcon.classList.remove("hide");
-        schedulingRemoveBtn.classList.add("hide");
-
-        checkBtn.setAttribute("title", "Restaurar");
-        pendingTasks = dbAllTasks.filter(
-          (infoTaskSave) => !infoTaskSave.completedTask
-        );
-        completedTasks = dbAllTasks.filter(
-          (infoTaskSave) => infoTaskSave.completedTask
-        );
-        scheduledTasks = dbAllTasks.filter(
-          (infoTaskSave) => infoTaskSave.scheduledTask
-        );
-        if (scheduledTasksFilterBtn.classList.contains("active")) {
-          filterTaskByClass("scheduledTask");
-        } else if (pendingTasksFilterBtn.classList.contains("active")) {
-          filterTaskByClass("pendingTask");
-        }
-        amountPendingTasks.innerText = pendingTasks.length;
-        amountCompletedTasks.innerText = completedTasks.length;
-        amountScheduledTasks.innerText = scheduledTasks.length;
-      }, 500);
-      setTimeout(() => {
-        taskField.classList.remove("appearTask");
-        for (const task of tasks) {
-          task.classList.add("hover");
-          task.childNodes[1].classList.remove("pointerEventsNone");
-        }
-      }, 800);
     }
-
   } else if (taskField.classList.contains("expiredTask")) {
     const tasks = tasksContainer.childNodes;
     for (const task of tasks) {
@@ -944,9 +867,7 @@ const completeTaskClick = (
         taskField.classList.toggle("completed");
         editBtn.classList.toggle("disabledBtn");
         scheduleBtn.classList.toggle("disabledBtn");
-        checkIcon.classList.toggle("fa-thumbs-up");
-        checkIcon.classList.toggle("fa-rotate");
-        checkIcon.classList.toggle("fa-spin");
+        completeTaskIconToggle();
         taskInfo.classList.remove("completed");
         taskInfo.classList.add("hide");
         infoTextContent.innerText = "";
@@ -998,9 +919,7 @@ const completeTaskClick = (
         taskField.classList.toggle("completed");
         editBtn.classList.toggle("disabledBtn");
         scheduleBtn.classList.toggle("disabledBtn");
-        checkIcon.classList.toggle("fa-thumbs-up");
-        checkIcon.classList.toggle("fa-rotate");
-        checkIcon.classList.toggle("fa-spin");
+        completeTaskIconToggle();
         checkBtn.setAttribute("title", "Restaurar");
         taskInfo.classList.add("completed");
         taskInfo.classList.remove("hide");
@@ -2251,6 +2170,143 @@ themeCheckBox.addEventListener("change", () => {
     checkRemoveAllConfigBtn();
   }
 });
+
+// ----- Funções auxiliares -----
+
+function completeTaskIconToggle(checkIcon) {
+  checkIcon.classList.toggle("fa-thumbs-up");
+  checkIcon.classList.toggle("fa-rotate");
+  checkIcon.classList.toggle("fa-spin");
+}
+
+function saveCompleteTaskAction(infoTaskSave) {
+  if (infoTaskSave.deletedInfoTask) {
+    delete infoTaskSave.deletedInfoTask;
+  }
+  if (infoTaskSave.expiredTask) {
+    delete infoTaskSave.expiredTask;
+  }
+  if (infoTaskSave.expireAlert) {
+    delete infoTaskSave.expireAlert;
+  }
+  delete infoTaskSave.scheduledTask;
+  infoTaskSave.completedTask = true;
+  localStorage.setItem("tasks", JSON.stringify(dbAllTasks));
+}
+
+function clearScheduledTask(
+  appointmentTime,
+  appointmentDate,
+  infoTextContent,
+  taskInfo,
+  taskField
+) {
+  appointmentTime.innerText = "";
+  appointmentDate.innerText = "";
+  infoTextContent.innerText = "";
+  taskInfo.classList.add("hide");
+  taskField.classList.remove("scheduled");
+  taskInfo.classList.remove("scheduled");
+  if (taskField.classList.contains("expireAlert")) {
+    taskField.classList.remove("expireAlert");
+  }
+  if (taskField.classList.contains("expiredTask")) {
+    taskField.classList.remove("expiredTask");
+  }
+  if (taskInfo.classList.contains("expireAlert")) {
+    taskInfo.classList.remove("expireAlert");
+  }
+  if (taskInfo.classList.contains("expiredTask")) {
+    taskInfo.classList.remove("expiredTask");
+  }
+}
+
+function putCompletedTask(
+  taskContent,
+  taskField,
+  taskInfo,
+  infoTextContent,
+  completedTaskIcon,
+  schedulingRemoveBtn,
+  checkBtn
+) {
+  taskContent.classList.add("completed");
+  taskField.classList.add("completed");
+  taskInfo.classList.add("completed");
+  taskInfo.classList.remove("hide");
+  infoTextContent.innerText = "Tarefa concluída";
+  completedTaskIcon.classList.remove("hide");
+  schedulingRemoveBtn.classList.add("hide");
+  checkBtn.setAttribute("title", "Restaurar");
+}
+
+function transitionClickProtection(option) {
+  const tasks = tasksContainer.childNodes;
+  if (option == "add") {
+    for (const task of tasks) {
+      task.classList.remove("hover");
+      task.childNodes[1].classList.add("pointerEventsNone");
+    }
+  } else {
+    for (const task of tasks) {
+      task.classList.add("hover");
+      task.childNodes[1].classList.remove("pointerEventsNone");
+    }
+  }
+}
+
+function completeTask(
+  taskField,
+  taskContent,
+  checkBtn,
+  checkIcon,
+  editBtn,
+  appointmentDate,
+  appointmentTime,
+  taskInfo,
+  infoTextContent,
+  schedulingRemoveBtn,
+  completedTaskIcon,
+  infoTaskSave
+) {
+  transitionClickProtection("add");
+  taskField.classList.add("vanishTask");
+  completeTaskIconToggle(checkIcon);
+  editBtn.classList.add("disabledBtn");
+  saveCompleteTaskAction(infoTaskSave);
+  setTimeout(() => {
+    if (taskField.classList.contains("scheduled")) {
+      clearScheduledTask(
+        appointmentTime,
+        appointmentDate,
+        infoTextContent,
+        taskInfo,
+        taskField
+      );
+    }
+    putCompletedTask(
+      taskContent,
+      taskField,
+      taskInfo,
+      infoTextContent,
+      completedTaskIcon,
+      schedulingRemoveBtn,
+      checkBtn
+    );
+    taskField.classList.remove("vanishTask");
+    taskField.classList.add("appearTask");
+    if (scheduledTasksFilterBtn.classList.contains("active")) {
+      filterTaskByClass("scheduledTask");
+    } else if (pendingTasksFilterBtn.classList.contains("active")) {
+      filterTaskByClass("pendingTask");
+    }
+    calculateNumberOfTasks();
+  }, 200);
+  setTimeout(() => {
+    taskField.classList.remove("appearTask");
+    transitionClickProtection("remove");
+  }, 400);
+}
 
 // Função responsável por recuperar as tarefas e outras informações do banco de dados
 
