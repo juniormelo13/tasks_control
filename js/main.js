@@ -181,12 +181,13 @@ function loadImage(e) {
 }
 
 inputFileImg.addEventListener("change", loadImage);
-inputFileBtnDel.addEventListener("click", () =>
+inputFileBtnDel.addEventListener("click", () => {
   showConfirmWindow(
     "Tem certeza de que deseja remover a foto de perfil?",
     confirmRemoveImg
-  )
-);
+  );
+  menu.classList.add("menuBlur");
+});
 
 function removeImg() {
   localStorage.removeItem("infoAccountImg");
@@ -292,14 +293,14 @@ function activateFilterBtn(filterBtn) {
 
 function checkTasksOnScreen(taskClass) {
   if (taskClass.length > 0) {
-    if(!noTaskTextContainer.classList.contains("hide")) {
+    if (!noTaskTextContainer.classList.contains("hide")) {
       noTaskTextContainer.classList.add("hide");
-      console.log("Sim")
+      console.log("Sim");
     }
   } else {
-    if(noTaskTextContainer.classList.contains("hide")) {
+    if (noTaskTextContainer.classList.contains("hide")) {
       noTaskTextContainer.classList.remove("hide");
-      console.log("Não")
+      console.log("Não");
     }
   }
 }
@@ -1623,12 +1624,13 @@ const deleteClick = (taskField, infoTaskSave, notesInfo) => {
 
 // Configuração do botão para exclusão de todas as tarefas
 
-removeAllTaskBtn.addEventListener("click", () =>
+removeAllTaskBtn.addEventListener("click", () => {
   showConfirmWindow(
     "Esta ação irá excluir todas as tarefas, tem certeza de que deseja removê-las?",
     confirmRemoveAllTasks
-  )
-);
+  );
+  menu.classList.add("menuBlur");
+});
 
 function showConfirmWindow(text, funct) {
   header.classList.add("pointerEventsNone");
@@ -1640,9 +1642,6 @@ function showConfirmWindow(text, funct) {
   confirmField.classList.remove("hide");
   confirmField.classList.add("appearWindow");
   btnYes.focus();
-  if (menuOpen) {
-    menu.classList.add("menuBlur");
-  }
   if (filtred) {
     filterInformationBox.classList.add("filterInformationBlur");
   }
@@ -1665,8 +1664,10 @@ function hideConfirmWindow() {
     filterInformationBox.classList.add("filterInformationOffBlur");
   }
   if (menuOpen) {
-    menu.classList.remove("menuBlur");
-    menu.classList.add("menuOffBlur");
+    if (menu.classList.contains("menuBlur")) {
+      menu.classList.remove("menuBlur");
+      menu.classList.add("menuOffBlur");
+    }
   }
   setTimeout(() => {
     header.classList.remove("pointerEventsNone");
@@ -1719,12 +1720,13 @@ function confirmRemoveAllTasks() {
 
 // Configuração do botão para restaurar todas as configurações de fábrica
 
-removeAllConfigBtn.addEventListener("click", () =>
+removeAllConfigBtn.addEventListener("click", () => {
   showConfirmWindow(
     "Esta ação irá excluir todas as configurações já realizadas e todas as tarefas, tem certeza?",
     confirmRemoveAllConfig
-  )
-);
+  );
+  menu.classList.add("menuBlur");
+});
 
 function removeAllConfig() {
   if (localStorage.getItem("tasks")) {
@@ -2033,18 +2035,32 @@ themeCheckBox.addEventListener("change", () => {
 
 // ----- Funções auxiliares -----
 
-function completeTaskBtnToggle(taskField, taskContent, checkIcon, checkBtn, scheduleBtn, editBtn, completedTaskIcon, schedulingRemoveBtn) {
+function completeTaskBtnToggle(
+  taskField,
+  taskContent,
+  checkIcon,
+  checkBtn,
+  scheduleBtn,
+  editBtn,
+  completedTaskIcon,
+  schedulingRemoveBtn
+) {
   checkIcon.classList.toggle("fa-thumbs-up");
   checkIcon.classList.toggle("fa-rotate");
   checkIcon.classList.toggle("fa-spin");
-  editBtn.classList.toggle("disabledBtn");
-  if (!taskField.classList.contains("scheduled")) {
+  if (!taskField.classList.contains("expiredTask")) {
+    editBtn.classList.toggle("disabledBtn");
+  }
+  if (
+    !taskField.classList.contains("scheduled") &&
+    !taskField.classList.contains("expiredTask")
+  ) {
     scheduleBtn.classList.toggle("disabledBtn");
   }
   completedTaskIcon.classList.toggle("hide");
   schedulingRemoveBtn.classList.toggle("hide");
   taskContent.classList.toggle("completed");
-  if(!taskField.classList.contains("completed")) {
+  if (!taskField.classList.contains("completed")) {
     checkBtn.setAttribute("title", "Restaurar");
   } else {
     checkBtn.setAttribute("title", "Concluir");
@@ -2108,11 +2124,7 @@ function clearTaskClass(
   }
 }
 
-function putCompletedTask(
-  taskField,
-  taskInfo,
-  infoTextContent,
-) {
+function putCompletedTask(taskField, taskInfo, infoTextContent) {
   taskField.classList.add("completed");
   taskInfo.classList.add("completed");
   taskInfo.classList.remove("hide");
@@ -2149,11 +2161,20 @@ function completeTask(
   completedTaskIcon,
   infoTaskSave
 ) {
+  saveCompleteTaskAction(infoTaskSave);
   transitionClickProtection("add");
   taskField.classList.add("vanishTask");
-  saveCompleteTaskAction(infoTaskSave);
   setTimeout(() => {
-    completeTaskBtnToggle(taskField, taskContent, checkIcon, checkBtn, scheduleBtn, editBtn, completedTaskIcon, schedulingRemoveBtn);
+    completeTaskBtnToggle(
+      taskField,
+      taskContent,
+      checkIcon,
+      checkBtn,
+      scheduleBtn,
+      editBtn,
+      completedTaskIcon,
+      schedulingRemoveBtn
+    );
     if (scheduledTasksFilterBtn.classList.contains("active")) {
       filterTaskByClass("scheduledTask");
     } else if (pendingTasksFilterBtn.classList.contains("active")) {
@@ -2183,17 +2204,9 @@ function completeTask(
         taskInfo,
         taskField
       );
-      putCompletedTask(
-        taskField,
-        taskInfo,
-        infoTextContent
-      );
+      putCompletedTask(taskField, taskInfo, infoTextContent);
     } else {
-      putCompletedTask(
-        taskField,
-        taskInfo,
-        infoTextContent
-      );
+      putCompletedTask(taskField, taskInfo, infoTextContent);
     }
     taskField.classList.remove("vanishTask");
     taskField.classList.add("appearTask");
