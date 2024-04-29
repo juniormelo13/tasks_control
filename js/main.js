@@ -295,12 +295,10 @@ function checkTasksOnScreen(taskClass) {
   if (taskClass.length > 0) {
     if (!noTaskTextContainer.classList.contains("hide")) {
       noTaskTextContainer.classList.add("hide");
-      console.log("Sim");
     }
   } else {
     if (noTaskTextContainer.classList.contains("hide")) {
       noTaskTextContainer.classList.remove("hide");
-      console.log("Não");
     }
   }
 }
@@ -2175,16 +2173,6 @@ function completeTask(
       completedTaskIcon,
       schedulingRemoveBtn
     );
-    if (scheduledTasksFilterBtn.classList.contains("active")) {
-      filterTaskByClass("scheduledTask");
-    } else if (pendingTasksFilterBtn.classList.contains("active")) {
-      filterTaskByClass("pendingTask");
-    } else if (expiredTasksFilterBtn.classList.contains("active")) {
-      filterTaskByClass("expiredTask");
-    } else if (completedTasksFilterBtn.classList.contains("active")) {
-      filterTaskByClass("completedTask");
-    }
-    calculateNumberOfTasks();
     if (taskField.classList.contains("completed")) {
       clearTaskClass(
         appointmentTime,
@@ -2210,6 +2198,16 @@ function completeTask(
     }
     taskField.classList.remove("vanishTask");
     taskField.classList.add("appearTask");
+    calculateNumberOfTasks();
+    if (scheduledTasksFilterBtn.classList.contains("active")) {
+      filterTaskByClass("scheduledTask");
+    } else if (pendingTasksFilterBtn.classList.contains("active")) {
+      filterTaskByClass("pendingTask");
+    } else if (expiredTasksFilterBtn.classList.contains("active")) {
+      filterTaskByClass("expiredTask");
+    } else if (completedTasksFilterBtn.classList.contains("active")) {
+      filterTaskByClass("completedTask");
+    }
   }, 300);
   setTimeout(() => {
     taskField.classList.remove("appearTask");
