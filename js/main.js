@@ -2043,7 +2043,19 @@ themeCheckBox.addEventListener("change", () => {
   }
 });
 
-// ----- Funções auxiliares para criação e manipulação de tarefas -----
+// ----- Funções auxiliares (Criação de tarefas) -----
+
+function createTask(taskField) {
+  taskField = document.createElement("div");
+  taskField.classList.add("taskField");
+  taskField.classList.add("hover");
+  taskField.classList.add("appearTask");
+  setTimeout(() => {
+    taskField.classList.remove("appearTask");
+  }, 200);
+}
+
+// ----- Funções auxiliares manipulação de tarefas -----
 
 function clearTaskClass(
   appointmentTime,
@@ -2213,8 +2225,8 @@ function completeTask(
     taskField.classList.remove("vanishTask");
     taskField.classList.add("appearTask");
     calculateNumberOfTasks();
-    if(!allTasksFilterBtn.classList.contains("active")) {
-      checkActivatedClassBtnAndFilter()
+    if (!allTasksFilterBtn.classList.contains("active")) {
+      checkActivatedClassBtnAndFilter();
     }
   }, 200);
   setTimeout(() => {
