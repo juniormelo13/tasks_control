@@ -344,6 +344,18 @@ function filterTaskByClass(taskClass) {
   }
 }
 
+function checkActivatedClassBtnAndFilter() {
+  if (scheduledTasksFilterBtn.classList.contains("active")) {
+    filterTaskByClass("scheduledTask");
+  } else if (pendingTasksFilterBtn.classList.contains("active")) {
+    filterTaskByClass("pendingTask");
+  } else if (expiredTasksFilterBtn.classList.contains("active")) {
+    filterTaskByClass("expiredTask");
+  } else if (completedTasksFilterBtn.classList.contains("active")) {
+    filterTaskByClass("completedTask");
+  }
+}
+
 function validateInputValue(input, cleanBtn) {
   if (input.value.trim() != "") {
     if (cleanBtn.classList.contains("hide")) {
@@ -502,6 +514,7 @@ function insertTask() {
   } else {
     // Caso o valor do input seja válido: Criação dos parágrafos e botões referentes a cada tarefa adicionada
     cleanNewTaskInputBtn.classList.add("hide");
+    newTaskInput.value = "";
 
     // Tarefa
     const taskField = document.createElement("div");
@@ -517,7 +530,6 @@ function insertTask() {
     taskField.appendChild(taskContent);
     taskContent.classList.add("taskContent");
     taskContent.innerText = newTaskInput.value;
-    newTaskInput.value = "";
 
     // Salvar tarefa no Local Storage
     const infoTaskSave = new Object();
@@ -2031,7 +2043,60 @@ themeCheckBox.addEventListener("change", () => {
   }
 });
 
-// ----- Funções auxiliares -----
+// ----- Funções auxiliares para criação e manipulação de tarefas -----
+
+function clearTaskClass(
+  appointmentTime,
+  appointmentDate,
+  infoTextContent,
+  taskInfo,
+  taskField
+) {
+  if (
+    taskField.classList.contains("scheduled") ||
+    taskField.classList.contains("expiredTask")
+  ) {
+    appointmentTime.innerText = "";
+    appointmentDate.innerText = "";
+    infoTextContent.innerText = "";
+  }
+  if (!taskInfo.classList.contains("hide")) {
+    taskInfo.classList.add("hide");
+  }
+  if (taskInfo.classList.contains("scheduled")) {
+    taskField.classList.remove("scheduled");
+    taskInfo.classList.remove("scheduled");
+  }
+  if (taskField.classList.contains("expireAlert")) {
+    taskField.classList.remove("expireAlert");
+    taskInfo.classList.remove("expireAlert");
+  }
+  if (taskField.classList.contains("expiredTask")) {
+    taskField.classList.remove("expiredTask");
+    taskInfo.classList.remove("expiredTask");
+  }
+  if (taskField.classList.contains("completed")) {
+    taskField.classList.remove("completed");
+    taskInfo.classList.remove("completed");
+  }
+}
+
+function transitionClickProtection(option) {
+  const tasks = tasksContainer.childNodes;
+  if (option == "add") {
+    for (const task of tasks) {
+      task.classList.remove("hover");
+      task.childNodes[1].classList.add("pointerEventsNone");
+    }
+  } else {
+    for (const task of tasks) {
+      task.classList.add("hover");
+      task.childNodes[1].classList.remove("pointerEventsNone");
+    }
+  }
+}
+
+// ----- Funções auxiliares (Completar e restaurar tarefas) -----
 
 function completeTaskBtnToggle(
   taskField,
@@ -2086,62 +2151,11 @@ function saveCompleteTaskAction(infoTaskSave) {
   localStorage.setItem("tasks", JSON.stringify(dbAllTasks));
 }
 
-function clearTaskClass(
-  appointmentTime,
-  appointmentDate,
-  infoTextContent,
-  taskInfo,
-  taskField
-) {
-  if (
-    taskField.classList.contains("scheduled") ||
-    taskField.classList.contains("expiredTask")
-  ) {
-    appointmentTime.innerText = "";
-    appointmentDate.innerText = "";
-    infoTextContent.innerText = "";
-  }
-  if (!taskInfo.classList.contains("hide")) {
-    taskInfo.classList.add("hide");
-  }
-  if (taskInfo.classList.contains("scheduled")) {
-    taskField.classList.remove("scheduled");
-    taskInfo.classList.remove("scheduled");
-  }
-  if (taskField.classList.contains("expireAlert")) {
-    taskField.classList.remove("expireAlert");
-    taskInfo.classList.remove("expireAlert");
-  }
-  if (taskField.classList.contains("expiredTask")) {
-    taskField.classList.remove("expiredTask");
-    taskInfo.classList.remove("expiredTask");
-  }
-  if (taskField.classList.contains("completed")) {
-    taskField.classList.remove("completed");
-    taskInfo.classList.remove("completed");
-  }
-}
-
 function putCompletedTask(taskField, taskInfo, infoTextContent) {
   taskField.classList.add("completed");
   taskInfo.classList.add("completed");
   taskInfo.classList.remove("hide");
   infoTextContent.innerText = "Tarefa concluída";
-}
-
-function transitionClickProtection(option) {
-  const tasks = tasksContainer.childNodes;
-  if (option == "add") {
-    for (const task of tasks) {
-      task.classList.remove("hover");
-      task.childNodes[1].classList.add("pointerEventsNone");
-    }
-  } else {
-    for (const task of tasks) {
-      task.classList.add("hover");
-      task.childNodes[1].classList.remove("pointerEventsNone");
-    }
-  }
 }
 
 function completeTask(
@@ -2199,20 +2213,14 @@ function completeTask(
     taskField.classList.remove("vanishTask");
     taskField.classList.add("appearTask");
     calculateNumberOfTasks();
-    if (scheduledTasksFilterBtn.classList.contains("active")) {
-      filterTaskByClass("scheduledTask");
-    } else if (pendingTasksFilterBtn.classList.contains("active")) {
-      filterTaskByClass("pendingTask");
-    } else if (expiredTasksFilterBtn.classList.contains("active")) {
-      filterTaskByClass("expiredTask");
-    } else if (completedTasksFilterBtn.classList.contains("active")) {
-      filterTaskByClass("completedTask");
+    if(!allTasksFilterBtn.classList.contains("active")) {
+      checkActivatedClassBtnAndFilter()
     }
-  }, 300);
+  }, 200);
   setTimeout(() => {
     taskField.classList.remove("appearTask");
     transitionClickProtection("remove");
-  }, 500);
+  }, 400);
 }
 
 // Função responsável por recuperar as tarefas e outras informações do banco de dados
