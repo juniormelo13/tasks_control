@@ -66,7 +66,7 @@ let completedTasks = dbAllTasks.filter(
 );
 
 // recuperação das tarefas e outras informações do banco de dados
-// taskRecover();
+taskRecover();
 
 //Configuração do botão de Menu
 const menuBtn = document.querySelector("#menuButton");
@@ -512,7 +512,7 @@ newTaskBtn.addEventListener("click", () => {
   checkInputValue(newTaskInput, cleanNewTaskInputBtn);
   if (validateInput(newTaskInput)) {
     cleanNewTaskInputBtn.classList.add("hide");
-    insertTask();
+    preparingToInsertTask();
   }
 });
 
@@ -520,24 +520,36 @@ newTaskInput.addEventListener("keypress", (e) => {
   if (e.key === "Enter") {
     checkInputValue(newTaskInput, cleanNewTaskInputBtn);
     if (validateInput(newTaskInput)) {
-      insertTask();
+      preparingToInsertTask();
     }
   }
 });
 
-function insertTask() {
+function preparingToInsertTask() {
+  const infoTaskSave = new Object();
+  const taskField = document.createElement("div");
   if (filtred) {
     cleanInputFilter();
     activateFilterBtn(pendingTasksFilterBtn);
-    taskConstructor();
     filterTaskByClass("pendingTask");
+    insertTask(taskField, infoTaskSave)
   } else {
-    taskConstructor();
+    insertTask(taskField, infoTaskSave)
   }
   calculateNumberOfTasks();
   checkTasksOnScreen(dbAllTasks);
   checkRemoveAllTaskBtn();
   checkRemoveAllConfigBtn();
+}
+
+function insertTask(taskField, infoTaskSave) {
+  saveCreatedTask(infoTaskSave);
+  taskConstructor(taskField, infoTaskSave);
+  taskField.classList.add("appearTask");
+  tasksContainer.insertBefore(taskField, tasksContainer.childNodes[0]);
+  setTimeout(() => {
+    taskField.classList.remove("appearTask");
+  }, 200);
 }
 
 // Configuração do botão para conclusão da tarefa
@@ -1827,23 +1839,19 @@ themeCheckBox.addEventListener("change", () => {
 function createTask(taskField) {
   taskField.classList.add("taskField");
   taskField.classList.add("hover");
-  taskField.classList.add("appearTask");
-  setTimeout(() => {
-    taskField.classList.remove("appearTask");
-  }, 200);
 }
 
-function insertTextContent(taskField, taskContent) {
-  taskContent.innerText = newTaskInput.value;
+function saveCreatedTask(infoTaskSave) {
+  infoTaskSave["taskContent"] = newTaskInput.value;
+  dbAllTasks.unshift(infoTaskSave);
+  localStorage.setItem("tasks", JSON.stringify(dbAllTasks));
+}
+
+function insertTextContent(taskField, taskContent, infoTaskSave) {
+  taskContent.innerText = infoTaskSave["taskContent"];
   taskContent.classList.add("taskContent");
   taskField.appendChild(taskContent);
   newTaskInput.value = "";
-}
-
-function saveCreatedTask(infoTaskSave, taskContent) {
-  infoTaskSave["taskContent"] = taskContent.innerText;
-  dbAllTasks.unshift(infoTaskSave);
-  localStorage.setItem("tasks", JSON.stringify(dbAllTasks));
 }
 
 function createBtnField(taskField, btnField) {
@@ -1971,6 +1979,7 @@ function createCompleteTaskBtn(
   scheduleBtn,
   editBtn,
   checkBtn,
+  checkIcon,
   appointmentDate,
   appointmentTime,
   taskInfo,
@@ -1979,7 +1988,6 @@ function createCompleteTaskBtn(
   schedulingRemoveBtn,
   infoTaskSave
 ) {
-  const checkIcon = document.createElement("i");
   btnField.appendChild(checkBtn);
   checkBtn.classList.add("checkBtn");
   checkBtn.appendChild(checkIcon);
@@ -2105,20 +2113,20 @@ function createRemoveTaskBtn(
   );
 }
 
-function taskConstructor() {
+function taskConstructor(taskField, infoTaskSave) {
   // Componentes da tarefa
-  const taskField = document.createElement("div");
+
   const btnField = document.createElement("div");
   const taskInfo = document.createElement("div");
   const notePadContainer = document.createElement("div");
   const schedulingRemoveBtn = document.createElement("button");
   const cleanNoteBtn = document.createElement("button");
   const checkBtn = document.createElement("button");
+  const checkIcon = document.createElement("i");
   const editBtn = document.createElement("button");
   const scheduleBtn = document.createElement("button");
   const notesBtn = document.createElement("button");
   const removeBtn = document.createElement("button");
-  const taskContent = document.createElement("p");
   const infoTextContent = document.createElement("p");
   const completedTaskIcon = document.createElement("i");
   const appointmentDate = document.createElement("span");
@@ -2126,16 +2134,13 @@ function taskConstructor() {
   const notesInfo = document.createElement("span");
   const notesBtnAlert = document.createElement("span");
   const notePadInput = document.createElement("textarea");
-  const infoTaskSave = new Object();
+  const taskContent = document.createElement("p");
 
   // Criação da tarefa
   createTask(taskField);
 
   // Inserção do texto da tarefa
-  insertTextContent(taskField, taskContent);
-
-  // Salvar tarefa no Local Storage
-  saveCreatedTask(infoTaskSave, taskContent);
+  insertTextContent(taskField, taskContent, infoTaskSave);
 
   // Campo dos botões/ícones
   createBtnField(taskField, btnField);
@@ -2174,6 +2179,7 @@ function taskConstructor() {
     scheduleBtn,
     editBtn,
     checkBtn,
+    checkIcon,
     appointmentDate,
     appointmentTime,
     taskInfo,
@@ -2216,9 +2222,7 @@ function taskConstructor() {
   // Botão para exclusão da tarefa
   createRemoveTaskBtn(taskField, infoTaskSave, notesInfo, btnField, removeBtn);
 
-  // Inclusão da tarefa na tela
-  tasksContainer.insertBefore(taskField, tasksContainer.childNodes[0])
-
+  // Recuperação das tarefas em tela, caso seja requisitado
   switch (infoTaskSave.completedTask) {
     case true:
       taskContent.classList.toggle("completed");
@@ -2473,9 +2477,9 @@ function taskRecover() {
   for (let i = 0; i < dbAllTasks.length; i++) {
     // Recuperação dos dados de cada tarefa no array e renderização em tela
     const infoTaskSave = dbAllTasks[i];
-
-    // taskConstructor(infoTaskSave)
-
+    const taskField = document.createElement("div");
+    taskConstructor(taskField, infoTaskSave);
+    tasksContainer.appendChild(taskField);
   }
 }
 
