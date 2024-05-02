@@ -66,7 +66,7 @@ let completedTasks = dbAllTasks.filter(
 );
 
 // recuperação das tarefas e outras informações do banco de dados
-taskRecover();
+// taskRecover();
 
 //Configuração do botão de Menu
 const menuBtn = document.querySelector("#menuButton");
@@ -372,12 +372,12 @@ function checkInputValue(input, cleanBtn) {
 
 function validateInput(input) {
   if (input.value.trim() != "") {
-    return true
+    return true;
   } else {
     input.classList.add("inputError");
     input.value = "";
     input.blur();
-    return false
+    return false;
   }
 }
 
@@ -511,7 +511,7 @@ newTaskInput.onfocus = () => {
 newTaskBtn.addEventListener("click", () => {
   checkInputValue(newTaskInput, cleanNewTaskInputBtn);
   if (validateInput(newTaskInput)) {
-    cleanNewTaskInputBtn.classList.add("hide")
+    cleanNewTaskInputBtn.classList.add("hide");
     insertTask();
   }
 });
@@ -526,167 +526,18 @@ newTaskInput.addEventListener("keypress", (e) => {
 });
 
 function insertTask() {
-  // Componentes da tarefa
-  const taskField = document.createElement("div");
-  const btnField = document.createElement("div");
-  const taskInfo = document.createElement("div");
-  const notePadContainer = document.createElement("div");
-  // const notePadTop = document.createElement("div");
-  // const notePadBtnField = document.createElement("div");
-  const schedulingRemoveBtn = document.createElement("button");
-  // const saveNoteBtn = document.createElement("button");
-  // const cleanNoteBtn = document.createElement("button");
-  const checkBtn = document.createElement("button");
-  const editBtn = document.createElement("button");
-  const scheduleBtn = document.createElement("button");
-  const notesBtn = document.createElement("button");
-  const removeBtn = document.createElement("button");
-  const taskContent = document.createElement("p");
-  const infoTextContent = document.createElement("p");
-  // const notePadTitle = document.createElement("p");
-  const schedulingRemoveBtnIcon = document.createElement("i");
-  const completedTaskIcon = document.createElement("i");
-  // const cleanNoteBtnIcon = document.createElement("i");
-  // const saveNoteBtnIcon = document.createElement("i");
-  const appointmentDate = document.createElement("span");
-  const appointmentTime = document.createElement("span");
-  //const notesInfo = document.createElement("span");
-  const notesBtnAlert = document.createElement("span");
-  const checkIcon = document.createElement("i");
-  const editIcon = document.createElement("i");
-  const scheduleIcon = document.createElement("i");
-  const notesBtnIcon = document.createElement("i");
-  const removeIcon = document.createElement("i");
-  // const notePadInput = document.createElement("textarea");
-  const infoTaskSave = new Object();
-  
-  // Criação da tarefa
-  createTask(taskField)
-  
-  // Inserção do texto da tarefa
-  insertTextContent(taskField, taskContent)
-  
-  // Salvar tarefa no Local Storage
-  saveCreatedTask(infoTaskSave, taskContent)
-
-  // Campo dos botões/ícones
-  createBtnField(taskField, btnField)
-
-  // Criação do campo de informações da tarefa
-  createTaskInfo(taskField, taskInfo, infoTextContent, schedulingRemoveBtn, appointmentDate, appointmentTime, completedTaskIcon, schedulingRemoveBtnIcon, btnField, infoTaskSave, editBtn, scheduleBtn)
-  
-
-  // Campo para anotações da tarefa
-  createNotPadContainer(taskField, notePadContainer, notesBtnAlert, infoTaskSave)
-  
-
-  // Botão para conclusão da tarefa
-  
-  btnField.appendChild(checkBtn);
-  checkBtn.classList.add("checkBtn");
-  checkBtn.appendChild(checkIcon);
-  checkIcon.classList.add("fa-solid");
-  checkIcon.classList.add("fa-thumbs-up");
-  checkBtn.setAttribute("title", "Concluir");
-  checkBtn.addEventListener("click", () =>
-    completeTaskClick(
-      taskField,
-      taskContent,
-      scheduleBtn,
-      editBtn,
-      checkBtn,
-      checkIcon,
-      appointmentDate,
-      appointmentTime,
-      taskInfo,
-      infoTextContent,
-      completedTaskIcon,
-      schedulingRemoveBtn,
-      infoTaskSave
-    )
-  );
-
-  //Botão para edição da tarefa
-  btnField.appendChild(editBtn);
-  editBtn.classList.add("editBtn");
-  editBtn.appendChild(editIcon);
-  editIcon.classList.add("fa-solid");
-  editIcon.classList.add("fa-pen");
-  editBtn.setAttribute("title", "Editar");
-  editBtn.addEventListener("click", () => editClick(taskContent, infoTaskSave));
-
-  // Botão para agendamento da tarefa
-  
-  btnField.appendChild(scheduleBtn);
-  scheduleBtn.classList.add("scheduleBtn");
-  scheduleBtn.appendChild(scheduleIcon);
-  scheduleIcon.classList.add("fa-solid");
-  scheduleIcon.classList.add("fa-clock");
-  scheduleBtn.setAttribute("title", "Definir prazo");
-  scheduleBtn.addEventListener("click", () =>
-    scheduleClick(
-      taskField,
-      scheduleBtn,
-      appointmentDate,
-      appointmentTime,
-      taskInfo,
-      infoTextContent,
-      schedulingRemoveBtn,
-      infoTaskSave,
-      btnField
-    )
-  );
-
-  // Botão para adiconar anotações sobre a tarefa
-  btnField.appendChild(notesBtn);
-  notesBtn.classList.add("notesBtn");
-  notesBtn.appendChild(notesBtnIcon);
-  notesBtn.appendChild(notesBtnAlert);
-  notesBtnIcon.classList.add("fa-solid");
-  notesBtnIcon.classList.add("fa-file-lines");
-  notesBtnAlert.classList.add("notesBtnAlert");
-  notesBtnAlert.classList.add("hide");
-  notesBtn.setAttribute("title", "Anotações");
-  notesBtn.addEventListener("click", () =>
-    notesBtnClick(
-      taskField,
-      notePadInput,
-      notePadContainer,
-      cleanNoteBtn,
-      notesInfo,
-      notesBtn,
-      notesBtnAlert,
-      infoTaskSave,
-      taskInfo
-    )
-  );
-
-  // Botão para exclusão da tarefa
-  
-  btnField.appendChild(removeBtn);
-  removeBtn.classList.add("removeBtn");
-  removeBtn.appendChild(removeIcon);
-  removeIcon.classList.add("fa-solid");
-  removeIcon.classList.add("fa-trash");
-  removeBtn.setAttribute("title", "Excluir tarefa");
-  removeBtn.addEventListener("click", () =>
-    deleteClick(taskField, infoTaskSave, notesInfo)
-  );
-
   if (filtred) {
     cleanInputFilter();
     activateFilterBtn(pendingTasksFilterBtn);
-    tasksContainer.insertBefore(taskField, tasksContainer.childNodes[0]);
+    taskConstructor();
     filterTaskByClass("pendingTask");
   } else {
-    tasksContainer.insertBefore(taskField, tasksContainer.childNodes[0]);
+    taskConstructor();
   }
-
   calculateNumberOfTasks();
   checkTasksOnScreen(dbAllTasks);
   checkRemoveAllTaskBtn();
   checkRemoveAllConfigBtn();
-
 }
 
 // Configuração do botão para conclusão da tarefa
@@ -1990,7 +1841,7 @@ function insertTextContent(taskField, taskContent) {
 }
 
 function saveCreatedTask(infoTaskSave, taskContent) {
-  infoTaskSave['taskContent'] = taskContent.innerText;
+  infoTaskSave["taskContent"] = taskContent.innerText;
   dbAllTasks.unshift(infoTaskSave);
   localStorage.setItem("tasks", JSON.stringify(dbAllTasks));
 }
@@ -2000,8 +1851,20 @@ function createBtnField(taskField, btnField) {
   btnField.classList.add("btnField");
 }
 
-function createTaskInfo(taskField, taskInfo, infoTextContent, schedulingRemoveBtn, appointmentDate, appointmentTime, completedTaskIcon, schedulingRemoveBtnIcon, btnField,
-  infoTaskSave, editBtn, scheduleBtn) {
+function createTaskInfo(
+  taskField,
+  taskInfo,
+  infoTextContent,
+  schedulingRemoveBtn,
+  appointmentDate,
+  appointmentTime,
+  completedTaskIcon,
+  btnField,
+  infoTaskSave,
+  editBtn,
+  scheduleBtn
+) {
+  const schedulingRemoveBtnIcon = document.createElement("i");
   taskInfo.classList.add("taskInfo");
   taskInfo.classList.add("hide");
   infoTextContent.classList.add("infoTextContent");
@@ -2038,16 +1901,21 @@ function createTaskInfo(taskField, taskInfo, infoTextContent, schedulingRemoveBt
   );
 }
 
-function createNotPadContainer(taskField, notePadContainer, notesBtnAlert, infoTaskSave) {
+function createNotPadContainer(
+  taskField,
+  notePadContainer,
+  notesBtnAlert,
+  infoTaskSave,
+  notePadInput,
+  notesInfo,
+  cleanNoteBtn
+) {
   const notePadTop = document.createElement("div");
   const notePadBtnField = document.createElement("div");
   const saveNoteBtn = document.createElement("button");
   const notePadTitle = document.createElement("p");
   const cleanNoteBtnIcon = document.createElement("i");
   const saveNoteBtnIcon = document.createElement("i");
-  const cleanNoteBtn = document.createElement("button");
-  const notesInfo = document.createElement("span");
-  const notePadInput = document.createElement("textarea");
 
   notePadContainer.classList.add("notePadContainer");
   notePadContainer.classList.add("hide");
@@ -2094,6 +1962,321 @@ function createNotPadContainer(taskField, notePadContainer, notesBtnAlert, infoT
   cleanNoteBtn.addEventListener("click", () =>
     cleanNoteClick(notePadInput, cleanNoteBtn, notePadContainer)
   );
+}
+
+function createCompleteTaskBtn(
+  taskField,
+  taskContent,
+  btnField,
+  scheduleBtn,
+  editBtn,
+  checkBtn,
+  appointmentDate,
+  appointmentTime,
+  taskInfo,
+  infoTextContent,
+  completedTaskIcon,
+  schedulingRemoveBtn,
+  infoTaskSave
+) {
+  const checkIcon = document.createElement("i");
+  btnField.appendChild(checkBtn);
+  checkBtn.classList.add("checkBtn");
+  checkBtn.appendChild(checkIcon);
+  checkIcon.classList.add("fa-solid");
+  checkIcon.classList.add("fa-thumbs-up");
+  checkBtn.setAttribute("title", "Concluir");
+  checkBtn.addEventListener("click", () =>
+    completeTaskClick(
+      taskField,
+      taskContent,
+      scheduleBtn,
+      editBtn,
+      checkBtn,
+      checkIcon,
+      appointmentDate,
+      appointmentTime,
+      taskInfo,
+      infoTextContent,
+      completedTaskIcon,
+      schedulingRemoveBtn,
+      infoTaskSave
+    )
+  );
+}
+
+function createEditTaskBtn(btnField, editBtn, taskContent, infoTaskSave) {
+  const editIcon = document.createElement("i");
+  btnField.appendChild(editBtn);
+  editBtn.classList.add("editBtn");
+  editBtn.appendChild(editIcon);
+  editIcon.classList.add("fa-solid");
+  editIcon.classList.add("fa-pen");
+  editBtn.setAttribute("title", "Editar");
+  editBtn.addEventListener("click", () => editClick(taskContent, infoTaskSave));
+}
+
+function createScheduleTaskBtn(
+  taskField,
+  scheduleBtn,
+  appointmentDate,
+  appointmentTime,
+  taskInfo,
+  infoTextContent,
+  schedulingRemoveBtn,
+  infoTaskSave,
+  btnField
+) {
+  const scheduleIcon = document.createElement("i");
+  btnField.appendChild(scheduleBtn);
+  scheduleBtn.classList.add("scheduleBtn");
+  scheduleBtn.appendChild(scheduleIcon);
+  scheduleIcon.classList.add("fa-solid");
+  scheduleIcon.classList.add("fa-clock");
+  scheduleBtn.setAttribute("title", "Definir prazo");
+  scheduleBtn.addEventListener("click", () =>
+    scheduleClick(
+      taskField,
+      scheduleBtn,
+      appointmentDate,
+      appointmentTime,
+      taskInfo,
+      infoTextContent,
+      schedulingRemoveBtn,
+      infoTaskSave,
+      btnField
+    )
+  );
+}
+
+function createNotesBtn(
+  taskField,
+  notePadInput,
+  notePadContainer,
+  cleanNoteBtn,
+  notesInfo,
+  notesBtn,
+  notesBtnAlert,
+  infoTaskSave,
+  taskInfo,
+  btnField
+) {
+  const notesBtnIcon = document.createElement("i");
+  btnField.appendChild(notesBtn);
+  notesBtn.classList.add("notesBtn");
+  notesBtn.appendChild(notesBtnIcon);
+  notesBtn.appendChild(notesBtnAlert);
+  notesBtnIcon.classList.add("fa-solid");
+  notesBtnIcon.classList.add("fa-file-lines");
+  notesBtnAlert.classList.add("notesBtnAlert");
+  notesBtnAlert.classList.add("hide");
+  notesBtn.setAttribute("title", "Anotações");
+  notesBtn.addEventListener("click", () =>
+    notesBtnClick(
+      taskField,
+      notePadInput,
+      notePadContainer,
+      cleanNoteBtn,
+      notesInfo,
+      notesBtn,
+      notesBtnAlert,
+      infoTaskSave,
+      taskInfo
+    )
+  );
+}
+
+function createRemoveTaskBtn(
+  taskField,
+  infoTaskSave,
+  notesInfo,
+  btnField,
+  removeBtn
+) {
+  const removeIcon = document.createElement("i");
+  btnField.appendChild(removeBtn);
+  removeBtn.classList.add("removeBtn");
+  removeBtn.appendChild(removeIcon);
+  removeIcon.classList.add("fa-solid");
+  removeIcon.classList.add("fa-trash");
+  removeBtn.setAttribute("title", "Excluir tarefa");
+  removeBtn.addEventListener("click", () =>
+    deleteClick(taskField, infoTaskSave, notesInfo)
+  );
+}
+
+function taskConstructor() {
+  // Componentes da tarefa
+  const taskField = document.createElement("div");
+  const btnField = document.createElement("div");
+  const taskInfo = document.createElement("div");
+  const notePadContainer = document.createElement("div");
+  const schedulingRemoveBtn = document.createElement("button");
+  const cleanNoteBtn = document.createElement("button");
+  const checkBtn = document.createElement("button");
+  const editBtn = document.createElement("button");
+  const scheduleBtn = document.createElement("button");
+  const notesBtn = document.createElement("button");
+  const removeBtn = document.createElement("button");
+  const taskContent = document.createElement("p");
+  const infoTextContent = document.createElement("p");
+  const completedTaskIcon = document.createElement("i");
+  const appointmentDate = document.createElement("span");
+  const appointmentTime = document.createElement("span");
+  const notesInfo = document.createElement("span");
+  const notesBtnAlert = document.createElement("span");
+  const notePadInput = document.createElement("textarea");
+  const infoTaskSave = new Object();
+
+  // Criação da tarefa
+  createTask(taskField);
+
+  // Inserção do texto da tarefa
+  insertTextContent(taskField, taskContent);
+
+  // Salvar tarefa no Local Storage
+  saveCreatedTask(infoTaskSave, taskContent);
+
+  // Campo dos botões/ícones
+  createBtnField(taskField, btnField);
+
+  // Criação do campo de informações da tarefa
+  createTaskInfo(
+    taskField,
+    taskInfo,
+    infoTextContent,
+    schedulingRemoveBtn,
+    appointmentDate,
+    appointmentTime,
+    completedTaskIcon,
+    btnField,
+    infoTaskSave,
+    editBtn,
+    scheduleBtn
+  );
+
+  // Campo para anotações da tarefa
+  createNotPadContainer(
+    taskField,
+    notePadContainer,
+    notesBtnAlert,
+    infoTaskSave,
+    notePadInput,
+    notesInfo,
+    cleanNoteBtn
+  );
+
+  // Botão para conclusão da tarefa
+  createCompleteTaskBtn(
+    taskField,
+    taskContent,
+    btnField,
+    scheduleBtn,
+    editBtn,
+    checkBtn,
+    appointmentDate,
+    appointmentTime,
+    taskInfo,
+    infoTextContent,
+    completedTaskIcon,
+    schedulingRemoveBtn,
+    infoTaskSave
+  );
+
+  //Botão para edição da tarefa
+  createEditTaskBtn(btnField, editBtn, taskContent, infoTaskSave);
+
+  // Botão para agendamento da tarefa
+  createScheduleTaskBtn(
+    taskField,
+    scheduleBtn,
+    appointmentDate,
+    appointmentTime,
+    taskInfo,
+    infoTextContent,
+    schedulingRemoveBtn,
+    infoTaskSave,
+    btnField
+  );
+
+  // Botão para adiconar anotações sobre a tarefa
+  createNotesBtn(
+    taskField,
+    notePadInput,
+    notePadContainer,
+    cleanNoteBtn,
+    notesInfo,
+    notesBtn,
+    notesBtnAlert,
+    infoTaskSave,
+    taskInfo,
+    btnField
+  );
+
+  // Botão para exclusão da tarefa
+  createRemoveTaskBtn(taskField, infoTaskSave, notesInfo, btnField, removeBtn);
+
+  // Inclusão da tarefa na tela
+  tasksContainer.insertBefore(taskField, tasksContainer.childNodes[0])
+
+  switch (infoTaskSave.completedTask) {
+    case true:
+      taskContent.classList.toggle("completed");
+      taskField.classList.toggle("completed");
+      editBtn.classList.toggle("disabledBtn");
+      scheduleBtn.classList.toggle("disabledBtn");
+      checkIcon.classList.toggle("fa-thumbs-up");
+      checkIcon.classList.toggle("fa-rotate");
+      checkIcon.classList.toggle("fa-spin");
+      checkBtn.setAttribute("title", "Restaurar");
+      taskInfo.classList.add("completed");
+      taskInfo.classList.remove("hide");
+      infoTextContent.innerText = "Tarefa concluída";
+      completedTaskIcon.classList.remove("hide");
+      schedulingRemoveBtn.classList.add("hide");
+      break;
+  }
+
+  switch (infoTaskSave.scheduledTask && infoTaskSave.scheduledTask[0]) {
+    case true:
+      taskInfo.classList.remove("hide");
+      taskInfo.classList.add("scheduled");
+      taskField.classList.add("scheduled");
+      schedulingRemoveBtn.setAttribute("title", "Cancelar agendamento");
+      scheduleBtn.classList.add("disabledBtn");
+      infoTextContent.innerText = infoTaskSave.scheduledTask[3];
+      appointmentDate.innerText = infoTaskSave.scheduledTask[1];
+      appointmentTime.innerText = infoTaskSave.scheduledTask[2];
+      break;
+  }
+
+  switch (infoTaskSave.savedNote && infoTaskSave.savedNote[0]) {
+    case true:
+      notesInfo.innerText = infoTaskSave.savedNote[1];
+      notesBtnAlert.classList.remove("hide");
+      break;
+  }
+
+  switch (infoTaskSave.expireAlert) {
+    case true:
+      taskField.classList.add("expireAlert");
+      taskInfo.classList.add("expireAlert");
+      break;
+  }
+
+  switch (infoTaskSave.expiredTask && infoTaskSave.expiredTask[0]) {
+    case true:
+      taskField.classList.add("expiredTask");
+      taskInfo.classList.add("expiredTask");
+      taskInfo.classList.remove("hide");
+      schedulingRemoveBtn.setAttribute("title", "Restaurar");
+      editBtn.classList.add("disabledBtn");
+      scheduleBtn.classList.add("disabledBtn");
+      infoTextContent.innerText = infoTaskSave.expiredTask[3];
+      appointmentDate.innerText = infoTaskSave.expiredTask[1];
+      appointmentTime.innerText = infoTaskSave.expiredTask[2];
+      break;
+  }
 }
 
 // ----- Funções auxiliares manipulação de tarefas -----
@@ -2291,285 +2474,8 @@ function taskRecover() {
     // Recuperação dos dados de cada tarefa no array e renderização em tela
     const infoTaskSave = dbAllTasks[i];
 
-    // Tarefa
-    const taskField = document.createElement("div");
-    taskField.classList.add("taskField");
-    taskField.classList.add("hover");
-    tasksContainer.appendChild(taskField);
+    // taskConstructor(infoTaskSave)
 
-    // Texto da tarefa
-    const taskContent = document.createElement("p");
-    taskField.appendChild(taskContent);
-    taskContent.classList.add("taskContent");
-    taskContent.innerText = infoTaskSave["taskContent"];
-
-    // Campo dos botões/ícones
-    const btnField = document.createElement("div");
-    taskField.appendChild(btnField);
-    btnField.classList.add("btnField");
-
-    // Criação do campo de informações da tarefa
-    const taskInfo = document.createElement("div");
-    const infoTextContent = document.createElement("p");
-    const schedulingRemoveBtn = document.createElement("button");
-    const schedulingRemoveBtnIcon = document.createElement("i");
-    const appointmentDate = document.createElement("span");
-    const appointmentTime = document.createElement("span");
-    const completedTaskIcon = document.createElement("i");
-    taskInfo.classList.add("taskInfo");
-    taskInfo.classList.add("hide");
-    infoTextContent.classList.add("infoTextContent");
-    appointmentDate.classList.add("appointmentDate");
-    appointmentDate.classList.add("hide");
-    appointmentTime.classList.add("appointmentTime");
-    appointmentTime.classList.add("hide");
-    completedTaskIcon.classList.add("completedTaskIcon");
-    completedTaskIcon.classList.add("fa-solid");
-    completedTaskIcon.classList.add("fa-check");
-    completedTaskIcon.classList.add("hide");
-    taskField.appendChild(taskInfo);
-    taskInfo.appendChild(infoTextContent);
-    taskInfo.appendChild(schedulingRemoveBtn);
-    taskInfo.appendChild(appointmentDate);
-    taskInfo.appendChild(appointmentTime);
-    taskInfo.appendChild(completedTaskIcon);
-    schedulingRemoveBtn.classList.add("schedulingRemoveBtn");
-    schedulingRemoveBtn.appendChild(schedulingRemoveBtnIcon);
-    schedulingRemoveBtnIcon.classList.add("fa-regular");
-    schedulingRemoveBtnIcon.classList.add("fa-circle-xmark");
-    schedulingRemoveBtn.addEventListener("click", () =>
-      schedulingRemoveClick(
-        taskInfo,
-        taskField,
-        scheduleBtn,
-        appointmentDate,
-        appointmentTime,
-        editBtn,
-        infoTextContent,
-        infoTaskSave,
-        btnField
-      )
-    );
-
-    // Campo para anotações da tarefa
-    const notePadContainer = document.createElement("div");
-    const notePadTop = document.createElement("div");
-    const notePadTitle = document.createElement("p");
-    const saveNoteBtn = document.createElement("button");
-    const notePadInput = document.createElement("textarea");
-    const notePadBtnField = document.createElement("div");
-    const cleanNoteBtn = document.createElement("button");
-    const cleanNoteBtnIcon = document.createElement("i");
-    const saveNoteBtnIcon = document.createElement("i");
-    const notesInfo = document.createElement("span");
-    notePadContainer.classList.add("notePadContainer");
-    notePadContainer.classList.add("hide");
-    notePadTop.classList.add("notePadTop");
-    notePadTitle.classList.add("notePadTitle");
-    notePadInput.classList.add("notePadInput");
-    notePadInput.setAttribute("name", "notePadInput");
-    notePadInput.setAttribute("placeholder", "O que deseja anotar?");
-    notePadBtnField.classList.add("notePadBtnField");
-    cleanNoteBtn.classList.add("cleanNoteBtn");
-    cleanNoteBtn.classList.add("hide");
-    cleanNoteBtn.setAttribute("title", "Limpar Anotações");
-    cleanNoteBtnIcon.classList.add("fa-solid");
-    cleanNoteBtnIcon.classList.add("fa-xmark");
-    saveNoteBtn.classList.add("saveNoteBtn");
-    saveNoteBtn.setAttribute("title", "Salvar");
-    saveNoteBtnIcon.classList.add("fa-solid");
-    saveNoteBtnIcon.classList.add("fa-angles-up");
-    notePadInput.setAttribute("spellcheck", "false");
-    notesInfo.classList.add("notesInfo");
-    notesInfo.classList.add("hide");
-    taskField.appendChild(notePadContainer);
-    notePadContainer.appendChild(notePadTop);
-    notePadContainer.appendChild(notePadInput);
-    notePadContainer.appendChild(notePadBtnField);
-    notePadContainer.appendChild(notesInfo);
-    notePadTop.appendChild(notePadTitle);
-    notePadTitle.innerText = "Anotações";
-    notePadTop.appendChild(saveNoteBtn);
-    saveNoteBtn.appendChild(saveNoteBtnIcon);
-    notePadBtnField.appendChild(cleanNoteBtn);
-    cleanNoteBtn.appendChild(cleanNoteBtnIcon);
-
-    saveNoteBtn.addEventListener("click", () =>
-      saveNoteClick(
-        notePadContainer,
-        taskField,
-        notePadInput,
-        notesInfo,
-        notesBtnAlert,
-        infoTaskSave,
-        taskInfo
-      )
-    );
-    cleanNoteBtn.addEventListener("click", () =>
-      cleanNoteClick(notePadInput, cleanNoteBtn, notePadContainer)
-    );
-
-    // Botão para conclusão a tarefa
-    const checkBtn = document.createElement("button");
-    btnField.appendChild(checkBtn);
-    checkBtn.classList.add("checkBtn");
-    const checkIcon = document.createElement("i");
-    checkBtn.appendChild(checkIcon);
-    checkIcon.classList.add("fa-solid");
-    checkIcon.classList.add("fa-thumbs-up");
-    checkBtn.setAttribute("title", "Concluir");
-    checkBtn.addEventListener("click", () =>
-      completeTaskClick(
-        taskField,
-        taskContent,
-        scheduleBtn,
-        editBtn,
-        checkBtn,
-        checkIcon,
-        appointmentDate,
-        appointmentTime,
-        taskInfo,
-        infoTextContent,
-        completedTaskIcon,
-        schedulingRemoveBtn,
-        infoTaskSave
-      )
-    );
-
-    //Botão para edição da tarefa
-    const editBtn = document.createElement("button");
-    btnField.appendChild(editBtn);
-    editBtn.classList.add("editBtn");
-    const editIcon = document.createElement("i");
-    editBtn.appendChild(editIcon);
-    editIcon.classList.add("fa-solid");
-    editIcon.classList.add("fa-pen");
-    editBtn.setAttribute("title", "Editar");
-    editBtn.addEventListener("click", () =>
-      editClick(taskContent, infoTaskSave)
-    );
-
-    // Botão para agendamento da tarefa
-    const scheduleBtn = document.createElement("button");
-    btnField.appendChild(scheduleBtn);
-    scheduleBtn.classList.add("scheduleBtn");
-    const scheduleIcon = document.createElement("i");
-    scheduleBtn.appendChild(scheduleIcon);
-    scheduleIcon.classList.add("fa-solid");
-    scheduleIcon.classList.add("fa-clock");
-    scheduleBtn.setAttribute("title", "Definir prazo");
-    scheduleBtn.addEventListener("click", () =>
-      scheduleClick(
-        taskField,
-        scheduleBtn,
-        appointmentDate,
-        appointmentTime,
-        taskInfo,
-        infoTextContent,
-        schedulingRemoveBtn,
-        infoTaskSave,
-        btnField
-      )
-    );
-
-    // Botão para adiconar anotações sobre a tarefa
-    const notesBtn = document.createElement("button");
-    btnField.appendChild(notesBtn);
-    notesBtn.classList.add("notesBtn");
-    const notesBtnIcon = document.createElement("i");
-    const notesBtnAlert = document.createElement("span");
-    notesBtn.appendChild(notesBtnIcon);
-    notesBtn.appendChild(notesBtnAlert);
-    notesBtnIcon.classList.add("fa-solid");
-    notesBtnIcon.classList.add("fa-file-lines");
-    notesBtnAlert.classList.add("notesBtnAlert");
-    notesBtnAlert.classList.add("hide");
-    notesBtn.setAttribute("title", "Anotações");
-    notesBtn.addEventListener("click", () =>
-      notesBtnClick(
-        taskField,
-        notePadInput,
-        notePadContainer,
-        cleanNoteBtn,
-        notesInfo,
-        notesBtn,
-        notesBtnAlert,
-        infoTaskSave,
-        taskInfo
-      )
-    );
-
-    // Botão para exclusão da tarefa
-    const removeBtn = document.createElement("button");
-    btnField.appendChild(removeBtn);
-    removeBtn.classList.add("removeBtn");
-    const removeIcon = document.createElement("i");
-    removeBtn.appendChild(removeIcon);
-    removeIcon.classList.add("fa-solid");
-    removeIcon.classList.add("fa-trash");
-    removeBtn.setAttribute("title", "Excluir tarefa");
-    removeBtn.addEventListener("click", () =>
-      deleteClick(taskField, infoTaskSave, notesInfo)
-    );
-
-    switch (infoTaskSave.completedTask) {
-      case true:
-        taskContent.classList.toggle("completed");
-        taskField.classList.toggle("completed");
-        editBtn.classList.toggle("disabledBtn");
-        scheduleBtn.classList.toggle("disabledBtn");
-        checkIcon.classList.toggle("fa-thumbs-up");
-        checkIcon.classList.toggle("fa-rotate");
-        checkIcon.classList.toggle("fa-spin");
-        checkBtn.setAttribute("title", "Restaurar");
-        taskInfo.classList.add("completed");
-        taskInfo.classList.remove("hide");
-        infoTextContent.innerText = "Tarefa concluída";
-        completedTaskIcon.classList.remove("hide");
-        schedulingRemoveBtn.classList.add("hide");
-        break;
-    }
-
-    switch (infoTaskSave.scheduledTask && infoTaskSave.scheduledTask[0]) {
-      case true:
-        taskInfo.classList.remove("hide");
-        taskInfo.classList.add("scheduled");
-        taskField.classList.add("scheduled");
-        schedulingRemoveBtn.setAttribute("title", "Cancelar agendamento");
-        scheduleBtn.classList.add("disabledBtn");
-        infoTextContent.innerText = infoTaskSave.scheduledTask[3];
-        appointmentDate.innerText = infoTaskSave.scheduledTask[1];
-        appointmentTime.innerText = infoTaskSave.scheduledTask[2];
-        break;
-    }
-
-    switch (infoTaskSave.savedNote && infoTaskSave.savedNote[0]) {
-      case true:
-        notesInfo.innerText = infoTaskSave.savedNote[1];
-        notesBtnAlert.classList.remove("hide");
-        break;
-    }
-
-    switch (infoTaskSave.expireAlert) {
-      case true:
-        taskField.classList.add("expireAlert");
-        taskInfo.classList.add("expireAlert");
-        break;
-    }
-
-    switch (infoTaskSave.expiredTask && infoTaskSave.expiredTask[0]) {
-      case true:
-        taskField.classList.add("expiredTask");
-        taskInfo.classList.add("expiredTask");
-        taskInfo.classList.remove("hide");
-        schedulingRemoveBtn.setAttribute("title", "Restaurar");
-        editBtn.classList.add("disabledBtn");
-        scheduleBtn.classList.add("disabledBtn");
-        infoTextContent.innerText = infoTaskSave.expiredTask[3];
-        appointmentDate.innerText = infoTaskSave.expiredTask[1];
-        appointmentTime.innerText = infoTaskSave.expiredTask[2];
-        break;
-    }
   }
 }
 
