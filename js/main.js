@@ -1,3 +1,6 @@
+// Cabeçalho da aplicação
+const header = document.querySelector("#header");
+
 // Campo de texto principal para informar as tarefas que serão adicionadas
 const newTaskInput = document.querySelector("#newTaskInput");
 
@@ -18,6 +21,15 @@ const noTaskTextContainer = document.querySelector("#noTaskTextContainer");
 
 // Container principal do projeto
 const mainContainer = document.querySelector("#mainContainer");
+
+// Janela para edição das tarefas
+const editField = document.querySelector("#editField");
+
+// Input de texto para edição das tarefas
+const editInput = document.querySelector("#editInput");
+
+// Configuração do botão de confirmação da edição
+const confirmEditBtn = document.querySelector("#confirmEditBtn");
 
 // Variáveis da janela de confirmação
 const confirmField = document.querySelector("#confirmField");
@@ -182,7 +194,7 @@ function loadImage(e) {
 
 inputFileImg.addEventListener("change", loadImage);
 inputFileBtnDel.addEventListener("click", () => {
-  showConfirmWindow(
+  showConfirmField(
     "Tem certeza de que deseja remover a foto de perfil?",
     confirmRemoveImg
   );
@@ -197,7 +209,7 @@ function removeImg() {
 }
 
 function confirmRemoveImg() {
-  hideConfirmWindow();
+  hideWindow();
   setTimeout(() => {
     removeImg();
     checkRemoveAllConfigBtn();
@@ -490,51 +502,64 @@ completedTasksFilterBtn.addEventListener("click", () => {
 const newTaskBtn = document.querySelector("#newTaskBtn");
 const cleanNewTaskInputBtn = document.querySelector("#cleanNewTaskInputBtn");
 
-// Botão para limpar o input
 newTaskInput.onkeyup = () =>
   checkInputValue(newTaskInput, cleanNewTaskInputBtn);
-cleanNewTaskInputBtn.addEventListener("click", () => {
-  cleanNewTaskInputBtn.classList.add("hide");
-  newTaskInput.value = "";
-  newTaskInput.focus();
-});
+cleanNewTaskInputBtn.onclick = () =>
+  clearInput(newTaskInput, cleanNewTaskInputBtn);
+newTaskInput.onfocus = () => removeInputError(newTaskInput);
 
-// Evento de foco, para tirar o "erro" do input
-newTaskInput.onfocus = () => {
-  if (newTaskInput.classList.contains("inputError")) {
-    newTaskInput.classList.remove("inputError");
-    newTaskInput.value = "";
+function clearInput(input, cleanBtn) {
+  cleanBtn.classList.add("hide");
+  input.value = "";
+  input.focus();
+}
+
+function removeInputError(input) {
+  if (input == scheduleInputDate || input == scheduleInputTime) {
+    if (scheduleInputDate.classList.contains("inputError")) {
+      scheduleInputDate.classList.remove("inputError");
+    }
+    if (scheduleInputTime.classList.contains("inputError")) {
+      scheduleInputTime.classList.remove("inputError");
+    }
+  } else {
+    if (input.classList.contains("inputError")) {
+      input.classList.remove("inputError");
+      if (input.value != "") {
+        input.value = "";
+      }
+    } else if (newTaskInput.value.trim() == "") {
+      newTaskInput.value = ""
+    }
   }
-};
+}
 
 // Botão para adicionar a nova tarefa
 newTaskBtn.addEventListener("click", () => {
-  checkInputValue(newTaskInput, cleanNewTaskInputBtn);
   if (validateInput(newTaskInput)) {
     cleanNewTaskInputBtn.classList.add("hide");
-    preparingToInsertTask();
+    prepareAndInsertTask();
   }
 });
 
 newTaskInput.addEventListener("keypress", (e) => {
   if (e.key === "Enter") {
-    checkInputValue(newTaskInput, cleanNewTaskInputBtn);
     if (validateInput(newTaskInput)) {
-      preparingToInsertTask();
+      prepareAndInsertTask();
     }
   }
 });
 
-function preparingToInsertTask() {
+function prepareAndInsertTask() {
   const infoTaskSave = new Object();
   const taskField = document.createElement("div");
   if (filtred) {
     cleanInputFilter();
     activateFilterBtn(pendingTasksFilterBtn);
     filterTaskByClass("pendingTask");
-    insertTask(taskField, infoTaskSave)
+    insertTask(taskField, infoTaskSave);
   } else {
-    insertTask(taskField, infoTaskSave)
+    insertTask(taskField, infoTaskSave);
   }
   calculateNumberOfTasks();
   checkTasksOnScreen(dbAllTasks);
@@ -569,12 +594,12 @@ const completeTaskClick = (
   infoTaskSave
 ) => {
   if (taskField.classList.contains("scheduled")) {
-    showConfirmWindow(
+    showConfirmField(
       "Esta tarefa possui um agendamento, tem certeza que deseja concluí-la?",
       confirmCompleteTask
     );
     function confirmCompleteTask() {
-      hideConfirmWindow();
+      hideWindow();
       setTimeout(() => {
         completeTask(
           taskField,
@@ -612,148 +637,49 @@ const completeTaskClick = (
   }
 };
 
-// Cabeçalho da aplicação
-const header = document.querySelector("#header");
+// Edição de tarefas
+const cleanEditInputBtn = document.querySelector("#cleanEditInputBtn");
+const closeEditFieldBtn = document.querySelector("#closeEditFieldBtn");
+const cancelEditBtn = document.querySelector("#cancelEditBtn");
 
-// Janela para edição das tarefas
-const editField = document.querySelector("#editField");
+function closeEditField() {
+  hideWindow(editField)
+  removeInputError(editInput)
+};
 
-// Input de texto para edição das tarefas
-const editInput = document.querySelector("#editInput");
+editInput.onfocus = () => removeInputError(editInput);
+editInput.onkeyup = () => checkInputValue(editInput, cleanEditInputBtn);
+cleanEditInputBtn.onclick = () => clearInput(editInput, cleanEditInputBtn);
+closeEditFieldBtn.onclick = () => closeEditField();
+cancelEditBtn.onclick = () => closeEditField();
 
-// Configuração do botão de confirmação da edição
-const confirmEditBtn = document.querySelector("#confirmEditBtn");
-
-// Função responsável pela abertura da janela de edição
-const editClick = (taskContent, infoTaskSave) => {
-  header.classList.add("pointerEventsNone");
-  tasksContainer.classList.add("tasksContainerHide");
-  if (filtred) {
-    filterInformationBox.classList.add("filterInformationBlur");
-  }
-  mainContainer.classList.add("pointerEventsNone");
-  editField.classList.add("appearWindow");
-  editField.classList.remove("hide");
-
-  if (newTaskInput.classList.contains("inputError")) {
-    newTaskInput.classList.remove("inputError");
-  }
-
-  // Evento de foco, para tirar o "erro" do input
-  editInput.onfocus = () => {
-    if (editInput.classList.contains("inputError")) {
-      editInput.classList.remove("inputError");
-    }
-  };
-
+function editClick(taskContent, infoTaskSave) {
+  showWindow(editField)
   editInput.value = taskContent.innerText;
-  cleanEditInputBtn.style.display = "inline";
-
+  cleanEditInputBtn.classList.remove("hide");
+  removeInputError(newTaskInput)
   confirmEditBtn.onclick = () => editTask(taskContent, infoTaskSave);
-
   editInput.onkeypress = (e) => {
     if (e.key === "Enter") {
       editTask(taskContent, infoTaskSave);
     }
   };
-
-  editInput.onkeyup = () => {
-    const validateEditField = () => editInput.value != "";
-    if (!validateEditField()) {
-      cleanEditInputBtn.style.display = "none";
-    } else {
-      cleanEditInputBtn.style.display = "inline";
-    }
-  };
 };
-
-// Função responsável pelo fechamento da janela de edições
-const closeEditField = () => {
-  editField.classList.add("vanishWindow");
-  editField.classList.remove("appearWindow");
-  tasksContainer.classList.add("tasksContainerAppear");
-  if (filtred) {
-    filterInformationBox.classList.remove("filterInformationBlur");
-    filterInformationBox.classList.add("filterInformationOffBlur");
-  }
-  setTimeout(() => {
-    editField.classList.remove("vanishWindow");
-    editField.classList.add("hide");
-    header.classList.remove("pointerEventsNone");
-    tasksContainer.classList.remove("tasksContainerAppear");
-    tasksContainer.classList.remove("tasksContainerHide");
-    if (filtred) {
-      filterInformationBox.classList.remove("filterInformationOffBlur");
-    }
-    mainContainer.classList.remove("pointerEventsNone");
-  }, 200);
-  if (editInput.classList.contains("inputError")) {
-    editInput.classList.remove("inputError");
-  }
-};
-
-// Adicionado a função de fechamento nos botões de fechar "X" e "Cancelar"
-const closeEditFieldBtn = document.querySelector("#closeEditFieldBtn");
-closeEditFieldBtn.setAttribute("title", "Fechar");
-closeEditFieldBtn.addEventListener("click", closeEditField);
-
-const cancelEditBtn = document.querySelector("#cancelEditBtn");
-cancelEditBtn.addEventListener("click", closeEditField);
-
-// Configuração do botão de limpar o input do campo de edição
-const cleanEditInputBtn = document.querySelector("#cleanEditInputBtn");
-cleanEditInputBtn.setAttribute("title", "Limpar");
-cleanEditInputBtn.addEventListener("click", () => {
-  editInput.value = "";
-  editInput.focus();
-  cleanEditInputBtn.style.display = "none";
-});
 
 function editTask(taskContent, infoTaskSave) {
-  // Função para validar o input do campo de edição
-  const validateEditField = () => editInput.value.trim() != "";
-  if (!validateEditField()) {
-    // Caso o valor do input seja inválido: Será adicionado a class abaixo no input
-    editInput.classList.add("inputError");
-    editInput.blur();
-  } else {
-    // Caso o valor do input seja válido: Será realizado a edição da tarefa conforme config. abaixo
-    editField.classList.add("vanishWindow");
-    editField.classList.remove("appearWindow");
-    tasksContainer.classList.add("tasksContainerAppear");
-    if (filtred) {
-      filterInformationBox.classList.remove("filterInformationBlur");
-      filterInformationBox.classList.add("filterInformationOffBlur");
-    }
-
-    // Salvar ação no Local Storage
+  if (validateInput(editInput)) {
+    hideWindow(editField)
     infoTaskSave["taskContent"] = editInput.value;
     localStorage.setItem("tasks", JSON.stringify(dbAllTasks));
-
     setTimeout(() => {
-      editField.classList.remove("vanishWindow");
-      editField.classList.add("hide");
-      header.classList.remove("pointerEventsNone");
-      tasksContainer.classList.remove("tasksContainerAppear");
-      tasksContainer.classList.remove("tasksContainerHide");
-      if (filtred) {
-        filterInformationBox.classList.remove("filterInformationOffBlur");
-      }
-      mainContainer.classList.remove("pointerEventsNone");
-      taskContent.classList.add("contentAnimation");
       taskContent.innerText = editInput.value;
-      const tasks = tasksContainer.childNodes;
-      for (const task of tasks) {
-        task.classList.add("pointerEventsNone");
-      }
-    }, 300);
+      taskContent.classList.add("contentAnimation");
+      includePointerEventsNoneAllTasks("add")
+    }, 200);
     setTimeout(() => {
       taskContent.classList.remove("contentAnimation");
-      const tasks = tasksContainer.childNodes;
-      for (const task of tasks) {
-        task.classList.remove("pointerEventsNone");
-      }
-    }, 600);
+      includePointerEventsNoneAllTasks("remove")
+    }, 500);
   }
 }
 
@@ -810,23 +736,10 @@ const scheduleClick = (
 
   scheduleInputTime.focus();
 
-  scheduleInputDate.onfocus = () => {
-    if (scheduleInputDate.classList.contains("inputError")) {
-      scheduleInputDate.classList.remove("inputError");
-    }
-    if (scheduleInputTime.classList.contains("inputError")) {
-      scheduleInputTime.classList.remove("inputError");
-    }
-  };
+  scheduleInputDate.onfocus = () => removeInputError(scheduleInputDate);
 
-  scheduleInputTime.onfocus = () => {
-    if (scheduleInputTime.classList.contains("inputError")) {
-      scheduleInputTime.classList.remove("inputError");
-    }
-    if (scheduleInputDate.classList.contains("inputError")) {
-      scheduleInputDate.classList.remove("inputError");
-    }
-  };
+  scheduleInputTime.onfocus = () => removeInputError(scheduleInputTime);
+
   scheduleFieldCloseBtn.setAttribute("title", "Fechar");
   confirmScheduleBtn.onclick = () =>
     confirmSchedule(
@@ -1426,40 +1339,44 @@ const deleteClick = (taskField, infoTaskSave, notesInfo) => {
 // Configuração do botão para exclusão de todas as tarefas
 
 removeAllTaskBtn.addEventListener("click", () => {
-  showConfirmWindow(
+  showConfirmField(
     "Esta ação irá excluir todas as tarefas, tem certeza de que deseja removê-las?",
     confirmRemoveAllTasks
   );
   menu.classList.add("menuBlur");
 });
 
-function showConfirmWindow(text, funct) {
+function showWindow(window) {
   header.classList.add("pointerEventsNone");
   mainContainer.classList.add("pointerEventsNone");
   tasksContainer.classList.add("tasksContainerHide");
   if (!noTaskTextContainer.classList.contains("hide")) {
     noTaskTextContainer.classList.add("noTaskTextHide");
   }
-  confirmField.classList.remove("hide");
-  confirmField.classList.add("appearWindow");
-  btnYes.focus();
   if (filtred) {
     filterInformationBox.classList.add("filterInformationBlur");
   }
-  confirmFieldText.innerText = text;
-  btnYes.onclick = () => funct();
-  btnNo.onclick = () => hideConfirmWindow();
+  window.classList.remove("hide");
+  window.classList.add("appearWindow");
 }
 
-function hideConfirmWindow() {
+function showConfirmField(text, funct) {
+  showWindow(confirmField)
+  confirmFieldText.innerText = text;
+  btnYes.focus();
+  btnYes.onclick = () => funct();
+  btnNo.onclick = () => hideWindow(confirmField);
+}
+
+function hideWindow(window) {
   tasksContainer.classList.remove("tasksContainerHide");
   tasksContainer.classList.add("tasksContainerAppear");
   if (!noTaskTextContainer.classList.contains("hide")) {
     noTaskTextContainer.classList.remove("noTaskTextHide");
     noTaskTextContainer.classList.add("noTaskTextAppear");
   }
-  confirmField.classList.remove("appearWindow");
-  confirmField.classList.add("vanishWindow");
+  window.classList.remove("appearWindow");
+  window.classList.add("vanishWindow");
   if (filtred) {
     filterInformationBox.classList.remove("filterInformationBlur");
     filterInformationBox.classList.add("filterInformationOffBlur");
@@ -1477,8 +1394,8 @@ function hideConfirmWindow() {
     if (!noTaskTextContainer.classList.contains("hide")) {
       noTaskTextContainer.classList.remove("noTaskTextAppear");
     }
-    confirmField.classList.remove("vanishWindow");
-    confirmField.classList.add("hide");
+    window.classList.remove("vanishWindow");
+    window.classList.add("hide");
     if (menuOpen) {
       menu.classList.remove("menuOffBlur");
     }
@@ -1512,7 +1429,7 @@ function removeAllTasks() {
 }
 
 function confirmRemoveAllTasks() {
-  hideConfirmWindow();
+  hideWindow();
   setTimeout(() => {
     removeAllTasks();
     checkRemoveAllConfigBtn();
@@ -1522,7 +1439,7 @@ function confirmRemoveAllTasks() {
 // Configuração do botão para restaurar todas as configurações de fábrica
 
 removeAllConfigBtn.addEventListener("click", () => {
-  showConfirmWindow(
+  showConfirmField(
     "Esta ação irá excluir todas as configurações já realizadas e todas as tarefas, tem certeza?",
     confirmRemoveAllConfig
   );
@@ -1546,7 +1463,7 @@ function removeAllConfig() {
 }
 
 function confirmRemoveAllConfig() {
-  hideConfirmWindow();
+  hideWindow();
   setTimeout(() => {
     removeAllConfig();
   }, 200);
@@ -2332,6 +2249,19 @@ function transitionClickProtection(option) {
     for (const task of tasks) {
       task.classList.add("hover");
       task.childNodes[1].classList.remove("pointerEventsNone");
+    }
+  }
+}
+
+function includePointerEventsNoneAllTasks(option) {
+  const tasks = tasksContainer.childNodes;
+  if (option == "add") {
+    for (const task of tasks) {
+      task.classList.add("pointerEventsNone");
+    }
+  } else {
+    for (const task of tasks) {
+      task.classList.remove("pointerEventsNone");
     }
   }
 }
