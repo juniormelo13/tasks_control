@@ -209,7 +209,7 @@ function removeImg() {
 }
 
 function confirmRemoveImg() {
-  hideWindow();
+  hideWindow(confirmField);
   setTimeout(() => {
     removeImg();
     checkRemoveAllConfigBtn();
@@ -599,7 +599,7 @@ const completeTaskClick = (
       confirmCompleteTask
     );
     function confirmCompleteTask() {
-      hideWindow();
+      hideWindow(confirmField);
       setTimeout(() => {
         completeTask(
           taskField,
@@ -1429,7 +1429,7 @@ function removeAllTasks() {
 }
 
 function confirmRemoveAllTasks() {
-  hideWindow();
+  hideWindow(confirmField);
   setTimeout(() => {
     removeAllTasks();
     checkRemoveAllConfigBtn();
@@ -1463,7 +1463,7 @@ function removeAllConfig() {
 }
 
 function confirmRemoveAllConfig() {
-  hideWindow();
+  hideWindow(confirmField);
   setTimeout(() => {
     removeAllConfig();
   }, 200);
