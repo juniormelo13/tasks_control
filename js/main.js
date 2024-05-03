@@ -683,22 +683,18 @@ function editTask(taskContent, infoTaskSave) {
   }
 }
 
-// Janela para agendamento de tarefas
+// Agendamento de tarefas
 const scheduleField = document.querySelector("#scheduleField");
-
-// Botões para fechar o campo de agendamento - "x" e "Cancelar"
 const scheduleFieldCloseBtn = document.querySelector("#scheduleFieldCloseBtn");
 const cancelScheduletBtn = document.querySelector("#cancelScheduletBtn");
-
-// Campo para colocar data e hora do agendamento
 const scheduleInputDate = document.querySelector("#scheduleInputDate");
 const scheduleInputTime = document.querySelector("#scheduleInputTime");
-
-// Botão para confirmação do agendamento
 const confirmScheduleBtn = document.querySelector("#confirmScheduleBtn");
 
-// Função responsável pela abertura da janela de agendamento
-const scheduleClick = (
+scheduleInputDate.onfocus = () => removeInputError(scheduleInputDate);
+scheduleInputTime.onfocus = () => removeInputError(scheduleInputTime);
+
+function scheduleClick(
   taskField,
   scheduleBtn,
   appointmentDate,
@@ -708,39 +704,21 @@ const scheduleClick = (
   schedulingRemoveBtn,
   infoTaskSave,
   btnField
-) => {
-  header.classList.add("pointerEventsNone");
-  tasksContainer.classList.add("tasksContainerHide");
-  if (filtred) {
-    filterInformationBox.classList.add("filterInformationBlur");
-  }
-  mainContainer.classList.add("pointerEventsNone");
-  scheduleField.classList.add("appearWindow");
-  scheduleField.classList.remove("hide");
-
-  const currentDate = new Date();
-
+) {
+  const currentFullDate = new Date();
   const optionsForTimeInput = {
     timeStyle: "short",
   };
-
-  const currentDateForInput = currentDate.toLocaleDateString("fr-CA");
-  const currentTimeForInput = currentDate.toLocaleString(
+  const currentDateForInput = currentFullDate.toLocaleDateString("fr-CA");
+  const currentTimeForInput = currentFullDate.toLocaleString(
     "pt-BR",
     optionsForTimeInput
   );
-
+  showWindow(scheduleField)
   scheduleInputDate.value = currentDateForInput;
   scheduleInputDate.setAttribute("min", currentDateForInput);
   scheduleInputTime.value = currentTimeForInput;
-
   scheduleInputTime.focus();
-
-  scheduleInputDate.onfocus = () => removeInputError(scheduleInputDate);
-
-  scheduleInputTime.onfocus = () => removeInputError(scheduleInputTime);
-
-  scheduleFieldCloseBtn.setAttribute("title", "Fechar");
   confirmScheduleBtn.onclick = () =>
     confirmSchedule(
       taskField,
@@ -753,7 +731,6 @@ const scheduleClick = (
       infoTaskSave,
       btnField
     );
-
   scheduleField.onkeypress = (e) => {
     if (e.key === "Enter") {
       confirmSchedule(
@@ -773,32 +750,8 @@ const scheduleClick = (
 
 // Função responsável pelo fechamento da janela de agendamento
 const closeScheduleField = () => {
-  scheduleField.classList.add("vanishWindow");
-  scheduleField.classList.remove("appearWindow");
-  tasksContainer.classList.add("tasksContainerAppear");
-  if (filtred) {
-    filterInformationBox.classList.remove("filterInformationBlur");
-    filterInformationBox.classList.add("filterInformationOffBlur");
-  }
-  setTimeout(() => {
-    scheduleField.classList.remove("vanishWindow");
-    scheduleField.classList.add("hide");
-    header.classList.remove("pointerEventsNone");
-    tasksContainer.classList.remove("tasksContainerAppear");
-    tasksContainer.classList.remove("tasksContainerHide");
-    if (filtred) {
-      filterInformationBox.classList.remove("filterInformationOffBlur");
-    }
-    mainContainer.classList.remove("pointerEventsNone");
-    scheduleField.classList.add("hide");
-  }, 200);
-  if (scheduleInputDate.classList.contains("inputError")) {
-    scheduleInputDate.classList.remove("inputError");
-  }
-
-  if (scheduleInputTime.classList.contains("inputError")) {
-    scheduleInputTime.classList.remove("inputError");
-  }
+  hideWindow(scheduleField)
+  removeInputError(scheduleInputDate)
 };
 
 // Colocando a função nos botões "x" e "Cancelar"
