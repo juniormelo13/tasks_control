@@ -144,6 +144,27 @@ document.addEventListener("click", (e) => {
   ) {
     menuHide();
   }
+  if (
+    newTaskInput.classList.contains("inputError") &&
+    !newTaskBtn.contains(e.target)
+  ) {
+    newTaskInput.classList.remove("inputError");
+  } else if (
+    editInput.classList.contains("inputError") &&
+    !confirmEditBtn.contains(e.target)
+  ) {
+    editInput.classList.remove("inputError");
+  } else if (
+    scheduleInputDate.classList.contains("inputError") &&
+    !confirmScheduleBtn.contains(e.target)
+  ) {
+    scheduleInputDate.classList.remove("inputError");
+  } else if (
+    scheduleInputTime.classList.contains("inputError") &&
+    !confirmScheduleBtn.contains(e.target)
+  ) {
+    scheduleInputTime.classList.remove("inputError");
+  }
 });
 
 // Configuração para guardar imagem do perfil do usuário no localStorage
@@ -506,32 +527,11 @@ newTaskInput.onkeyup = () =>
   checkInputValue(newTaskInput, cleanNewTaskInputBtn);
 cleanNewTaskInputBtn.onclick = () =>
   clearInput(newTaskInput, cleanNewTaskInputBtn);
-newTaskInput.onfocus = () => removeInputError(newTaskInput);
 
 function clearInput(input, cleanBtn) {
   cleanBtn.classList.add("hide");
   input.value = "";
   input.focus();
-}
-
-function removeInputError(input) {
-  if (input == scheduleInputDate || input == scheduleInputTime) {
-    if (scheduleInputDate.classList.contains("inputError")) {
-      scheduleInputDate.classList.remove("inputError");
-    }
-    if (scheduleInputTime.classList.contains("inputError")) {
-      scheduleInputTime.classList.remove("inputError");
-    }
-  } else {
-    if (input.classList.contains("inputError")) {
-      input.classList.remove("inputError");
-      if (input.value != "") {
-        input.value = "";
-      }
-    } else if (newTaskInput.value.trim() == "") {
-      newTaskInput.value = ""
-    }
-  }
 }
 
 // Botão para adicionar a nova tarefa
@@ -549,6 +549,18 @@ newTaskInput.addEventListener("keypress", (e) => {
     }
   }
 });
+
+newTaskInput.onblur = () => {
+  if (newTaskInput.value.trim() == "") {
+    newTaskInput.value = "";
+  }
+};
+
+editInput.onblur = () => {
+  if (editInput.value.trim() == "") {
+    editInput.value = "";
+  }
+};
 
 function prepareAndInsertTask() {
   const infoTaskSave = new Object();
@@ -642,43 +654,36 @@ const cleanEditInputBtn = document.querySelector("#cleanEditInputBtn");
 const closeEditFieldBtn = document.querySelector("#closeEditFieldBtn");
 const cancelEditBtn = document.querySelector("#cancelEditBtn");
 
-function closeEditField() {
-  hideWindow(editField)
-  removeInputError(editInput)
-};
-
-editInput.onfocus = () => removeInputError(editInput);
 editInput.onkeyup = () => checkInputValue(editInput, cleanEditInputBtn);
 cleanEditInputBtn.onclick = () => clearInput(editInput, cleanEditInputBtn);
-closeEditFieldBtn.onclick = () => closeEditField();
-cancelEditBtn.onclick = () => closeEditField();
+closeEditFieldBtn.onclick = () => hideWindow(editField);
+cancelEditBtn.onclick = () => hideWindow(editField);
 
 function editClick(taskContent, infoTaskSave) {
-  showWindow(editField)
+  showWindow(editField);
   editInput.value = taskContent.innerText;
   cleanEditInputBtn.classList.remove("hide");
-  removeInputError(newTaskInput)
   confirmEditBtn.onclick = () => editTask(taskContent, infoTaskSave);
   editInput.onkeypress = (e) => {
     if (e.key === "Enter") {
       editTask(taskContent, infoTaskSave);
     }
   };
-};
+}
 
 function editTask(taskContent, infoTaskSave) {
   if (validateInput(editInput)) {
-    hideWindow(editField)
+    hideWindow(editField);
     infoTaskSave["taskContent"] = editInput.value;
     localStorage.setItem("tasks", JSON.stringify(dbAllTasks));
     setTimeout(() => {
       taskContent.innerText = editInput.value;
       taskContent.classList.add("contentAnimation");
-      includePointerEventsNoneAllTasks("add")
+      includePointerEventsNoneAllTasks("add");
     }, 200);
     setTimeout(() => {
       taskContent.classList.remove("contentAnimation");
-      includePointerEventsNoneAllTasks("remove")
+      includePointerEventsNoneAllTasks("remove");
     }, 500);
   }
 }
@@ -690,9 +695,6 @@ const cancelScheduletBtn = document.querySelector("#cancelScheduletBtn");
 const scheduleInputDate = document.querySelector("#scheduleInputDate");
 const scheduleInputTime = document.querySelector("#scheduleInputTime");
 const confirmScheduleBtn = document.querySelector("#confirmScheduleBtn");
-
-scheduleInputDate.onfocus = () => removeInputError(scheduleInputDate);
-scheduleInputTime.onfocus = () => removeInputError(scheduleInputTime);
 
 function scheduleClick(
   taskField,
@@ -714,7 +716,7 @@ function scheduleClick(
     "pt-BR",
     optionsForTimeInput
   );
-  showWindow(scheduleField)
+  showWindow(scheduleField);
   scheduleInputDate.value = currentDateForInput;
   scheduleInputDate.setAttribute("min", currentDateForInput);
   scheduleInputTime.value = currentTimeForInput;
@@ -746,17 +748,10 @@ function scheduleClick(
       );
     }
   };
-};
+}
 
-// Função responsável pelo fechamento da janela de agendamento
-const closeScheduleField = () => {
-  hideWindow(scheduleField)
-  removeInputError(scheduleInputDate)
-};
-
-// Colocando a função nos botões "x" e "Cancelar"
-scheduleFieldCloseBtn.addEventListener("click", closeScheduleField);
-cancelScheduletBtn.addEventListener("click", closeScheduleField);
+scheduleFieldCloseBtn.onclick = () => hideWindow(scheduleField);
+cancelScheduletBtn.onclick = () => hideWindow(scheduleField);
 
 // Configuração de botão de confirmação de agendamento
 const confirmSchedule = (
@@ -783,9 +778,18 @@ const confirmSchedule = (
   );
 
   // Funções de validação dos input's de data e hora
-  const validateScheduleInputDate = () =>
-    scheduleInputDateValue.trim() != "" &&
-    scheduleInputDateValue >= currentDate;
+  function validateScheduleInputDate() {
+    if (
+      scheduleInputDateValue.trim() != "" &&
+      scheduleInputDateValue >= currentDate
+    ) {
+      return true;
+    } else {
+      scheduleInputDate.classList.add("inputError");
+      scheduleInputDate.blur();
+      return false;
+    }
+  }
 
   const validateScheduleInputTime = () => {
     if (
@@ -800,42 +804,14 @@ const confirmSchedule = (
     ) {
       return true;
     }
+    scheduleInputTime.classList.add("inputError");
+    scheduleInputTime.blur();
     return false;
   };
 
-  if (!validateScheduleInputDate() && !validateScheduleInputTime()) {
-    scheduleInputTime.classList.add("inputError");
-    scheduleInputDate.classList.add("inputError");
-    scheduleInputTime.blur();
-    scheduleInputDate.blur();
-  } else if (!validateScheduleInputDate()) {
-    scheduleInputDate.classList.add("inputError");
-    scheduleInputDate.blur();
-    scheduleInputTime.blur();
-  } else if (!validateScheduleInputTime()) {
-    scheduleInputTime.classList.add("inputError");
-    scheduleInputTime.blur();
-    scheduleInputDate.blur();
-  } else {
-    scheduleField.classList.add("vanishWindow");
-    scheduleField.classList.remove("appearWindow");
-    tasksContainer.classList.add("tasksContainerAppear");
-    if (filtred) {
-      filterInformationBox.classList.remove("filterInformationBlur");
-      filterInformationBox.classList.add("filterInformationOffBlur");
-    }
-
+  if (validateScheduleInputDate() && validateScheduleInputTime()) {
+    hideWindow(scheduleField)
     setTimeout(() => {
-      scheduleField.classList.remove("vanishWindow");
-      scheduleField.classList.add("hide");
-      header.classList.remove("pointerEventsNone");
-      tasksContainer.classList.remove("tasksContainerAppear");
-      tasksContainer.classList.remove("tasksContainerHide");
-      if (filtred) {
-        filterInformationBox.classList.remove("filterInformationOffBlur");
-      }
-      mainContainer.classList.remove("pointerEventsNone");
-      scheduleField.classList.add("hide");
       scheduleBtn.classList.add("disabledBtn");
       taskField.classList.add("scheduled");
       taskInfo.classList.add("scheduled");
@@ -844,11 +820,10 @@ const confirmSchedule = (
       taskInfo.classList.add("appearTaskInfo");
       btnField.classList.add("animeBtnMobile");
       btnField.classList.add("pointerEventsNone");
-    }, 300);
-
+    }, 200);
     setTimeout(() => {
       taskInfo.classList.remove("appearTaskInfo");
-    }, 500);
+    }, 400);
     setTimeout(() => {
       btnField.classList.remove("animeBtnMobile");
       btnField.classList.remove("pointerEventsNone");
@@ -863,15 +838,15 @@ const confirmSchedule = (
     const optionsSetTime = { timeStyle: "short" };
     const optionsSetDay = { weekday: "short" };
 
-    const dateForinfoTextContent = setDateForScheduling.toLocaleString(
+    const dateForInfoTextContent = setDateForScheduling.toLocaleString(
       "pt-BR",
       optionsSetDate
     );
-    const timeForinfoTextContent = setDateForScheduling.toLocaleString(
+    const timeForInfoTextContent = setDateForScheduling.toLocaleString(
       "pt-BR",
       optionsSetTime
     );
-    const dayForinfoTextContent =
+    const dayForInfoTextContent =
       setDateForScheduling
         .toLocaleString("pt-BR", optionsSetDay)
         .charAt(0)
@@ -892,27 +867,27 @@ const confirmSchedule = (
     if (difDays >= 2) {
       infoTextContent.innerText =
         "Prazo: " +
-        dayForinfoTextContent +
+        dayForInfoTextContent +
         " " +
-        dateForinfoTextContent +
+        dateForInfoTextContent +
         ", " +
-        timeForinfoTextContent;
+        timeForInfoTextContent;
     } else if (difDays > 1 && difDays < 2 && difDaysOfTheWeek >= 2) {
       infoTextContent.innerText =
         "Prazo: " +
-        dayForinfoTextContent +
+        dayForInfoTextContent +
         " " +
-        dateForinfoTextContent +
+        dateForInfoTextContent +
         ", " +
-        timeForinfoTextContent;
+        timeForInfoTextContent;
     } else if (difDays > 1 && difDays < 2 && difDaysOfTheWeek == -5) {
       infoTextContent.innerText =
         "Prazo: " +
-        dayForinfoTextContent +
+        dayForInfoTextContent +
         " " +
-        dateForinfoTextContent +
+        dateForInfoTextContent +
         ", " +
-        timeForinfoTextContent;
+        timeForInfoTextContent;
     } else if (
       (difDays < 2 && difDaysOfTheWeek == 1 && difMinutes > 60) ||
       (difDays < 2 && difDaysOfTheWeek == -6 && difMinutes > 60)
@@ -1314,7 +1289,7 @@ function showWindow(window) {
 }
 
 function showConfirmField(text, funct) {
-  showWindow(confirmField)
+  showWindow(confirmField);
   confirmFieldText.innerText = text;
   btnYes.focus();
   btnYes.onclick = () => funct();
