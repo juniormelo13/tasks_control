@@ -820,7 +820,7 @@ const confirmSchedule = (
         .toLocaleString("pt-BR", optionsSetDay)
         .substring(1)
         .replace(/[.]/g, ",");
-        
+
     // Inclusão dos dados no campo de informações sobre o agendamento
     const difSeconds =
       (scheduledDate.getTime() - currentFullDate.getTime()) / 1000;
@@ -1083,57 +1083,17 @@ const schedulingRemoveClick = (
   btnField
 ) => {
   taskInfo.classList.add("vanishTaskInfo");
-
   // Salvar ação no Local Storage
   infoTaskSave.deletedInfoTask = true;
-  if (infoTaskSave.expiredTask) {
-    delete infoTaskSave.expiredTask;
-  }
-  if (infoTaskSave.expireAlert) {
-    delete infoTaskSave.expireAlert;
-  }
-  if (infoTaskSave.scheduledTask) {
-    delete infoTaskSave.scheduledTask;
-  }
+  clearSavedScheduledTaskInfo(infoTaskSave)
   localStorage.setItem("tasks", JSON.stringify(dbAllTasks));
-
   setTimeout(() => {
-    infoTextContent.innerText = "";
-    taskInfo.classList.remove("scheduled");
-    if (taskField.classList.contains("scheduled")) {
-      taskField.classList.remove("scheduled");
-    }
-    if (taskField.classList.contains("expiredTask")) {
-      taskField.classList.remove("expiredTask");
-    }
-    if (taskInfo.classList.contains("expiredTask")) {
-      taskInfo.classList.remove("expiredTask");
-    }
-    if (taskInfo.classList.contains("expireAlert")) {
-      taskInfo.classList.remove("expireAlert");
-    }
-    if (taskField.classList.contains("expireAlert")) {
-      taskField.classList.remove("expireAlert");
-    }
+    clearTaskClass(infoTextContent, taskInfo, taskField)
     btnField.classList.add("animeBtnMobile");
     taskField.classList.add("pointerEventsNone");
-    taskInfo.classList.add("hide");
     taskInfo.classList.remove("vanishTaskInfo");
-    setTimeout(() => {
-      scheduledTasks = dbAllTasks.filter(
-        (infoTaskSave) => infoTaskSave.scheduledTask
-      );
-      expiredTasks = dbAllTasks.filter(
-        (infoTaskSave) => infoTaskSave.expiredTask
-      );
-      if (scheduledTasksFilterBtn.classList.contains("active")) {
-        filterTaskByClass("scheduledTask");
-      } else if (expiredTasksFilterBtn.classList.contains("active")) {
-        filterTaskByClass("expiredTask");
-      }
-      amountScheduledTasks.innerText = scheduledTasks.length;
-      amountExpiredTasks.innerText = expiredTasks.length;
-    }, 100);
+    checkActivatedClassBtnAndFilter()
+    calculateNumberOfTasks()
   }, 200);
   setTimeout(() => {
     taskField.classList.remove("pointerEventsNone");
@@ -2255,10 +2215,7 @@ function completeTaskBtnToggle(
   }
 }
 
-function saveCompleteTaskAction(infoTaskSave) {
-  if (infoTaskSave.deletedInfoTask) {
-    delete infoTaskSave.deletedInfoTask;
-  }
+function clearSavedScheduledTaskInfo(infoTaskSave) {
   if (infoTaskSave.scheduledTask) {
     delete infoTaskSave.scheduledTask;
   }
@@ -2268,6 +2225,13 @@ function saveCompleteTaskAction(infoTaskSave) {
   if (infoTaskSave.expiredTask) {
     delete infoTaskSave.expiredTask;
   }
+}
+
+function saveCompleteTaskAction(infoTaskSave) {
+  if (infoTaskSave.deletedInfoTask) {
+    delete infoTaskSave.deletedInfoTask;
+  }
+  clearSavedScheduledTaskInfo(infoTaskSave)
   if (!infoTaskSave.completedTask) {
     infoTaskSave.completedTask = true;
   } else {
