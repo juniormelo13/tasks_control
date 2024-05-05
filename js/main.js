@@ -1355,15 +1355,7 @@ function notesBtnClick(
   header.classList.add("pointerEventsNone");
   notePadContainer.classList.remove("hide");
   notePadContainer.classList.add("notePadContainerAppear");
-  taskField.classList.remove("hover");
-  taskField.classList.add("active");
-  taskInfo.classList.add("active");
-  const tasks = tasksContainer.childNodes;
-  for (const taskField of tasks) {
-    taskField.classList.add("pointerEventsNone");
-    taskField.classList.add("lowOpacity");
-  }
-  taskField.classList.remove("lowOpacity");
+  highLightTask(taskField, taskInfo, "add");
   notePadInput.value = notesInfo.innerText;
   notesBtn.disabled = true;
   if (notesInfo.innerText == "") {
@@ -1443,8 +1435,8 @@ function saveNoteClick(
   taskInfo
 ) {
   notePadContainer.classList.add("notePadContainerVanish");
-  notesInfo.innerText = notePadInput.value.trim();
   notePadContainer.classList.remove("pointerEventsVisible");
+  notesInfo.innerText = notePadInput.value.trim();
   notePadContainerShow = !notePadContainerShow;
   setTimeout(() => {
     notePadContainer.classList.remove("notePadContainerVanish");
@@ -1452,6 +1444,8 @@ function saveNoteClick(
     switch (notesInfo.innerText != "" && !inputEquality) {
       case true:
         taskField.classList.add("shakeMove");
+        infoTaskSave.savedNote = [true, notesInfo.innerText];
+        localStorage.setItem("tasks", JSON.stringify(dbAllTasks));
         break;
     }
     if (notesInfo.innerText != "") {
@@ -1461,67 +1455,21 @@ function saveNoteClick(
     }
   }, 200);
   if (notesInfo.innerText != "" && !inputEquality) {
-    // Salvar ação no Local Storage
-    infoTaskSave.savedNote = [true, notesInfo.innerText];
-    localStorage.setItem("tasks", JSON.stringify(dbAllTasks));
-
+    
     setTimeout(() => {
-      const tasks = tasksContainer.childNodes;
-      for (const taskField of tasks) {
-        if (taskField.classList.contains("lowOpacity")) {
-          taskField.classList.remove("lowOpacity");
-        }
-        taskField.classList.add("normalOpacity");
-      }
-      taskField.classList.remove("normalOpacity");
+      highLightTask(taskField, taskInfo, "remove")
       taskField.classList.remove("shakeMove");
-      taskField.classList.remove("active");
-      taskInfo.classList.remove("active");
     }, 500);
-
-    setTimeout(() => {
-      taskField.classList.add("hover");
-      header.classList.remove("pointerEventsNone");
-      const tasks = tasksContainer.childNodes;
-      for (const taskField of tasks) {
-        taskField.classList.remove("pointerEventsNone");
-        if (taskField.classList.contains("normalOpacity")) {
-          taskField.classList.remove("normalOpacity");
-        }
-      }
-    }, 800);
   } else {
     if (notesInfo.innerText == "") {
-      // Salvar ação no Local Storage
       if (infoTaskSave.savedNote) {
         delete infoTaskSave.savedNote;
         localStorage.setItem("tasks", JSON.stringify(dbAllTasks));
       }
     }
     setTimeout(() => {
-      const tasks = tasksContainer.childNodes;
-      for (const taskField of tasks) {
-        if (taskField.classList.contains("lowOpacity")) {
-          taskField.classList.remove("lowOpacity");
-        }
-        taskField.classList.add("normalOpacity");
-      }
-      taskField.classList.remove("normalOpacity");
-      taskField.classList.remove("active");
-      taskInfo.classList.remove("active");
+      highLightTask(taskField, taskInfo, "remove")
     }, 300);
-
-    setTimeout(() => {
-      taskField.classList.add("hover");
-      header.classList.remove("pointerEventsNone");
-      const tasks = tasksContainer.childNodes;
-      for (const taskField of tasks) {
-        taskField.classList.remove("pointerEventsNone");
-        if (taskField.classList.contains("normalOpacity")) {
-          taskField.classList.remove("normalOpacity");
-        }
-      }
-    }, 600);
   }
 }
 
@@ -1646,7 +1594,8 @@ function createNotPadContainer(
   infoTaskSave,
   notePadInput,
   notesInfo,
-  cleanNoteBtn
+  cleanNoteBtn,
+  taskInfo
 ) {
   const notePadTop = document.createElement("div");
   const notePadBtnField = document.createElement("div");
@@ -2048,6 +1997,40 @@ function includePointerEventsNoneAllTasks(option) {
     for (const taskField of tasks) {
       taskField.classList.remove("pointerEventsNone");
     }
+  }
+}
+
+function highLightTask(taskField, taskInfo, option) {
+  const tasks = tasksContainer.childNodes;
+  if (option == "add") {
+    for (const taskField of tasks) {
+      taskField.classList.add("pointerEventsNone");
+      taskField.classList.add("lowOpacity");
+    }
+    taskField.classList.remove("lowOpacity");
+    taskField.classList.remove("hover");
+    taskField.classList.add("active");
+    taskInfo.classList.add("active");
+  } else {
+    for (const taskField of tasks) {
+      if (taskField.classList.contains("lowOpacity")) {
+        taskField.classList.remove("lowOpacity");
+      }
+      taskField.classList.add("normalOpacity");
+    }
+    taskField.classList.remove("normalOpacity");
+    taskField.classList.remove("active");
+    taskInfo.classList.remove("active");
+    setTimeout(() => {
+      taskField.classList.add("hover");
+      header.classList.remove("pointerEventsNone");
+      for (const taskField of tasks) {
+        taskField.classList.remove("pointerEventsNone");
+        if (taskField.classList.contains("normalOpacity")) {
+          taskField.classList.remove("normalOpacity");
+        }
+      }
+    }, 300);
   }
 }
 
