@@ -597,8 +597,6 @@ const completeTaskClick = (
   editBtn,
   checkBtn,
   checkIcon,
-  appointmentDate,
-  appointmentTime,
   taskInfo,
   infoTextContent,
   completedTaskIcon,
@@ -620,8 +618,6 @@ const completeTaskClick = (
           checkIcon,
           editBtn,
           scheduleBtn,
-          appointmentDate,
-          appointmentTime,
           taskInfo,
           infoTextContent,
           schedulingRemoveBtn,
@@ -638,8 +634,6 @@ const completeTaskClick = (
       checkIcon,
       editBtn,
       scheduleBtn,
-      appointmentDate,
-      appointmentTime,
       taskInfo,
       infoTextContent,
       schedulingRemoveBtn,
@@ -699,8 +693,6 @@ const confirmScheduleBtn = document.querySelector("#confirmScheduleBtn");
 function scheduleClick(
   taskField,
   scheduleBtn,
-  appointmentDate,
-  appointmentTime,
   taskInfo,
   infoTextContent,
   schedulingRemoveBtn,
@@ -725,8 +717,6 @@ function scheduleClick(
     confirmSchedule(
       taskField,
       scheduleBtn,
-      appointmentDate,
-      appointmentTime,
       taskInfo,
       infoTextContent,
       schedulingRemoveBtn,
@@ -738,8 +728,6 @@ function scheduleClick(
       confirmSchedule(
         taskField,
         scheduleBtn,
-        appointmentDate,
-        appointmentTime,
         taskInfo,
         infoTextContent,
         schedulingRemoveBtn,
@@ -757,8 +745,6 @@ cancelScheduletBtn.onclick = () => hideWindow(scheduleField);
 const confirmSchedule = (
   taskField,
   scheduleBtn,
-  appointmentDate,
-  appointmentTime,
   taskInfo,
   infoTextContent,
   schedulingRemoveBtn,
@@ -810,59 +796,37 @@ const confirmSchedule = (
   };
 
   if (validateScheduleInputDate() && validateScheduleInputTime()) {
-    hideWindow(scheduleField)
-    setTimeout(() => {
-      scheduleBtn.classList.add("disabledBtn");
-      taskField.classList.add("scheduled");
-      taskInfo.classList.add("scheduled");
-      schedulingRemoveBtn.setAttribute("title", "Cancelar agendamento");
-      taskInfo.classList.remove("hide");
-      taskInfo.classList.add("appearTaskInfo");
-      btnField.classList.add("animeBtnMobile");
-      btnField.classList.add("pointerEventsNone");
-    }, 200);
-    setTimeout(() => {
-      taskInfo.classList.remove("appearTaskInfo");
-    }, 400);
-    setTimeout(() => {
-      btnField.classList.remove("animeBtnMobile");
-      btnField.classList.remove("pointerEventsNone");
-    }, 600);
-
     // Recebimento dos valores colocados nos inputs
-    const setDateForScheduling = new Date(
+    const scheduledDate = new Date(
       scheduleInputDateValue + " " + scheduleInputTimeValue
     );
-
     const optionsSetDate = { dateStyle: "short" };
     const optionsSetTime = { timeStyle: "short" };
     const optionsSetDay = { weekday: "short" };
-
-    const dateForInfoTextContent = setDateForScheduling.toLocaleString(
+    const dateForInfoTextContent = scheduledDate.toLocaleString(
       "pt-BR",
       optionsSetDate
     );
-    const timeForInfoTextContent = setDateForScheduling.toLocaleString(
+    const timeForInfoTextContent = scheduledDate.toLocaleString(
       "pt-BR",
       optionsSetTime
     );
     const dayForInfoTextContent =
-      setDateForScheduling
+      scheduledDate
         .toLocaleString("pt-BR", optionsSetDay)
         .charAt(0)
         .toUpperCase() +
-      setDateForScheduling
+      scheduledDate
         .toLocaleString("pt-BR", optionsSetDay)
         .substring(1)
         .replace(/[.]/g, ",");
-
+        
     // Inclusão dos dados no campo de informações sobre o agendamento
     const difSeconds =
-      (setDateForScheduling.getTime() - currentFullDate.getTime()) / 1000;
+      (scheduledDate.getTime() - currentFullDate.getTime()) / 1000;
     const difMinutes = difSeconds / 60;
     const difDays = difMinutes / (60 * 24);
-    const difDaysOfTheWeek =
-      setDateForScheduling.getDay() - currentFullDate.getDay();
+    const difGetDayNumber = scheduledDate.getDay() - currentFullDate.getDay();
 
     if (difDays >= 2) {
       infoTextContent.innerText =
@@ -872,7 +836,7 @@ const confirmSchedule = (
         dateForInfoTextContent +
         ", " +
         timeForInfoTextContent;
-    } else if (difDays > 1 && difDays < 2 && difDaysOfTheWeek >= 2) {
+    } else if (difDays > 1 && difDays < 2 && difGetDayNumber >= 2) {
       infoTextContent.innerText =
         "Prazo: " +
         dayForInfoTextContent +
@@ -880,7 +844,7 @@ const confirmSchedule = (
         dateForInfoTextContent +
         ", " +
         timeForInfoTextContent;
-    } else if (difDays > 1 && difDays < 2 && difDaysOfTheWeek == -5) {
+    } else if (difDays > 1 && difDays < 2 && difGetDayNumber == -5) {
       infoTextContent.innerText =
         "Prazo: " +
         dayForInfoTextContent +
@@ -888,128 +852,231 @@ const confirmSchedule = (
         dateForInfoTextContent +
         ", " +
         timeForInfoTextContent;
-    } else if (
-      (difDays < 2 && difDaysOfTheWeek == 1 && difMinutes > 60) ||
-      (difDays < 2 && difDaysOfTheWeek == -6 && difMinutes > 60)
-    ) {
-      infoTextContent.innerText = "Prazo: Amanhã, " + scheduleInputTimeValue;
-    } else if (
-      (difDays < 2 &&
-        difDaysOfTheWeek == 1 &&
-        difMinutes > 30 &&
-        difMinutes <= 60) ||
-      (difDays < 2 &&
-        difDaysOfTheWeek == -6 &&
-        difMinutes > 30 &&
-        difMinutes <= 60)
-    ) {
+    } else {
+      insertSchedulingInfo(
+        infoTextContent,
+        difDays,
+        difMinutes,
+        difGetDayNumber,
+        scheduleInputTimeValue,
+        scheduleInputDateValue,
+        currentDate
+      );
+    }
+    hideWindow(scheduleField);
+    setTimeout(() => {
+      scheduleBtn.classList.add("disabledBtn");
+      taskField.classList.add("scheduled");
+      taskInfo.classList.add("scheduled");
+      schedulingRemoveBtn.setAttribute("title", "Cancelar agendamento");
+      taskInfo.classList.remove("hide");
+      taskInfo.classList.add("appearTaskInfo");
+      btnField.classList.add("animeBtnMobile");
+      btnField.classList.add("pointerEventsNone");
+      putExpireAlertClass(
+        taskField,
+        taskInfo,
+        difMinutes,
+        currentDate,
+        difDays,
+        difGetDayNumber,
+        scheduleInputDateValue
+      );
+    }, 200);
+    setTimeout(() => {
+      taskInfo.classList.remove("appearTaskInfo");
+      btnField.classList.remove("pointerEventsNone");
+    }, 400);
+
+    saveScheduledTaskAction(
+      infoTaskSave,
+      scheduleInputDateValue,
+      scheduleInputTimeValue,
+      infoTextContent,
+      difMinutes,
+      currentDate,
+      difDays,
+      difGetDayNumber
+    );
+    calculateNumberOfTasks();
+  }
+};
+
+function insertSchedulingInfo(
+  infoTextContent,
+  difDays,
+  difMinutes,
+  difGetDayNumber,
+  scheduleInputTimeValue,
+  scheduleInputDateValue,
+  currentDate
+) {
+  if (
+    (difDays < 2 && difGetDayNumber == 1 && difMinutes > 60) ||
+    (difDays < 2 && difGetDayNumber == -6 && difMinutes > 60)
+  ) {
+    infoTextContent.innerText = "Prazo: Amanhã, " + scheduleInputTimeValue;
+  } else if (
+    (difDays < 2 &&
+      difGetDayNumber == 1 &&
+      difMinutes > 30 &&
+      difMinutes <= 60) ||
+    (difDays < 2 &&
+      difGetDayNumber == -6 &&
+      difMinutes > 30 &&
+      difMinutes <= 60)
+  ) {
+    infoTextContent.innerText =
+      "Prazo: Amanhã, " +
+      scheduleInputTimeValue +
+      " - Faltam " +
+      Math.ceil(difMinutes) +
+      " min";
+  } else if (
+    (difDays < 2 &&
+      difGetDayNumber == 1 &&
+      difMinutes > 0 &&
+      difMinutes <= 30) ||
+    (difDays < 2 && difGetDayNumber == -6 && difMinutes > 0 && difMinutes <= 30)
+  ) {
+    if (difMinutes <= 1) {
+      infoTextContent.innerText =
+        "Prazo: Amanhã, " +
+        scheduleInputTimeValue +
+        " - Falta " +
+        Math.ceil(difMinutes) +
+        " min";
+    } else {
       infoTextContent.innerText =
         "Prazo: Amanhã, " +
         scheduleInputTimeValue +
         " - Faltam " +
         Math.ceil(difMinutes) +
         " min";
-    } else if (
-      (difDays < 2 &&
-        difDaysOfTheWeek == 1 &&
-        difMinutes > 0 &&
-        difMinutes <= 30) ||
-      (difDays < 2 &&
-        difDaysOfTheWeek == -6 &&
-        difMinutes > 0 &&
-        difMinutes <= 30)
-    ) {
-      if (difMinutes <= 1) {
-        infoTextContent.innerText =
-          "Prazo: Amanhã, " +
-          scheduleInputTimeValue +
-          " - Falta " +
-          Math.ceil(difMinutes) +
-          " min";
-      } else {
-        infoTextContent.innerText =
-          "Prazo: Amanhã, " +
-          scheduleInputTimeValue +
-          " - Faltam " +
-          Math.ceil(difMinutes) +
-          " min";
-      }
-      infoTaskSave.expireAlert = true;
-      setTimeout(() => {
-        taskField.classList.add("expireAlert");
-        taskInfo.classList.add("expireAlert");
-      }, 300);
-    } else if (currentDate === scheduleInputDateValue && difMinutes > 60) {
-      infoTextContent.innerText = "Prazo: Hoje, " + scheduleInputTimeValue;
-    } else if (
-      difMinutes > 30 &&
-      difMinutes <= 60 &&
-      currentDate === scheduleInputDateValue
-    ) {
+    }
+  } else if (currentDate === scheduleInputDateValue && difMinutes > 60) {
+    infoTextContent.innerText = "Prazo: Hoje, " + scheduleInputTimeValue;
+  } else if (
+    difMinutes > 30 &&
+    difMinutes <= 60 &&
+    currentDate === scheduleInputDateValue
+  ) {
+    infoTextContent.innerText =
+      "Prazo: Hoje, " +
+      scheduleInputTimeValue +
+      " - Faltam " +
+      Math.ceil(difMinutes) +
+      " min";
+  } else if (
+    difMinutes > 0 &&
+    difMinutes <= 30 &&
+    currentDate === scheduleInputDateValue
+  ) {
+    if (difMinutes <= 1) {
+      infoTextContent.innerText =
+        "Prazo: Hoje, " +
+        scheduleInputTimeValue +
+        " - Falta " +
+        Math.ceil(difMinutes) +
+        " min";
+    } else {
       infoTextContent.innerText =
         "Prazo: Hoje, " +
         scheduleInputTimeValue +
         " - Faltam " +
         Math.ceil(difMinutes) +
         " min";
-    } else if (
-      difMinutes > 0 &&
+    }
+  }
+}
+
+function putExpireAlertClass(
+  taskField,
+  taskInfo,
+  difMinutes,
+  currentDate,
+  difDays,
+  difGetDayNumber,
+  scheduleInputDateValue
+) {
+  if (
+    (difMinutes > 0 &&
       difMinutes <= 30 &&
-      currentDate === scheduleInputDateValue
-    ) {
-      if (difMinutes <= 1) {
-        infoTextContent.innerText =
-          "Prazo: Hoje, " +
-          scheduleInputTimeValue +
-          " - Falta " +
-          Math.ceil(difMinutes) +
-          " min";
-      } else {
-        infoTextContent.innerText =
-          "Prazo: Hoje, " +
-          scheduleInputTimeValue +
-          " - Faltam " +
-          Math.ceil(difMinutes) +
-          " min";
-      }
-      infoTaskSave.expireAlert = true;
-      setTimeout(() => {
-        taskField.classList.add("expireAlert");
-        taskInfo.classList.add("expireAlert");
-      }, 300);
-    }
+      currentDate === scheduleInputDateValue) ||
+    (difDays < 2 &&
+      difGetDayNumber == 1 &&
+      difMinutes > 0 &&
+      difMinutes <= 30) ||
+    (difDays < 2 && difGetDayNumber == -6 && difMinutes > 0 && difMinutes <= 30)
+  ) {
+    taskField.classList.add("expireAlert");
+    taskInfo.classList.add("expireAlert");
+  }
+}
 
-    appointmentDate.innerText = scheduleInputDateValue;
-    appointmentTime.innerText = scheduleInputTimeValue;
-
-    // Salvar ação no Local Storage
-    if (infoTaskSave.deletedInfoTask) {
-      delete infoTaskSave.deletedInfoTask;
-    }
+function saveScheduledTaskAction(
+  infoTaskSave,
+  scheduleInputDateValue,
+  scheduleInputTimeValue,
+  infoTextContent,
+  difMinutes,
+  currentDate,
+  difDays,
+  difGetDayNumber
+) {
+  if (infoTaskSave.deletedInfoTask && !infoTaskSave.scheduledTask) {
+    delete infoTaskSave.deletedInfoTask;
+  }
+  if (!infoTaskSave.deletedInfoTask) {
     infoTaskSave.scheduledTask = [
       true,
       scheduleInputDateValue,
       scheduleInputTimeValue,
       infoTextContent.innerText,
     ];
-    localStorage.setItem("tasks", JSON.stringify(dbAllTasks));
-
-    setTimeout(() => {
-      scheduledTasks = dbAllTasks.filter(
-        (infoTaskSave) => infoTaskSave.scheduledTask
-      );
-      amountScheduledTasks.innerText = scheduledTasks.length;
-    }, 300);
+    if (
+      (difMinutes > 0 &&
+        difMinutes <= 30 &&
+        currentDate === scheduleInputDateValue) ||
+      (difDays < 2 &&
+        difGetDayNumber == 1 &&
+        difMinutes > 0 &&
+        difMinutes <= 30) ||
+      (difDays < 2 &&
+        difGetDayNumber == -6 &&
+        difMinutes > 0 &&
+        difMinutes <= 30)
+    ) {
+      infoTaskSave.expireAlert = true;
+    }
   }
-};
+  localStorage.setItem("tasks", JSON.stringify(dbAllTasks));
+}
+
+function saveExpiredTaskAction(
+  infoTaskSave,
+  scheduleInputDateValue,
+  scheduleInputTimeValue,
+  infoTextContent
+) {
+  if (!infoTaskSave.deletedInfoTask) {
+    delete infoTaskSave.scheduledTask;
+    delete infoTaskSave.expireAlert;
+    infoTaskSave.expiredTask = [
+      true,
+      scheduleInputDateValue,
+      scheduleInputTimeValue,
+      infoTextContent.innerText,
+    ];
+    localStorage.setItem("tasks", JSON.stringify(dbAllTasks));
+  }
+}
 
 // Configuração do botão de remoção do agendamento
 const schedulingRemoveClick = (
   taskInfo,
   taskField,
   scheduleBtn,
-  appointmentDate,
-  appointmentTime,
   editBtn,
   infoTextContent,
   infoTaskSave,
@@ -1031,8 +1098,6 @@ const schedulingRemoveClick = (
   localStorage.setItem("tasks", JSON.stringify(dbAllTasks));
 
   setTimeout(() => {
-    appointmentTime.innerText = "";
-    appointmentDate.innerText = "";
     infoTextContent.innerText = "";
     taskInfo.classList.remove("scheduled");
     if (taskField.classList.contains("scheduled")) {
@@ -1709,8 +1774,6 @@ function createTaskInfo(
   taskInfo,
   infoTextContent,
   schedulingRemoveBtn,
-  appointmentDate,
-  appointmentTime,
   completedTaskIcon,
   btnField,
   infoTaskSave,
@@ -1721,10 +1784,6 @@ function createTaskInfo(
   taskInfo.classList.add("taskInfo");
   taskInfo.classList.add("hide");
   infoTextContent.classList.add("infoTextContent");
-  appointmentDate.classList.add("appointmentDate");
-  appointmentDate.classList.add("hide");
-  appointmentTime.classList.add("appointmentTime");
-  appointmentTime.classList.add("hide");
   completedTaskIcon.classList.add("completedTaskIcon");
   completedTaskIcon.classList.add("fa-solid");
   completedTaskIcon.classList.add("fa-check");
@@ -1732,8 +1791,6 @@ function createTaskInfo(
   taskField.appendChild(taskInfo);
   taskInfo.appendChild(infoTextContent);
   taskInfo.appendChild(schedulingRemoveBtn);
-  taskInfo.appendChild(appointmentDate);
-  taskInfo.appendChild(appointmentTime);
   taskInfo.appendChild(completedTaskIcon);
   schedulingRemoveBtn.classList.add("schedulingRemoveBtn");
   schedulingRemoveBtn.appendChild(schedulingRemoveBtnIcon);
@@ -1744,8 +1801,6 @@ function createTaskInfo(
       taskInfo,
       taskField,
       scheduleBtn,
-      appointmentDate,
-      appointmentTime,
       editBtn,
       infoTextContent,
       infoTaskSave,
@@ -1825,8 +1880,6 @@ function createCompleteTaskBtn(
   editBtn,
   checkBtn,
   checkIcon,
-  appointmentDate,
-  appointmentTime,
   taskInfo,
   infoTextContent,
   completedTaskIcon,
@@ -1847,8 +1900,6 @@ function createCompleteTaskBtn(
       editBtn,
       checkBtn,
       checkIcon,
-      appointmentDate,
-      appointmentTime,
       taskInfo,
       infoTextContent,
       completedTaskIcon,
@@ -1872,8 +1923,6 @@ function createEditTaskBtn(btnField, editBtn, taskContent, infoTaskSave) {
 function createScheduleTaskBtn(
   taskField,
   scheduleBtn,
-  appointmentDate,
-  appointmentTime,
   taskInfo,
   infoTextContent,
   schedulingRemoveBtn,
@@ -1891,8 +1940,6 @@ function createScheduleTaskBtn(
     scheduleClick(
       taskField,
       scheduleBtn,
-      appointmentDate,
-      appointmentTime,
       taskInfo,
       infoTextContent,
       schedulingRemoveBtn,
@@ -1974,8 +2021,6 @@ function taskConstructor(taskField, infoTaskSave) {
   const removeBtn = document.createElement("button");
   const infoTextContent = document.createElement("p");
   const completedTaskIcon = document.createElement("i");
-  const appointmentDate = document.createElement("span");
-  const appointmentTime = document.createElement("span");
   const notesInfo = document.createElement("span");
   const notesBtnAlert = document.createElement("span");
   const notePadInput = document.createElement("textarea");
@@ -1996,8 +2041,6 @@ function taskConstructor(taskField, infoTaskSave) {
     taskInfo,
     infoTextContent,
     schedulingRemoveBtn,
-    appointmentDate,
-    appointmentTime,
     completedTaskIcon,
     btnField,
     infoTaskSave,
@@ -2025,8 +2068,6 @@ function taskConstructor(taskField, infoTaskSave) {
     editBtn,
     checkBtn,
     checkIcon,
-    appointmentDate,
-    appointmentTime,
     taskInfo,
     infoTextContent,
     completedTaskIcon,
@@ -2041,8 +2082,6 @@ function taskConstructor(taskField, infoTaskSave) {
   createScheduleTaskBtn(
     taskField,
     scheduleBtn,
-    appointmentDate,
-    appointmentTime,
     taskInfo,
     infoTextContent,
     schedulingRemoveBtn,
@@ -2094,8 +2133,6 @@ function taskConstructor(taskField, infoTaskSave) {
       schedulingRemoveBtn.setAttribute("title", "Cancelar agendamento");
       scheduleBtn.classList.add("disabledBtn");
       infoTextContent.innerText = infoTaskSave.scheduledTask[3];
-      appointmentDate.innerText = infoTaskSave.scheduledTask[1];
-      appointmentTime.innerText = infoTaskSave.scheduledTask[2];
       break;
   }
 
@@ -2122,27 +2159,17 @@ function taskConstructor(taskField, infoTaskSave) {
       editBtn.classList.add("disabledBtn");
       scheduleBtn.classList.add("disabledBtn");
       infoTextContent.innerText = infoTaskSave.expiredTask[3];
-      appointmentDate.innerText = infoTaskSave.expiredTask[1];
-      appointmentTime.innerText = infoTaskSave.expiredTask[2];
       break;
   }
 }
 
 // ----- Funções auxiliares manipulação de tarefas -----
 
-function clearTaskClass(
-  appointmentTime,
-  appointmentDate,
-  infoTextContent,
-  taskInfo,
-  taskField
-) {
+function clearTaskClass(infoTextContent, taskInfo, taskField) {
   if (
     taskField.classList.contains("scheduled") ||
     taskField.classList.contains("expiredTask")
   ) {
-    appointmentTime.innerText = "";
-    appointmentDate.innerText = "";
     infoTextContent.innerText = "";
   }
   if (!taskInfo.classList.contains("hide")) {
@@ -2263,8 +2290,6 @@ function completeTask(
   checkIcon,
   editBtn,
   scheduleBtn,
-  appointmentDate,
-  appointmentTime,
   taskInfo,
   infoTextContent,
   schedulingRemoveBtn,
@@ -2286,24 +2311,12 @@ function completeTask(
       schedulingRemoveBtn
     );
     if (taskField.classList.contains("completed")) {
-      clearTaskClass(
-        appointmentTime,
-        appointmentDate,
-        infoTextContent,
-        taskInfo,
-        taskField
-      );
+      clearTaskClass(infoTextContent, taskInfo, taskField);
     } else if (
       taskField.classList.contains("scheduled") ||
       taskField.classList.contains("expiredTask")
     ) {
-      clearTaskClass(
-        appointmentTime,
-        appointmentDate,
-        infoTextContent,
-        taskInfo,
-        taskField
-      );
+      clearTaskClass(infoTextContent, taskInfo, taskField);
       putCompletedTask(taskField, taskInfo, infoTextContent);
     } else {
       putCompletedTask(taskField, taskInfo, infoTextContent);
@@ -2347,211 +2360,102 @@ setInterval(() => {
   const currentDate = currentFullDate.toLocaleDateString("fr-CA");
 
   for (let i = 0; i < dbAllTasks.length; i++) {
-    const task = tasksContainer.childNodes[i];
+    const taskField = tasksContainer.childNodes[i];
     const infoTaskSave = dbAllTasks[i];
 
     if (infoTaskSave.scheduledTask || infoTaskSave.expiredTask) {
-      const taskInfo = task.childNodes[2];
+      const taskInfo = taskField.childNodes[2];
       const infoTextContent = taskInfo.firstChild;
       const schedulingRemoveBtn = taskInfo.childNodes[1];
-      const appointmentDate = taskInfo.childNodes[2];
-      const appointmentTime = taskInfo.childNodes[3];
-      const schedulingDate = new Date(
-        appointmentDate.innerText + " " + appointmentTime.innerText
+      const scheduleInputDateValue =
+        infoTaskSave.scheduledTask?.[1] ?? infoTaskSave.expiredTask[1];
+      const scheduleInputTimeValue =
+        infoTaskSave.scheduledTask?.[2] ?? infoTaskSave.expiredTask[2];
+      const scheduledDate = new Date(
+        scheduleInputDateValue + " " + scheduleInputTimeValue
       );
-
-      const btnField = task.childNodes[1];
+      const btnField = taskField.childNodes[1];
       const editBtn = btnField.childNodes[1];
-      const difTimeInSeconds =
-        (schedulingDate.getTime() - currentFullDate.getTime()) / 1000;
-      const difTimeInMinutes = difTimeInSeconds / 60;
-      const difTimeInDays = difTimeInMinutes / (60 * 24);
-      const difDaysFromScheduledToCurrent =
-        schedulingDate.getDay() - currentFullDate.getDay();
-
       const difSeconds =
-        (currentFullDate.getTime() - schedulingDate.getTime()) / 1000;
+        (scheduledDate.getTime() - currentFullDate.getTime()) / 1000;
       const difMinutes = difSeconds / 60;
       const difDays = difMinutes / (60 * 24);
-      const difDaysFromCurrentToScheduled =
-        currentFullDate.getDay() - schedulingDate.getDay();
+      const difGetDayNumber = scheduledDate.getDay() - currentFullDate.getDay();
+      const difSecondsCurrentToScheduled =
+        (currentFullDate.getTime() - scheduledDate.getTime()) / 1000;
+      const difMinutesCurrentToScheduled = difSecondsCurrentToScheduled / 60;
+      const difDaysCurrentToScheduled =
+        difMinutesCurrentToScheduled / (60 * 24);
+      const difGetDayNumberCurrentToScheduled =
+        currentFullDate.getDay() - scheduledDate.getDay();
 
-      if (difTimeInSeconds <= 0) {
-        // Salvar ação no Local Storage
-        if (!infoTaskSave.deletedInfoTask) {
-          delete infoTaskSave.scheduledTask;
-          delete infoTaskSave.expireAlert;
-
-          infoTaskSave.expiredTask = [
-            true,
-            appointmentDate.innerText,
-            appointmentTime.innerText,
-            infoTextContent.innerText,
-          ];
-        }
-
-        // Filtro de tarefas
-        expiredTasks = dbAllTasks.filter(
-          (infoTaskSave) => infoTaskSave.expiredTask
-        );
-        scheduledTasks = dbAllTasks.filter(
-          (infoTaskSave) => infoTaskSave.scheduledTask
-        );
-        if (expiredTasksFilterBtn.classList.contains("active")) {
-          filterTaskByClass("expiredTask");
-        } else if (scheduledTasksFilterBtn.classList.contains("active")) {
-          filterTaskByClass("scheduledTask");
-        }
-        amountExpiredTasks.innerText = expiredTasks.length;
-        amountScheduledTasks.innerText = scheduledTasks.length;
-
-        // Renderização na tela
+      if (difSeconds <= 0) {
+        saveExpiredTaskAction(
+          infoTaskSave,
+          scheduleInputDateValue,
+          scheduleInputTimeValue,
+          infoTextContent
+        )
+        calculateNumberOfTasks();
+        checkActivatedClassBtnAndFilter();
         taskInfo.classList.remove("scheduled");
         taskInfo.classList.remove("expireAlert");
         taskInfo.classList.add("expiredTask");
-        task.classList.remove("scheduled");
-        task.classList.remove("expireAlert");
-        task.classList.add("expiredTask");
+        taskField.classList.remove("scheduled");
+        taskField.classList.remove("expireAlert");
+        taskField.classList.add("expiredTask");
         schedulingRemoveBtn.setAttribute("title", "Restaurar");
         editBtn.classList.add("disabledBtn");
-        if (currentDate === appointmentDate.innerText) {
+        if (currentDate === scheduleInputDateValue) {
+          infoTextContent.innerText = "Expirou hoje, " + scheduleInputTimeValue;
+        } else if (difDaysCurrentToScheduled < 2 && difGetDayNumber == 6) {
           infoTextContent.innerText =
-            "Expirou hoje, " + appointmentTime.innerText;
-        } else if (difDays < 2 && difDaysFromScheduledToCurrent == 6) {
+            "Expirou ontem, " + scheduleInputTimeValue;
+        } else if (
+          difDaysCurrentToScheduled < 2 &&
+          difGetDayNumberCurrentToScheduled == 1
+        ) {
           infoTextContent.innerText =
-            "Expirou ontem, " + appointmentTime.innerText;
-        } else if (difDays < 2 && difDaysFromCurrentToScheduled == 1) {
-          infoTextContent.innerText =
-            "Expirou ontem, " + appointmentTime.innerText;
+            "Expirou ontem, " + scheduleInputTimeValue;
         } else {
           infoTextContent.innerText =
             "Expirou " +
-            schedulingDate.toLocaleDateString("pt-BR") +
+            scheduledDate.toLocaleDateString("pt-BR") +
             ", " +
-            appointmentTime.innerText;
+            scheduleInputTimeValue;
         }
-      } else if (
-        difTimeInMinutes > 0 &&
-        difTimeInMinutes <= 30 &&
-        currentDate === appointmentDate.innerText
-      ) {
-        if (difTimeInMinutes <= 1) {
-          infoTextContent.innerText =
-            "Prazo: Hoje, " +
-            appointmentTime.innerText +
-            " - Falta " +
-            Math.ceil(difTimeInMinutes) +
-            " min";
-        } else {
-          infoTextContent.innerText =
-            "Prazo: Hoje, " +
-            appointmentTime.innerText +
-            " - Faltam " +
-            Math.ceil(difTimeInMinutes) +
-            " min";
-        }
-        task.classList.add("expireAlert");
-        taskInfo.classList.add("expireAlert");
-
-        // Salvar ação no Local Storage
-
-        if (!infoTaskSave.deletedInfoTask) {
-          infoTaskSave.scheduledTask = [
-            true,
-            appointmentDate.innerText,
-            appointmentTime.innerText,
-            infoTextContent.innerText,
-          ];
-          infoTaskSave.expireAlert = true;
-        }
-      } else if (
-        difTimeInMinutes > 30 &&
-        difTimeInMinutes <= 60 &&
-        currentDate === appointmentDate.innerText
-      ) {
-        infoTextContent.innerText =
-          "Prazo: Hoje, " +
-          appointmentTime.innerText +
-          " - Faltam " +
-          Math.ceil(difTimeInMinutes) +
-          " min";
-      } else if (
-        currentDate === appointmentDate.innerText &&
-        difTimeInMinutes > 60
-      ) {
-        infoTextContent.innerText = "Prazo: Hoje, " + appointmentTime.innerText;
-      } else if (
-        (difTimeInDays < 2 &&
-          difDaysFromScheduledToCurrent == -6 &&
-          difTimeInMinutes > 60) ||
-        (difTimeInDays < 2 &&
-          difDaysFromScheduledToCurrent == 1 &&
-          difTimeInMinutes > 60)
-      ) {
-        infoTextContent.innerText =
-          "Prazo: Amanhã, " + appointmentTime.innerText;
-      } else if (
-        (difTimeInDays < 2 &&
-          difDaysFromScheduledToCurrent == -6 &&
-          difTimeInMinutes > 30 &&
-          difTimeInMinutes <= 60) ||
-        (difTimeInDays < 2 &&
-          difDaysFromScheduledToCurrent == 1 &&
-          difTimeInMinutes > 30 &&
-          difTimeInMinutes <= 60)
-      ) {
-        infoTextContent.innerText =
-          "Prazo: Amanhã, " +
-          appointmentTime.innerText +
-          " - Faltam " +
-          Math.ceil(difTimeInMinutes) +
-          " min";
-      } else if (
-        (difTimeInDays < 2 &&
-          difDaysFromScheduledToCurrent == -6 &&
-          difTimeInMinutes > 0 &&
-          difTimeInMinutes <= 30) ||
-        (difTimeInDays < 2 &&
-          difDaysFromScheduledToCurrent == 1 &&
-          difTimeInMinutes > 0 &&
-          difTimeInMinutes <= 30)
-      ) {
-        if (difTimeInMinutes <= 1) {
-          infoTextContent.innerText =
-            "Prazo: Amanhã, " +
-            appointmentTime.innerText +
-            " - Falta " +
-            Math.ceil(difTimeInMinutes) +
-            " min";
-        } else {
-          infoTextContent.innerText =
-            "Prazo: Amanhã, " +
-            appointmentTime.innerText +
-            " - Faltam " +
-            Math.ceil(difTimeInMinutes) +
-            " min";
-        }
-        task.classList.add("expireAlert");
-        taskInfo.classList.add("expireAlert");
-
-        // Salvar ação no Local Storage
-        if (!infoTaskSave.deletedInfoTask) {
-          infoTaskSave.scheduledTask = [
-            true,
-            appointmentDate.innerText,
-            appointmentTime.innerText,
-            infoTextContent.innerText,
-          ];
-          infoTaskSave.expireAlert = true;
-        }
+      } else {
+        insertSchedulingInfo(
+          infoTextContent,
+          difDays,
+          difMinutes,
+          difGetDayNumber,
+          scheduleInputTimeValue,
+          scheduleInputDateValue,
+          currentDate
+        );
       }
-      if (infoTaskSave.expiredTask) {
-        infoTaskSave.expiredTask[3] = infoTextContent.innerText;
+      if(!infoTaskSave.expiredTask) {
+        saveScheduledTaskAction(
+          infoTaskSave,
+          scheduleInputDateValue,
+          scheduleInputTimeValue,
+          infoTextContent,
+          difMinutes,
+          currentDate,
+          difDays,
+          difGetDayNumber
+        );
       }
-      if (infoTaskSave.scheduledTask) {
-        infoTaskSave.scheduledTask[3] = infoTextContent.innerText;
-      }
-      localStorage.setItem("tasks", JSON.stringify(dbAllTasks));
+      putExpireAlertClass(
+        taskField,
+        taskInfo,
+        difMinutes,
+        currentDate,
+        difDays,
+        difGetDayNumber,
+        scheduleInputDateValue
+      );
     }
   }
 }, 1000);
