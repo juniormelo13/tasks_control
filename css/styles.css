@@ -1088,6 +1088,7 @@ body {
   font-size: 0.8rem;
   color: var(--dark100_white100);
   font-family: "lato", "sans-serif";
+  font-weight: bold;
   user-select: none;
 }
 
@@ -1356,11 +1357,11 @@ body {
 }
 
 .lowOpacity {
-  animation: lowOpacity 0.3s forwards;
+  animation: lowOpacity 0.2s forwards;
 }
 
 .normalOpacity {
-  animation: normalOpacity 0.3s forwards;
+  animation: normalOpacity 0.2s forwards;
 }
 
 .taskField.shakeMove,
