@@ -1363,12 +1363,10 @@ function notesBtnClick(
     notePadInput.value == "";
     cleanNoteBtn.classList.add("hide");
   }
-  notesBtn.disabled = true;
+  notePadContainer.classList.add("pointerEventsVisible");
   setTimeout(() => {
-    notePadContainer.classList.add("pointerEventsVisible");
-    notePadContainerShow = true;
-    notesBtn.disabled = false;
-  }, 200);
+    notePadContainerShow = !notePadContainerShow;
+  }, 400);
   document.onclick = (e) => {
     if (
       notePadContainerShow &&
@@ -1431,9 +1429,9 @@ function saveNoteClick(
     localStorage.setItem("tasks", JSON.stringify(dbAllTasks));
     notesBtnAlert.classList.add("hide");
   }
+  notePadContainerShow = !notePadContainerShow;
   setTimeout(() => {
     notePadContainer.classList.add("hide");
-    notePadContainerShow = false;
     highLightTask(taskField, taskInfo, "remove");
   }, 200);
 }
@@ -1959,7 +1957,6 @@ function highLightTask(taskField, taskInfo, option) {
     taskField.classList.remove("active");
     taskInfo.classList.remove("active");
     setTimeout(() => {
-      taskField.classList.add("hover");
       header.classList.remove("pointerEventsNone");
       for (const taskField of tasks) {
         taskField.classList.remove("pointerEventsNone");
@@ -1967,6 +1964,7 @@ function highLightTask(taskField, taskInfo, option) {
           taskField.classList.remove("normalOpacity");
         }
       }
+      taskField.classList.add("hover");
     }, 200);
   }
 }
