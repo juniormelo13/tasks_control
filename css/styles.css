@@ -1134,7 +1134,7 @@ body {
   color: var(--dark100_white100);
 }
 
-#confirmField {
+#confirmationWindow {
   position: fixed;
   display: flex;
   flex-direction: column;
@@ -1150,7 +1150,7 @@ body {
   z-index: 1;
 }
 
-#confirmFieldText {
+#confirmationWindowText {
   font-family: "Lato", "Sans-Serif";
   font-size: 1.1rem;
   text-align: center;
@@ -1337,13 +1337,13 @@ body {
 
 #editField.appearWindow,
 #scheduleField.appearWindow,
-#confirmField.appearWindow {
+#confirmationWindow.appearWindow {
   animation: appearWindow 0.2s ease-in forwards;
 }
 
 #editField.vanishWindow,
 #scheduleField.vanishWindow,
-#confirmField.vanishWindow {
+#confirmationWindow.vanishWindow {
   animation: vanishWindow 0.2s ease-in forwards;
 }
 
@@ -1405,7 +1405,7 @@ body {
 .cleanNoteBtn.hide,
 .appointmentDate.hide,
 .appointmentTime.hide,
-#confirmField.hide,
+#confirmationWindow.hide,
 #scheduleField.hide,
 #editField.hide,
 .taskInfo.hide,
@@ -1938,7 +1938,7 @@ body {
   }
   #editField,
   #scheduleField,
-  #confirmField {
+  #confirmationWindow {
     top: calc(10rem + 30%);
   }
 }
@@ -1987,7 +1987,7 @@ body {
 @media (max-width: 350px) {
   #editField,
   #scheduleField,
-  #confirmField {
+  #confirmationWindow {
     width: calc(90%);
   }
   #scheduleFieldCenter {

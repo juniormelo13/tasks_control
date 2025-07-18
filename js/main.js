@@ -32,8 +32,8 @@ const editInput = document.querySelector("#editInput");
 const confirmEditBtn = document.querySelector("#confirmEditBtn");
 
 // Variáveis da janela de confirmação
-const confirmField = document.querySelector("#confirmField");
-const confirmFieldText = document.querySelector("#confirmFieldText");
+const confirmationWindow = document.querySelector("#confirmationWindow");
+const confirmationWindowText = document.querySelector("#confirmationWindowText");
 const btnYes = document.querySelector("#btnYes");
 const btnNo = document.querySelector("#btnNo");
 
@@ -131,13 +131,13 @@ document.addEventListener("click", (e) => {
     !menu.contains(e.target) &&
     !menuBtn.contains(e.target) &&
     !menuBtnIcon.contains(e.target) &&
-    !confirmField.contains(e.target) &&
+    !confirmationWindow.contains(e.target) &&
     menuOpen &&
-    !confirmField.classList.contains("appearWindow")
+    !confirmationWindow.classList.contains("appearWindow")
   ) {
     menuHide();
   } else if (
-    confirmField.classList.contains("appearWindow") &&
+    confirmationWindow.classList.contains("appearWindow") &&
     menuOpen &&
     !menu.contains(e.target) &&
     !menu.classList.contains("menuBlur")
@@ -230,7 +230,7 @@ function removeImg() {
 }
 
 function confirmRemoveImg() {
-  hideWindow(confirmField);
+  hideWindow(confirmationWindow);
   setTimeout(() => {
     removeImg();
     checkRemoveAllConfigBtn();
@@ -609,7 +609,7 @@ const completeTaskClick = (
       confirmCompleteTask
     );
     function confirmCompleteTask() {
-      hideWindow(confirmField);
+      hideWindow(confirmationWindow);
       setTimeout(() => {
         completeTask(
           taskField,
@@ -1123,7 +1123,7 @@ const deleteClick = (taskField, infoTaskSave) => {
       );
     }
     function confirmDeleteAction() {
-      hideWindow(confirmField);
+      hideWindow(confirmationWindow);
       setTimeout(() => {
         deleteTask(taskField, infoTaskSave);
       }, 200);
@@ -1181,11 +1181,11 @@ function showWindow(window) {
 }
 
 function showConfirmField(text, funct) {
-  showWindow(confirmField);
-  confirmFieldText.innerText = text;
+  showWindow(confirmationWindow);
+  confirmationWindowText.innerText = text;
   btnYes.focus();
   btnYes.onclick = () => funct();
-  btnNo.onclick = () => hideWindow(confirmField);
+  btnNo.onclick = () => hideWindow(confirmationWindow);
 }
 
 function hideWindow(window) {
@@ -1249,7 +1249,7 @@ function removeAllTasks() {
 }
 
 function confirmRemoveAllTasks() {
-  hideWindow(confirmField);
+  hideWindow(confirmationWindow);
   setTimeout(() => {
     removeAllTasks();
     checkRemoveAllConfigBtn();
@@ -1283,7 +1283,7 @@ function removeAllConfig() {
 }
 
 function confirmRemoveAllConfig() {
-  hideWindow(confirmField);
+  hideWindow(confirmationWindow);
   setTimeout(() => {
     removeAllConfig();
   }, 200);
