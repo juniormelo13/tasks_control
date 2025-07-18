@@ -87,13 +87,12 @@ const menuBtnIcon = document.querySelector("#menuButtonIcon");
 const menuBtnIconMobile = document.querySelector("#menuButtonIconMobile");
 let menuOpen = false;
 
-function menuIconToggle() {
+function menuBtnToggle() {
   menuBtnIcon.classList.toggle("fa-angles-down");
   menuBtnIcon.classList.toggle("fa-xmark");
   menuBtnIconMobile.classList.toggle("fa-angles-left");
   menuBtnIconMobile.classList.toggle("fa-xmark");
   menuBtn.classList.toggle("active");
-  menuBtn.disabled = true;
 }
 
 function menuShow() {
@@ -102,7 +101,7 @@ function menuShow() {
   menu.classList.remove("hide");
   menu.classList.remove("menuVanish");
   menu.classList.add("menuAppear");
-  menuIconToggle();
+  menuBtnToggle();
   menuBtn.disabled = false;
 }
 
@@ -111,7 +110,8 @@ function menuHide() {
   menu.classList.add("pointerEventsNone");
   menu.classList.remove("menuAppear");
   menu.classList.add("menuVanish");
-  menuIconToggle();
+  menuBtn.disabled = true;
+  menuBtnToggle();
   setTimeout(() => {
     menu.classList.add("hide");
     menuBtn.disabled = false;
@@ -127,23 +127,6 @@ menuBtn.addEventListener("click", () => {
 });
 
 document.addEventListener("click", (e) => {
-  if (
-    !menu.contains(e.target) &&
-    !menuBtn.contains(e.target) &&
-    !menuBtnIcon.contains(e.target) &&
-    !confirmationWindow.contains(e.target) &&
-    menuOpen &&
-    !confirmationWindow.classList.contains("appearWindow")
-  ) {
-    menuHide();
-  } else if (
-    confirmationWindow.classList.contains("appearWindow") &&
-    menuOpen &&
-    !menu.contains(e.target) &&
-    !menu.classList.contains("menuBlur")
-  ) {
-    menuHide();
-  }
   if (
     newTaskInput.classList.contains("inputError") &&
     !newTaskBtn.contains(e.target)
