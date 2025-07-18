@@ -245,7 +245,6 @@ if (localStorage.getItem("infoAccountName")) {
   nameInput.value = localStorage.getItem("infoAccountName");
 }
 
-nameInput.addEventListener("blur", saveName);
 nameInput.onkeypress = (e) => {
   if (e.key === "Enter") {
     nameInput.blur();
@@ -253,20 +252,20 @@ nameInput.onkeypress = (e) => {
 };
 
 nameInput.onfocus = () => {
-  nameIdentIcon.classList.add("active");
+  nameIdentIcon.classList.add("hide");
   nameInput.classList.add("active");
 };
 
-function deleteName() {
-  nameInput.value = "Qual é o seu nome?";
-  localStorage.removeItem("infoAccountName");
-}
+nameInput.onblur = () => {
+  clearEmptyInput(nameInput)
+  nameIdentIcon.classList.remove("hide");
+  nameInput.classList.remove("active");
+  saveName()
+};
 
 function saveName() {
-  nameIdentIcon.classList.remove("active");
-  nameInput.classList.remove("active");
-  if (nameInput.value.trim() == "" || nameInput.value == "Qual é o seu nome?") {
-    deleteName();
+  if (nameInput.value.trim() == "") {
+    localStorage.removeItem("infoAccountName");
     checkRemoveAllConfigBtn();
   } else {
     nameInput.value = nameInput.value.trim();
@@ -391,14 +390,10 @@ function checkActivatedClassBtnAndFilter() {
 
 function checkInputValue(input, cleanBtn) {
   if (input.value.trim() != "") {
-    if (cleanBtn.classList.contains("hide")) {
-      cleanBtn.classList.remove("hide");
-    }
+    cleanBtn.classList.remove("hide");
     return true;
   } else {
-    if (!cleanBtn.classList.contains("hide")) {
-      cleanBtn.classList.add("hide");
-    }
+    cleanBtn.classList.add("hide");
     return false;
   }
 }
@@ -415,7 +410,6 @@ function validateInput(input) {
 }
 
 searchTaskInput.onkeyup = () => {
-  checkInputValue(searchTaskInput, cleanInputSearchBtn);
   if (checkInputValue(searchTaskInput, cleanInputSearchBtn)) {
     if (searchTaskInput.value.length >= 1) {
       filterInformation.innerText = searchTaskInput.value.trim();

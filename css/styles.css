@@ -175,7 +175,7 @@ body {
 #newTaskInput::placeholder,
 #searchTaskInput::placeholder,
 #editInput::placeholder,
-.notePadInput::placeholder {
+.notePadInput::placeholder, #nameInput::placeholder {
   transition: 0.2s;
   color: var(--grey);
 }
@@ -204,7 +204,8 @@ body {
   box-shadow: 0 0 10px 2px var(--dark100_white100);
 }
 
-#cleanNewTaskInputBtn, #cleanEditInputBtn {
+#cleanNewTaskInputBtn,
+#cleanEditInputBtn {
   position: absolute;
   height: 100%;
   font-family: "lato", "sans-serif";
@@ -229,7 +230,8 @@ body {
   width: 40px;
 }
 
-#cleanNewTaskInputBtn:hover, #cleanEditInputBtn:hover {
+#cleanNewTaskInputBtn:hover,
+#cleanEditInputBtn:hover {
   background-color: var(--grey_Opacity_3);
   color: var(--grey_50);
 }
@@ -250,7 +252,8 @@ body {
   transition: 0.3s;
 }
 
-#inputFileBtnPlus, #inputFileBtnDel {
+#inputFileBtnPlus,
+#inputFileBtnDel {
   position: absolute;
   display: flex;
   justify-content: center;
@@ -273,7 +276,8 @@ body {
   cursor: pointer;
 }
 
-#imgIdentBox:hover #inputFileBtnPlus, #imgIdentBox:hover #inputFileBtnDel {
+#imgIdentBox:hover #inputFileBtnPlus,
+#imgIdentBox:hover #inputFileBtnDel {
   opacity: 1;
 }
 
@@ -344,11 +348,6 @@ body {
 
 #nameIdentBox:hover #nameIdentIcon {
   opacity: 0.5;
-}
-
-#nameIdentBox:hover #nameIdentIcon.active,
-#nameIdentIcon.active {
-  opacity: 1;
 }
 
 #searchContainer {
@@ -1187,7 +1186,7 @@ body {
 #newTaskInput:focus::placeholder,
 #editInput:focus::placeholder,
 #searchTaskInput:focus::placeholder,
-.notePadInput:focus::placeholder {
+.notePadInput:focus::placeholder, #nameInput:focus::placeholder {
   color: var(--dark50_white50);
 }
 
@@ -1417,7 +1416,11 @@ body {
 .notesBtnAlert.hide,
 #noTaskTextContainer.hide,
 .taskField.hide,
-#cleanInputSearchBtn.hide, #inputFileBtnDel.hide, #inputFileBtnPlus.hide, #cleanNewTaskInputBtn.hide, #cleanEditInputBtn.hide {
+#cleanInputSearchBtn.hide,
+#inputFileBtnDel.hide,
+#inputFileBtnPlus.hide,
+#cleanNewTaskInputBtn.hide,
+#cleanEditInputBtn.hide, #nameIdentIcon.hide {
   display: none;
   pointer-events: none;
   user-select: none;
@@ -1813,7 +1816,8 @@ body {
     color: var(--dark100_white100);
     box-shadow: 0 0 10px 2px var(--dark100_white100);
   }
-  #inputFileBtnPlus, #inputFileBtnDel {
+  #inputFileBtnPlus,
+  #inputFileBtnDel {
     opacity: 1;
   }
   .taskField {

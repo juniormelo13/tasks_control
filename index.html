@@ -42,7 +42,13 @@
             spellcheck="false"
             autocomplete="off"
           />
-          <input type="button" value="X" id="cleanNewTaskInputBtn" class="hide" title="Limpar" />
+          <input
+            type="button"
+            value="X"
+            id="cleanNewTaskInputBtn"
+            class="hide"
+            title="Limpar"
+          />
         </div>
         <input type="button" value="+" id="newTaskBtn" title="Adicionar" />
       </div>
@@ -73,7 +79,13 @@
           autocomplete="off"
           spellcheck="false"
         />
-        <input type="button" value="X" id="cleanEditInputBtn" class="hide" title="Limpar"/>
+        <input
+          type="button"
+          value="X"
+          id="cleanEditInputBtn"
+          class="hide"
+          title="Limpar"
+        />
       </div>
       <div id="editFieldFooter">
         <input type="button" value="editar" id="confirmEditBtn" />
@@ -132,15 +144,10 @@
             accept="image/*"
           />
           <img src="./img/profile-avatar.png" alt="" id="uploadedImg" />
-          <label
-            for="inputFileImg"
-            id="inputFileBtnPlus"
-            title="Adicionar foto"
+          <label for="inputFileImg" id="inputFileBtnPlus" title="Adicionar foto"
             ><i class="fa-solid fa-plus"></i
           ></label>
-          <label
-            id="inputFileBtnDel"
-            title="Remover foto" class="hide"
+          <label id="inputFileBtnDel" title="Remover foto" class="hide"
             ><i class="fa-solid fa-trash-can"></i
           ></label>
         </div>
@@ -149,11 +156,13 @@
             type="text"
             name="nameInput"
             id="nameInput"
-            value="Qual é o seu nome?"
+            placeholder="Qual é o seu nome?"
             spellcheck="false"
             autocomplete="off"
           />
-          <i class="fa-solid fa-pen" id="nameIdentIcon"></i>
+          <label for="nameInput" id="nameIdentIcon"
+            ><i class="fa-solid fa-pen"></i
+          ></label>
         </div>
       </div>
       <div id="searchContainer">
@@ -194,136 +203,12 @@
       <div id="themeBox">
         <p id="themeTitle">tema:</p>
         <label for="themeCheckBox" id="themeCheckBoxLabel">
-          <input type="checkbox" name="themeCheckBox" id="themeCheckBox"/>
+          <input type="checkbox" name="themeCheckBox" id="themeCheckBox" />
           <span id="themeBall">
             <i class="fa-regular fa-moon" id="themeBallMoon"></i>
             <i class="fa-solid fa-sun" id="themeBallSun"></i>
           </span>
         </label>
-      </div>
-      <div id="layoutConfigBox">
-        <p id="layoutConfigTitle">layout</p>
-        <div id="layoutOptionsBox">
-          <button id="oneColumnBtn" title="1 coluna">
-            <svg
-              version="1.1"
-              id="Layer_1"
-              xmlns="http://www.w3.org/2000/svg"
-              xmlns:xlink="http://www.w3.org/1999/xlink"
-              x="0px"
-              y="0px"
-              viewBox="0 0 512 512"
-              style="enable-background: new 0 0 512 512"
-              xml:space="preserve"
-            >
-              <style type="text/css">
-                .st0 {
-                  fill: #212121;
-                }
-              </style>
-              <g>
-                <path
-                  class="st0"
-                  d="M28.44,56.89C12.74,56.89,0,69.62,0,85.33s12.74,28.44,28.44,28.44h455.11c15.71,0,28.44-12.74,28.44-28.44
-		s-12.73-28.44-28.44-28.44H28.44z M28.44,170.67C12.74,170.67,0,183.4,0,199.11c0,15.71,12.74,28.44,28.44,28.44h455.11
-		c15.71,0,28.44-12.73,28.44-28.44c0-15.71-12.73-28.44-28.44-28.44H28.44z M0,312.89c0-15.71,12.74-28.44,28.44-28.44h455.11
-		c15.71,0,28.44,12.74,28.44,28.44c0,15.71-12.73,28.44-28.44,28.44H28.44C12.74,341.33,0,328.6,0,312.89z M28.44,398.22
-		C12.74,398.22,0,410.96,0,426.67c0,15.71,12.74,28.44,28.44,28.44h455.11c15.71,0,28.44-12.73,28.44-28.44
-		c0-15.71-12.73-28.44-28.44-28.44H28.44z"
-                />
-              </g>
-            </svg>
-          </button>
-          <button id="twoColumnBtn" title="2 colunas">
-            <svg
-              version="1.1"
-              id="Layer_1"
-              xmlns="http://www.w3.org/2000/svg"
-              xmlns:xlink="http://www.w3.org/1999/xlink"
-              x="0px"
-              y="0px"
-              viewBox="0 0 512 512"
-              style="enable-background: new 0 0 512 512"
-              xml:space="preserve"
-            >
-              <g>
-                <path
-                  d="M28.4,113.8h156.4c15.7,0,28.4-12.7,28.4-28.4c0-15.7-12.7-28.4-28.4-28.4H28.4C12.7,56.9,0,69.6,0,85.3
-		C0,101,12.7,113.8,28.4,113.8"
-                />
-                <path
-                  d="M28.4,227.6h156.4c15.7,0,28.4-12.7,28.4-28.4c0-15.7-12.7-28.4-28.4-28.4H28.4C12.7,170.7,0,183.4,0,199.1
-		C0,214.8,12.7,227.6,28.4,227.6"
-                />
-                <path
-                  d="M28.4,341.3h156.4c15.7,0,28.4-12.7,28.4-28.4c0-15.7-12.7-28.4-28.4-28.4H28.4C12.7,284.4,0,297.2,0,312.9
-		C0,328.6,12.7,341.3,28.4,341.3"
-                />
-                <path
-                  d="M28.4,455.1h156.4c15.7,0,28.4-12.7,28.4-28.4c0-15.7-12.7-28.4-28.4-28.4H28.4C12.7,398.2,0,411,0,426.7
-		C0,442.4,12.7,455.1,28.4,455.1"
-                />
-                <path
-                  d="M327.1,113.8h156.4c15.7,0,28.4-12.7,28.4-28.4c0-15.7-12.7-28.4-28.4-28.4H327.1c-15.7,0-28.4,12.7-28.4,28.4
-		C298.7,101,311.4,113.8,327.1,113.8"
-                />
-                <path
-                  d="M327.1,227.6h156.4c15.7,0,28.4-12.7,28.4-28.4c0-15.7-12.7-28.4-28.4-28.4H327.1c-15.7,0-28.4,12.7-28.4,28.4
-		C298.7,214.8,311.4,227.6,327.1,227.6"
-                />
-                <path
-                  d="M327.1,341.3h156.4c15.7,0,28.4-12.7,28.4-28.4c0-15.7-12.7-28.4-28.4-28.4H327.1c-15.7,0-28.4,12.7-28.4,28.4
-		C298.7,328.6,311.4,341.3,327.1,341.3"
-                />
-                <path
-                  d="M327.1,455.1h156.4c15.7,0,28.4-12.7,28.4-28.4c0-15.7-12.7-28.4-28.4-28.4H327.1c-15.7,0-28.4,12.7-28.4,28.4
-		C298.7,442.4,311.4,455.1,327.1,455.1"
-                />
-              </g>
-            </svg>
-          </button>
-          <button id="threeColumnBtn" title="3 colunas">
-            <svg
-              version="1.1"
-              id="Layer_1"
-              xmlns="http://www.w3.org/2000/svg"
-              xmlns:xlink="http://www.w3.org/1999/xlink"
-              x="0px"
-              y="0px"
-              viewBox="0 0 512 512"
-              style="enable-background: new 0 0 512 512"
-              xml:space="preserve"
-            >
-              <style type="text/css">
-                .st0 {
-                  fill: #212121;
-                }
-              </style>
-              <g>
-                <path
-                  class="st0"
-                  d="M0,85.33c0-15.71,12.74-28.44,28.44-28.44h85.33c15.71,0,28.44,12.74,28.44,28.44s-12.74,28.44-28.44,28.44
-		H28.44C12.74,113.78,0,101.04,0,85.33z M187.16,85.33c0-15.71,12.74-28.44,28.44-28.44h85.33c15.71,0,28.44,12.74,28.44,28.44
-		s-12.73,28.44-28.44,28.44h-85.33C199.9,113.78,187.16,101.04,187.16,85.33z M369.78,85.33c0-15.71,12.73-28.44,28.44-28.44h85.33
-		c15.71,0,28.44,12.74,28.44,28.44s-12.73,28.44-28.44,28.44h-85.33C382.51,113.78,369.78,101.04,369.78,85.33z M0,199.11
-		c0-15.71,12.74-28.44,28.44-28.44h85.33c15.71,0,28.44,12.74,28.44,28.44c0,15.71-12.74,28.44-28.44,28.44H28.44
-		C12.74,227.56,0,214.82,0,199.11z M187.16,199.11c0-15.71,12.74-28.44,28.44-28.44h85.33c15.71,0,28.44,12.74,28.44,28.44
-		c0,15.71-12.73,28.44-28.44,28.44h-85.33C199.9,227.56,187.16,214.82,187.16,199.11z M369.78,199.11
-		c0-15.71,12.73-28.44,28.44-28.44h85.33c15.71,0,28.44,12.74,28.44,28.44c0,15.71-12.73,28.44-28.44,28.44h-85.33
-		C382.51,227.56,369.78,214.82,369.78,199.11z M0,312.89c0-15.71,12.74-28.44,28.44-28.44h85.33c15.71,0,28.44,12.74,28.44,28.44
-		c0,15.71-12.74,28.44-28.44,28.44H28.44C12.74,341.33,0,328.6,0,312.89z M187.16,312.89c0-15.71,12.74-28.44,28.44-28.44h85.33
-		c15.71,0,28.44,12.74,28.44,28.44c0,15.71-12.73,28.44-28.44,28.44h-85.33C199.9,341.33,187.16,328.6,187.16,312.89z
-		 M369.78,312.89c0-15.71,12.73-28.44,28.44-28.44h85.33c15.71,0,28.44,12.74,28.44,28.44c0,15.71-12.73,28.44-28.44,28.44h-85.33
-		C382.51,341.33,369.78,328.6,369.78,312.89z M0,426.67c0-15.71,12.74-28.44,28.44-28.44h85.33c15.71,0,28.44,12.74,28.44,28.44
-		c0,15.71-12.74,28.44-28.44,28.44H28.44C12.74,455.11,0,442.38,0,426.67z M187.16,426.67c0-15.71,12.74-28.44,28.44-28.44h85.33
-		c15.71,0,28.44,12.74,28.44,28.44c0,15.71-12.73,28.44-28.44,28.44h-85.33C199.9,455.11,187.16,442.38,187.16,426.67z
-		 M369.78,426.67c0-15.71,12.73-28.44,28.44-28.44h85.33c15.71,0,28.44,12.74,28.44,28.44c0,15.71-12.73,28.44-28.44,28.44h-85.33
-		C382.51,455.11,369.78,442.38,369.78,426.67z"
-                />
-              </g>
-            </svg>
-          </button>
-        </div>
       </div>
       <div id="removeAllTasksBox">
         <button id="removeAllTaskBtn" class="hover">
