@@ -240,23 +240,27 @@ nameInput.onfocus = () => {
 };
 
 nameInput.onblur = () => {
-  clearEmptyInput(nameInput)
   nameIdentIcon.classList.remove("hide");
   nameInput.classList.remove("active");
-  saveName()
-};
-
-function saveName() {
   if (nameInput.value.trim() == "") {
-    localStorage.removeItem("infoAccountName");
+    deleteName()
     checkRemoveAllConfigBtn();
   } else {
+    saveName()
+  }
+};
+
+function deleteName() {
+  nameInput.value = "";
+  localStorage.removeItem("infoAccountName");
+}
+
+function saveName() {
     nameInput.value = nameInput.value.trim();
     if (removeAllConfigBtn.disabled) {
       enableBtn(removeAllConfigBtn);
     }
     localStorage.setItem("infoAccountName", nameInput.value.trim());
-  }
 }
 
 // Configuração dos filtros das tarefas
@@ -1249,6 +1253,13 @@ removeAllConfigBtn.addEventListener("click", () => {
   menu.classList.add("menuBlur");
 });
 
+function confirmRemoveAllConfig() {
+  hideWindow(confirmationWindow);
+  setTimeout(() => {
+    removeAllConfig();
+  }, 200);
+}
+
 function removeAllConfig() {
   if (localStorage.getItem("tasks")) {
     removeAllTasks();
@@ -1263,13 +1274,6 @@ function removeAllConfig() {
     toLightTheme();
   }
   disableBtn(removeAllConfigBtn);
-}
-
-function confirmRemoveAllConfig() {
-  hideWindow(confirmationWindow);
-  setTimeout(() => {
-    removeAllConfig();
-  }, 200);
 }
 
 function disableBtn(btn) {
