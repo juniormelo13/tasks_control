@@ -44,13 +44,9 @@ let dbAllTasks = [];
 const filterContainer = document.querySelector("#filterContainer");
 const allTasksFilterBtn = document.querySelector("#allTasksFilterBtn");
 const pendingTasksFilterBtn = document.querySelector("#pendingTasksFilterBtn");
-const scheduledTasksFilterBtn = document.querySelector(
-  "#scheduledTasksFilterBtn"
-);
+const scheduledTasksFilterBtn = document.querySelector("#scheduledTasksFilterBtn");
 const expiredTasksFilterBtn = document.querySelector("#expiredTasksFilterBtn");
-const completedTasksFilterBtn = document.querySelector(
-  "#completedTasksFilterBtn"
-);
+const completedTasksFilterBtn = document.querySelector("#completedTasksFilterBtn");
 const amountAllTasks = document.querySelector("#amountAllTasks");
 const amountPendingTasks = document.querySelector("#amountPendingTasks");
 const amountScheduledTasks = document.querySelector("#amountScheduledTasks");
@@ -64,18 +60,10 @@ const cleanInputSearchBtn = document.querySelector("#cleanInputSearchBtn");
 let filtred = false;
 let containsHide = [];
 const filters = filterContainer.children;
-let pendingTasks = dbAllTasks.filter(
-  (infoTaskSave) => !infoTaskSave.completedTask
-);
-let scheduledTasks = dbAllTasks.filter(
-  (infoTaskSave) => infoTaskSave.scheduledTask
-);
-let expiredTasks = dbAllTasks.filter(
-  (infoTaskSave) => infoTaskSave.expiredTask
-);
-let completedTasks = dbAllTasks.filter(
-  (infoTaskSave) => infoTaskSave.completedTask
-);
+let pendingTasks = dbAllTasks.filter((infoTaskSave) => !infoTaskSave.completedTask);
+let scheduledTasks = dbAllTasks.filter((infoTaskSave) => infoTaskSave.scheduledTask);
+let expiredTasks = dbAllTasks.filter((infoTaskSave) => infoTaskSave.expiredTask);
+let completedTasks = dbAllTasks.filter((infoTaskSave) => infoTaskSave.completedTask);
 
 // recuperação das tarefas e outras informações do banco de dados
 taskRecover();
@@ -127,25 +115,13 @@ menuBtn.addEventListener("click", () => {
 });
 
 document.addEventListener("click", (e) => {
-  if (
-    newTaskInput.classList.contains("inputError") &&
-    !newTaskBtn.contains(e.target)
-  ) {
+  if (newTaskInput.classList.contains("inputError") && !newTaskBtn.contains(e.target)) {
     newTaskInput.classList.remove("inputError");
-  } else if (
-    editInput.classList.contains("inputError") &&
-    !confirmEditBtn.contains(e.target)
-  ) {
+  } else if (editInput.classList.contains("inputError") && !confirmEditBtn.contains(e.target)) {
     editInput.classList.remove("inputError");
-  } else if (
-    scheduleInputDate.classList.contains("inputError") &&
-    !confirmScheduleBtn.contains(e.target)
-  ) {
+  } else if (scheduleInputDate.classList.contains("inputError") && !confirmScheduleBtn.contains(e.target)) {
     scheduleInputDate.classList.remove("inputError");
-  } else if (
-    scheduleInputTime.classList.contains("inputError") &&
-    !confirmScheduleBtn.contains(e.target)
-  ) {
+  } else if (scheduleInputTime.classList.contains("inputError") && !confirmScheduleBtn.contains(e.target)) {
     scheduleInputTime.classList.remove("inputError");
   }
 });
@@ -284,16 +260,10 @@ function addFilter() {
 }
 
 function calculateNumberOfTasks() {
-  pendingTasks = dbAllTasks.filter(
-    (infoTaskSave) => !infoTaskSave.completedTask
-  );
-  scheduledTasks = dbAllTasks.filter(
-    (infoTaskSave) => infoTaskSave.scheduledTask
-  );
+  pendingTasks = dbAllTasks.filter((infoTaskSave) => !infoTaskSave.completedTask);
+  scheduledTasks = dbAllTasks.filter((infoTaskSave) => infoTaskSave.scheduledTask);  
   expiredTasks = dbAllTasks.filter((infoTaskSave) => infoTaskSave.expiredTask);
-  completedTasks = dbAllTasks.filter(
-    (infoTaskSave) => infoTaskSave.completedTask
-  );
+  completedTasks = dbAllTasks.filter((infoTaskSave) => infoTaskSave.completedTask);
   amountAllTasks.innerText = dbAllTasks.length;
   amountPendingTasks.innerText = pendingTasks.length;
   amountScheduledTasks.innerText = scheduledTasks.length;
@@ -504,10 +474,8 @@ completedTasksFilterBtn.addEventListener("click", () => {
 const newTaskBtn = document.querySelector("#newTaskBtn");
 const cleanNewTaskInputBtn = document.querySelector("#cleanNewTaskInputBtn");
 
-newTaskInput.onkeyup = () =>
-  checkInputValue(newTaskInput, cleanNewTaskInputBtn);
-cleanNewTaskInputBtn.onclick = () =>
-  clearInput(newTaskInput, cleanNewTaskInputBtn);
+newTaskInput.onkeyup = () => checkInputValue(newTaskInput, cleanNewTaskInputBtn);
+cleanNewTaskInputBtn.onclick = () => clearInput(newTaskInput, cleanNewTaskInputBtn);
 
 function clearInput(input, cleanBtn) {
   cleanBtn.classList.add("hide");
