@@ -174,10 +174,7 @@ function loadImage(e) {
 
 inputFileImg.addEventListener("change", loadImage);
 inputFileBtnDel.addEventListener("click", () => {
-  showConfirmField(
-    "Tem certeza de que deseja remover a foto de perfil?",
-    confirmRemoveImg
-  );
+  showConfirmField("Tem certeza de que deseja remover a foto de perfil?", confirmRemoveImg);
   menu.classList.add("menuBlur");
 });
 
@@ -390,18 +387,7 @@ function filterTaskByInput() {
   for (let i = 0; i < dbAllTasks.length; i++) {
     const infoTaskSave = dbAllTasks[i];
     const task = tasksContainer.childNodes[i];
-    if (
-      !infoTaskSave.taskContent
-        .toLowerCase()
-        .normalize("NFD")
-        .replace(/[\u0300-\u036f]/g, "")
-        .includes(
-          searchTaskInput.value
-            .toLowerCase()
-            .normalize("NFD")
-            .replace(/[\u0300-\u036f]/g, "")
-        )
-    ) {
+    if (!infoTaskSave.taskContent.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").includes(searchTaskInput.value.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, ""))) {
       containsHide.push("true");
       if (!task.classList.contains("hide")) {
         task.classList.add("hide");
@@ -545,56 +531,17 @@ function insertTask(taskField, infoTaskSave) {
 }
 
 // Configuração do botão para conclusão da tarefa
-const completeTaskClick = (
-  taskField,
-  taskContent,
-  scheduleBtn,
-  editBtn,
-  checkBtn,
-  checkIcon,
-  taskInfo,
-  infoTextContent,
-  completedTaskIcon,
-  schedulingRemoveBtn,
-  infoTaskSave
-) => {
+const completeTaskClick = (taskField, taskContent, scheduleBtn, editBtn, checkBtn, checkIcon, taskInfo, infoTextContent, completedTaskIcon, schedulingRemoveBtn, infoTaskSave) => {
   if (taskField.classList.contains("scheduled")) {
-    showConfirmField(
-      "Esta tarefa possui um agendamento, tem certeza que deseja concluí-la?",
-      confirmCompleteTask
-    );
+    showConfirmField("Esta tarefa possui um agendamento, tem certeza que deseja concluí-la?", confirmCompleteTask);
     function confirmCompleteTask() {
       hideWindow(confirmationWindow);
       setTimeout(() => {
-        completeTask(
-          taskField,
-          taskContent,
-          checkBtn,
-          checkIcon,
-          editBtn,
-          scheduleBtn,
-          taskInfo,
-          infoTextContent,
-          schedulingRemoveBtn,
-          completedTaskIcon,
-          infoTaskSave
-        );
+        completeTask(taskField, taskContent, checkBtn, checkIcon, editBtn, scheduleBtn, taskInfo, infoTextContent, schedulingRemoveBtn, completedTaskIcon, infoTaskSave);
       }, 200);
     }
   } else {
-    completeTask(
-      taskField,
-      taskContent,
-      checkBtn,
-      checkIcon,
-      editBtn,
-      scheduleBtn,
-      taskInfo,
-      infoTextContent,
-      schedulingRemoveBtn,
-      completedTaskIcon,
-      infoTaskSave
-    );
+    completeTask(taskField, taskContent, checkBtn, checkIcon, editBtn, scheduleBtn, taskInfo, infoTextContent, schedulingRemoveBtn, completedTaskIcon, infoTaskSave);
   }
 };
 
@@ -645,50 +592,22 @@ const scheduleInputDate = document.querySelector("#scheduleInputDate");
 const scheduleInputTime = document.querySelector("#scheduleInputTime");
 const confirmScheduleBtn = document.querySelector("#confirmScheduleBtn");
 
-function scheduleClick(
-  taskField,
-  scheduleBtn,
-  taskInfo,
-  infoTextContent,
-  schedulingRemoveBtn,
-  infoTaskSave,
-  btnField
-) {
+function scheduleClick(taskField, scheduleBtn, taskInfo, infoTextContent, schedulingRemoveBtn, infoTaskSave, btnField) {
   const currentFullDate = new Date();
   const optionsForTimeInput = {
     timeStyle: "short",
   };
   const currentDateForInput = currentFullDate.toLocaleDateString("fr-CA");
-  const currentTimeForInput = currentFullDate.toLocaleString(
-    "pt-BR",
-    optionsForTimeInput
-  );
+  const currentTimeForInput = currentFullDate.toLocaleString("pt-BR", optionsForTimeInput);
   showWindow(scheduleField);
   scheduleInputDate.value = currentDateForInput;
   scheduleInputDate.setAttribute("min", currentDateForInput);
   scheduleInputTime.value = currentTimeForInput;
   scheduleInputTime.focus();
-  confirmScheduleBtn.onclick = () =>
-    confirmSchedule(
-      taskField,
-      scheduleBtn,
-      taskInfo,
-      infoTextContent,
-      schedulingRemoveBtn,
-      infoTaskSave,
-      btnField
-    );
+  confirmScheduleBtn.onclick = () => confirmSchedule(taskField, scheduleBtn, taskInfo, infoTextContent, schedulingRemoveBtn, infoTaskSave, btnField);
   scheduleField.onkeypress = (e) => {
     if (e.key === "Enter") {
-      confirmSchedule(
-        taskField,
-        scheduleBtn,
-        taskInfo,
-        infoTextContent,
-        schedulingRemoveBtn,
-        infoTaskSave,
-        btnField
-      );
+      confirmSchedule(taskField, scheduleBtn, taskInfo, infoTextContent, schedulingRemoveBtn, infoTaskSave, btnField);
     }
   };
 }
@@ -697,15 +616,7 @@ scheduleFieldCloseBtn.onclick = () => hideWindow(scheduleField);
 cancelScheduletBtn.onclick = () => hideWindow(scheduleField);
 
 // Configuração de botão de confirmação de agendamento
-const confirmSchedule = (
-  taskField,
-  scheduleBtn,
-  taskInfo,
-  infoTextContent,
-  schedulingRemoveBtn,
-  infoTaskSave,
-  btnField
-) => {
+const confirmSchedule = (taskField, scheduleBtn, taskInfo, infoTextContent, schedulingRemoveBtn, infoTaskSave, btnField) => {
   const currentFullDate = new Date();
   const scheduleInputDateValue = scheduleInputDate.value;
   const scheduleInputTimeValue = scheduleInputTime.value;
@@ -713,17 +624,11 @@ const confirmSchedule = (
   const optionsForCurrentTime = {
     timeStyle: "short",
   };
-  const currentTimeForValidate = currentFullDate.toLocaleString(
-    "pt-BR",
-    optionsForCurrentTime
-  );
+  const currentTimeForValidate = currentFullDate.toLocaleString("pt-BR", optionsForCurrentTime);
 
   // Funções de validação dos input's de data e hora
   function validateScheduleInputDate() {
-    if (
-      scheduleInputDateValue.trim() != "" &&
-      scheduleInputDateValue >= currentDate
-    ) {
+    if (scheduleInputDateValue.trim() != "" && scheduleInputDateValue >= currentDate) {
       return true;
     } else {
       scheduleInputDate.classList.add("inputError");
@@ -733,16 +638,10 @@ const confirmSchedule = (
   }
 
   const validateScheduleInputTime = () => {
-    if (
-      scheduleInputTimeValue.trim() != "" &&
-      scheduleInputDateValue > currentDate
-    ) {
+    if (scheduleInputTimeValue.trim() != "" && scheduleInputDateValue > currentDate) {
       return true;
     }
-    if (
-      scheduleInputDateValue === currentDate &&
-      scheduleInputTimeValue > currentTimeForValidate
-    ) {
+    if (scheduleInputDateValue === currentDate && scheduleInputTimeValue > currentTimeForValidate) {
       return true;
     }
     scheduleInputTime.classList.add("inputError");
@@ -752,71 +651,28 @@ const confirmSchedule = (
 
   if (validateScheduleInputDate() && validateScheduleInputTime()) {
     // Recebimento dos valores colocados nos inputs
-    const scheduledDate = new Date(
-      scheduleInputDateValue + " " + scheduleInputTimeValue
-    );
+    const scheduledDate = new Date(scheduleInputDateValue + " " + scheduleInputTimeValue);
     const optionsSetDate = { dateStyle: "short" };
     const optionsSetTime = { timeStyle: "short" };
     const optionsSetDay = { weekday: "short" };
-    const dateForInfoTextContent = scheduledDate.toLocaleString(
-      "pt-BR",
-      optionsSetDate
-    );
-    const timeForInfoTextContent = scheduledDate.toLocaleString(
-      "pt-BR",
-      optionsSetTime
-    );
-    const dayForInfoTextContent =
-      scheduledDate
-        .toLocaleString("pt-BR", optionsSetDay)
-        .charAt(0)
-        .toUpperCase() +
-      scheduledDate
-        .toLocaleString("pt-BR", optionsSetDay)
-        .substring(1)
-        .replace(/[.]/g, ",");
+    const dateForInfoTextContent = scheduledDate.toLocaleString("pt-BR", optionsSetDate);
+    const timeForInfoTextContent = scheduledDate.toLocaleString("pt-BR", optionsSetTime);
+    const dayForInfoTextContent = scheduledDate.toLocaleString("pt-BR", optionsSetDay).charAt(0).toUpperCase() + scheduledDate.toLocaleString("pt-BR", optionsSetDay).substring(1).replace(/[.]/g, ",");
 
     // Inclusão dos dados no campo de informações sobre o agendamento
-    const difSeconds =
-      (scheduledDate.getTime() - currentFullDate.getTime()) / 1000;
+    const difSeconds = (scheduledDate.getTime() - currentFullDate.getTime()) / 1000;
     const difMinutes = difSeconds / 60;
     const difDays = difMinutes / (60 * 24);
     const difGetDayNumber = scheduledDate.getDay() - currentFullDate.getDay();
 
     if (difDays >= 2) {
-      infoTextContent.innerText =
-        "Prazo: " +
-        dayForInfoTextContent +
-        " " +
-        dateForInfoTextContent +
-        ", " +
-        timeForInfoTextContent;
+      infoTextContent.innerText = "Prazo: " + dayForInfoTextContent + " " + dateForInfoTextContent + ", " + timeForInfoTextContent;
     } else if (difDays > 1 && difDays < 2 && difGetDayNumber >= 2) {
-      infoTextContent.innerText =
-        "Prazo: " +
-        dayForInfoTextContent +
-        " " +
-        dateForInfoTextContent +
-        ", " +
-        timeForInfoTextContent;
+      infoTextContent.innerText = "Prazo: " + dayForInfoTextContent + " " + dateForInfoTextContent + ", " + timeForInfoTextContent;
     } else if (difDays > 1 && difDays < 2 && difGetDayNumber == -5) {
-      infoTextContent.innerText =
-        "Prazo: " +
-        dayForInfoTextContent +
-        " " +
-        dateForInfoTextContent +
-        ", " +
-        timeForInfoTextContent;
+      infoTextContent.innerText = "Prazo: " + dayForInfoTextContent + " " + dateForInfoTextContent + ", " + timeForInfoTextContent;
     } else {
-      insertSchedulingInfo(
-        infoTextContent,
-        difDays,
-        difMinutes,
-        difGetDayNumber,
-        scheduleInputTimeValue,
-        scheduleInputDateValue,
-        currentDate
-      );
+      insertSchedulingInfo(infoTextContent, difDays, difMinutes, difGetDayNumber, scheduleInputTimeValue, scheduleInputDateValue, currentDate);
     }
     hideWindow(scheduleField);
     setTimeout(() => {
@@ -828,215 +684,72 @@ const confirmSchedule = (
       taskInfo.classList.add("appearTaskInfo");
       btnField.classList.add("animeBtnMobile");
       btnField.classList.add("pointerEventsNone");
-      putExpireAlertClass(
-        taskField,
-        taskInfo,
-        difMinutes,
-        currentDate,
-        difDays,
-        difGetDayNumber,
-        scheduleInputDateValue
-      );
+      putExpireAlertClass(taskField, taskInfo, difMinutes, currentDate, difDays, difGetDayNumber, scheduleInputDateValue);
     }, 200);
     setTimeout(() => {
       taskInfo.classList.remove("appearTaskInfo");
       btnField.classList.remove("pointerEventsNone");
     }, 400);
-
-    saveScheduledTaskAction(
-      infoTaskSave,
-      scheduleInputDateValue,
-      scheduleInputTimeValue,
-      infoTextContent,
-      difMinutes,
-      currentDate,
-      difDays,
-      difGetDayNumber
-    );
+    saveScheduledTaskAction(infoTaskSave, scheduleInputDateValue, scheduleInputTimeValue, infoTextContent, difMinutes, currentDate, difDays, difGetDayNumber);
     calculateNumberOfTasks();
   }
 };
 
-function insertSchedulingInfo(
-  infoTextContent,
-  difDays,
-  difMinutes,
-  difGetDayNumber,
-  scheduleInputTimeValue,
-  scheduleInputDateValue,
-  currentDate
-) {
-  if (
-    (difDays < 2 && difGetDayNumber == 1 && difMinutes > 60) ||
-    (difDays < 2 && difGetDayNumber == -6 && difMinutes > 60)
-  ) {
+function insertSchedulingInfo(infoTextContent, difDays, difMinutes, difGetDayNumber, scheduleInputTimeValue, scheduleInputDateValue, currentDate) {
+  if ((difDays < 2 && difGetDayNumber == 1 && difMinutes > 60) || (difDays < 2 && difGetDayNumber == -6 && difMinutes > 60)) {
     infoTextContent.innerText = "Prazo: Amanhã, " + scheduleInputTimeValue;
-  } else if (
-    (difDays < 2 &&
-      difGetDayNumber == 1 &&
-      difMinutes > 30 &&
-      difMinutes <= 60) ||
-    (difDays < 2 &&
-      difGetDayNumber == -6 &&
-      difMinutes > 30 &&
-      difMinutes <= 60)
-  ) {
-    infoTextContent.innerText =
-      "Prazo: Amanhã, " +
-      scheduleInputTimeValue +
-      " - Faltam " +
-      Math.ceil(difMinutes) +
-      " min";
-  } else if (
-    (difDays < 2 &&
-      difGetDayNumber == 1 &&
-      difMinutes > 0 &&
-      difMinutes <= 30) ||
-    (difDays < 2 && difGetDayNumber == -6 && difMinutes > 0 && difMinutes <= 30)
-  ) {
+  } else if ((difDays < 2 && difGetDayNumber == 1 && difMinutes > 30 && difMinutes <= 60) || (difDays < 2 && difGetDayNumber == -6 && difMinutes > 30 && difMinutes <= 60)) {
+    infoTextContent.innerText = "Prazo: Amanhã, " + scheduleInputTimeValue + " - Faltam " + Math.ceil(difMinutes) + " min";
+  } else if ((difDays < 2 && difGetDayNumber == 1 && difMinutes > 0 && difMinutes <= 30) || (difDays < 2 && difGetDayNumber == -6 && difMinutes > 0 && difMinutes <= 30)) {
     if (difMinutes <= 1) {
-      infoTextContent.innerText =
-        "Prazo: Amanhã, " +
-        scheduleInputTimeValue +
-        " - Falta " +
-        Math.ceil(difMinutes) +
-        " min";
+      infoTextContent.innerText = "Prazo: Amanhã, " + scheduleInputTimeValue + " - Falta " + Math.ceil(difMinutes) + " min";
     } else {
-      infoTextContent.innerText =
-        "Prazo: Amanhã, " +
-        scheduleInputTimeValue +
-        " - Faltam " +
-        Math.ceil(difMinutes) +
-        " min";
+      infoTextContent.innerText = "Prazo: Amanhã, " + scheduleInputTimeValue + " - Faltam " + Math.ceil(difMinutes) + " min";
     }
   } else if (currentDate === scheduleInputDateValue && difMinutes > 60) {
     infoTextContent.innerText = "Prazo: Hoje, " + scheduleInputTimeValue;
-  } else if (
-    difMinutes > 30 &&
-    difMinutes <= 60 &&
-    currentDate === scheduleInputDateValue
-  ) {
-    infoTextContent.innerText =
-      "Prazo: Hoje, " +
-      scheduleInputTimeValue +
-      " - Faltam " +
-      Math.ceil(difMinutes) +
-      " min";
-  } else if (
-    difMinutes > 0 &&
-    difMinutes <= 30 &&
-    currentDate === scheduleInputDateValue
-  ) {
+  } else if (difMinutes > 30 && difMinutes <= 60 && currentDate === scheduleInputDateValue) {
+    infoTextContent.innerText = "Prazo: Hoje, " + scheduleInputTimeValue + " - Faltam " + Math.ceil(difMinutes) + " min";
+  } else if (difMinutes > 0 && difMinutes <= 30 && currentDate === scheduleInputDateValue) {
     if (difMinutes <= 1) {
-      infoTextContent.innerText =
-        "Prazo: Hoje, " +
-        scheduleInputTimeValue +
-        " - Falta " +
-        Math.ceil(difMinutes) +
-        " min";
+      infoTextContent.innerText = "Prazo: Hoje, " + scheduleInputTimeValue + " - Falta " + Math.ceil(difMinutes) + " min";
     } else {
-      infoTextContent.innerText =
-        "Prazo: Hoje, " +
-        scheduleInputTimeValue +
-        " - Faltam " +
-        Math.ceil(difMinutes) +
-        " min";
+      infoTextContent.innerText = "Prazo: Hoje, " + scheduleInputTimeValue + " - Faltam " + Math.ceil(difMinutes) + " min";
     }
   }
 }
 
-function putExpireAlertClass(
-  taskField,
-  taskInfo,
-  difMinutes,
-  currentDate,
-  difDays,
-  difGetDayNumber,
-  scheduleInputDateValue
-) {
-  if (
-    (difMinutes > 0 &&
-      difMinutes <= 30 &&
-      currentDate === scheduleInputDateValue) ||
-    (difDays < 2 &&
-      difGetDayNumber == 1 &&
-      difMinutes > 0 &&
-      difMinutes <= 30) ||
-    (difDays < 2 && difGetDayNumber == -6 && difMinutes > 0 && difMinutes <= 30)
-  ) {
+function putExpireAlertClass(taskField, taskInfo, difMinutes, currentDate, difDays, difGetDayNumber, scheduleInputDateValue) {
+  if ((difMinutes > 0 && difMinutes <= 30 && currentDate === scheduleInputDateValue) || (difDays < 2 && difGetDayNumber == 1 && difMinutes > 0 && difMinutes <= 30) || (difDays < 2 && difGetDayNumber == -6 && difMinutes > 0 && difMinutes <= 30)) {
     taskField.classList.add("expireAlert");
     taskInfo.classList.add("expireAlert");
   }
 }
 
-function saveScheduledTaskAction(
-  infoTaskSave,
-  scheduleInputDateValue,
-  scheduleInputTimeValue,
-  infoTextContent,
-  difMinutes,
-  currentDate,
-  difDays,
-  difGetDayNumber
-) {
+function saveScheduledTaskAction(infoTaskSave, scheduleInputDateValue, scheduleInputTimeValue, infoTextContent, difMinutes, currentDate, difDays, difGetDayNumber) {
   if (infoTaskSave.deletedInfoTask && !infoTaskSave.scheduledTask) {
     delete infoTaskSave.deletedInfoTask;
   }
   if (!infoTaskSave.deletedInfoTask) {
-    infoTaskSave.scheduledTask = [
-      true,
-      scheduleInputDateValue,
-      scheduleInputTimeValue,
-      infoTextContent.innerText,
-    ];
-    if (
-      (difMinutes > 0 &&
-        difMinutes <= 30 &&
-        currentDate === scheduleInputDateValue) ||
-      (difDays < 2 &&
-        difGetDayNumber == 1 &&
-        difMinutes > 0 &&
-        difMinutes <= 30) ||
-      (difDays < 2 &&
-        difGetDayNumber == -6 &&
-        difMinutes > 0 &&
-        difMinutes <= 30)
-    ) {
+    infoTaskSave.scheduledTask = [true, scheduleInputDateValue, scheduleInputTimeValue, infoTextContent.innerText];
+    if ((difMinutes > 0 && difMinutes <= 30 && currentDate === scheduleInputDateValue) || (difDays < 2 && difGetDayNumber == 1 && difMinutes > 0 && difMinutes <= 30) || (difDays < 2 && difGetDayNumber == -6 && difMinutes > 0 && difMinutes <= 30)) {
       infoTaskSave.expireAlert = true;
     }
   }
   localStorage.setItem("tasks", JSON.stringify(dbAllTasks));
 }
 
-function saveExpiredTaskAction(
-  infoTaskSave,
-  scheduleInputDateValue,
-  scheduleInputTimeValue,
-  infoTextContent
-) {
+function saveExpiredTaskAction(infoTaskSave, scheduleInputDateValue, scheduleInputTimeValue, infoTextContent) {
   if (!infoTaskSave.deletedInfoTask) {
     delete infoTaskSave.scheduledTask;
     delete infoTaskSave.expireAlert;
-    infoTaskSave.expiredTask = [
-      true,
-      scheduleInputDateValue,
-      scheduleInputTimeValue,
-      infoTextContent.innerText,
-    ];
+    infoTaskSave.expiredTask = [true, scheduleInputDateValue, scheduleInputTimeValue, infoTextContent.innerText];
     localStorage.setItem("tasks", JSON.stringify(dbAllTasks));
   }
 }
 
 // Configuração do botão de remoção do agendamento
-const schedulingRemoveClick = (
-  taskInfo,
-  taskField,
-  scheduleBtn,
-  editBtn,
-  infoTextContent,
-  infoTaskSave,
-  btnField
-) => {
+const schedulingRemoveClick = (taskInfo, taskField, scheduleBtn, editBtn, infoTextContent, infoTaskSave, btnField) => {
   taskInfo.classList.add("vanishTaskInfo");
   // Salvar ação no Local Storage
   infoTaskSave.deletedInfoTask = true;
@@ -1062,20 +775,11 @@ const schedulingRemoveClick = (
 const deleteClick = (taskField, infoTaskSave) => {
   if (taskField.classList.contains("scheduled") || infoTaskSave.savedNote) {
     if (taskField.classList.contains("scheduled") && infoTaskSave.savedNote) {
-      showConfirmField(
-        "Esta tarefa contém agendamento e anotações, tem certeza de que deseja removê-la?",
-        confirmDeleteAction
-      );
+      showConfirmField("Esta tarefa contém agendamento e anotações, tem certeza de que deseja removê-la?", confirmDeleteAction);
     } else if (taskField.classList.contains("scheduled")) {
-      showConfirmField(
-        "Esta tarefa contém um agendamento, tem certeza de que deseja removê-la?",
-        confirmDeleteAction
-      );
+      showConfirmField("Esta tarefa contém um agendamento, tem certeza de que deseja removê-la?", confirmDeleteAction);
     } else {
-      showConfirmField(
-        "Esta tarefa contém anotações, tem certeza de que deseja removê-la?",
-        confirmDeleteAction
-      );
+      showConfirmField("Esta tarefa contém anotações, tem certeza de que deseja removê-la?", confirmDeleteAction);
     }
     function confirmDeleteAction() {
       hideWindow(confirmationWindow);
@@ -1114,10 +818,7 @@ function deleteTask(taskField, infoTaskSave) {
 // Configuração do botão para exclusão de todas as tarefas
 
 removeAllTaskBtn.addEventListener("click", () => {
-  showConfirmField(
-    "Esta ação irá excluir todas as tarefas, tem certeza de que deseja removê-las?",
-    confirmRemoveAllTasks
-  );
+  showConfirmField("Esta ação irá excluir todas as tarefas, tem certeza de que deseja removê-las?", confirmRemoveAllTasks);
   menu.classList.add("menuBlur");
 });
 
@@ -1214,10 +915,7 @@ function confirmRemoveAllTasks() {
 // Configuração do botão para restaurar todas as configurações de fábrica
 
 removeAllConfigBtn.addEventListener("click", () => {
-  showConfirmField(
-    "Esta ação irá excluir todas as configurações já realizadas e todas as tarefas, tem certeza?",
-    confirmRemoveAllConfig
-  );
+  showConfirmField("Esta ação irá excluir todas as configurações já realizadas e todas as tarefas, tem certeza?", confirmRemoveAllConfig);
   menu.classList.add("menuBlur");
 });
 
@@ -1271,12 +969,7 @@ function checkRemoveAllTaskBtn() {
 }
 
 function checkRemoveAllConfigBtn() {
-  if (
-    !localStorage.getItem("tasks") &&
-    !localStorage.getItem("infoAccountImg") &&
-    !localStorage.getItem("infoAccountName") &&
-    !localStorage.getItem("theme")
-  ) {
+  if (!localStorage.getItem("tasks") && !localStorage.getItem("infoAccountImg") && !localStorage.getItem("infoAccountName") && !localStorage.getItem("theme")) {
     if (!removeAllConfigBtn.disabled) {
       disableBtn(removeAllConfigBtn);
     }
@@ -1291,16 +984,7 @@ function checkRemoveAllConfigBtn() {
 
 let notePadContainerShow = false;
 
-function notesBtnClick(
-  taskField,
-  notePadInput,
-  notePadContainer,
-  cleanNoteBtn,
-  notesBtn,
-  notesBtnAlert,
-  infoTaskSave,
-  taskInfo
-) {
+function notesBtnClick(taskField, notePadInput, notePadContainer, cleanNoteBtn, notesBtn, notesBtnAlert, infoTaskSave, taskInfo) {
   notePadContainer.classList.remove("hide");
   notePadContainer.classList.remove("notePadContainerVanish");
   notePadContainer.classList.add("notePadContainerAppear");
@@ -1317,19 +1001,8 @@ function notesBtnClick(
     notePadContainerShow = !notePadContainerShow;
   }, 400);
   document.onclick = (e) => {
-    if (
-      notePadContainerShow &&
-      !notePadContainer.contains(e.target) &&
-      !notesBtn.contains(e.target)
-    ) {
-      saveNoteClick(
-        notePadContainer,
-        taskField,
-        notePadInput,
-        notesBtnAlert,
-        infoTaskSave,
-        taskInfo
-      );
+    if (notePadContainerShow && !notePadContainer.contains(e.target) && !notesBtn.contains(e.target)) {
+      saveNoteClick(notePadContainer, taskField, notePadInput, notesBtnAlert, infoTaskSave, taskInfo);
     }
   };
   notePadInput.onblur = () => {
@@ -1344,26 +1017,12 @@ function notesBtnClick(
     if (e.key !== "Enter") {
       checkInputValue(notePadInput, cleanNoteBtn);
     } else {
-      saveNoteClick(
-        notePadContainer,
-        taskField,
-        notePadInput,
-        notesBtnAlert,
-        infoTaskSave,
-        taskInfo
-      );
+      saveNoteClick(notePadContainer, taskField, notePadInput, notesBtnAlert, infoTaskSave, taskInfo);
     }
   };
 }
 
-function saveNoteClick(
-  notePadContainer,
-  taskField,
-  notePadInput,
-  notesBtnAlert,
-  infoTaskSave,
-  taskInfo
-) {
+function saveNoteClick(notePadContainer, taskField, notePadInput, notesBtnAlert, infoTaskSave, taskInfo) {
   notePadContainer.classList.remove("notePadContainerAppear");
   notePadContainer.classList.add("notePadContainerVanish");
   notePadContainer.classList.remove("pointerEventsVisible");
@@ -1449,17 +1108,7 @@ function createBtnField(taskField, btnField) {
   btnField.classList.add("btnField");
 }
 
-function createTaskInfo(
-  taskField,
-  taskInfo,
-  infoTextContent,
-  schedulingRemoveBtn,
-  completedTaskIcon,
-  btnField,
-  infoTaskSave,
-  editBtn,
-  scheduleBtn
-) {
+function createTaskInfo(taskField, taskInfo, infoTextContent, schedulingRemoveBtn, completedTaskIcon, btnField, infoTaskSave, editBtn, scheduleBtn) {
   const schedulingRemoveBtnIcon = document.createElement("i");
   taskInfo.classList.add("taskInfo");
   taskInfo.classList.add("hide");
@@ -1476,28 +1125,10 @@ function createTaskInfo(
   schedulingRemoveBtn.appendChild(schedulingRemoveBtnIcon);
   schedulingRemoveBtnIcon.classList.add("fa-regular");
   schedulingRemoveBtnIcon.classList.add("fa-circle-xmark");
-  schedulingRemoveBtn.addEventListener("click", () =>
-    schedulingRemoveClick(
-      taskInfo,
-      taskField,
-      scheduleBtn,
-      editBtn,
-      infoTextContent,
-      infoTaskSave,
-      btnField
-    )
-  );
+  schedulingRemoveBtn.addEventListener("click", () => schedulingRemoveClick(taskInfo, taskField, scheduleBtn, editBtn, infoTextContent, infoTaskSave, btnField));
 }
 
-function createNotPadContainer(
-  taskField,
-  notePadContainer,
-  notesBtnAlert,
-  infoTaskSave,
-  notePadInput,
-  cleanNoteBtn,
-  taskInfo
-) {
+function createNotPadContainer(taskField, notePadContainer, notesBtnAlert, infoTaskSave, notePadInput, cleanNoteBtn, taskInfo) {
   const notePadTop = document.createElement("div");
   const notePadBtnField = document.createElement("div");
   const saveNoteBtn = document.createElement("button");
@@ -1533,53 +1164,18 @@ function createNotPadContainer(
   saveNoteBtn.appendChild(saveNoteBtnIcon);
   notePadBtnField.appendChild(cleanNoteBtn);
   cleanNoteBtn.appendChild(cleanNoteBtnIcon);
-  saveNoteBtn.onclick = () =>
-    saveNoteClick(
-      notePadContainer,
-      taskField,
-      notePadInput,
-      notesBtnAlert,
-      infoTaskSave,
-      taskInfo
-    );
+  saveNoteBtn.onclick = () => saveNoteClick(notePadContainer, taskField, notePadInput, notesBtnAlert, infoTaskSave, taskInfo);
   cleanNoteBtn.onclick = () => clearInput(notePadInput, cleanNoteBtn);
 }
 
-function createCompleteTaskBtn(
-  taskField,
-  taskContent,
-  btnField,
-  scheduleBtn,
-  editBtn,
-  checkBtn,
-  checkIcon,
-  taskInfo,
-  infoTextContent,
-  completedTaskIcon,
-  schedulingRemoveBtn,
-  infoTaskSave
-) {
+function createCompleteTaskBtn(taskField, taskContent, btnField, scheduleBtn, editBtn, checkBtn, checkIcon, taskInfo, infoTextContent, completedTaskIcon, schedulingRemoveBtn, infoTaskSave) {
   btnField.appendChild(checkBtn);
   checkBtn.classList.add("checkBtn");
   checkBtn.appendChild(checkIcon);
   checkIcon.classList.add("fa-solid");
   checkIcon.classList.add("fa-thumbs-up");
   checkBtn.setAttribute("title", "Concluir");
-  checkBtn.addEventListener("click", () =>
-    completeTaskClick(
-      taskField,
-      taskContent,
-      scheduleBtn,
-      editBtn,
-      checkBtn,
-      checkIcon,
-      taskInfo,
-      infoTextContent,
-      completedTaskIcon,
-      schedulingRemoveBtn,
-      infoTaskSave
-    )
-  );
+  checkBtn.addEventListener("click", () => completeTaskClick(taskField, taskContent, scheduleBtn, editBtn, checkBtn, checkIcon, taskInfo, infoTextContent, completedTaskIcon, schedulingRemoveBtn, infoTaskSave));
 }
 
 function createEditTaskBtn(btnField, editBtn, taskContent, infoTaskSave) {
@@ -1593,15 +1189,7 @@ function createEditTaskBtn(btnField, editBtn, taskContent, infoTaskSave) {
   editBtn.addEventListener("click", () => editClick(taskContent, infoTaskSave));
 }
 
-function createScheduleTaskBtn(
-  taskField,
-  scheduleBtn,
-  taskInfo,
-  infoTextContent,
-  schedulingRemoveBtn,
-  infoTaskSave,
-  btnField
-) {
+function createScheduleTaskBtn(taskField, scheduleBtn, taskInfo, infoTextContent, schedulingRemoveBtn, infoTaskSave, btnField) {
   const scheduleIcon = document.createElement("i");
   btnField.appendChild(scheduleBtn);
   scheduleBtn.classList.add("scheduleBtn");
@@ -1609,30 +1197,10 @@ function createScheduleTaskBtn(
   scheduleIcon.classList.add("fa-solid");
   scheduleIcon.classList.add("fa-clock");
   scheduleBtn.setAttribute("title", "Definir prazo");
-  scheduleBtn.addEventListener("click", () =>
-    scheduleClick(
-      taskField,
-      scheduleBtn,
-      taskInfo,
-      infoTextContent,
-      schedulingRemoveBtn,
-      infoTaskSave,
-      btnField
-    )
-  );
+  scheduleBtn.addEventListener("click", () => scheduleClick(taskField, scheduleBtn, taskInfo, infoTextContent, schedulingRemoveBtn, infoTaskSave, btnField));
 }
 
-function createNotesBtn(
-  taskField,
-  notePadInput,
-  notePadContainer,
-  cleanNoteBtn,
-  notesBtn,
-  notesBtnAlert,
-  infoTaskSave,
-  taskInfo,
-  btnField
-) {
+function createNotesBtn(taskField, notePadInput, notePadContainer, cleanNoteBtn, notesBtn, notesBtnAlert, infoTaskSave, taskInfo, btnField) {
   const notesBtnIcon = document.createElement("i");
   btnField.appendChild(notesBtn);
   notesBtn.classList.add("notesBtn");
@@ -1643,18 +1211,7 @@ function createNotesBtn(
   notesBtnAlert.classList.add("notesBtnAlert");
   notesBtnAlert.classList.add("hide");
   notesBtn.setAttribute("title", "Anotações");
-  notesBtn.addEventListener("click", () =>
-    notesBtnClick(
-      taskField,
-      notePadInput,
-      notePadContainer,
-      cleanNoteBtn,
-      notesBtn,
-      notesBtnAlert,
-      infoTaskSave,
-      taskInfo
-    )
-  );
+  notesBtn.addEventListener("click", () => notesBtnClick(taskField, notePadInput, notePadContainer, cleanNoteBtn, notesBtn, notesBtnAlert, infoTaskSave, taskInfo));
 }
 
 function createRemoveTaskBtn(taskField, infoTaskSave, btnField, removeBtn) {
@@ -1665,14 +1222,11 @@ function createRemoveTaskBtn(taskField, infoTaskSave, btnField, removeBtn) {
   removeIcon.classList.add("fa-solid");
   removeIcon.classList.add("fa-trash");
   removeBtn.setAttribute("title", "Excluir tarefa");
-  removeBtn.addEventListener("click", () =>
-    deleteClick(taskField, infoTaskSave)
-  );
+  removeBtn.addEventListener("click", () => deleteClick(taskField, infoTaskSave));
 }
 
 function taskConstructor(taskField, infoTaskSave) {
   // Componentes da tarefa
-
   const btnField = document.createElement("div");
   const taskInfo = document.createElement("div");
   const notePadContainer = document.createElement("div");
@@ -1700,70 +1254,22 @@ function taskConstructor(taskField, infoTaskSave) {
   createBtnField(taskField, btnField);
 
   // Criação do campo de informações da tarefa
-  createTaskInfo(
-    taskField,
-    taskInfo,
-    infoTextContent,
-    schedulingRemoveBtn,
-    completedTaskIcon,
-    btnField,
-    infoTaskSave,
-    editBtn,
-    scheduleBtn
-  );
+  createTaskInfo(taskField, taskInfo, infoTextContent, schedulingRemoveBtn, completedTaskIcon, btnField, infoTaskSave, editBtn, scheduleBtn);
 
   // Campo para anotações da tarefa
-  createNotPadContainer(
-    taskField,
-    notePadContainer,
-    notesBtnAlert,
-    infoTaskSave,
-    notePadInput,
-    cleanNoteBtn, taskInfo
-  );
+  createNotPadContainer(taskField, notePadContainer, notesBtnAlert, infoTaskSave, notePadInput, cleanNoteBtn, taskInfo);
 
   // Botão para conclusão da tarefa
-  createCompleteTaskBtn(
-    taskField,
-    taskContent,
-    btnField,
-    scheduleBtn,
-    editBtn,
-    checkBtn,
-    checkIcon,
-    taskInfo,
-    infoTextContent,
-    completedTaskIcon,
-    schedulingRemoveBtn,
-    infoTaskSave
-  );
+  createCompleteTaskBtn(taskField, taskContent, btnField, scheduleBtn, editBtn, checkBtn, checkIcon, taskInfo, infoTextContent, completedTaskIcon, schedulingRemoveBtn, infoTaskSave);
 
   //Botão para edição da tarefa
   createEditTaskBtn(btnField, editBtn, taskContent, infoTaskSave);
 
   // Botão para agendamento da tarefa
-  createScheduleTaskBtn(
-    taskField,
-    scheduleBtn,
-    taskInfo,
-    infoTextContent,
-    schedulingRemoveBtn,
-    infoTaskSave,
-    btnField
-  );
+  createScheduleTaskBtn(taskField, scheduleBtn, taskInfo, infoTextContent, schedulingRemoveBtn, infoTaskSave, btnField);
 
   // Botão para adiconar anotações sobre a tarefa
-  createNotesBtn(
-    taskField,
-    notePadInput,
-    notePadContainer,
-    cleanNoteBtn,
-    notesBtn,
-    notesBtnAlert,
-    infoTaskSave,
-    taskInfo,
-    btnField
-  );
+  createNotesBtn(taskField, notePadInput, notePadContainer, cleanNoteBtn, notesBtn, notesBtnAlert, infoTaskSave, taskInfo, btnField);
 
   // Botão para exclusão da tarefa
   createRemoveTaskBtn(taskField, infoTaskSave, btnField, removeBtn);
@@ -1828,10 +1334,7 @@ function taskConstructor(taskField, infoTaskSave) {
 // ----- Funções auxiliares manipulação de tarefas -----
 
 function clearTaskClass(infoTextContent, taskInfo, taskField) {
-  if (
-    taskField.classList.contains("scheduled") ||
-    taskField.classList.contains("expiredTask")
-  ) {
+  if (taskField.classList.contains("scheduled") || taskField.classList.contains("expiredTask")) {
     infoTextContent.innerText = "";
   }
   if (!taskInfo.classList.contains("hide")) {
@@ -1920,26 +1423,14 @@ function highLightTask(taskField, taskInfo, option) {
 
 // ----- Funções auxiliares (Completar e restaurar tarefas) -----
 
-function completeTaskBtnToggle(
-  taskField,
-  taskContent,
-  checkIcon,
-  checkBtn,
-  scheduleBtn,
-  editBtn,
-  completedTaskIcon,
-  schedulingRemoveBtn
-) {
+function completeTaskBtnToggle(taskField, taskContent, checkIcon, checkBtn, scheduleBtn, editBtn, completedTaskIcon, schedulingRemoveBtn) {
   checkIcon.classList.toggle("fa-thumbs-up");
   checkIcon.classList.toggle("fa-rotate");
   checkIcon.classList.toggle("fa-spin");
   if (!taskField.classList.contains("expiredTask")) {
     editBtn.classList.toggle("disabledBtn");
   }
-  if (
-    !taskField.classList.contains("scheduled") &&
-    !taskField.classList.contains("expiredTask")
-  ) {
+  if (!taskField.classList.contains("scheduled") && !taskField.classList.contains("expiredTask")) {
     scheduleBtn.classList.toggle("disabledBtn");
   }
   completedTaskIcon.classList.toggle("hide");
@@ -1997,39 +1488,15 @@ function putCompletedTask(taskField, taskInfo, infoTextContent) {
   infoTextContent.innerText = "Tarefa concluída";
 }
 
-function completeTask(
-  taskField,
-  taskContent,
-  checkBtn,
-  checkIcon,
-  editBtn,
-  scheduleBtn,
-  taskInfo,
-  infoTextContent,
-  schedulingRemoveBtn,
-  completedTaskIcon,
-  infoTaskSave
-) {
+function completeTask(taskField, taskContent, checkBtn, checkIcon, editBtn, scheduleBtn, taskInfo, infoTextContent, schedulingRemoveBtn, completedTaskIcon, infoTaskSave) {
   saveCompleteTaskAction(infoTaskSave);
   transitionClickProtection("add");
   taskField.classList.add("vanishTask");
   setTimeout(() => {
-    completeTaskBtnToggle(
-      taskField,
-      taskContent,
-      checkIcon,
-      checkBtn,
-      scheduleBtn,
-      editBtn,
-      completedTaskIcon,
-      schedulingRemoveBtn
-    );
+    completeTaskBtnToggle(taskField, taskContent, checkIcon, checkBtn, scheduleBtn, editBtn, completedTaskIcon, schedulingRemoveBtn);
     if (taskField.classList.contains("completed")) {
       clearTaskClass(infoTextContent, taskInfo, taskField);
-    } else if (
-      taskField.classList.contains("scheduled") ||
-      taskField.classList.contains("expiredTask")
-    ) {
+    } else if (taskField.classList.contains("scheduled") || taskField.classList.contains("expiredTask")) {
       clearTaskClass(infoTextContent, taskInfo, taskField);
       putCompletedTask(taskField, taskInfo, infoTextContent);
     } else {
@@ -2081,35 +1548,22 @@ setInterval(() => {
       const taskInfo = taskField.childNodes[2];
       const infoTextContent = taskInfo.firstChild;
       const schedulingRemoveBtn = taskInfo.childNodes[1];
-      const scheduleInputDateValue =
-        infoTaskSave.scheduledTask?.[1] ?? infoTaskSave.expiredTask[1];
-      const scheduleInputTimeValue =
-        infoTaskSave.scheduledTask?.[2] ?? infoTaskSave.expiredTask[2];
-      const scheduledDate = new Date(
-        scheduleInputDateValue + " " + scheduleInputTimeValue
-      );
+      const scheduleInputDateValue = infoTaskSave.scheduledTask?.[1] ?? infoTaskSave.expiredTask[1];
+      const scheduleInputTimeValue = infoTaskSave.scheduledTask?.[2] ?? infoTaskSave.expiredTask[2];
+      const scheduledDate = new Date(scheduleInputDateValue + " " + scheduleInputTimeValue);
       const btnField = taskField.childNodes[1];
       const editBtn = btnField.childNodes[1];
-      const difSeconds =
-        (scheduledDate.getTime() - currentFullDate.getTime()) / 1000;
+      const difSeconds = (scheduledDate.getTime() - currentFullDate.getTime()) / 1000;
       const difMinutes = difSeconds / 60;
       const difDays = difMinutes / (60 * 24);
       const difGetDayNumber = scheduledDate.getDay() - currentFullDate.getDay();
-      const difSecondsCurrentToScheduled =
-        (currentFullDate.getTime() - scheduledDate.getTime()) / 1000;
+      const difSecondsCurrentToScheduled = (currentFullDate.getTime() - scheduledDate.getTime()) / 1000;
       const difMinutesCurrentToScheduled = difSecondsCurrentToScheduled / 60;
-      const difDaysCurrentToScheduled =
-        difMinutesCurrentToScheduled / (60 * 24);
-      const difGetDayNumberCurrentToScheduled =
-        currentFullDate.getDay() - scheduledDate.getDay();
+      const difDaysCurrentToScheduled = difMinutesCurrentToScheduled / (60 * 24);
+      const difGetDayNumberCurrentToScheduled = currentFullDate.getDay() - scheduledDate.getDay();
 
       if (difSeconds <= 0) {
-        saveExpiredTaskAction(
-          infoTaskSave,
-          scheduleInputDateValue,
-          scheduleInputTimeValue,
-          infoTextContent
-        );
+        saveExpiredTaskAction(infoTaskSave, scheduleInputDateValue, scheduleInputTimeValue, infoTextContent);
         calculateNumberOfTasks();
         checkActivatedClassBtnAndFilter();
         taskInfo.classList.remove("scheduled");
@@ -2123,53 +1577,19 @@ setInterval(() => {
         if (currentDate === scheduleInputDateValue) {
           infoTextContent.innerText = "Expirou hoje, " + scheduleInputTimeValue;
         } else if (difDaysCurrentToScheduled < 2 && difGetDayNumber == 6) {
-          infoTextContent.innerText =
-            "Expirou ontem, " + scheduleInputTimeValue;
-        } else if (
-          difDaysCurrentToScheduled < 2 &&
-          difGetDayNumberCurrentToScheduled == 1
-        ) {
-          infoTextContent.innerText =
-            "Expirou ontem, " + scheduleInputTimeValue;
+          infoTextContent.innerText = "Expirou ontem, " + scheduleInputTimeValue;
+        } else if (difDaysCurrentToScheduled < 2 && difGetDayNumberCurrentToScheduled == 1) {
+          infoTextContent.innerText = "Expirou ontem, " + scheduleInputTimeValue;
         } else {
-          infoTextContent.innerText =
-            "Expirou " +
-            scheduledDate.toLocaleDateString("pt-BR") +
-            ", " +
-            scheduleInputTimeValue;
+          infoTextContent.innerText = "Expirou " + scheduledDate.toLocaleDateString("pt-BR") + ", " + scheduleInputTimeValue;
         }
       } else {
-        insertSchedulingInfo(
-          infoTextContent,
-          difDays,
-          difMinutes,
-          difGetDayNumber,
-          scheduleInputTimeValue,
-          scheduleInputDateValue,
-          currentDate
-        );
+        insertSchedulingInfo(infoTextContent, difDays, difMinutes, difGetDayNumber, scheduleInputTimeValue, scheduleInputDateValue, currentDate);
       }
       if (!infoTaskSave.expiredTask) {
-        saveScheduledTaskAction(
-          infoTaskSave,
-          scheduleInputDateValue,
-          scheduleInputTimeValue,
-          infoTextContent,
-          difMinutes,
-          currentDate,
-          difDays,
-          difGetDayNumber
-        );
+        saveScheduledTaskAction(infoTaskSave, scheduleInputDateValue, scheduleInputTimeValue, infoTextContent, difMinutes, currentDate, difDays, difGetDayNumber);
       }
-      putExpireAlertClass(
-        taskField,
-        taskInfo,
-        difMinutes,
-        currentDate,
-        difDays,
-        difGetDayNumber,
-        scheduleInputDateValue
-      );
+      putExpireAlertClass(taskField, taskInfo, difMinutes, currentDate, difDays, difGetDayNumber, scheduleInputDateValue);
     }
   }
 }, 1000);
