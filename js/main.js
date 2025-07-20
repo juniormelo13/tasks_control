@@ -666,11 +666,11 @@ const confirmSchedule = (taskField, scheduleBtn, taskInfo, infoTextContent, sche
     const difGetDayNumber = scheduledDate.getDay() - currentFullDate.getDay();
 
     if (difDays >= 2) {
-      infoTextContent.innerText = "Prazo: " + dayForInfoTextContent + " " + dateForInfoTextContent + ", " + timeForInfoTextContent;
+      infoTextContent.innerText = dayForInfoTextContent + " " + dateForInfoTextContent + ", " + timeForInfoTextContent;
     } else if (difDays > 1 && difDays < 2 && difGetDayNumber >= 2) {
-      infoTextContent.innerText = "Prazo: " + dayForInfoTextContent + " " + dateForInfoTextContent + ", " + timeForInfoTextContent;
+      infoTextContent.innerText = dayForInfoTextContent + " " + dateForInfoTextContent + ", " + timeForInfoTextContent;
     } else if (difDays > 1 && difDays < 2 && difGetDayNumber == -5) {
-      infoTextContent.innerText = "Prazo: " + dayForInfoTextContent + " " + dateForInfoTextContent + ", " + timeForInfoTextContent;
+      infoTextContent.innerText = dayForInfoTextContent + " " + dateForInfoTextContent + ", " + timeForInfoTextContent;
     } else {
       insertSchedulingInfo(infoTextContent, difDays, difMinutes, difGetDayNumber, scheduleInputTimeValue, scheduleInputDateValue, currentDate);
     }
@@ -697,24 +697,24 @@ const confirmSchedule = (taskField, scheduleBtn, taskInfo, infoTextContent, sche
 
 function insertSchedulingInfo(infoTextContent, difDays, difMinutes, difGetDayNumber, scheduleInputTimeValue, scheduleInputDateValue, currentDate) {
   if ((difDays < 2 && difGetDayNumber == 1 && difMinutes > 60) || (difDays < 2 && difGetDayNumber == -6 && difMinutes > 60)) {
-    infoTextContent.innerText = "Prazo: Amanhã, " + scheduleInputTimeValue;
+    infoTextContent.innerText = "Amanhã, " + scheduleInputTimeValue;
   } else if ((difDays < 2 && difGetDayNumber == 1 && difMinutes > 30 && difMinutes <= 60) || (difDays < 2 && difGetDayNumber == -6 && difMinutes > 30 && difMinutes <= 60)) {
-    infoTextContent.innerText = "Prazo: Amanhã, " + scheduleInputTimeValue + " - Faltam " + Math.ceil(difMinutes) + " min";
+    infoTextContent.innerText = "Amanhã, " + scheduleInputTimeValue + " - Faltam " + Math.ceil(difMinutes) + " min";
   } else if ((difDays < 2 && difGetDayNumber == 1 && difMinutes > 0 && difMinutes <= 30) || (difDays < 2 && difGetDayNumber == -6 && difMinutes > 0 && difMinutes <= 30)) {
     if (difMinutes <= 1) {
-      infoTextContent.innerText = "Prazo: Amanhã, " + scheduleInputTimeValue + " - Falta " + Math.ceil(difMinutes) + " min";
+      infoTextContent.innerText = "Amanhã, " + scheduleInputTimeValue + " - Falta " + Math.ceil(difMinutes) + " min";
     } else {
-      infoTextContent.innerText = "Prazo: Amanhã, " + scheduleInputTimeValue + " - Faltam " + Math.ceil(difMinutes) + " min";
+      infoTextContent.innerText = "Amanhã, " + scheduleInputTimeValue + " - Faltam " + Math.ceil(difMinutes) + " min";
     }
   } else if (currentDate === scheduleInputDateValue && difMinutes > 60) {
-    infoTextContent.innerText = "Prazo: Hoje, " + scheduleInputTimeValue;
+    infoTextContent.innerText = "Hoje, " + scheduleInputTimeValue;
   } else if (difMinutes > 30 && difMinutes <= 60 && currentDate === scheduleInputDateValue) {
-    infoTextContent.innerText = "Prazo: Hoje, " + scheduleInputTimeValue + " - Faltam " + Math.ceil(difMinutes) + " min";
+    infoTextContent.innerText = "Hoje, " + scheduleInputTimeValue + " - Faltam " + Math.ceil(difMinutes) + " min";
   } else if (difMinutes > 0 && difMinutes <= 30 && currentDate === scheduleInputDateValue) {
     if (difMinutes <= 1) {
-      infoTextContent.innerText = "Prazo: Hoje, " + scheduleInputTimeValue + " - Falta " + Math.ceil(difMinutes) + " min";
+      infoTextContent.innerText = "Hoje, " + scheduleInputTimeValue + " - Falta " + Math.ceil(difMinutes) + " min";
     } else {
-      infoTextContent.innerText = "Prazo: Hoje, " + scheduleInputTimeValue + " - Faltam " + Math.ceil(difMinutes) + " min";
+      infoTextContent.innerText = "Hoje, " + scheduleInputTimeValue + " - Faltam " + Math.ceil(difMinutes) + " min";
     }
   }
 }
