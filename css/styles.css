@@ -1363,11 +1363,6 @@ body {
   animation: normalOpacity 0.2s forwards;
 }
 
-.taskField.shakeMove,
-.notePadContainer.shakeMove {
-  animation: shakeMove 0.2s ease-in;
-}
-
 #menu.menuAppear {
   animation: menuAppear 0.2s forwards ease-out;
 }
@@ -1396,7 +1391,7 @@ body {
 .taskField.pointerEventsNone,
 #mainContainer.pointerEventsNone,
 .btnField.pointerEventsNone,
-#menu.pointerEventsNone {
+#menu.pointerEventsNone, #filterInformationBox.pointerEventsNone {
   pointer-events: none;
   user-select: none;
 }
@@ -1666,25 +1661,6 @@ body {
   100% {
     transform: translateY(-40px) scale(0.8);
     opacity: 0;
-  }
-}
-
-@keyframes shakeMove {
-  0%,
-  100% {
-    transform: translateX(0px);
-  }
-  20% {
-    transform: translateX(5px);
-  }
-  40% {
-    transform: translateX(-5px);
-  }
-  60% {
-    transform: translateX(5px);
-  }
-  80% {
-    transform: translateX(-5px);
   }
 }
 
