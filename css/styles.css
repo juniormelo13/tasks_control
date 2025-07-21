@@ -732,7 +732,7 @@ body {
   height: 10rem;
   background-color: var(--white100_dark100);
   border-radius: 5px;
-  padding: 13px 10px 0px 10px;
+  padding: 14px 10px 0px 10px;
   border: 2px solid var(--grey_50);
   transition: border 0.3s, box-shadow 0.3s;
 }
@@ -742,8 +742,13 @@ body {
   position: absolute;
   bottom: 41px;
   background-color: var(--grey_50);
-  width: calc(100% - 30px);
+  width: 0;
   height: 2px;
+  transition: 0.2s;
+}
+
+.taskField.hover:hover::after {
+  width: calc(100% - 30px);
 }
 
 .taskField.completed::after {
@@ -827,8 +832,8 @@ body {
   font-family: "lato", "sans-serif";
   font-size: 1rem;
   color: var(--dark100_white100);
+  cursor: default;
   overflow-y: auto;
-  word-break: break-all;
   padding: 0 5px 6px;
   font-weight: bold;
   width: 100%;
