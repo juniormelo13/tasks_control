@@ -863,10 +863,12 @@ body {
 }
 
 .btnField {
+  position: relative;
   height: 60px;
+  padding: 0 5px;
   width: 100%;
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   gap: 12px;
 }
@@ -885,6 +887,11 @@ body {
   opacity: 0;
   transition: 0.3s;
   transform: translateY(5px);
+}
+
+.removeBtn {
+  position: absolute;
+  right: 5px;
 }
 
 .notesBtn {
