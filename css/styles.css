@@ -60,7 +60,29 @@ body {
   width: 3px;
 }
 
-#mainContainer::-webkit-scrollbar-thumb, .taskContent::-webkit-scrollbar-thumb {
+.taskContent::-webkit-scrollbar-thumb {
+  background: var(--grey_50);
+  border-radius: 5px;
+  padding-top: 5px;
+}
+
+.taskContent.completed::-webkit-scrollbar-thumb {
+  background: var(--green);
+}
+
+.taskField.scheduled .taskContent::-webkit-scrollbar-thumb {
+  background: var(--blue);
+}
+
+.taskField.scheduled.expireAlert .taskContent::-webkit-scrollbar-thumb {
+  background: var(--yellow);
+}
+
+.taskField.expiredTask .taskContent::-webkit-scrollbar-thumb {
+  background: var(--red);
+}
+
+#mainContainer::-webkit-scrollbar-thumb {
   background: linear-gradient(
     45deg,
     var(--red),
@@ -703,17 +725,41 @@ body {
   position: relative;
   display: flex;
   flex-direction: column;
-  justify-content:;
+  justify-content:center;
   align-items: center;
-  gap: 10px;
   width: 15rem;
   max-width: 15rem;
   height: 10rem;
   background-color: var(--white100_dark100);
   border-radius: 5px;
-  padding: 10px 10px 5px 10px;
+  padding: 13px 10px 0px 10px;
   border: 2px solid var(--grey_50);
   transition: border 0.3s, box-shadow 0.3s;
+}
+
+.taskField::after {
+  content: "";
+  position: absolute;
+  bottom: 41px;
+  background-color: var(--grey_50);
+  width: calc(100% - 30px);
+  height: 2px;
+}
+
+.taskField.completed::after {
+  background-color: var(--green);
+}
+
+.taskField.scheduled::after {
+  background-color: var(--blue);
+}
+
+.taskField.scheduled.expireAlert::after {
+  background-color: var(--yellow);
+}
+
+.taskField.expiredTask::after {
+  background-color: var(--red);
 }
 
 .taskField.hover:hover,
@@ -783,11 +829,10 @@ body {
   color: var(--dark100_white100);
   overflow-y: auto;
   word-break: break-all;
-  padding: 5px;
+  padding: 0 5px 6px;
   font-weight: bold;
   width: 100%;
   height: 100%;
-  border-radius: 5px;
 }
 
 .taskContent.completed {
@@ -800,7 +845,7 @@ body {
 .taskField.hover:hover .editBtn,
 .taskField.hover:hover .removeBtn,
 .taskField.hover:hover .notesBtn {
-  transform: translate3d(0, 0, 0);
+  transform: translateY(0);
   opacity: 1;
 }
 
@@ -819,7 +864,6 @@ body {
   justify-content: center;
   align-items: center;
   gap: 12px;
-  border-top: 2px solid var(--grey_50);
 }
 
 .checkBtn,
@@ -829,13 +873,17 @@ body {
 .notesBtn {
   font-size: 1rem;
   width: 1rem;
-  height: 100%;
+  height: 80%;
   background: none;
   border: none;
   outline: none;
   opacity: 0;
   transition: 0.3s;
-  transform: translate3d(0, 5px, 0);
+  transform: translateY(5px);
+}
+
+.notesBtn {
+  position: relative;
 }
 
 .checkBtn {
@@ -868,22 +916,23 @@ body {
 .removeBtn:hover,
 .notesBtn:hover {
   cursor: pointer;
+  padding-bottom: 5px;
 }
-
+  
 .notesBtnAlert {
   position: absolute;
-  width: 8px;
-  height: 8px;
+  width: 11px;
+  height: 11px;
   background-color: var(--green);
   border-radius: 50%;
-  border: 1px solid var(--white100_dark100);
-  bottom: 4px;
+  border: 2px solid var(--white100_dark100);
+  bottom: 6px;
   right: -2px;
-  transition: 0.3s;
+  transition: 0.25s;
 }
 
 .notesBtn:hover .notesBtnAlert {
-  margin-bottom: 4px;
+  transform: translateY(-2.1px);
 }
 
 #editField,
