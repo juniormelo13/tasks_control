@@ -13,7 +13,7 @@
     transform-style: preserve-3d;
 }
 
-.flipTask.flip {
+.flipTask.flipAnimate {
     transform: rotateY(-180deg);
 }
 
