@@ -1,0 +1,29 @@
+.flipTaskBox {
+    background-color: transparent;
+    width: 300px;
+    height: 300px;
+    perspective: 1000px;
+}
+
+.flipTask {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transition: transform 0.5s;
+    transform-style: preserve-3d;
+}
+
+.flipTask.flip {
+    transform: rotateY(-180deg);
+}
+
+.flipTaskFront, .flipTaskBack {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+}
+
+.flipTaskBack{
+    transform: rotateY(-180deg);
+}
