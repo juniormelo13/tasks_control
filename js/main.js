@@ -574,11 +574,11 @@ function editTask(taskContent, infoTaskSave) {
     localStorage.setItem("tasks", JSON.stringify(dbAllTasks));
     setTimeout(() => {
       taskContent.innerText = editInput.value;
-      taskContent.classList.add("contentAnimation");
+      taskContent.classList.add("editAnimation");
       includePointerEventsNoneAllTasks("add");
     }, 200);
     setTimeout(() => {
-      taskContent.classList.remove("contentAnimation");
+      taskContent.classList.remove("editAnimation");
       includePointerEventsNoneAllTasks("remove");
     }, 500);
   }
