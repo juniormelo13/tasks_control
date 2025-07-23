@@ -1,11 +1,11 @@
-.flipTaskBox {
+.taskField {
     background-color: transparent;
     width: 300px;
     height: 300px;
     perspective: 1000px;
 }
 
-.flipTask {
+.task {
     position: relative;
     width: 100%;
     height: 100%;
@@ -13,17 +13,17 @@
     transform-style: preserve-3d;
 }
 
-.flipTask.flipAnimate {
+.task.flipAnimate {
     transform: rotateY(-180deg);
 }
 
-.flipTaskFront, .flipTaskBack {
+.taskFront, .taskBehind {
     position: absolute;
     width: 100%;
     height: 100%;
     backface-visibility: hidden;
 }
 
-.flipTaskBack{
+.taskBehind{
     transform: rotateY(-180deg);
 }

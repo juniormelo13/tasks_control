@@ -69,15 +69,15 @@ body {
   background: var(--green);
 }
 
-.taskField.scheduled .taskContent::-webkit-scrollbar-thumb {
+.taskFront.scheduled .taskContent::-webkit-scrollbar-thumb {
   background: var(--blue);
 }
 
-.taskField.scheduled.expireAlert .taskContent::-webkit-scrollbar-thumb {
+.taskFront.scheduled.expireAlert .taskContent::-webkit-scrollbar-thumb {
   background: var(--yellow);
 }
 
-.taskField.expiredTask .taskContent::-webkit-scrollbar-thumb {
+.taskFront.expiredTask .taskContent::-webkit-scrollbar-thumb {
   background: var(--red);
 }
 
@@ -671,7 +671,7 @@ body {
   gap: 50px;
 }
 
-.flipTaskBox {
+.taskField {
   background-color: transparent;
   perspective: 1000px;
   position: relative;
@@ -680,14 +680,23 @@ body {
   height: 10rem;
 }
 
-.taskField {
+.task {
   position: relative;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.5s;
+  transform-style: preserve-3d;
+}
+
+.task.flipAnimate {
+  transform: rotateY(-180deg);
+}
+
+.taskFront {
   display: flex;
   flex-direction: column;
   justify-content:center;
   align-items: center;
-  width: 100%;
-  height: 100%;
   background-color: var(--white100_dark100);
   border-radius: 5px;
   padding: 14px 10px 0px 10px;
@@ -695,16 +704,18 @@ body {
   transition: border 0.3s, box-shadow 0.3s;
 }
 
-.taskField.flipTask {
-  transition: transform 0.5s;
-  transform-style: preserve-3d;
+.taskFront, .taskBehind {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
 }
 
-.taskField.flipTask.flipAnimate {
+.taskBehind{
   transform: rotateY(-180deg);
 }
 
-.taskField::after {
+.taskFront::after {
   content: "";
   position: absolute;
   bottom: 41px;
@@ -714,83 +725,83 @@ body {
   transition: 0.2s;
 }
 
-.taskField.hover:hover::after {
+.taskFront.hover:hover::after {
   width: calc(100% - 30px);
 }
 
-.taskField.completed::after {
+.taskFront.completed::after {
   background-color: var(--green);
 }
 
-.taskField.scheduled::after {
+.taskFront.scheduled::after {
   background-color: var(--blue);
 }
 
-.taskField.scheduled.expireAlert::after {
+.taskFront.scheduled.expireAlert::after {
   background-color: var(--yellow);
 }
 
-.taskField.expiredTask::after {
+.taskFront.expiredTask::after {
   background-color: var(--red);
 }
 
-.taskField.hover:hover,
-.taskField.active {
+.taskFront.hover:hover,
+.taskFront.active {
   box-shadow: 0 0 10px 2px var(--grey_50);
 }
 
-.taskField.completed {
+.taskFront.completed {
   border: 2px solid var(--green);
 }
 
-.taskField.completed.hover:hover,
-.taskField.completed.active {
+.taskFront.completed.hover:hover,
+.taskFront.completed.active {
   box-shadow: 0 0 10px 2px var(--green);
 }
 
-.taskField.scheduled {
+.taskFront.scheduled {
   border: 2px solid var(--blue);
 }
 
-.taskField.scheduled.hover:hover,
-.taskField.scheduled.active {
+.taskFront.scheduled.hover:hover,
+.taskFront.scheduled.active {
   box-shadow: 0 0 10px 2px var(--blue);
 }
 
-.taskField.scheduled.expireAlert {
+.taskFront.scheduled.expireAlert {
   border: 2px solid var(--yellow);
 }
 
-.taskField.scheduled.expireAlert.hover:hover,
-.taskField.scheduled.expireAlert.active {
+.taskFront.scheduled.expireAlert.hover:hover,
+.taskFront.scheduled.expireAlert.active {
   box-shadow: 0 0 10px 2px var(--yellow);
 }
 
-.taskField.expiredTask {
+.taskFront.expiredTask {
   border: 2px solid var(--red);
 }
 
-.taskField.expiredTask.hover:hover,
-.taskField.expiredTask.active {
+.taskFront.expiredTask.hover:hover,
+.taskFront.expiredTask.active {
   box-shadow: 0 0 10px 2px var(--red);
 }
 
-.taskField.scheduled.hover:hover .taskInfo.scheduled,
+.taskFront.scheduled.hover:hover .taskInfo.scheduled,
 .taskInfo.scheduled.active {
   box-shadow: 0 -3px 10px -1px var(--blue);
 }
 
-.taskField.scheduled.expireAlert.hover:hover .taskInfo.scheduled.expireAlert,
+.taskFront.scheduled.expireAlert.hover:hover .taskInfo.scheduled.expireAlert,
 .taskInfo.scheduled.expireAlert.active {
   box-shadow: 0 -3px 10px -1px var(--yellow);
 }
 
-.taskField.expiredTask.hover:hover .taskInfo.expiredTask,
+.taskFront.expiredTask.hover:hover .taskInfo.expiredTask,
 .taskInfo.expiredTask.active {
   box-shadow: 0 -3px 10px -1px var(--red);
 }
 
-.taskField.completed.hover:hover .taskInfo.completed,
+.taskFront.completed.hover:hover .taskInfo.completed,
 .taskInfo.completed.active {
   box-shadow: 0 -3px 10px -1px var(--green);
 }
@@ -812,16 +823,16 @@ body {
   text-decoration: line-through;
 }
 
-.taskField.hover:hover .checkBtn,
-.taskField.hover:hover .scheduleBtn,
-.taskField.hover:hover .editBtn,
-.taskField.hover:hover .removeBtn,
-.taskField.hover:hover .notesBtn {
+.taskFront.hover:hover .checkBtn,
+.taskFront.hover:hover .scheduleBtn,
+.taskFront.hover:hover .editBtn,
+.taskFront.hover:hover .removeBtn,
+.taskFront.hover:hover .notesBtn {
   transform: translateY(0);
   opacity: 1;
 }
 
-.taskField.hover:hover .disabledBtn {
+.taskFront.hover:hover .disabledBtn {
   display: none;
 }
 
@@ -1142,7 +1153,7 @@ body {
   transition: 0.3s;
 }
 
-.taskField.hover:hover .schedulingRemoveBtn {
+.taskFront.hover:hover .schedulingRemoveBtn {
   opacity: 1;
 }
 
@@ -1767,25 +1778,25 @@ body {
 }
 
 @media (max-width: 1919px) {
-  .taskField {
+  .taskFront {
     width: 31%;
   }
 }
 
 @media (max-width: 1591px) {
-  .taskField {
+  .taskFront {
     width: 30.8%;
   }
 }
 
 @media (max-width: 1500px) {
-  .taskField {
+  .taskFront {
     width: 100%;
   }
 }
 
 @media (max-width: 1263px) {
-  .taskField {
+  .taskFront {
     width: 47%;
     max-width: 600px;
   }
@@ -1815,7 +1826,7 @@ body {
   #inputFileBtnDel {
     opacity: 1;
   }
-  .taskField {
+  .taskFront {
     width: 600px;
     max-width: 600px;
   }
@@ -1863,7 +1874,7 @@ body {
 }
 
 @media (max-width: 950px) {
-  .taskField {
+  .taskFront {
     width: 70%;
   }
   #newTaskContainer {
@@ -1924,7 +1935,7 @@ body {
     left: 0;
     width: 100%;
   }
-  .taskField {
+  .taskFront {
     width: 100%;
     max-width: 700px;
   }
@@ -1942,7 +1953,7 @@ body {
   #tasksContainer {
     padding: 3.5rem 5%;
   }
-  .taskField {
+  .taskFront {
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
@@ -1950,9 +1961,9 @@ body {
     gap: 0;
     height: 5rem;
   }
-  .taskField.scheduled,
-  .taskField.expiredTask,
-  .taskField.completed {
+  .taskFront.scheduled,
+  .taskFront.expiredTask,
+  .taskFront.completed {
     justify-content: space-evenly;
   }
   .taskContent {
