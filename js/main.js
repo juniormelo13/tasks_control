@@ -1001,14 +1001,14 @@ function notesBtnClick(taskField, task, taskFront, notePadInput, notePadContaine
     notePadInput.value == "";
     cleanNoteBtn.classList.add("hide");
   }
-  highLight(taskField, taskFront, notePadContainer, "true")
+  highLight(taskField, notePadContainer, "true")
   taskFront.classList.add("pointerEventsNone")
   task.classList.add("flipAnimate")
   setTimeout(() => {
     flippedTask = true;
-  }, 300);
-  document.onclick = (e) => {
-    if (flippedTask && !notesBtn.contains(e.target) && !notePadContainer.contains(e.target)) {
+  }, 200);
+  document.onmousedown = (e) => {
+    if (flippedTask && !notePadContainer.contains(e.target)) {
       saveNoteClick(taskField, task, taskFront, notePadContainer, notePadInput, notesBtnAlert, infoTaskSave);
     }
   };
@@ -1030,7 +1030,7 @@ function saveNoteClick(taskField, task, taskFront, notePadContainer, notePadInpu
     notesBtnAlert.classList.add("hide");
   }
   task.classList.remove("flipAnimate")
-  highLight(taskField, taskFront, notePadContainer, "false")
+  highLight(taskField, notePadContainer, "false")
   taskFront.classList.remove("pointerEventsNone")
   flippedTask = false
   setTimeout(() => {
@@ -1392,7 +1392,7 @@ function includePointerEventsNoneAllTasks(option) {
   }
 }
 
-function highLight(taskField, taskFront, notePadContainer, option) {
+function highLight(taskField, notePadContainer, option) {
   const taskFields = tasksContainer.childNodes;
   if (option == "true") {
     for (const taskField of taskFields) {
@@ -1401,7 +1401,6 @@ function highLight(taskField, taskFront, notePadContainer, option) {
     }
     taskField.classList.remove("pointerEventsNone");
     taskField.classList.remove("lowOpacity");
-    taskFront.classList.remove("hover");
     notePadContainer.classList.add("active");
   } else {
     for (const taskField of taskFields) {
@@ -1419,7 +1418,6 @@ function highLight(taskField, taskFront, notePadContainer, option) {
           taskField.classList.remove("normalOpacity");
         }
       }
-      taskFront.classList.add("hover");
     }, 200);
   }
 }
