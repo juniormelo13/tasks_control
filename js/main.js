@@ -984,6 +984,8 @@ function checkRemoveAllConfigBtn() {
 
 // Configuração do botão de anotações
 
+let flippedTask = false
+
 function notesBtnClick(taskField, task, taskFront, notePadInput, notePadContainer, cleanNoteBtn, notesBtn, notesBtnAlert, infoTaskSave) {
   header.classList.add("pointerEventsNone");
   if(menuOpen) {
@@ -1002,25 +1004,16 @@ function notesBtnClick(taskField, task, taskFront, notePadInput, notePadContaine
   highLight(taskField, taskFront, notePadContainer, "true")
   taskFront.classList.add("pointerEventsNone")
   task.classList.add("flipAnimate")
+  setTimeout(() => {
+    flippedTask = true;
+  }, 300);
   document.onclick = (e) => {
-    if (!notesBtn.contains(e.target) && !notePadContainer.contains(e.target) && notePadContainer.classList.contains("active")) {
+    if (flippedTask && !notesBtn.contains(e.target) && !notePadContainer.contains(e.target)) {
       saveNoteClick(taskField, task, taskFront, notePadContainer, notePadInput, notesBtnAlert, infoTaskSave);
     }
   };
   notePadInput.onblur = () => {
     clearEmptyInput(notePadInput);
-  };
-  notePadInput.onkeypress = (e) => {
-    if (e.key === "Enter") {
-      e.preventDefault();
-    }
-  };
-  notePadInput.onkeyup = (e) => {
-    if (e.key !== "Enter") {
-      checkInputValue(notePadInput, cleanNoteBtn);
-    } else {
-      saveNoteClick(taskField, task, taskFront, notePadContainer, notePadInput, notesBtnAlert, infoTaskSave);
-    }
   };
 }
 
@@ -1039,6 +1032,7 @@ function saveNoteClick(taskField, task, taskFront, notePadContainer, notePadInpu
   task.classList.remove("flipAnimate")
   highLight(taskField, taskFront, notePadContainer, "false")
   taskFront.classList.remove("pointerEventsNone")
+  flippedTask = false
   setTimeout(() => {
     header.classList.remove("pointerEventsNone");
     menu.classList.remove("pointerEventsNone");

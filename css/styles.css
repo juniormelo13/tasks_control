@@ -673,7 +673,7 @@ body {
 
 .taskField {
   background-color: transparent;
-  perspective: 1000px;
+  perspective: 800px;
   position: relative;
   max-width: 15rem;
   width: 15rem;
@@ -1252,7 +1252,7 @@ body {
   border: 2px solid var(--grey_50);
   border-radius: 5px;
   padding: 0px 10px;
-  transition: box-shadow 0.3s
+  transition: box-shadow 0.3s;
 }
 
 .notePadTop {
@@ -1270,6 +1270,7 @@ body {
   font-size: 1rem;
   font-weight: bold;
   color: var(--dark100_white100);
+  user-select: none;
 }
 
 .saveNoteBtn {
