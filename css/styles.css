@@ -684,7 +684,7 @@ body {
   position: relative;
   width: 100%;
   height: 100%;
-  transition: transform 0.5s;
+  transition: transform 0.2s ease-in;
   transform-style: preserve-3d;
 }
 
@@ -697,6 +697,8 @@ body {
   flex-direction: column;
   justify-content:center;
   align-items: center;
+  width: 100%;
+  height: 100%;
   background-color: var(--white100_dark100);
   border-radius: 5px;
   padding: 14px 10px 0px 10px;
@@ -706,8 +708,6 @@ body {
 
 .taskFront, .notePadContainer.taskBehind {
     position: absolute;
-    width: 100%;
-    height: 100%;
     backface-visibility: hidden;
 }
 
@@ -746,7 +746,7 @@ body {
 }
 
 .taskFront.hover:hover,
-.taskFront.active {
+.taskFront.active, .notePadContainer.active {
   box-shadow: 0 0 10px 2px var(--grey_50);
 }
 
@@ -1245,21 +1245,15 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
+  width: 100%;
+  height: calc(100% + 23px);
+  bottom: 0;
   background-color: var(--white100_dark100);
-  border-radius: 0px 5px 5px;
+  border: 2px solid var(--grey_50);
+  border-radius: 5px;
   padding: 0px 10px;
+  transition: box-shadow 0.3s
 }
-/* 
-.notePadContainer::after {
-  content: "";
-  position: absolute;
-  top: -10px;
-  right: 1rem;
-  transform: translateX(50%);
-  border-bottom: 10px solid var(--white100_dark100);
-  border-left: 10px solid transparent;
-  border-right: 10px solid transparent;
-} */
 
 .notePadTop {
   display: flex;
@@ -1287,7 +1281,7 @@ body {
   height: 60%;
   color: var(--dark100_white100);
   background: var(--white100_dark100);
-  padding: 5px 5px 5px 0;
+  padding: 0px 5px 5px 0;
   margin: 10px 0 5px 0;
   outline: none;
   border: none;
@@ -1432,7 +1426,7 @@ body {
 .taskField.pointerEventsNone,
 #mainContainer.pointerEventsNone,
 .btnField.pointerEventsNone,
-#menu.pointerEventsNone, #filterInformationBox.pointerEventsNone {
+#menu.pointerEventsNone, #filterInformationBox.pointerEventsNone, .taskFront.pointerEventsNone {
   pointer-events: none;
   user-select: none;
 }
