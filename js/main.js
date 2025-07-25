@@ -1165,6 +1165,7 @@ function createNotPadContainer(taskField, taskFront, task, notePadContainer, not
   notePadBtnField.appendChild(cleanNoteBtn);
   cleanNoteBtn.appendChild(cleanNoteBtnIcon);
   saveNoteBtn.onclick = () => saveNoteClick(taskField, task, taskFront, notePadContainer, notePadInput, notesBtn, infoTaskSave);
+  notePadInput.onkeyup = () => checkInputValue(notePadInput, cleanNoteBtn);
   cleanNoteBtn.onclick = () => clearInput(notePadInput, cleanNoteBtn);
 }
 

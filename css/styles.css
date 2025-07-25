@@ -1323,7 +1323,8 @@ body {
 .saveNoteBtn {
   border: none;
   background: var(--white100_dark100);
-  border-radius: 50%;
+  width: 25px;
+  height: 100%;
   transition: 0.3s;
 }
 
