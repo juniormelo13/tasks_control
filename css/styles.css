@@ -863,8 +863,9 @@ body {
   border: none;
   outline: none;
   opacity: 0;
-  transition: 0.3s;
+  transition: transform 0.3s, translate 0.2s;
   transform: translateY(5px);
+  /* background-color: cadetblue; */
 }
 
 .removeBtn {
@@ -906,23 +907,19 @@ body {
 .removeBtn:hover,
 .notesBtn:hover {
   cursor: pointer;
-  padding-bottom: 5px;
+  translate: 0px -2px;
 }
   
-.notesBtnAlert {
+.notesBtn::before {
+  content: "";
   position: absolute;
-  width: 11px;
-  height: 11px;
+  width: 7px;
+  height: 7px;
   background-color: var(--green);
   border-radius: 50%;
   border: 2px solid var(--white100_dark100);
   bottom: 6px;
-  right: -2px;
-  transition: 0.25s;
-}
-
-.notesBtn:hover .notesBtnAlert {
-  transform: translateY(-2.1px);
+  right: -3px;
 }
 
 #editField,

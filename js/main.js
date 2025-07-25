@@ -986,7 +986,7 @@ function checkRemoveAllConfigBtn() {
 
 let flippedTask = false
 
-function notesBtnClick(taskField, task, taskFront, notePadInput, notePadContainer, cleanNoteBtn, notesBtn, notesBtnAlert, infoTaskSave) {
+function notesBtnClick(taskField, task, taskFront, notePadInput, notePadContainer, cleanNoteBtn, notesBtnAlert, infoTaskSave) {
   header.classList.add("pointerEventsNone");
   if(menuOpen) {
     menu.classList.add("pointerEventsNone");
@@ -1211,7 +1211,7 @@ function createNotesBtn(taskField, task, taskFront, notePadInput, notePadContain
   notesBtnAlert.classList.add("notesBtnAlert");
   notesBtnAlert.classList.add("hide");
   notesBtn.setAttribute("title", "Anotações");
-  notesBtn.addEventListener("click", () => notesBtnClick(taskField, task, taskFront, notePadInput, notePadContainer, cleanNoteBtn, notesBtn, notesBtnAlert, infoTaskSave));
+  notesBtn.addEventListener("click", () => notesBtnClick(taskField, task, taskFront, notePadInput, notePadContainer, cleanNoteBtn, notesBtnAlert, infoTaskSave));
 }
 
 function createRemoveTaskBtn(taskField, taskFront, infoTaskSave, btnField, removeBtn) {
