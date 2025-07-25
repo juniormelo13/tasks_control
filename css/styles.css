@@ -58,11 +58,13 @@ body {
 
 .taskContent::-webkit-scrollbar, .notePadInput::-webkit-scrollbar {
   width: 3px;
+  cursor: default;
 }
 
 .taskContent::-webkit-scrollbar-thumb, .notePadInput::-webkit-scrollbar-thumb {
   background: var(--grey_50);
   border-radius: 5px;
+  cursor: default;
 }
 
 .taskContent.completed::-webkit-scrollbar-thumb {
@@ -1296,14 +1298,13 @@ body {
   height: 60%;
   color: var(--dark100_white100);
   background: var(--white100_dark100);
-  padding: 0px 5px 5px 0;
-  margin: 10px 0 5px 0;
+  padding-right: 10px;
+  margin-top: 10px;
   outline: none;
   border: none;
   resize: none;
   font-size: 0.9rem;
   font-family: "lato", "sans-serif";
-  font-weight: bold;
 }
 
 .saveNoteBtn:hover {
@@ -1325,6 +1326,7 @@ body {
   background: var(--white100_dark100);
   width: 25px;
   height: 100%;
+  margin-right: -5px;
   transition: 0.3s;
 }
 
