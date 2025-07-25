@@ -936,6 +936,7 @@ body {
   border: 2px solid var(--white100_dark100);
   bottom: 4px;
   right: 0;
+  z-index: 1;
 }
 
 #editField,
