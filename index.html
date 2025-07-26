@@ -83,7 +83,10 @@
                 accept="image/*"
               />
               <img src="./img/profile-avatar.png" alt="" id="uploadedImg" />
-              <label for="inputFileImg" id="inputFileBtnPlus" title="Adicionar foto"
+              <label
+                for="inputFileImg"
+                id="inputFileBtnPlus"
+                title="Adicionar foto"
                 ><i class="fa-solid fa-plus"></i
               ></label>
               <label id="inputFileBtnDel" title="Remover foto" class="hide"
@@ -166,7 +169,7 @@
     <main id="mainContainer">
       <div id="tasksContainer"></div>
     </main>
-    <!-- Campo de edição das tarefas -->
+    <!-- Janela de edição das tarefas -->
     <div id="editField" class="hide">
       <div id="editFieldHeader">
         <h1>editar tarefa?</h1>
@@ -182,48 +185,48 @@
           placeholder="Digite a tarefa..."
           autocomplete="off"
           spellcheck="false"
-          />
-          <input
+        />
+        <input
           type="button"
           value="X"
           id="cleanEditInputBtn"
           class="hide"
           title="Limpar"
-          />
-        </div>
-        <div id="editFieldFooter">
-          <input type="button" value="editar" id="confirmEditBtn" />
-          <input type="button" value="cancelar" id="cancelEditBtn" />
-        </div>
+        />
       </div>
-      <!-- Campo de agendamento das tarefas -->
-      <div id="scheduleField" class="hide">
-        <div id="scheduleFieldHeader">
-          <h1>definir prazo?</h1>
-          <button id="scheduleFieldCloseBtn" title="Fechar">
-            <i class="fa-solid fa-xmark"></i>
-          </button>
-        </div>
-        <div id="scheduleFieldCenter">
-          <input type="date" name="scheduleInputDate" id="scheduleInputDate" />
-          <input type="time" name="scheduleInputTime" id="scheduleInputTime" />
-        </div>
-        <div id="scheduleFieldFooter">
-          <input type="button" value="definir" id="confirmScheduleBtn" />
-          <input type="button" value="cancelar" id="cancelScheduletBtn" />
-        </div>
+      <div id="editFieldFooter">
+        <input type="button" value="editar" id="confirmEditBtn" />
+        <input type="button" value="cancelar" id="cancelEditBtn" />
       </div>
-      <!-- Janela para confirmação de exclusão e conclusão de tarefas agendadas -->
-      <div id="confirmationWindow" class="hide">
-        <p id="confirmationWindowText"></p>
-        <div id="btnFieldToConfirm">
-          <input type="button" value="Sim" id="btnYes" />
-          <input type="button" value="Não" id="btnNo" />
-        </div>
+    </div>
+    <!-- Janela de agendamento das tarefas -->
+    <div id="scheduleField" class="hide">
+      <div id="scheduleFieldHeader">
+        <h1>definir prazo?</h1>
+        <button id="scheduleFieldCloseBtn" title="Fechar">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
       </div>
-      <div id="noTaskTextContainer" class="hide">
-        <h1 id="noTaskText">Não há tarefas!</h1>
+      <div id="scheduleFieldCenter">
+        <input type="date" name="scheduleInputDate" id="scheduleInputDate" />
+        <input type="time" name="scheduleInputTime" id="scheduleInputTime" />
       </div>
-    </body>
-    </html>
-    
+      <div id="scheduleFieldFooter">
+        <input type="button" value="definir" id="confirmScheduleBtn" />
+        <input type="button" value="cancelar" id="cancelScheduletBtn" />
+      </div>
+    </div>
+    <!-- Janela para confirmação de exclusão e conclusão de tarefas agendadas -->
+    <div id="confirmationWindow" class="hide">
+      <p id="confirmationWindowText"></p>
+      <div id="btnFieldToConfirm">
+        <input type="button" value="Sim" id="btnYes" />
+        <input type="button" value="Não" id="btnNo" />
+      </div>
+    </div>
+    <!-- Campo que informa quando não há tarefas -->
+    <div id="noTaskTextContainer" class="hide">
+      <h1 id="noTaskText">Não há tarefas!</h1>
+    </div>
+  </body>
+</html>
