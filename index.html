@@ -58,6 +58,14 @@
           <i id="menuButtonIcon" class="fa-solid fa-angles-down"></i>
           <i id="menuButtonIconMobile" class="fa-solid fa-angles-left"></i>
         </button>
+        <div id="filterInformationBox">
+          <p id="filterInformationText">
+            Filtro:<span id="filterInformation"></span>
+          </p>
+          <button id="cleanFilterBtn" title="Remover filtro">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+        </div>
       </header>
     </div>
     <!-- Caixa principal do projeto, onde as tarefas serão adicionadas -->
@@ -121,14 +129,6 @@
     </div>
     <div id="noTaskTextContainer" class="hide">
       <h1 id="noTaskText">Não há tarefas!</h1>
-    </div>
-    <div id="filterInformationBox">
-      <p id="filterInformationText">
-        Filtro:<span id="filterInformation"></span>
-      </p>
-      <button id="cleanFilterBtn" title="Remover filtro">
-        <i class="fa-solid fa-xmark"></i>
-      </button>
     </div>
     <!-- Menu/filtros de tarefas -->
     <nav id="menu" class="hide">
