@@ -94,17 +94,25 @@ body {
   border-radius: 5px;
 }
 
-#header {
+#headerBox {
   position: fixed;
+  background-color: aqua;
+  height: 5rem;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  z-index: 1;
+}
+
+#header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   width: 100%;
   max-width: 120rem;
-  height: 5rem;
+  height: 100%;
   padding: 0 calc(5% + 5px) 0 5%;
   background-color: var(--white100_dark100);
-  z-index: 1;
 }
 
 #logoImg {

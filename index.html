@@ -15,49 +15,51 @@
   </head>
   <body>
     <!-- Cabeçalho do site -->
-    <header id="header">
-      <!-- Logo do site -->
-      <div id="logoBox">
-        <a href="#"
-          ><img
-            src="./img/icon.png"
-            id="logoImg"
-            alt="logo do site com um relógio no meio e cercado com blocos nas cores azul, amarelo, vermelho e verde"
-        /></a>
-        <a href="#"
-          ><img
-            src="./img/logo_dark_mobile.png"
-            id="logoImgMobile"
-            alt="logo do site com o nome Task Control e do lado direito um relógio cercado com blocos nas cores azul, amarelo, vermelho e verde"
-        /></a>
-      </div>
-      <!-- Input onde serão informadas e enviadas as tarefas -->
-      <div id="newTaskContainer">
-        <div id="newTaskContainerInput">
-          <input
-            type="text"
-            name="newTaskInput"
-            id="newTaskInput"
-            placeholder="Digite a tarefa..."
-            spellcheck="false"
-            autocomplete="off"
-          />
-          <input
-            type="button"
-            value="X"
-            id="cleanNewTaskInputBtn"
-            class="hide"
-            title="Limpar"
-          />
+    <div id="headerBox">
+      <header id="header">
+        <!-- Logo do site -->
+        <div id="logoBox">
+          <a href="#"
+            ><img
+              src="./img/icon.png"
+              id="logoImg"
+              alt="logo do site com um relógio no meio e cercado com blocos nas cores azul, amarelo, vermelho e verde"
+          /></a>
+          <a href="#"
+            ><img
+              src="./img/logo_dark_mobile.png"
+              id="logoImgMobile"
+              alt="logo do site com o nome Task Control e do lado direito um relógio cercado com blocos nas cores azul, amarelo, vermelho e verde"
+          /></a>
         </div>
-        <input type="button" value="+" id="newTaskBtn" title="Adicionar" />
-      </div>
-      <!-- Botão de acesso ao menu/filtro -->
-      <button id="menuButton">
-        <i id="menuButtonIcon" class="fa-solid fa-angles-down"></i>
-        <i id="menuButtonIconMobile" class="fa-solid fa-angles-left"></i>
-      </button>
-    </header>
+        <!-- Input onde serão informadas e enviadas as tarefas -->
+        <div id="newTaskContainer">
+          <div id="newTaskContainerInput">
+            <input
+              type="text"
+              name="newTaskInput"
+              id="newTaskInput"
+              placeholder="Digite a tarefa..."
+              spellcheck="false"
+              autocomplete="off"
+            />
+            <input
+              type="button"
+              value="X"
+              id="cleanNewTaskInputBtn"
+              class="hide"
+              title="Limpar"
+            />
+          </div>
+          <input type="button" value="+" id="newTaskBtn" title="Adicionar" />
+        </div>
+        <!-- Botão de acesso ao menu/filtro -->
+        <button id="menuButton">
+          <i id="menuButtonIcon" class="fa-solid fa-angles-down"></i>
+          <i id="menuButtonIconMobile" class="fa-solid fa-angles-left"></i>
+        </button>
+      </header>
+    </div>
     <!-- Caixa principal do projeto, onde as tarefas serão adicionadas -->
     <main id="mainContainer">
       <div id="tasksContainer"></div>
