@@ -158,13 +158,14 @@ body {
   flex-direction: column;
   gap: 1.5rem;
   top: 6rem;
-  right: calc(5% + 5px);
+  right: 6rem;
   background-color: var(--white100_dark100);
   border-radius: 5px;
   width: 12rem;
   box-shadow: 6px 6px 10px 0px var(--dark_shadow);
   padding: 1rem;
   user-select: none;
+  z-index: -1;
 }
 
 #menu::before {
@@ -970,6 +971,7 @@ body {
   border: 2px solid var(--dark100_white100);
   border-radius: 5px;
   padding: 15px;
+  z-index: 1;
 }
 
 #editFieldHeader,
