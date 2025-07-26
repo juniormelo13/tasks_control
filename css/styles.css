@@ -1756,62 +1756,56 @@ body {
 
 /* Responsividade da aplicação */
 
-/* @media (min-width: 1921px) {
-  body {
+@media (min-width: 1921px) {
+  /* body {
     display: flex;
     justify-content: center;
-  }
-  #header {
+  } */
+  /* #header {
     padding: 0 calc(6rem + 5px) 0 6rem;
-  }
-  #mainContainer {
+  } */
+  /* #mainContainer {
     display: flex;
     justify-content: center;
     align-items: flex-start;
-  }
-  #tasksContainer {
+  } */
+  /* #tasksContainer {
     padding: 3.125rem 6rem;
-  }
-  #menu {
+  } */
+  /* #menu {
     left: calc(50% + 47.7rem);
     transform: translate(-50%, 0);
-  }
-  #filterInformationBox {
+  } */
+  /* #filterInformationBox {
     left: calc(50% - 49.9rem);
     transform: translateX(-50%);
-  }
+  } */
 }
 
 @media (max-width: 1919px) {
-  .taskFront {
-    width: 31%;
-  }
+  
 }
 
 @media (max-width: 1591px) {
-  .taskFront {
-    width: 30.8%;
-  }
+
 }
 
 @media (max-width: 1500px) {
-  .taskFront {
-    width: 100%;
-  }
+  
 }
 
 @media (max-width: 1263px) {
-  .taskFront {
+  /* .taskFront {
     width: 47%;
     max-width: 600px;
   }
   #newTaskContainer {
     width: 600px;
-  }
+  } */
 }
 
 @media (max-width: 1024px) {
-  #newTaskBtn:hover {
+  /* #newTaskBtn:hover {
     background-color: var(--dark100_white100);
     color: var(--white100_dark100);
     box-shadow: none;
@@ -1875,11 +1869,11 @@ body {
   #closeEditFieldBtn,
   #scheduleFieldCloseBtn {
     color: var(--red);
-  }
+  } */
 }
 
 @media (max-width: 950px) {
-  .taskFront {
+  /* .taskFront {
     width: 70%;
   }
   #newTaskContainer {
@@ -1887,11 +1881,11 @@ body {
   }
   #newTaskContainerInput {
     width: 100%;
-  }
+  } */
 }
 
 @media (max-width: 700px) {
-  #logoImg {
+  /* #logoImg {
     display: none;
   }
   #logoImgMobile {
@@ -1951,11 +1945,11 @@ body {
   #scheduleField,
   #confirmationWindow {
     top: calc(10rem + 30%);
-  }
+  } */
 }
 
 @media (max-width: 450px) {
-  #tasksContainer {
+  /* #tasksContainer {
     padding: 3.5rem 5%;
   }
   .taskFront {
@@ -1992,22 +1986,22 @@ body {
   }
   #noTaskText {
     font-size: 1.5rem;
-  }
+  } */
 }
 
 @media (max-width: 350px) {
-  #editField,
+  /* #editField,
   #scheduleField,
   #confirmationWindow {
     width: calc(90%);
   }
   #scheduleFieldCenter {
     flex-direction: column;
-  }
+  } */
 }
 
 @media (max-width: 300px) {
-  .taskInfo {
+  /* .taskInfo {
     left: 5px;
   }
   .btnField {
@@ -2017,5 +2011,5 @@ body {
   }
   .notePadContainer {
     width: 100%;
-  }
-} */
+  } */
+}
