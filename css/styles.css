@@ -54,10 +54,13 @@ body {
 
 #mainContainer::-webkit-scrollbar {
   width: 5px;
+  background-color: var(--white100_dark100);
 }
 
 .taskContent::-webkit-scrollbar, .notePadInput::-webkit-scrollbar {
   width: 3px;
+  background-color: var(--white50_dark50);
+  border-radius: 5px;
   cursor: default;
 }
 
@@ -91,12 +94,10 @@ body {
     var(--yellow),
     var(--green)
   );
-  border-radius: 5px;
 }
 
 #headerBox {
   position: fixed;
-  background-color: aqua;
   height: 5rem;
   width: 100%;
   display: flex;
@@ -111,7 +112,7 @@ body {
   width: 100%;
   max-width: 120rem;
   height: 100%;
-  padding: 0 calc(5% + 5px) 0 5%;
+  padding: 0 6rem 0 6rem;
   background-color: var(--white100_dark100);
 }
 
@@ -602,12 +603,15 @@ body {
 
 #mainContainer {
   position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
   width: 100%;
   height: calc(100vh - 5rem);
   top: 5rem;
-  background-color: var(--white50_dark50);
   overflow-y: scroll;
   overflow-x: hidden;
+  background-color: var(--white50_dark50);
 }
 
 #noTaskTextContainer {
@@ -676,9 +680,10 @@ body {
   justify-content: flex-start;
   flex-wrap: wrap;
   width: 100%;
-  max-width: calc(120rem - 5px);
-  padding: 3.5rem 5% 3.125rem 5%;
+  max-width: 120rem;
+  padding: 3.5rem 6rem 3.125rem 6rem;
   gap: 50px;
+  background-color: var(--white50_dark50);
 }
 
 .taskField {
