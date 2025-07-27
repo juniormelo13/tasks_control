@@ -114,6 +114,18 @@ menuBtn.addEventListener("click", () => {
   }
 });
 
+// Configuração para fechar o menu ao clicar em qualquer local da tela
+
+document.addEventListener("mousedown", (e) => {
+  if (!menu.contains(e.target) && !menuBtn.contains(e.target) && !menuBtnIcon.contains(e.target) && !confirmationWindow.contains(e.target) && menuOpen && !confirmationWindow.classList.contains("appearWindow")) {
+    menuHide();
+  } else if (confirmationWindow.classList.contains("appearWindow") && menuOpen && !menu.contains(e.target) && !menu.classList.contains("menuBlur")) {
+    menuHide();
+  }
+})
+
+// Configuração para remover erros dos inputs
+
 document.addEventListener("click", (e) => {
   if (newTaskInput.classList.contains("inputError") && !newTaskBtn.contains(e.target)) {
     newTaskInput.classList.remove("inputError");

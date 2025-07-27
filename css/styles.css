@@ -646,7 +646,7 @@ body {
   border-top: none;
   border-top-left-radius: 0;
   border-top-right-radius: 0;
-  padding: 2px 10px;
+  padding: 2px 8px;
   height: 1.5rem;
   z-index: -1;
 }
@@ -656,11 +656,11 @@ body {
   color: var(--dark100_white100);
   font-size: 0.8rem;
   user-select: none;
-  font-style: italic;
 }
 
 #filterInformation {
   margin-left: 5px;
+  font-style: italic;
 }
 
 #cleanFilterBtn {
@@ -669,12 +669,14 @@ body {
   background: none;
   outline: none;
   color: var(--dark100_white100);
-  opacity: 0.7;
+  height: 100%;
+  width: 1rem;
+  border-radius: 50%;
   transition: 0.3s;
 }
 
 #cleanFilterBtn:hover {
-  opacity: 1;
+  color: var(--red);
 }
 
 #tasksContainer {
