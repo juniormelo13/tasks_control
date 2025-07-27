@@ -113,7 +113,7 @@ body {
   width: 100%;
   max-width: 120rem;
   height: 100%;
-  padding: 0 6rem 0 6rem;
+  padding: 0 5%;
   background-color: var(--white100_dark100);
 }
 
@@ -158,7 +158,7 @@ body {
   flex-direction: column;
   gap: 1.5rem;
   top: 6rem;
-  right: 6rem;
+  right: 5%;
   background-color: var(--white100_dark100);
   border-radius: 5px;
   width: 12rem;
@@ -611,9 +611,9 @@ body {
   width: 100%;
   height: calc(100vh - 5rem);
   top: 5rem;
-  overflow-y: scroll;
   overflow-x: hidden;
   background-color: var(--white50_dark50);
+  scrollbar-gutter: stable;
 }
 
 #noTaskTextContainer {
@@ -639,7 +639,7 @@ body {
   justify-content: space-between;
   gap: 10px;
   top: 3.5rem;
-  left: 6rem;
+  left: 5%;
   border: 2px solid var(--dark100_white100);
   background-color: var(--white100_dark100);
   border-radius: 5px;
@@ -686,7 +686,7 @@ body {
   flex-wrap: wrap;
   width: 100%;
   max-width: 120rem;
-  padding: 3.5rem 6rem 3.125rem 6rem;
+  padding: 3.5rem 5% 3.125rem 5%;
   gap: 50px;
   background-color: var(--white50_dark50);
 }
@@ -1776,29 +1776,12 @@ body {
 /* Responsividade da aplicação */
 
 @media (min-width: 1921px) {
-  /* body {
-    display: flex;
-    justify-content: center;
-  } */
-  /* #header {
-    padding: 0 calc(6rem + 5px) 0 6rem;
-  } */
-  /* #mainContainer {
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-  } */
-  /* #tasksContainer {
-    padding: 3.125rem 6rem;
-  } */
-  /* #menu {
-    left: calc(50% + 47.7rem);
-    transform: translate(-50%, 0);
-  } */
-  /* #filterInformationBox {
-    left: calc(50% - 49.9rem);
-    transform: translateX(-50%);
-  } */
+  #header {
+    padding: 0 6rem 0 6rem;
+  }
+  #tasksContainer {
+    padding: 3.5rem 6rem 3.125rem 6rem;
+  }
 }
 
 @media (max-width: 1919px) {
