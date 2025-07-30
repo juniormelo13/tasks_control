@@ -57,14 +57,16 @@ body {
   background-color: var(--white100_dark100);
 }
 
-.taskContent::-webkit-scrollbar, .notePadInput::-webkit-scrollbar {
+.taskContent::-webkit-scrollbar,
+.notePadInput::-webkit-scrollbar {
   width: 3px;
   background-color: var(--white50_dark50);
   border-radius: 5px;
   cursor: default;
 }
 
-.taskContent::-webkit-scrollbar-thumb, .notePadInput::-webkit-scrollbar-thumb {
+.taskContent::-webkit-scrollbar-thumb,
+.notePadInput::-webkit-scrollbar-thumb {
   background: var(--grey_50);
   border-radius: 5px;
   cursor: default;
@@ -213,7 +215,8 @@ body {
 #newTaskInput::placeholder,
 #searchTaskInput::placeholder,
 #editInput::placeholder,
-.notePadInput::placeholder, #nameInput::placeholder {
+.notePadInput::placeholder,
+#nameInput::placeholder {
   transition: 0.2s;
   color: var(--grey);
 }
@@ -681,9 +684,11 @@ body {
 
 #tasksContainer {
   position: relative;
-  display: flex;
+  /* display: flex; */
+  /* flex-wrap: wrap; */
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
   justify-content: flex-start;
-  flex-wrap: wrap;
   width: 100%;
   max-width: 120rem;
   padding: 3.5rem 5% 3.125rem 5%;
@@ -695,8 +700,8 @@ body {
   background-color: transparent;
   perspective: 800px;
   position: relative;
-  max-width: 15rem;
-  width: 15rem;
+  max-width: 18rem;
+  /* min-width: 15rem; */
   height: 10rem;
 }
 
@@ -715,7 +720,7 @@ body {
 .taskFront {
   display: flex;
   flex-direction: column;
-  justify-content:center;
+  justify-content: center;
   align-items: center;
   width: 100%;
   height: 100%;
@@ -726,12 +731,13 @@ body {
   transition: border 0.3s, box-shadow 0.3s;
 }
 
-.taskFront, .notePadContainer.taskBehind {
-    position: absolute;
-    backface-visibility: hidden;
+.taskFront,
+.notePadContainer.taskBehind {
+  position: absolute;
+  backface-visibility: hidden;
 }
 
-.taskBehind{
+.taskBehind {
   transform: rotateY(-180deg);
 }
 
@@ -766,7 +772,8 @@ body {
 }
 
 .taskFront.hover:hover,
-.taskFront.active, .notePadContainer.active {
+.taskFront.active,
+.notePadContainer.active {
   box-shadow: 0 0 10px 2px var(--grey_50);
 }
 
@@ -945,7 +952,7 @@ body {
 .notesBtn:hover i {
   opacity: 1;
 }
-  
+
 .notesBtn.active::before {
   content: "";
   position: absolute;
@@ -1269,7 +1276,8 @@ body {
 #newTaskInput:focus::placeholder,
 #editInput:focus::placeholder,
 #searchTaskInput:focus::placeholder,
-.notePadInput:focus::placeholder, #nameInput:focus::placeholder {
+.notePadInput:focus::placeholder,
+#nameInput:focus::placeholder {
   color: var(--dark50_white50);
 }
 
@@ -1463,7 +1471,9 @@ body {
 .taskField.pointerEventsNone,
 #mainContainer.pointerEventsNone,
 .btnField.pointerEventsNone,
-#menu.pointerEventsNone, #filterInformationBox.pointerEventsNone, .taskFront.pointerEventsNone {
+#menu.pointerEventsNone,
+#filterInformationBox.pointerEventsNone,
+.taskFront.pointerEventsNone {
   pointer-events: none;
   user-select: none;
 }
@@ -1487,7 +1497,8 @@ body {
 #inputFileBtnDel.hide,
 #inputFileBtnPlus.hide,
 #cleanNewTaskInputBtn.hide,
-#cleanEditInputBtn.hide, #nameIdentIcon.hide {
+#cleanEditInputBtn.hide,
+#nameIdentIcon.hide {
   display: none;
   pointer-events: none;
   user-select: none;
@@ -1785,29 +1796,26 @@ body {
 }
 
 @media (max-width: 1919px) {
-  
 }
 
 @media (max-width: 1591px) {
-
 }
 
 @media (max-width: 1500px) {
-  
 }
 
 @media (max-width: 1263px) {
   /* .taskFront {
     width: 47%;
     max-width: 600px;
-  }
-  #newTaskContainer {
-    width: 600px;
   } */
 }
 
 @media (max-width: 1024px) {
-  /* #newTaskBtn:hover {
+  #newTaskContainer {
+    width: 70%;
+  }
+  #newTaskBtn:hover {
     background-color: var(--dark100_white100);
     color: var(--white100_dark100);
     box-shadow: none;
@@ -1827,19 +1835,11 @@ body {
   #inputFileBtnDel {
     opacity: 1;
   }
-  .taskFront {
-    width: 600px;
-    max-width: 600px;
+  .taskFront.hover::after {
+    width: calc(100% - 30px);
   }
   .schedulingRemoveBtn {
-    transform: translateY(0px);
     opacity: 1;
-  }
-  .btnField {
-    height: auto;
-  }
-  .btnField.animeBtnMobile {
-    animation: animeBtnMobile 0.3s ease-in forwards;
   }
   .checkBtn,
   .scheduleBtn,
@@ -1854,13 +1854,7 @@ body {
   .editBtn:hover,
   .removeBtn:hover,
   .notesBtn:hover {
-    padding-bottom: 0;
-  }
-  .notesBtnAlert {
-    bottom: -2px;
-  }
-  .notesBtn:hover .notesBtnAlert {
-    margin-bottom: 0;
+    translate: 0;
   }
   .saveNoteBtn {
     color: var(--green);
@@ -1871,23 +1865,11 @@ body {
   #closeEditFieldBtn,
   #scheduleFieldCloseBtn {
     color: var(--red);
-  } */
+  }
 }
 
-@media (max-width: 950px) {
-  /* .taskFront {
-    width: 70%;
-  }
-  #newTaskContainer {
-    width: 70%;
-  }
-  #newTaskContainerInput {
-    width: 100%;
-  } */
-}
-
-@media (max-width: 700px) {
-  /* #logoImg {
+@media (max-width: 593px) {
+  #logoImg {
     display: none;
   }
   #logoImgMobile {
@@ -1895,8 +1877,6 @@ body {
   }
   #menu {
     top: 10rem;
-    min-height: 39.5rem;
-    height: calc(100vh - 10rem);
     border-radius: 0;
     box-shadow: none;
     right: 0;
@@ -1931,14 +1911,10 @@ body {
   #newTaskContainer {
     position: absolute;
     background-color: var(--white100_dark100);
-    padding: 0 calc(5% + 5px) 0 5%;
+    padding: 0 5%;
     top: 5rem;
     left: 0;
     width: 100%;
-  }
-  .taskFront {
-    width: 100%;
-    max-width: 700px;
   }
   #noTaskTextContainer {
     top: calc(10rem + 15%);
@@ -1947,7 +1923,7 @@ body {
   #scheduleField,
   #confirmationWindow {
     top: calc(10rem + 30%);
-  } */
+  }
 }
 
 @media (max-width: 450px) {
