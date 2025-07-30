@@ -684,15 +684,16 @@ body {
 
 #tasksContainer {
   position: relative;
-  /* display: flex; */
-  /* flex-wrap: wrap; */
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
-  justify-content: flex-start;
+  display: flex;
+  flex-wrap: wrap;
+  /* display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr)); */
+  /* justify-content: center; */
   width: 100%;
   max-width: 120rem;
   padding: 3.5rem 5% 3.125rem 5%;
-  gap: 50px;
+  column-gap: 30px;
+  row-gap: 40px;
   background-color: var(--white50_dark50);
 }
 
@@ -700,9 +701,10 @@ body {
   background-color: transparent;
   perspective: 800px;
   position: relative;
-  max-width: 18rem;
+  /* max-width: 15rem; */
   /* min-width: 15rem; */
   height: 10rem;
+  flex: 0 1 15rem;
 }
 
 .task {
@@ -1653,40 +1655,22 @@ body {
 
 @keyframes menuAppearRightToLeft {
   0% {
-    width: 0;
+    right: -12rem;
     opacity: 0;
-  }
-  25% {
-    opacity: 0;
-  }
-  50% {
-    opacity: 0;
-  }
-  75% {
-    opacity: 1;
   }
   100% {
-    width: 12rem;
+    right: 0;
     opacity: 1;
   }
 }
 
 @keyframes menuVanishRightToLeft {
   0% {
-    width: 12rem;
+    right: 0;
     opacity: 1;
-  }
-  25% {
-    opacity: 1;
-  }
-  50% {
-    opacity: 0;
-  }
-  75% {
-    opacity: 0;
   }
   100% {
-    width: 0;
+    right: -12rem;
     opacity: 0;
   }
 }
@@ -1880,17 +1864,16 @@ body {
     border-radius: 0;
     box-shadow: none;
     right: 0;
-    overflow: hidden;
+    overflow: scroll;
   }
   #filterInformationBox {
     top: 8.5rem;
   }
   #filterInformationBox.filterInfoAppear {
-    animation: filterInfoAppearMobile 0.2s ease-in forwards;
+    animation: filterInfoAppearMobile 0.2s forwards;
   }
-
   #filterInformationBox.filterInfoVanish {
-    animation: filterInfoVanishMobile 0.2s ease-in forwards;
+    animation: filterInfoVanishMobile 0.2s forwards;
   }
   #menuButtonIcon {
     display: none;
@@ -1899,10 +1882,10 @@ body {
     display: block;
   }
   #menu.menuAppear {
-    animation: menuAppearRightToLeft 0.3s forwards ease-in;
+    animation: menuAppearRightToLeft 0.2s forwards ease-in;
   }
   #menu.menuVanish {
-    animation: menuVanishRightToLeft 0.3s forwards ease-in;
+    animation: menuVanishRightToLeft 0.2s forwards ease-in;
   }
   #mainContainer {
     top: 10rem;
@@ -1927,67 +1910,12 @@ body {
 }
 
 @media (max-width: 450px) {
-  /* #tasksContainer {
-    padding: 3.5rem 5%;
-  }
-  .taskFront {
-    flex-direction: column;
-    justify-content: space-around;
-    align-items: center;
-    padding: 5px 10px;
-    gap: 0;
-    height: 5rem;
-  }
-  .taskFront.scheduled,
-  .taskFront.expiredTask,
-  .taskFront.completed {
-    justify-content: space-evenly;
-  }
-  .taskContent {
-    width: 100%;
-    text-align: center;
-  }
-  .infoTextContent {
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-  }
-  .btnField {
-    gap: 15px;
-    height: auto;
-  }
-  .notesBtnAlert {
-    bottom: -1px;
-  }
-  .notePadContainer {
-    top: 6.1rem;
-  }
-  #noTaskText {
-    font-size: 1.5rem;
-  } */
-}
-
-@media (max-width: 350px) {
-  /* #editField,
+  #editField,
   #scheduleField,
   #confirmationWindow {
-    width: calc(90%);
+    width: 80%;
   }
   #scheduleFieldCenter {
     flex-direction: column;
-  } */
-}
-
-@media (max-width: 300px) {
-  /* .taskInfo {
-    left: 5px;
   }
-  .btnField {
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 8px;
-  }
-  .notePadContainer {
-    width: 100%;
-  } */
 }
