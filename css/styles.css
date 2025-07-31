@@ -58,6 +58,7 @@ body {
 }
 
 .taskContent::-webkit-scrollbar,
+#menu::-webkit-scrollbar,
 .notePadInput::-webkit-scrollbar {
   width: 3px;
   background-color: var(--white50_dark50);
@@ -66,6 +67,7 @@ body {
 }
 
 .taskContent::-webkit-scrollbar-thumb,
+#menu::-webkit-scrollbar-thumb,
 .notePadInput::-webkit-scrollbar-thumb {
   background: var(--grey_50);
   border-radius: 5px;
@@ -1048,6 +1050,14 @@ body {
   transition: 0.2s;
 }
 
+#scheduleInputDate {
+  width: 60%;
+}
+
+#scheduleInputTime {
+  width: 40%;
+}
+
 #editInput {
   width: 100%;
   height: 100%;
@@ -1852,6 +1862,30 @@ body {
   }
 }
 
+@media (max-height: 660px) {
+  #menu {
+    top: 5rem;
+    height: calc(100dvh - 5rem);
+    border-radius: 0;
+    box-shadow: none;
+    right: 0;
+    overflow: auto;
+    scrollbar-gutter: stable;
+  }
+  #menuButtonIcon {
+    display: none;
+  }
+  #menuButtonIconMobile {
+    display: block;
+  }
+  #menu.menuAppear {
+    animation: menuAppearRightToLeft 0.2s forwards ease-in;
+  }
+  #menu.menuVanish {
+    animation: menuVanishRightToLeft 0.2s forwards ease-in;
+  }
+}
+
 @media (max-width: 593px) {
   #logoImg {
     display: none;
@@ -1861,19 +1895,21 @@ body {
   }
   #menu {
     top: 10rem;
+    height: calc(100dvh - 10rem);
     border-radius: 0;
     box-shadow: none;
     right: 0;
-    overflow: scroll;
+    overflow: auto;
+    scrollbar-gutter: stable;
   }
   #filterInformationBox {
     top: 8.5rem;
   }
   #filterInformationBox.filterInfoAppear {
-    animation: filterInfoAppearMobile 0.2s forwards;
+    animation: filterInfoAppearMobile 0.2s forwards ease-in;
   }
   #filterInformationBox.filterInfoVanish {
-    animation: filterInfoVanishMobile 0.2s forwards;
+    animation: filterInfoVanishMobile 0.2s forwards ease-in;
   }
   #menuButtonIcon {
     display: none;
@@ -1913,9 +1949,14 @@ body {
   #editField,
   #scheduleField,
   #confirmationWindow {
-    width: 80%;
+    width: 75%;
+    height: 14rem;
   }
   #scheduleFieldCenter {
     flex-direction: column;
+  }
+  #scheduleInputDate,
+  #scheduleInputTime {
+    width: 100%;
   }
 }
