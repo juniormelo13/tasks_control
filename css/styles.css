@@ -686,11 +686,11 @@ body {
 
 #tasksContainer {
   position: relative;
-  display: flex;
-  flex-wrap: wrap;
-  /* display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr)); */
-  /* justify-content: center; */
+  /* display: flex; */
+  /* flex-wrap: wrap; */
+  display: grid;
+  grid-template-columns: repeat(6, minmax(15rem, 1fr));
+  justify-content: flex-start;
   width: 100%;
   max-width: 120rem;
   padding: 3.5rem 5% 3.125rem 5%;
@@ -703,10 +703,10 @@ body {
   background-color: transparent;
   perspective: 800px;
   position: relative;
+  /* flex: 1 1 15rem; */
   /* max-width: 15rem; */
   /* min-width: 15rem; */
   height: 10rem;
-  flex: 0 1 15rem;
 }
 
 .task {
@@ -1846,7 +1846,7 @@ body {
   }
 }
 
-@media (max-width: 593px) {
+@media (max-width: 620px) {
   #logoImg {
     display: none;
   }
@@ -1945,7 +1945,7 @@ body {
   }
 }
 
-@media (max-width: 593px) and (max-height: 660px) {
+@media (max-width: 620px) and (max-height: 660px) {
   #menu {
     top: 10rem;
     height: calc(100dvh - 10rem);
