@@ -1846,7 +1846,7 @@ body {
   }
 }
 
-@media (max-width: 593px) {
+@media (max-width: 620px) {
   #logoImg {
     display: none;
   }
@@ -1945,7 +1945,7 @@ body {
   }
 }
 
-@media (max-width: 593px) and (max-height: 660px) {
+@media (max-width: 620px) and (max-height: 660px) {
   #menu {
     top: 10rem;
     height: calc(100dvh - 10rem);
