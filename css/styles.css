@@ -1789,22 +1789,6 @@ body {
   }
 }
 
-@media (max-width: 1919px) {
-}
-
-@media (max-width: 1591px) {
-}
-
-@media (max-width: 1500px) {
-}
-
-@media (max-width: 1263px) {
-  /* .taskFront {
-    width: 47%;
-    max-width: 600px;
-  } */
-}
-
 @media (max-width: 1024px) {
   #newTaskContainer {
     width: 70%;
@@ -1859,30 +1843,6 @@ body {
   #closeEditFieldBtn,
   #scheduleFieldCloseBtn {
     color: var(--red);
-  }
-}
-
-@media (max-height: 660px) {
-  #menu {
-    top: 5rem;
-    height: calc(100dvh - 5rem);
-    border-radius: 0;
-    box-shadow: none;
-    right: 0;
-    overflow: auto;
-    scrollbar-gutter: stable;
-  }
-  #menuButtonIcon {
-    display: none;
-  }
-  #menuButtonIconMobile {
-    display: block;
-  }
-  #menu.menuAppear {
-    animation: menuAppearRightToLeft 0.2s forwards ease-in;
-  }
-  #menu.menuVanish {
-    animation: menuVanishRightToLeft 0.2s forwards ease-in;
   }
 }
 
@@ -1958,5 +1918,36 @@ body {
   #scheduleInputDate,
   #scheduleInputTime {
     width: 100%;
+  }
+}
+
+@media (max-height: 660px) {
+  #menu {
+    top: 5rem;
+    height: calc(100dvh - 5rem);
+    border-radius: 0;
+    box-shadow: none;
+    right: 0;
+    overflow: auto;
+    scrollbar-gutter: stable;
+  }
+  #menuButtonIcon {
+    display: none;
+  }
+  #menuButtonIconMobile {
+    display: block;
+  }
+  #menu.menuAppear {
+    animation: menuAppearRightToLeft 0.2s forwards ease-in;
+  }
+  #menu.menuVanish {
+    animation: menuVanishRightToLeft 0.2s forwards ease-in;
+  }
+}
+
+@media (max-width: 593px) and (max-height: 660px) {
+  #menu {
+    top: 10rem;
+    height: calc(100dvh - 10rem);
   }
 }
