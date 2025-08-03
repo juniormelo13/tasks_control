@@ -122,15 +122,14 @@ body {
   background-color: var(--white100_dark100);
 }
 
-#logoImg {
-  width: 40px;
-  height: 40px;
+#logoBox {
+  width: 60px;
+  height: 60px;
 }
 
-#logoImgMobile {
-  height: 50px;
-  width: auto;
-  display: none;
+#logoImg {
+  width: 100%;
+  height: 100%;
 }
 
 #menuButton {
@@ -1868,12 +1867,6 @@ body {
 }
 
 @media (max-width: 620px) {
-  #logoImg {
-    display: none;
-  }
-  #logoImgMobile {
-    display: block;
-  }
   #menu {
     top: 10rem;
     height: calc(100vh - 10rem);

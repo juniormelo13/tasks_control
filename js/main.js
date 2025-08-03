@@ -1055,13 +1055,11 @@ function saveNoteClick(taskField, task, taskFront, notePadContainer, notePadInpu
 // Configuração para alternar entre dark/white mode
 const html = document.querySelector("html");
 const themeCheckBox = document.querySelector("#themeCheckBox");
-const logoImgMobile = document.querySelector("#logoImgMobile");
 
 function toDarkTheme() {
   html.classList.add("darkTheme");
   scheduleInputDate.classList.add("darkTheme");
   scheduleInputTime.classList.add("darkTheme");
-  logoImgMobile.src = "./img/logo_light_mobile.png";
   localStorage.setItem("theme", "darkTheme");
   themeCheckBox.checked = true;
   if (removeAllConfigBtn.disabled) {
@@ -1073,7 +1071,6 @@ function toLightTheme() {
   html.classList.remove("darkTheme");
   scheduleInputDate.classList.remove("darkTheme");
   scheduleInputTime.classList.remove("darkTheme");
-  logoImgMobile.src = "./img/logo_dark_mobile.png";
   localStorage.removeItem("theme");
   themeCheckBox.checked = false;
 }
