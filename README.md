@@ -4,7 +4,7 @@
 
 <h1 align="center">TasksControl</h1>
 
-<p align="center">Gerenciador de tarefas com agendamento e contagem regressiva em tempo real.</p><br>
+<p align="center">Gerenciador de tarefas com agendamento e acompanhamento em tempo real.</p><br>
 
 <p align="center">
     <img src="https://img.shields.io/badge/HTML5-E34F26.svg?style=for-the-badge&logo=HTML5&logoColor=white" height="25"/>
@@ -22,13 +22,9 @@
 
 <p align="center">Imagens aqui</p>
 
-<br>
-
 ## 📌 Descrição
 
-**TasksControl** é uma aplicação web para gerenciamento de tarefas, que permite o **agendamento e acompanhamento em tempo real**.<br> A plataforma oferece uma experiência fluida, intuitiva e responsiva, permitindo ao usuário não apenas criar e acompanhar tarefas, mas também gerenciar prazos visuais, **filtrar informações** com precisão e personalizar a interface conforme sua preferência.<br> Todas as tarefas e configurações são armazenadas automaticamente no **Local Storage**, garantindo que nenhuma informação seja perdida, mesmo ao atualizar ou fechar a página. Tarefas expiradas são sinalizadas visualmente, destacando prazos não cumpridos.
-
-<br>
+TasksControl é uma aplicação web que proporciona uma **experiência fluida, intuitiva e responsiva**, permitindo ao usuário não apenas criar, editar e remover tarefas, mas também **gerenciar prazos, filtrar informações com precisão e personalizar a interface** conforme sua preferência.<br> Todas as tarefas e configurações são salvas automaticamente no **Local Storage**, garantindo a persistência dos dados mesmo após recarregar ou fechar a página. Tarefas expiradas são **destacadas visualmente**, alertando sobre prazos não cumpridos.
 
 ## 🔧 Funcionalidades
 
@@ -47,8 +43,6 @@
 ✅ Interface 100% responsiva, adaptada para desktop e mobile<br>
 ✅ Armazenamento local de dados (Local Storage)
 
-<br>
-
 ## 🛠️ Tecnologias e Ferramentas
 
 #### ⚙ Tecnologias principais
@@ -63,8 +57,6 @@
   <img src="https://img.shields.io/badge/Git-F05032.svg?style=for-the-badge&logo=Git&logoColor=white" height="25"/>&nbsp;
   <img src="https://img.shields.io/badge/GitHub-181717.svg?style=for-the-badge&logo=GitHub&logoColor=white" height="25"/>
 
-<br>
-
 ## 📄 Licença
 
 Este projeto está licenciado sob a Licença MIT.<br><br>
@@ -73,8 +65,6 @@ Saiba mais:
 <a href="./LICENSE">
     <img src="https://img.shields.io/badge/License-MIT-blue"/>
   </a>
-
-<br>
 
 ## 👤 Autor
 
