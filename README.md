@@ -98,7 +98,7 @@ Este projeto está licenciado sob a Licença MIT.
 Desenvolvido por **Junior Melo**
 
 <a href="https://www.linkedin.com/in/juniormelo13/">
-  <img src="  https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white" height="30"/>
+  <img src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white" height="30"/>
 </a>
 <a href="https://github.com/juniormelo13">
   <img src="https://img.shields.io/badge/GitHub-181717.svg?style=for-the-badge&logo=GitHub&logoColor=white" height="30"/>
