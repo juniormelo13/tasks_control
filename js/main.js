@@ -208,6 +208,7 @@ function confirmRemoveImg() {
 // Nome do usuário
 const nameInput = document.querySelector("#nameInput");
 const nameIdentIcon = document.querySelector("#nameIdentIcon");
+const saveNameButton = document.querySelector("#saveNameButton");
 
 if (localStorage.getItem("infoAccountName")) {
   nameInput.value = localStorage.getItem("infoAccountName");
@@ -221,11 +222,21 @@ nameInput.onkeypress = (e) => {
 
 nameInput.onfocus = () => {
   nameIdentIcon.classList.add("hide");
+  saveNameButton.classList.remove("hide");
   nameInput.classList.add("active");
 };
 
+nameInput.onkeyup = () => {
+  if (nameInput.value.trim() != "") {
+    saveNameButton.classList.add("active");
+  } else {
+    saveNameButton.classList.remove("active");
+  }
+}
+
 nameInput.onblur = () => {
   nameIdentIcon.classList.remove("hide");
+  saveNameButton.classList.add("hide");
   nameInput.classList.remove("active");
   if (nameInput.value.trim() == "") {
     deleteName()
@@ -354,12 +365,12 @@ function checkActivatedClassBtnAndFilter() {
   }
 }
 
-function checkInputValue(input, cleanBtn) {
+function checkInputValue(input, Btn) {
   if (input.value.trim() != "") {
-    cleanBtn.classList.remove("hide");
+    Btn.classList.remove("hide");
     return true;
   } else {
-    cleanBtn.classList.add("hide");
+    Btn.classList.add("hide");
     return false;
   }
 }

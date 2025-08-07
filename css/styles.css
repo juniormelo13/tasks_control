@@ -326,8 +326,7 @@ body {
   cursor: pointer;
 }
 
-#imgIdentBox:hover,
-#nameInput:hover {
+#imgIdentBox:hover {
   cursor: pointer;
 }
 
@@ -375,7 +374,7 @@ body {
   outline: none;
   border: none;
   border-bottom: 2px solid transparent;
-  cursor: default;
+  cursor: pointer;
   transition: 0.3s;
   position: relative;
 }
@@ -390,15 +389,26 @@ body {
   border-bottom: 2px solid var(--dark100_white100);
 }
 
-#nameIdentIcon {
+#nameIdentIcon, #saveNameButton {
   position: absolute;
   font-size: 0.75rem;
+  width: 1rem;
   color: var(--dark100_white100);
-  top: 50%;
+  height: 100%;
+  align-content: center;
+  text-align: center;
   right: 0;
-  transform: translate(0%, -50%);
-  transition: 0.3s;
   opacity: 0;
+  transition: 0.3s;
+  cursor: pointer;
+}
+
+#saveNameButton.active {
+  opacity: 1;
+}
+
+#saveNameButton.active:hover {
+  color: var(--green);
 }
 
 #nameIdentBox:hover #nameIdentIcon {
@@ -801,7 +811,7 @@ body {
 
 .taskFront.scheduled {
   border: 2px solid var(--blue);
-    background-color: var(--blueBackground);
+  background-color: var(--blueBackground);
 }
 
 .taskFront.scheduled.hover:hover,
@@ -1505,7 +1515,7 @@ body {
 #inputFileBtnPlus.hide,
 #cleanNewTaskInputBtn.hide,
 #cleanEditInputBtn.hide,
-#nameIdentIcon.hide {
+#nameIdentIcon.hide, #saveNameButton.hide {
   display: none;
   pointer-events: none;
   user-select: none;
