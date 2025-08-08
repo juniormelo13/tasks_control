@@ -210,6 +210,7 @@ function confirmRemoveImg() {
 const nameInput = document.querySelector("#nameInput");
 const nameIdentIcon = document.querySelector("#nameIdentIcon");
 const saveNameButton = document.querySelector("#saveNameButton");
+const deleteNameButton = document.querySelector("#deleteNameButton");
 const nameIdentBox = document.querySelector("#nameIdentBox");
 
 if (localStorage.getItem("infoAccountName")) {
@@ -218,54 +219,62 @@ if (localStorage.getItem("infoAccountName")) {
 
 nameInput.onkeypress = (e) => {
   if (e.key === "Enter") {
-    nameInput.blur();
+    saveOrDeleteName()
+    nameInput.blur()
   }
 };
 
 nameInput.onfocus = () => {
   nameIdentIcon.classList.add("hide");
   saveNameButton.classList.remove("hide");
-  checkNameInputValue()
+  checkInputValue(nameInput, deleteNameButton)
   nameInput.classList.add("active");
   nameIdentBox.classList.add("active");
 };
 
 nameInput.onkeyup = () => {
-  checkNameInputValue()
-}
-
-function checkNameInputValue() {
-  if (nameInput.value.trim() != "") {
-    saveNameButton.classList.add("active");
-  } else {
-    saveNameButton.classList.remove("active");
-  }
+  checkInputValue(nameInput, deleteNameButton)
 }
 
 nameInput.onblur = () => {
   nameIdentIcon.classList.remove("hide");
-  saveNameButton.classList.add("hide");
   nameInput.classList.remove("active");
   nameIdentBox.classList.remove("active");
-  if (nameInput.value.trim() == "") {
-    deleteName()
-    checkRemoveAllConfigBtn();
-  } else {
-    saveName()
-  }
+  clearEmptyInput(nameInput)
 };
 
-function deleteName() {
+saveNameButton.addEventListener("click", () => {
+  saveOrDeleteName()
+})
+
+function saveOrDeleteName() {
+  saveNameButton.classList.add("hide")
+  if(nameInput.value.trim() == "") {
+    deleteName()
+    nameInput.value = "";
+    saveNameButton.classList.add("hide")
+  } else {
+    saveName()
+    deleteNameButton.classList.add("hide")
+  }
+}
+
+deleteNameButton.addEventListener("click", () => {
   nameInput.value = "";
+  deleteNameButton.classList.add("hide")
+  nameInput.focus()
+})
+
+function deleteName() {
   localStorage.removeItem("infoAccountName");
+  checkRemoveAllConfigBtn()
 }
 
 function saveName() {
-    nameInput.value = nameInput.value.trim();
-    if (removeAllConfigBtn.disabled) {
-      enableBtn(removeAllConfigBtn);
-    }
-    localStorage.setItem("infoAccountName", nameInput.value.trim());
+  localStorage.setItem("infoAccountName", nameInput.value.trim());
+  if (removeAllConfigBtn.disabled) {
+    enableBtn(removeAllConfigBtn);
+  }
 }
 
 // Configuração dos filtros das tarefas

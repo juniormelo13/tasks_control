@@ -398,26 +398,37 @@ body {
   cursor: auto;
 }
 
-#nameIdentIcon, #saveNameButton {
+#nameIdentIcon, #saveNameButton, #deleteNameButton {
   position: absolute;
+  border: none;
   font-size: 0.75rem;
   width: 1rem;
   color: var(--dark100_white100);
   height: 100%;
   align-content: center;
   text-align: center;
-  right: 0;
-  opacity: 0;
   transition: 0.3s;
   cursor: pointer;
 }
 
-#saveNameButton.active {
-  opacity: 1;
+#nameIdentIcon, #saveNameButton {
+  right: 0;
 }
 
-#saveNameButton.active:hover {
+#nameIdentIcon {
+  opacity: 0;
+}
+
+#deleteNameButton {
+  left: 0;
+}
+
+#saveNameButton:hover {
   color: var(--green);
+}
+
+#deleteNameButton:hover {
+  color: var(--red);
 }
 
 #nameIdentBox:hover #nameIdentIcon {
@@ -1516,7 +1527,7 @@ body {
 #inputFileBtnPlus.hide,
 #cleanNewTaskInputBtn.hide,
 #cleanEditInputBtn.hide,
-#nameIdentIcon.hide, #saveNameButton.hide {
+#nameIdentIcon.hide, #saveNameButton.hide, #deleteNameButton.hide {
   display: none;
   pointer-events: none;
   user-select: none;
