@@ -176,7 +176,8 @@ function loadImage(e) {
     };
     fileReader.readAsDataURL(selectedFile);
     inputFileImgLabel.setAttribute("title", "Alterar foto");
-    inputFileBtnToggle();
+    inputFileBtnPlus.classList.add("hide");
+    inputFileBtnDel.classList.remove("hide");
     if (removeAllConfigBtn.disabled) {
       enableBtn(removeAllConfigBtn);
     }
