@@ -360,6 +360,7 @@ body {
   display: flex;
   gap: 5px;
   align-items: center;
+  justify-content: center;
 }
 
 #nameInput {
@@ -379,14 +380,22 @@ body {
   position: relative;
 }
 
-#nameInput::after {
+#nameIdentBox::after {
   content: "";
   position: absolute;
+  height: 2px;
+  width: 0;
+  bottom: 0;
+  background-color: var(--dark100_white100);
+  transition: 0.2s;
+}
+
+#nameIdentBox.active::after {
+  width: 100%;
 }
 
 #nameInput.active {
   cursor: auto;
-  border-bottom: 2px solid var(--dark100_white100);
 }
 
 #nameIdentIcon, #saveNameButton {
@@ -1290,14 +1299,6 @@ body {
   box-shadow: 0 0 10px 2px var(--red);
 }
 
-#newTaskInput:focus::placeholder,
-#editInput:focus::placeholder,
-#searchTaskInput:focus::placeholder,
-.notePadInput:focus::placeholder,
-#nameInput:focus::placeholder {
-  color: var(--dark50_white50);
-}
-
 /* Estilização do bloco de anotações */
 
 .notePadContainer {
@@ -1831,6 +1832,12 @@ body {
     background-color: var(--white100_dark100);
     color: var(--dark100_white100);
     box-shadow: 0 0 10px 2px var(--dark100_white100);
+  }
+  #nameIdentIcon {
+    opacity: 0.5;
+  }
+  #saveNameButton {
+    color: var(--green);
   }
   #inputFileBtnPlus,
   #inputFileBtnDel {
