@@ -768,7 +768,7 @@ const confirmSchedule = (task, scheduleBtn, taskInfo, infoTextContent, schedulin
       scheduleBtn.classList.add("disabledBtn");
       task.classList.add("scheduled");
       taskInfo.classList.add("scheduled");
-      schedulingRemoveBtn.setAttribute("title", "Cancelar agendamento");
+      schedulingRemoveBtn.setAttribute("title", "Remover prazo");
       taskInfo.classList.remove("hide");
       taskInfo.classList.add("appearTaskInfo");
       btnField.classList.add("animeBtnMobile");
@@ -1384,7 +1384,7 @@ function taskConstructor(taskField, task, taskFront, infoTaskSave) {
       taskInfo.classList.remove("hide");
       taskInfo.classList.add("scheduled");
       taskFront.classList.add("scheduled");
-      schedulingRemoveBtn.setAttribute("title", "Cancelar agendamento");
+      schedulingRemoveBtn.setAttribute("title", "Remover prazo");
       scheduleBtn.classList.add("disabledBtn");
       infoTextContent.innerText = infoTaskSave.scheduledTask[3];
       break;
@@ -1451,6 +1451,7 @@ function transitionClickProtection(option) {
       const task = taskField.firstChild
       const taskFront = task.firstChild
       const btnField = taskFront.childNodes[1]
+      taskFront.classList.remove("hover")
       btnField.classList.add("pointerEventsNone");
     }
   } else {
@@ -1458,6 +1459,7 @@ function transitionClickProtection(option) {
       const task = taskField.firstChild
       const taskFront = task.firstChild
       const btnField = taskFront.childNodes[1]
+      taskFront.classList.add("hover")
       btnField.classList.remove("pointerEventsNone");
     }
   }

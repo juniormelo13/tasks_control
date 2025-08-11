@@ -1881,7 +1881,7 @@ body {
   #inputFileBtnDel {
     opacity: 1;
   }
-  .taskFront.hover::after {
+  .taskFront::after {
     width: calc(100% - 30px);
   }
   .schedulingRemoveBtn {
