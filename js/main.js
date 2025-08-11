@@ -85,6 +85,13 @@ function menuBtnToggle() {
 
 function menuShow() {
   menuOpen = !menuOpen;
+  if (localStorage.getItem("infoAccountName")) {
+    nameInput.value = localStorage.getItem("infoAccountName");
+    resetBtnNameInput()
+  } else {
+    nameInput.value = ""
+    resetBtnNameInput()
+  }
   menu.classList.remove("pointerEventsNone");
   menu.classList.remove("hide");
   menu.classList.remove("menuVanish");
@@ -207,15 +214,102 @@ function confirmRemoveImg() {
 }
 
 // Nome do usuário
+const nameIdentBox = document.querySelector("#nameIdentBox");
 const nameInput = document.querySelector("#nameInput");
 const nameIdentIcon = document.querySelector("#nameIdentIcon");
 const saveNameButton = document.querySelector("#saveNameButton");
 const deleteNameButton = document.querySelector("#deleteNameButton");
-const nameIdentBox = document.querySelector("#nameIdentBox");
+const recoverNameButton = document.querySelector("#recoverNameButton");
 
-if (localStorage.getItem("infoAccountName")) {
-  nameInput.value = localStorage.getItem("infoAccountName");
+function resetBtnNameInput() {
+  saveNameButton.classList.add("hide");
+  deleteNameButton.classList.add("hide");
+  recoverNameButton.classList.add("hide");
+  nameIdentBox.classList.remove("editing");
+  nameIdentIcon.classList.remove("hide");
 }
+
+function deleteNameDataBase() {
+  localStorage.removeItem("infoAccountName");
+  nameInput.value = "";
+  checkRemoveAllConfigBtn()
+}
+
+function saveNameDataBase() {
+  localStorage.setItem("infoAccountName", nameInput.value.trim());
+  if (removeAllConfigBtn.disabled) {
+    enableBtn(removeAllConfigBtn);
+  }
+}
+
+function saveOrDeleteName() {
+  saveNameButton.classList.add("hide")
+  nameIdentBox.classList.remove("editing");
+  nameIdentIcon.classList.remove("hide");
+  if(nameInput.value.trim() == "") {
+    deleteNameDataBase()
+    recoverNameButton.classList.add("hide");
+  } else {
+    saveNameDataBase()
+    nameInput.value = localStorage.getItem("infoAccountName");
+    deleteNameButton.classList.add("hide");
+  }
+}
+
+function checkNameValue() {
+  if (nameInput.value.trim() != "") {
+    deleteNameButton.classList.remove("hide")
+    recoverNameButton.classList.add("hide");
+  } else {
+    deleteNameButton.classList.add("hide")
+    if (localStorage.getItem("infoAccountName")) {
+      recoverNameButton.classList.remove("hide")
+    }
+  }
+}
+
+saveNameButton.addEventListener("click", () => {
+  saveOrDeleteName()
+})
+
+deleteNameButton.addEventListener("click", () => {
+  nameInput.value = "";
+  checkNameValue()
+  nameInput.focus()
+})
+
+recoverNameButton.addEventListener("click", () => {
+  nameInput.value = localStorage.getItem("infoAccountName")
+  checkNameValue()
+  nameInput.focus()
+})
+
+nameInput.onfocus = () => {
+  nameIdentIcon.classList.add("hide");
+  nameInput.classList.add("active");
+  nameIdentBox.classList.add("active");
+  nameIdentBox.classList.add("editing");
+  saveNameButton.classList.remove("hide");
+  checkNameValue()
+};
+
+nameInput.onkeyup = () => {
+  checkNameValue()
+}
+
+nameInput.onblur = () => {
+  nameInput.classList.remove("active");
+  nameIdentBox.classList.remove("active");
+  if (!nameIdentBox.classList.contains("editing")) {
+    nameIdentIcon.classList.remove("hide");
+  }
+  if (!localStorage.getItem("infoAccountName") && nameInput.value.trim() == "") {
+    nameIdentBox.classList.remove("editing");
+    nameIdentIcon.classList.remove("hide");
+    saveNameButton.classList.add("hide");
+  }
+  clearEmptyInput(nameInput)
+};
 
 nameInput.onkeypress = (e) => {
   if (e.key === "Enter") {
@@ -224,60 +318,12 @@ nameInput.onkeypress = (e) => {
   }
 };
 
-nameInput.onfocus = () => {
-  nameIdentIcon.classList.add("hide");
-  saveNameButton.classList.remove("hide");
-  checkInputValue(nameInput, deleteNameButton)
-  nameInput.classList.add("active");
-  nameIdentBox.classList.add("active");
-};
-
-nameInput.onkeyup = () => {
-  checkInputValue(nameInput, deleteNameButton)
-}
-
-nameInput.onblur = () => {
-  nameIdentIcon.classList.remove("hide");
-  nameInput.classList.remove("active");
-  nameIdentBox.classList.remove("active");
-  clearEmptyInput(nameInput)
-};
-
-saveNameButton.addEventListener("click", () => {
-  saveOrDeleteName()
-})
-
-function saveOrDeleteName() {
-  saveNameButton.classList.add("hide")
-  if(nameInput.value.trim() == "") {
-    deleteName()
-    nameInput.value = "";
-    saveNameButton.classList.add("hide")
-  } else {
-    saveName()
-    deleteNameButton.classList.add("hide")
-  }
-}
-
-deleteNameButton.addEventListener("click", () => {
-  nameInput.value = "";
-  deleteNameButton.classList.add("hide")
-  nameInput.focus()
-})
-
-function deleteName() {
-  localStorage.removeItem("infoAccountName");
-  checkRemoveAllConfigBtn()
-}
-
-function saveName() {
-  localStorage.setItem("infoAccountName", nameInput.value.trim());
-  if (removeAllConfigBtn.disabled) {
-    enableBtn(removeAllConfigBtn);
-  }
+if (localStorage.getItem("infoAccountName")) {
+  nameInput.value = localStorage.getItem("infoAccountName");
 }
 
 // Configuração dos filtros das tarefas
+
 allTasksFilterBtn.classList.add("active");
 
 function cleanInputFilter() {
@@ -576,7 +622,7 @@ function insertTask(taskField, task, taskFront, infoTaskSave) {
 // Configuração do botão para conclusão da tarefa
 const completeTaskClick = (taskField, taskFront, taskContent, scheduleBtn, editBtn, checkBtn, checkIcon, taskInfo, infoTextContent, completedTaskIcon, schedulingRemoveBtn, infoTaskSave) => {
   if (taskFront.classList.contains("scheduled")) {
-    showConfirmField("Esta tarefa possui um agendamento, tem certeza que deseja concluí-la?", confirmCompleteTask);
+    showConfirmField("Esta tarefa está agendada. Tem certeza de que deseja concluí-la?", confirmCompleteTask);
     function confirmCompleteTask() {
       hideWindow(confirmationWindow);
       setTimeout(() => {
@@ -818,11 +864,11 @@ const schedulingRemoveClick = (taskField, taskInfo, taskFront, scheduleBtn, edit
 const deleteClick = (taskField, taskFront, infoTaskSave) => {
   if (taskFront.classList.contains("scheduled") || infoTaskSave.savedNote) {
     if (taskFront.classList.contains("scheduled") && infoTaskSave.savedNote) {
-      showConfirmField("Esta tarefa contém agendamento e anotações, tem certeza de que deseja removê-la?", confirmDeleteAction);
+      showConfirmField("Esta tarefa possui agendamento e anotações. Tem certeza de que deseja removê-la?", confirmDeleteAction);
     } else if (taskFront.classList.contains("scheduled")) {
-      showConfirmField("Esta tarefa contém um agendamento, tem certeza de que deseja removê-la?", confirmDeleteAction);
+      showConfirmField("Esta tarefa está agendada. Tem certeza de que deseja removê-la?", confirmDeleteAction);
     } else {
-      showConfirmField("Esta tarefa contém anotações, tem certeza de que deseja removê-la?", confirmDeleteAction);
+      showConfirmField("Esta tarefa possui anotações. Tem certeza de que deseja removê-la?", confirmDeleteAction);
     }
     function confirmDeleteAction() {
       hideWindow(confirmationWindow);
@@ -861,7 +907,7 @@ function deleteTask(taskField, infoTaskSave) {
 // Configuração do botão para exclusão de todas as tarefas
 
 removeAllTaskBtn.addEventListener("click", () => {
-  showConfirmField("Esta ação irá excluir todas as tarefas, tem certeza de que deseja removê-las?", confirmRemoveAllTasks);
+  showConfirmField("Todas as tarefas serão excluídas. Deseja prosseguir?", confirmRemoveAllTasks);
   menu.classList.add("menuBlur");
 });
 
@@ -934,13 +980,9 @@ function removeAllTasks() {
     tasksContainer.innerHTML = "";
     if (filtred) {
       filterInformationBox.classList.remove("filterInformationOffBlur");
-      filterInformationBox.classList.remove("filterInfoAppear");
-      filterInformationBox.classList.add("filterInfoVanish");
-      filtred = false;
-    }
-    if (!allTasksFilterBtn.classList.contains("active")) {
+      removeFilter();
+      cleanInputFilter();
       activateFilterBtn(allTasksFilterBtn);
-      taskRecover();
     }
     calculateNumberOfTasks();
     checkTasksOnScreen(dbAllTasks);
@@ -958,7 +1000,7 @@ function confirmRemoveAllTasks() {
 // Configuração do botão para restaurar todas as configurações de fábrica
 
 removeAllConfigBtn.addEventListener("click", () => {
-  showConfirmField("Esta ação irá excluir todas as configurações já realizadas e todas as tarefas, tem certeza?", confirmRemoveAllConfig);
+  showConfirmField("Todas as configurações e tarefas serão excluídas. Deseja prosseguir?", confirmRemoveAllConfig);
   menu.classList.add("menuBlur");
 });
 
@@ -977,10 +1019,19 @@ function removeAllConfig() {
     removeImg();
   }
   if (localStorage.getItem("infoAccountName")) {
-    deleteName();
+    deleteNameDataBase();
   }
   if (localStorage.getItem("theme")) {
     toLightTheme();
+  }
+  if (nameIdentBox.classList.contains("editing")) {
+    nameInput.value = "";
+    resetBtnNameInput();
+  }
+  if (filtred) {
+    removeFilter();
+    cleanInputFilter();
+    activateFilterBtn(allTasksFilterBtn);
   }
   disableBtn(removeAllConfigBtn);
 }
@@ -1400,7 +1451,6 @@ function transitionClickProtection(option) {
       const task = taskField.firstChild
       const taskFront = task.firstChild
       const btnField = taskFront.childNodes[1]
-      taskFront.classList.remove("hover");
       btnField.classList.add("pointerEventsNone");
     }
   } else {
@@ -1408,7 +1458,6 @@ function transitionClickProtection(option) {
       const task = taskField.firstChild
       const taskFront = task.firstChild
       const btnField = taskFront.childNodes[1]
-      taskFront.classList.add("hover");
       btnField.classList.remove("pointerEventsNone");
     }
   }
