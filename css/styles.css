@@ -230,7 +230,6 @@ body {
 #editInput::placeholder,
 .notePadInput::placeholder,
 #nameInput::placeholder {
-  transition: 0.2s;
   color: var(--grey);
 }
 
