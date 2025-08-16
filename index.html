@@ -40,6 +40,7 @@
               placeholder="Digite a tarefa..."
               spellcheck="false"
               autocomplete="off"
+              aria-label="campo adicionar novas tarefas"
             />
             <input
               type="button"
@@ -47,12 +48,13 @@
               id="cleanNewTaskInputBtn"
               class="hide"
               title="Limpar"
+              aria-label="botão limpar novas tarefas"
             />
           </div>
-          <input type="button" value="+" id="newTaskBtn" title="Adicionar" />
+          <input type="button" value="+" id="newTaskBtn" title="Adicionar" aria-label="botão inserir nova tarefa" />
         </div>
         <!-- Botão de acesso ao menu/filtro -->
-        <button id="menuButton">
+        <button id="menuButton" aria-label="botão menu">
           <i id="menuButtonIcon" class="fa-solid fa-angles-down"></i>
           <i id="menuButtonIconMobile" class="fa-solid fa-angles-left"></i>
         </button>
@@ -61,7 +63,7 @@
           <p id="filterInformationText">
             Filtro:<span id="filterInformation"></span>
           </p>
-          <button id="cleanFilterBtn" title="Remover filtro">
+          <button id="cleanFilterBtn" title="Remover filtro" aria-label="botão remover filtro">
             <i class="fa-solid fa-xmark"></i>
           </button>
         </div>
@@ -99,17 +101,18 @@
                 placeholder="Qual o seu nome?"
                 spellcheck="false"
                 autocomplete="off"
+                aria-label="campo adição de nome do usuário"
               />
               <label for="nameInput" id="nameIdentIcon" title="Editar">
                 <i class="fa-solid fa-pen"></i>
               </label>
-              <button id="saveNameButton" class="hide" title="Salvar">
+              <button id="saveNameButton" class="hide" title="Salvar" aria-label="botão salvar nome usuário">
                 <i class="fa-solid fa-check"></i>
               </button>
-              <button id="deleteNameButton" class="hide" title="Limpar">
+              <button id="deleteNameButton" class="hide" title="Limpar" aria-label="botão deletar nome usuário">
                 <i class="fa-solid fa-xmark"></i>
               </button>
-              <button id="recoverNameButton" class="hide" title="Recuperar">
+              <button id="recoverNameButton" class="hide" title="Recuperar" aria-label="botão recuperar nome usuário">
                 <i class="fa-solid fa-rotate"></i>
               </button>
             </div>
@@ -122,8 +125,9 @@
               placeholder="Pesquisar tarefa"
               spellcheck="false"
               autocomplete="off"
+              aria-label="campo buscar tarefas"
             />
-            <button id="cleanInputSearchBtn" class="hide" title="Limpar">
+            <button id="cleanInputSearchBtn" class="hide" title="Limpar" aria-label="botão limpar busca de tarefas">
               <i class="fa-solid fa-xmark"></i>
             </button>
           </div>
@@ -160,11 +164,11 @@
             </label>
           </div>
           <div id="removeAllTasksBox">
-            <button id="removeAllTaskBtn" class="hover">
+            <button id="removeAllTaskBtn" class="hover" aria-label="botão remover todas tarefas">
               <p>Excluir tarefas</p>
               <i class="fa-solid fa-trash"></i>
             </button>
-            <button id="removeAllConfigBtn" class="hover">
+            <button id="removeAllConfigBtn" class="hover" aria-label="botão apagar todas tarefas e configurações">
               <p>Restaurar padrão</p>
               <i class="fa-solid fa-wrench"></i>
             </button>
@@ -180,7 +184,7 @@
     <div id="editField" class="hide">
       <div id="editFieldHeader">
         <h1>editar tarefa?</h1>
-        <button id="closeEditFieldBtn" title="Fechar">
+        <button id="closeEditFieldBtn" title="Fechar" aria-label="botão fechar janela de edição">
           <i class="fa-solid fa-xmark"></i>
         </button>
       </div>
@@ -199,18 +203,19 @@
           id="cleanEditInputBtn"
           class="hide"
           title="Limpar"
+          aria-label="botão limpar campo de edição"
         />
       </div>
       <div id="editFieldFooter">
-        <input type="button" value="editar" id="confirmEditBtn" />
-        <input type="button" value="cancelar" id="cancelEditBtn" />
+        <input type="button" value="editar" id="confirmEditBtn" aria-label="botão confirmar edição" />
+        <input type="button" value="cancelar" id="cancelEditBtn" aria-label="botão cancelar edição"/>
       </div>
     </div>
     <!-- Janela de agendamento das tarefas -->
     <div id="scheduleField" class="hide">
       <div id="scheduleFieldHeader">
         <h1>definir prazo?</h1>
-        <button id="scheduleFieldCloseBtn" title="Fechar">
+        <button id="scheduleFieldCloseBtn" title="Fechar" aria-label="botão fechar janela de agendamento">
           <i class="fa-solid fa-xmark"></i>
         </button>
       </div>
@@ -219,16 +224,16 @@
         <input type="time" name="scheduleInputTime" id="scheduleInputTime" />
       </div>
       <div id="scheduleFieldFooter">
-        <input type="button" value="definir" id="confirmScheduleBtn" />
-        <input type="button" value="cancelar" id="cancelScheduletBtn" />
+        <input type="button" value="definir" id="confirmScheduleBtn" aria-label="botão confirmar agendamento"/>
+        <input type="button" value="cancelar" id="cancelScheduletBtn" aria-label="botão cancelar agendamento"/>
       </div>
     </div>
     <!-- Janela para confirmação de exclusão e conclusão de tarefas agendadas -->
     <div id="confirmationWindow" class="hide">
       <p id="confirmationWindowText"></p>
       <div id="btnFieldToConfirm">
-        <input type="button" value="Sim" id="btnYes" />
-        <input type="button" value="Não" id="btnNo" />
+        <input type="button" value="Sim" id="btnYes" aria-label="botão confirmar"/>
+        <input type="button" value="Não" id="btnNo" aria-label="botão cancelar"/>
       </div>
     </div>
     <!-- Campo que informa quando não há tarefas -->
