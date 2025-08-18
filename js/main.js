@@ -771,7 +771,6 @@ const confirmSchedule = (task, scheduleBtn, taskInfo, infoTextContent, schedulin
       schedulingRemoveBtn.setAttribute("title", "Remover prazo");
       taskInfo.classList.remove("hide");
       taskInfo.classList.add("appearTaskInfo");
-      btnField.classList.add("animeBtnMobile");
       btnField.classList.add("pointerEventsNone");
       putExpireAlertClass(task, taskInfo, difMinutes, currentDate, difDays, difGetDayNumber, scheduleInputDateValue);
     }, 200);
@@ -846,7 +845,6 @@ const schedulingRemoveClick = (taskField, taskInfo, taskFront, scheduleBtn, edit
   localStorage.setItem("tasks", JSON.stringify(dbAllTasks));
   setTimeout(() => {
     clearTaskClass(infoTextContent, taskInfo, taskFront);
-    btnField.classList.add("animeBtnMobile");
     taskField.classList.add("pointerEventsNone");
     taskInfo.classList.remove("vanishTaskInfo");
     checkActivatedClassBtnAndFilter();
@@ -856,7 +854,6 @@ const schedulingRemoveClick = (taskField, taskInfo, taskFront, scheduleBtn, edit
     taskField.classList.remove("pointerEventsNone");
     scheduleBtn.classList.remove("disabledBtn");
     editBtn.classList.remove("disabledBtn");
-    btnField.classList.remove("animeBtnMobile");
   }, 500);
 };
 

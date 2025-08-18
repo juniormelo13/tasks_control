@@ -1,246 +1,182 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="css/styles.css" />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css"
-    />
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap" rel="stylesheet">
-    <script src="js/main.js" defer></script>
-    <link rel="icon" type="image/png" href="./img/logo.png" />
-    <title>TasksControl</title>
-    <meta name="description" content="Gerenciador de tarefas com agendamento e acompanhamento em tempo real.">
-  </head>
-  <body>
-    <!-- Cabeçalho do site -->
-    <header id="headerBox">
-      <div id="header">
-        <!-- Logo do site -->
-        <div id="logoBox">
-          <a href="./"
-            ><img
-              src="./img/logo.png"
-              id="logoImg"
-              alt="logo do site com um relógio no canto inferior direito, cercado com blocos simbolizando tarefas nas cores azul, amarelo, vermelho e verde"
-              width="50"
-              height="50"
-          /></a>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="css/styles.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap" rel="stylesheet">
+  <script src="js/main.js" defer></script>
+  <link rel="icon" type="image/png" href="img/logo.png" />
+  <title>TasksControl</title>
+  <meta name="description" content="Gerenciador de tarefas com agendamento e acompanhamento em tempo real.">
+</head>
+
+<body>
+  <!-- Cabeçalho do site -->
+  <header id="headerBox">
+    <div id="header">
+      <!-- Logo do site -->
+      <div id="logoBox">
+        <a href="./"><img src="./img/logo.png" id="logoImg" alt="logo do site com um relógio no canto inferior direito, cercado com blocos simbolizando tarefas nas cores azul, amarelo, vermelho e verde" width="50" height="50" /></a>
+      </div>
+      <!-- Input onde serão informadas e enviadas as tarefas -->
+      <div id="newTaskContainer">
+        <div id="newTaskContainerInput">
+          <input type="text" name="newTaskInput" id="newTaskInput" placeholder="Digite a tarefa..." spellcheck="false" autocomplete="off" aria-label="campo adicionar novas tarefas" />
+          <input type="button" value="X" id="cleanNewTaskInputBtn" class="hide cleanInputBtnStyle" title="Limpar" aria-label="botão limpar novas tarefas" />
         </div>
-        <!-- Input onde serão informadas e enviadas as tarefas -->
-        <div id="newTaskContainer">
-          <div id="newTaskContainerInput">
-            <input
-              type="text"
-              name="newTaskInput"
-              id="newTaskInput"
-              placeholder="Digite a tarefa..."
-              spellcheck="false"
-              autocomplete="off"
-              aria-label="campo adicionar novas tarefas"
-            />
-            <input
-              type="button"
-              value="X"
-              id="cleanNewTaskInputBtn"
-              class="hide"
-              title="Limpar"
-              aria-label="botão limpar novas tarefas"
-            />
-          </div>
-          <input type="button" value="+" id="newTaskBtn" title="Adicionar" aria-label="botão inserir nova tarefa" />
-        </div>
-        <!-- Botão de acesso ao menu/filtro -->
-        <button id="menuButton" aria-label="botão menu">
-          <i id="menuButtonIcon" class="fa-solid fa-angles-down"></i>
-          <i id="menuButtonIconMobile" class="fa-solid fa-angles-left"></i>
+        <input type="button" value="+" id="newTaskBtn" title="Adicionar" aria-label="botão inserir nova tarefa" />
+      </div>
+      <!-- Botão de acesso ao menu/filtro -->
+      <button id="menuButton" aria-label="botão menu">
+        <i id="menuButtonIcon" class="fa-solid fa-angles-down"></i>
+        <i id="menuButtonIconMobile" class="fa-solid fa-angles-left"></i>
+      </button>
+      <!-- Informação dos filtros de buscas das tarefas -->
+      <div id="filterInformationBox">
+        <p id="filterInformationText">
+          Filtro:<span id="filterInformation"></span>
+        </p>
+        <button id="cleanFilterBtn" title="Remover filtro" aria-label="botão remover filtro">
+          <i class="fa-solid fa-xmark"></i>
         </button>
-        <!-- Informação dos filtros de buscas das tarefas -->
-        <div id="filterInformationBox">
-          <p id="filterInformationText">
-            Filtro:<span id="filterInformation"></span>
-          </p>
-          <button id="cleanFilterBtn" title="Remover filtro" aria-label="botão remover filtro">
+      </div>
+      <!-- Menu/filtros de tarefas -->
+      <nav id="menu" class="hide">
+        <div id="accountIdentBox">
+          <div id="imgIdentBox">
+            <label for="inputFileImg" id="inputFileImgLabel" title="Adicionar foto"></label>
+            <input type="file" name="inputFileImg" id="inputFileImg" accept="image/*" />
+            <img src="./img/profile-avatar.png" alt="" id="uploadedImg" width="80" height="80" />
+            <label for="inputFileImg" id="inputFileBtnPlus" title="Adicionar foto" aria-label="adicionar foto perfil">
+              <i class="fa-solid fa-plus"></i>
+            </label>
+            <button id="inputFileBtnDel" title="Remover foto" class="hide" aria-label="apagar foto perfil">
+              <i class="fa-solid fa-trash"></i>
+            </button>
+          </div>
+          <div id="nameIdentBox">
+            <input type="text" name="nameInput" id="nameInput" placeholder="Qual o seu nome?" spellcheck="false" autocomplete="off" aria-label="campo adição de nome do usuário" />
+            <label for="nameInput" id="nameIdentIcon" title="Editar">
+              <i class="fa-solid fa-pen"></i>
+            </label>
+            <button id="saveNameButton" class="hide" title="Salvar" aria-label="botão salvar nome usuário">
+              <i class="fa-solid fa-check"></i>
+            </button>
+            <button id="deleteNameButton" class="hide" title="Limpar" aria-label="botão deletar nome usuário">
+              <i class="fa-solid fa-xmark"></i>
+            </button>
+            <button id="recoverNameButton" class="hide" title="Recuperar" aria-label="botão recuperar nome usuário">
+              <i class="fa-solid fa-rotate"></i>
+            </button>
+          </div>
+        </div>
+        <div id="searchContainer">
+          <input type="search" name="searchTaskInput" id="searchTaskInput" placeholder="Pesquisar tarefa" spellcheck="false" autocomplete="off" aria-label="campo buscar tarefas" />
+          <button id="cleanInputSearchBtn" class="hide" title="Limpar" aria-label="botão limpar busca de tarefas">
             <i class="fa-solid fa-xmark"></i>
           </button>
         </div>
-        <!-- Menu/filtros de tarefas -->
-        <nav id="menu" class="hide">
-          <div id="accountIdentBox">
-            <div id="imgIdentBox">
-              <label
-                for="inputFileImg"
-                id="inputFileImgLabel"
-                title="Adicionar foto"
-              ></label>
-              <input
-                type="file"
-                name="inputFileImg"
-                id="inputFileImg"
-                accept="image/*"
-              />
-              <img src="./img/profile-avatar.png" alt="" id="uploadedImg" width="80" height="80" />
-              <label
-                for="inputFileImg"
-                id="inputFileBtnPlus"
-                title="Adicionar foto">
-                <i class="fa-solid fa-plus"></i>
-              </label>
-              <label id="inputFileBtnDel" title="Remover foto" class="hide">
-                <i class="fa-solid fa-trash"></i>
-              </label>
-            </div>
-            <div id="nameIdentBox">
-              <input
-                type="text"
-                name="nameInput"
-                id="nameInput"
-                placeholder="Qual o seu nome?"
-                spellcheck="false"
-                autocomplete="off"
-                aria-label="campo adição de nome do usuário"
-              />
-              <label for="nameInput" id="nameIdentIcon" title="Editar">
-                <i class="fa-solid fa-pen"></i>
-              </label>
-              <button id="saveNameButton" class="hide" title="Salvar" aria-label="botão salvar nome usuário">
-                <i class="fa-solid fa-check"></i>
-              </button>
-              <button id="deleteNameButton" class="hide" title="Limpar" aria-label="botão deletar nome usuário">
-                <i class="fa-solid fa-xmark"></i>
-              </button>
-              <button id="recoverNameButton" class="hide" title="Recuperar" aria-label="botão recuperar nome usuário">
-                <i class="fa-solid fa-rotate"></i>
-              </button>
-            </div>
-          </div>
-          <div id="searchContainer">
-            <input
-              type="search"
-              name="searchTaskInput"
-              id="searchTaskInput"
-              placeholder="Pesquisar tarefa"
-              spellcheck="false"
-              autocomplete="off"
-              aria-label="campo buscar tarefas"
-            />
-            <button id="cleanInputSearchBtn" class="hide" title="Limpar" aria-label="botão limpar busca de tarefas">
-              <i class="fa-solid fa-xmark"></i>
-            </button>
-          </div>
-          <div id="filterContainer">
-            <a href="#" id="allTasksFilterBtn"
-              ><p>Todas</p>
-              <span id="amountAllTasks">0</span></a
-            >
-            <a href="#" id="pendingTasksFilterBtn"
-              ><p>Pendentes</p>
-              <span id="amountPendingTasks">0</span></a
-            >
-            <a href="#" id="scheduledTasksFilterBtn"
-              ><p>Agendadas</p>
-              <span id="amountScheduledTasks">0</span></a
-            >
-            <a href="#" id="expiredTasksFilterBtn"
-              ><p>Expiradas</p>
-              <span id="amountExpiredTasks">0</span></a
-            >
-            <a href="#" id="completedTasksFilterBtn"
-              ><p>Concluídas</p>
-              <span id="amountCompletedTasks">0</span></a
-            >
-          </div>
-          <div id="themeBox">
-            <p id="themeTitle">tema:</p>
-            <label for="themeCheckBox" id="themeCheckBoxLabel">
-              <input type="checkbox" name="themeCheckBox" id="themeCheckBox" />
-              <span id="themeBall">
-                <i class="fa-regular fa-moon" id="themeBallMoon"></i>
-                <i class="fa-solid fa-sun" id="themeBallSun"></i>
-              </span>
-            </label>
-          </div>
-          <div id="removeAllTasksBox">
-            <button id="removeAllTaskBtn" class="hover" aria-label="botão remover todas tarefas">
-              <p>Excluir tarefas</p>
-              <i class="fa-solid fa-trash"></i>
-            </button>
-            <button id="removeAllConfigBtn" class="hover" aria-label="botão apagar todas tarefas e configurações">
-              <p>Restaurar padrão</p>
-              <i class="fa-solid fa-wrench"></i>
-            </button>
-          </div>
-        </nav>
-      </div>
-    </header>
-    <!-- Caixa principal do projeto, onde as tarefas serão adicionadas -->
-    <main id="mainContainer">
-      <div id="tasksContainer"></div>
-    </main>
-    <!-- Janela de edição das tarefas -->
-    <div id="editField" class="hide">
-      <div id="editFieldHeader">
-        <h1>editar tarefa?</h1>
-        <button id="closeEditFieldBtn" title="Fechar" aria-label="botão fechar janela de edição">
-          <i class="fa-solid fa-xmark"></i>
-        </button>
-      </div>
-      <div id="editFieldCenter">
-        <input
-          type="text"
-          name="editInput"
-          id="editInput"
-          placeholder="Digite a tarefa..."
-          autocomplete="off"
-          spellcheck="false"
-        />
-        <input
-          type="button"
-          value="X"
-          id="cleanEditInputBtn"
-          class="hide"
-          title="Limpar"
-          aria-label="botão limpar campo de edição"
-        />
-      </div>
-      <div id="editFieldFooter">
-        <input type="button" value="editar" id="confirmEditBtn" aria-label="botão confirmar edição" />
-        <input type="button" value="cancelar" id="cancelEditBtn" aria-label="botão cancelar edição"/>
-      </div>
+        <div id="filterContainer">
+          <a href="#" id="allTasksFilterBtn">
+            <p>Todas</p>
+            <span id="amountAllTasks">0</span>
+          </a>
+          <a href="#" id="pendingTasksFilterBtn">
+            <p>Pendentes</p>
+            <span id="amountPendingTasks">0</span>
+          </a>
+          <a href="#" id="scheduledTasksFilterBtn">
+            <p>Agendadas</p>
+            <span id="amountScheduledTasks">0</span>
+          </a>
+          <a href="#" id="expiredTasksFilterBtn">
+            <p>Expiradas</p>
+            <span id="amountExpiredTasks">0</span>
+          </a>
+          <a href="#" id="completedTasksFilterBtn">
+            <p>Concluídas</p>
+            <span id="amountCompletedTasks">0</span>
+          </a>
+        </div>
+        <div id="themeBox">
+          <p id="themeTitle">tema:</p>
+          <label for="themeCheckBox" id="themeCheckBoxLabel">
+            <input type="checkbox" name="themeCheckBox" id="themeCheckBox" />
+            <span id="themeBall">
+              <i class="fa-regular fa-moon" id="themeBallMoon"></i>
+              <i class="fa-solid fa-sun" id="themeBallSun"></i>
+            </span>
+          </label>
+        </div>
+        <div id="removeAllTasksBox">
+          <button id="removeAllTaskBtn" class="hover" aria-label="botão remover todas tarefas">
+            <p>Excluir tarefas</p>
+            <i class="fa-solid fa-trash"></i>
+          </button>
+          <button id="removeAllConfigBtn" class="hover" aria-label="botão apagar todas tarefas e configurações">
+            <p>Restaurar padrão</p>
+            <i class="fa-solid fa-wrench"></i>
+          </button>
+        </div>
+      </nav>
     </div>
-    <!-- Janela de agendamento das tarefas -->
-    <div id="scheduleField" class="hide">
-      <div id="scheduleFieldHeader">
-        <h1>definir prazo?</h1>
-        <button id="scheduleFieldCloseBtn" title="Fechar" aria-label="botão fechar janela de agendamento">
-          <i class="fa-solid fa-xmark"></i>
-        </button>
-      </div>
-      <div id="scheduleFieldCenter">
-        <input type="date" name="scheduleInputDate" id="scheduleInputDate" />
-        <input type="time" name="scheduleInputTime" id="scheduleInputTime" />
-      </div>
-      <div id="scheduleFieldFooter">
-        <input type="button" value="definir" id="confirmScheduleBtn" aria-label="botão confirmar agendamento"/>
-        <input type="button" value="cancelar" id="cancelScheduletBtn" aria-label="botão cancelar agendamento"/>
-      </div>
+  </header>
+  <!-- Caixa principal do projeto, onde as tarefas serão adicionadas -->
+  <main id="mainContainer">
+    <div id="tasksContainer"></div>
+  </main>
+  <!-- Janela de edição das tarefas -->
+  <div id="editField" class="hide">
+    <div id="editFieldHeader">
+      <h1>editar tarefa?</h1>
+      <button id="closeEditFieldBtn" title="Fechar" aria-label="botão fechar janela de edição">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
     </div>
-    <!-- Janela para confirmação de exclusão e conclusão de tarefas agendadas -->
-    <div id="confirmationWindow" class="hide">
-      <p id="confirmationWindowText"></p>
-      <div id="btnFieldToConfirm">
-        <input type="button" value="Sim" id="btnYes" aria-label="botão confirmar"/>
-        <input type="button" value="Não" id="btnNo" aria-label="botão cancelar"/>
-      </div>
+    <div id="editFieldCenter">
+      <input type="text" name="editInput" id="editInput" placeholder="Digite a tarefa..." autocomplete="off" spellcheck="false" />
+      <input type="button" value="X" id="cleanEditInputBtn" class="hide cleanInputBtnStyle" title="Limpar" aria-label="botão limpar campo de edição" />
     </div>
-    <!-- Campo que informa quando não há tarefas -->
-    <div id="noTaskTextContainer" class="hide">
-      <h1 id="noTaskText">Não há tarefas!</h1>
+    <div id="editFieldFooter">
+      <input type="button" value="editar" id="confirmEditBtn" aria-label="botão confirmar edição" />
+      <input type="button" value="cancelar" id="cancelEditBtn" aria-label="botão cancelar edição" />
     </div>
-  </body>
+  </div>
+  <!-- Janela de agendamento das tarefas -->
+  <div id="scheduleField" class="hide">
+    <div id="scheduleFieldHeader">
+      <h1>definir prazo?</h1>
+      <button id="scheduleFieldCloseBtn" title="Fechar" aria-label="botão fechar janela de agendamento">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+    </div>
+    <div id="scheduleFieldCenter">
+      <input type="date" name="scheduleInputDate" id="scheduleInputDate" />
+      <input type="time" name="scheduleInputTime" id="scheduleInputTime" />
+    </div>
+    <div id="scheduleFieldFooter">
+      <input type="button" value="definir" id="confirmScheduleBtn" aria-label="botão confirmar agendamento" />
+      <input type="button" value="cancelar" id="cancelScheduletBtn" aria-label="botão cancelar agendamento" />
+    </div>
+  </div>
+  <!-- Janela para confirmação de exclusão e conclusão de tarefas agendadas -->
+  <div id="confirmationWindow" class="hide">
+    <p id="confirmationWindowText"></p>
+    <div id="btnFieldToConfirm">
+      <input type="button" value="Sim" id="btnYes" aria-label="botão confirmar" />
+      <input type="button" value="Não" id="btnNo" aria-label="botão cancelar" />
+    </div>
+  </div>
+  <!-- Campo que informa quando não há tarefas -->
+  <div id="noTaskTextContainer" class="hide">
+    <h1 id="noTaskText">Não há tarefas!</h1>
+  </div>
+</body>
+
 </html>
