@@ -51,6 +51,76 @@
   width: calc(100% - 30px);
 }
 
+/* Texto da tarefa */
+
+.taskContent {
+  font-family: "lato", "sans-serif";
+  font-size: 1rem;
+  color: var(--dark100_white100);
+  cursor: default;
+  overflow-y: auto;
+  word-wrap: break-word;
+  padding: 0 5px 6px;
+  font-weight: bold;
+  width: 100%;
+  height: 100%;
+}
+
+/* Texto riscado ao concluir a tarefa */
+
+.taskContent.completed {
+  text-decoration: line-through;
+}
+
+/* Informações de agendamento ou conclusão das tarefas */
+
+.taskInfo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  border-radius: 5px;
+  padding: 5px 20px 5px 20px;
+  background-color: var(--white100_dark100);
+  right: 5px;
+  top: -25px;
+  transition: box-shadow 0.3s, border 0.3s;
+}
+
+/* Texto do campo de informações das tarefas */
+
+.infoTextContent {
+  font-size: 0.8rem;
+  color: var(--dark100_white100);
+  font-family: "lato", "sans-serif";
+  font-weight: bold;
+  user-select: none;
+}
+
+/* Botão de cancelamento do agendamento de tarefas */
+
+.schedulingRemoveBtn {
+  position: absolute;
+  top: -10px;
+  right: -5px;
+  background-color: var(--white100_dark100);
+  border-radius: 50%;
+  border: none;
+  font-size: 1.3rem;
+  opacity: 0;
+  transition: 0.3s;
+  cursor: pointer;
+}
+
+.schedulingRemoveBtn:hover,
+.taskInfo.scheduled .schedulingRemoveBtn:hover {
+  color: var(--red);
+}
+
+.taskFront.hover:hover .schedulingRemoveBtn {
+  opacity: 1;
+}
+
 /* Tarefa completa */
 
 .taskFront.completed {
@@ -66,38 +136,24 @@
   background-color: var(--green);
 }
 
+.taskFront.completed.hover:hover .taskInfo.completed {
+  box-shadow: 0 -3px 10px -1px var(--green);
+}
+
+.taskInfo.completed {
+  border: 2px solid var(--green);
+  gap: 10px;
+}
+
+.taskInfo.completed:hover {
+  box-shadow: 0 -3px 10px -1px var(--green);
+}
+
+.completedTaskIcon {
+  color: var(--green);
+}
+
 /* Tarefa agendada */
-
-.taskFront.scheduled::after {
-  background-color: var(--blue);
-}
-
-/* Tarefa agendada com alerta */
-
-.taskFront.scheduled.expireAlert::after {
-  background-color: var(--yellow);
-}
-
-/* Tarefa expirada */
-
-.taskFront.expiredTask::after {
-  background-color: var(--red);
-}
-
-/* Atrás da tarefa */
-
-.taskBehind {
-  transform: rotateY(-180deg);
-}
-
-.notePadContainer.taskBehind {
-  position: absolute;
-  backface-visibility: hidden;
-}
-
-.notePadContainer.active {
-  box-shadow: 0 0 10px 2px var(--grey_50);
-}
 
 .taskFront.scheduled {
   border: 2px solid var(--blue);
@@ -108,6 +164,24 @@
   box-shadow: 0 0 10px 2px var(--blue);
 }
 
+.taskFront.scheduled::after {
+  background-color: var(--blue);
+}
+
+.taskFront.scheduled.hover:hover .taskInfo.scheduled {
+  box-shadow: 0 -3px 10px -1px var(--blue);
+}
+
+.taskInfo.scheduled {
+  border: 2px solid var(--blue);
+}
+
+.taskInfo.scheduled .schedulingRemoveBtn {
+  color: var(--blue);
+}
+
+/* Tarefa agendada com alerta */
+
 .taskFront.scheduled.expireAlert {
   border: 2px solid var(--yellow);
   background-color: var(--yellowBackground);
@@ -116,6 +190,24 @@
 .taskFront.scheduled.expireAlert.hover:hover {
   box-shadow: 0 0 10px 2px var(--yellow);
 }
+
+.taskFront.scheduled.expireAlert::after {
+  background-color: var(--yellow);
+}
+
+.taskFront.scheduled.expireAlert.hover:hover .taskInfo.scheduled.expireAlert {
+  box-shadow: 0 -3px 10px -1px var(--yellow);
+}
+
+.taskInfo.expireAlert {
+  border: 2px solid var(--yellow);
+}
+
+.taskInfo.scheduled.expireAlert .schedulingRemoveBtn {
+  color: var(--yellow);
+}
+
+/* Tarefa expirada */
 
 .taskFront.expiredTask {
   border: 2px solid var(--red);
@@ -126,51 +218,27 @@
   box-shadow: 0 0 10px 2px var(--red);
 }
 
-.taskFront.scheduled.hover:hover .taskInfo.scheduled {
-  box-shadow: 0 -3px 10px -1px var(--blue);
-}
-
-.taskFront.scheduled.expireAlert.hover:hover .taskInfo.scheduled.expireAlert {
-  box-shadow: 0 -3px 10px -1px var(--yellow);
+.taskFront.expiredTask::after {
+  background-color: var(--red);
 }
 
 .taskFront.expiredTask.hover:hover .taskInfo.expiredTask {
   box-shadow: 0 -3px 10px -1px var(--red);
 }
 
-.taskFront.completed.hover:hover .taskInfo.completed {
-  box-shadow: 0 -3px 10px -1px var(--green);
+.taskInfo.expiredTask {
+  border: 2px solid var(--red);
 }
 
-.taskContent {
-  font-family: "lato", "sans-serif";
-  font-size: 1rem;
+.taskInfo.expiredTask .schedulingRemoveBtn {
+  color: var(--red);
+}
+
+.taskInfo.expiredTask .schedulingRemoveBtn:hover {
   color: var(--dark100_white100);
-  cursor: default;
-  overflow-y: auto;
-  word-wrap: break-word;
-  padding: 0 5px 6px;
-  font-weight: bold;
-  width: 100%;
-  height: 100%;
 }
 
-.taskContent.completed {
-  text-decoration: line-through;
-}
-
-.taskFront.hover:hover .checkBtn,
-.taskFront.hover:hover .scheduleBtn,
-.taskFront.hover:hover .editBtn,
-.taskFront.hover:hover .removeBtn,
-.taskFront.hover:hover .notesBtn {
-  transform: translateY(0);
-  opacity: 1;
-}
-
-.taskFront.hover:hover .disabledBtn {
-  display: none;
-}
+/* Botões interativos das tarefas */
 
 .btnField {
   position: relative;
@@ -199,13 +267,22 @@
   transform: translateY(5px);
 }
 
-.removeBtn {
-  position: absolute;
-  right: 5px;
+.checkBtn:hover,
+.scheduleBtn:hover,
+.editBtn:hover,
+.removeBtn:hover,
+.notesBtn:hover {
+  cursor: pointer;
+  translate: 0px -2px;
 }
-
-.notesBtn {
-  position: relative;
+  
+.taskFront.hover:hover .checkBtn,
+.taskFront.hover:hover .scheduleBtn,
+.taskFront.hover:hover .editBtn,
+.taskFront.hover:hover .removeBtn,
+.taskFront.hover:hover .notesBtn {
+  transform: translateY(0);
+  opacity: 1;
 }
 
 .checkBtn {
@@ -224,21 +301,8 @@
   color: var(--blue);
 }
 
-.removeBtn {
-  color: var(--red);
-}
-
 .notesBtn {
   color: var(--grey_50);
-}
-
-.checkBtn:hover,
-.scheduleBtn:hover,
-.editBtn:hover,
-.removeBtn:hover,
-.notesBtn:hover {
-  cursor: pointer;
-  translate: 0px -2px;
 }
 
 .notesBtn.active::before {
@@ -251,97 +315,26 @@
   border-radius: 50%;
   bottom: 5px;
   right: 3px;
-  z-index: 1;
 }
 
-.taskInfo {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+.removeBtn {
   position: absolute;
-  border-radius: 5px;
-  padding: 5px 20px 5px 20px;
-  background-color: var(--white100_dark100);
   right: 5px;
-  top: -25px;
-  transition: box-shadow 0.3s, border 0.3s;
+  color: var(--red);
 }
 
-.completedTaskIcon {
-  color: var(--green);
+/* Atrás da tarefa */
+
+.taskBehind {
+  transform: rotateY(-180deg);
 }
 
-.taskInfo.scheduled {
-  border: 2px solid var(--blue);
-}
-
-.taskInfo.completed {
-  border: 2px solid var(--green);
-  gap: 10px;
-}
-
-.taskInfo.completed:hover {
-  box-shadow: 0 -3px 10px -1px var(--green);
-}
-
-.taskInfo.expireAlert {
-  border: 2px solid var(--yellow);
-}
-
-.taskInfo.expiredTask {
-  border: 2px solid var(--red);
-}
-
-.infoTextContent {
-  font-size: 0.8rem;
-  color: var(--dark100_white100);
-  font-family: "lato", "sans-serif";
-  font-weight: bold;
-  user-select: none;
-}
-
-.schedulingRemoveBtn {
+.notePadContainer.taskBehind {
   position: absolute;
-  top: -10px;
-  right: -5px;
-  background-color: var(--white100_dark100);
-  border-radius: 50%;
-  border: none;
-  font-size: 1.3rem;
-  opacity: 0;
-  transition: 0.3s;
+  backface-visibility: hidden;
 }
 
-.taskFront.hover:hover .schedulingRemoveBtn {
-  opacity: 1;
-}
-
-.taskInfo.scheduled .schedulingRemoveBtn {
-  color: var(--blue);
-}
-
-.taskInfo.scheduled.expireAlert .schedulingRemoveBtn {
-  color: var(--yellow);
-}
-
-.taskInfo.expiredTask .schedulingRemoveBtn {
-  color: var(--red);
-}
-
-.schedulingRemoveBtn:hover {
-  cursor: pointer;
-}
-
-.schedulingRemoveBtn:hover,
-.taskInfo.scheduled .schedulingRemoveBtn:hover {
-  color: var(--red);
-}
-
-.taskInfo.expiredTask .schedulingRemoveBtn:hover {
-  color: var(--dark100_white100);
-}
-
-/* Estilização do bloco de anotações */
+/* Bloco de anotações */
 
 .notePadContainer {
   display: flex;
@@ -356,6 +349,10 @@
   border-radius: 5px;
   padding: 0px 10px;
   transition: box-shadow 0.3s;
+}
+
+.notePadContainer.active {
+  box-shadow: 0 0 10px 2px var(--grey_50);
 }
 
 .notePadTop {
@@ -376,9 +373,7 @@
   user-select: none;
 }
 
-.saveNoteBtn {
-  color: var(--dark100_white100);
-}
+/* Campo para inserção das anotações */
 
 .notePadInput {
   width: 100%;
@@ -394,9 +389,7 @@
   font-family: "lato", "sans-serif";
 }
 
-.saveNoteBtn:hover {
-  color: var(--green);
-}
+/* Botões de salvar e apagar anotações */
 
 .notePadBtnField {
   display: flex;
@@ -419,6 +412,11 @@
 
 .saveNoteBtn {
   font-size: 1rem;
+  color: var(--dark100_white100);
+}
+
+.saveNoteBtn:hover {
+  color: var(--green);
 }
 
 .cleanNoteBtn {
