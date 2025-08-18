@@ -1,0 +1,51 @@
+:root {
+  --white_dark: rgb(250, 250, 250);
+  --white50_dark50: rgb(210, 210, 210);
+  --white100_dark100: rgb(230, 230, 230);
+  --whiteShadow50_darkShadow50: rgba(250, 250, 250, 0.9);
+  --dark_shadow: rgba(0, 0, 0, 0.5);
+  --dark_white: rgb(0, 0, 0);
+  --dark: rgb(0, 0, 0);
+  --dark50_white50: rgb(45, 45, 45);
+  --dark100_white100: rgb(35, 35, 35);
+  --green: rgb(59, 148, 0);
+  --greenNotification: rgb(87, 194, 0);
+  --greenBackground: rgba(59, 148, 0, 0.1);
+  --yellow: rgb(182, 148, 0);
+  --yellowAlertInput: rgba(190, 181, 55, 0.2);
+  --yellowBackground: rgba(182, 148, 0, 0.1);
+  --blue: rgb(0, 90, 173);
+  --blueBackground: rgba(0, 90, 173, 0.1);
+  --red: rgb(190, 22, 0);
+  --redBackground: rgba(190, 22, 0, 0.1);
+  --grey: rgb(150, 150, 150);
+  --grey_50: rgb(100, 100, 100);
+  --grey_Opacity_2: rgba(150, 150, 150, 0.2);
+  --grey_Opacity_3: rgba(150, 150, 150, 0.3);
+}
+
+.darkTheme:root {
+  --white_dark: rgb(0, 0, 0);
+  --white50_dark50: rgb(45, 45, 45);
+  --white100_dark100: rgb(35, 35, 35);
+  --whiteShadow50_darkShadow50: rgba(0, 0, 0, 0.8);
+  --dark_shadow: rgba(0, 0, 0, 0.5);
+  --dark_white: rgb(250, 250, 250);
+  --dark: rgb(0, 0, 0);
+  --dark50_white50: rgb(210, 210, 210);
+  --dark100_white100: rgb(230, 230, 230);
+  --green: rgb(127, 252, 45);
+  --greenNotification: rgb(87, 194, 0);
+  --greenBackground: rgba(127, 252, 45, 0.1);
+  --yellow: rgb(250, 190, 44);
+  --yellowAlertInput: rgba(194, 167, 46, 0.1);
+  --yellowBackground: rgba(250, 190, 44, 0.1);
+  --blue: rgb(125, 157, 244);
+  --blueBackground: rgba(125, 157, 244, 0.1);
+  --red: rgb(243, 53, 53);
+  --redBackground: rgba(243, 53, 53, 0.1);
+  --grey: rgb(150, 150, 150);
+  --grey_50: rgb(200, 200, 200);
+  --grey_Opacity_2: rgba(150, 150, 150, 0.2);
+  --grey_Opacity_3: rgba(150, 150, 150, 0.3);
+}

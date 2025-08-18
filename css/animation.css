@@ -1,0 +1,266 @@
+/* Menu e informações sobre o filtro atual */
+
+#menu.menuAppear {
+  animation: menuAppear 0.2s forwards ease-out;
+}
+
+@keyframes menuAppear {
+  0% {
+    top: -6rem;
+    opacity: 0;
+  }
+  100% {
+    top: 6rem;
+    opacity: 1;
+  }
+}
+
+#menu.menuVanish {
+  animation: menuVanish 0.2s forwards ease-in;
+}
+
+@keyframes menuVanish {
+  0% {
+    top: 6rem;
+    opacity: 1;
+  }
+  100% {
+    top: -6rem;
+    opacity: 0;
+  }
+}
+
+#filterInformationBox.filterInformationBlur,
+#menu.menuBlur {
+  pointer-events: none;
+  filter: blur(5px);
+  transition: 0.2s ease-in;
+}
+
+#filterInformationBox.filterInformationOffBlur,
+#menu.menuOffBlur {
+  pointer-events: visible;
+  filter: blur(0);
+  transition: 0.2s ease-in;
+}
+
+#filterInformationBox.filterInfoAppear {
+  animation: filterInfoAppear 0.2s ease-in forwards;
+}
+
+@keyframes filterInfoAppear {
+  0% {
+    top: 3.5rem;
+    opacity: 0;
+  }
+  100% {
+    top: 5rem;
+    opacity: 1;
+  }
+}
+
+#filterInformationBox.filterInfoVanish {
+  animation: filterInfoVanish 0.2s ease-in forwards;
+}
+
+@keyframes filterInfoVanish {
+  0% {
+    top: 5rem;
+    opacity: 1;
+  }
+  100% {
+    top: 3.5rem;
+    opacity: 0;
+  }
+}
+
+/* Container de tarefas */
+
+#tasksContainer.tasksContainerHide,
+#noTaskTextContainer.noTaskTextHide {
+  pointer-events: none;
+  animation: tasksContainerHide 0.2s ease-in forwards;
+}
+
+@keyframes tasksContainerHide {
+  0% {
+    filter: blur(0);
+  }
+  100% {
+    filter: blur(5px) opacity(0.3);
+  }
+}
+
+#tasksContainer.tasksContainerAppear,
+#noTaskTextContainer.noTaskTextAppear {
+  animation: tasksContainerAppear 0.2s ease-in forwards;
+}
+
+@keyframes tasksContainerAppear {
+  0% {
+    filter: blur(5px) opacity(0.3);
+  }
+  100% {
+    filter: blur(0);
+  }
+}
+
+/* Tarefas */
+
+.taskField.appearTask {
+  animation: appearTask 0.2s ease-in forwards;
+}
+
+@keyframes appearTask {
+  0% {
+    opacity: 0;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.5;
+    transform: scale(1.1);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.taskField.vanishTask {
+  animation: vanishTask 0.2s ease-in forwards;
+}
+
+@keyframes vanishTask {
+  0% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.5;
+    transform: scale(1.1);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1);
+  }
+}
+
+.lowOpacity {
+  animation: lowOpacity 0.2s forwards;
+}
+
+@keyframes lowOpacity {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.2;
+  }
+}
+
+.normalOpacity {
+  animation: normalOpacity 0.2s forwards;
+}
+
+@keyframes normalOpacity {
+  0% {
+    opacity: 0.2;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+/* Animação de flip da tarefa */
+
+.task.flipAnimate {
+  transform: rotateY(-180deg);
+}
+
+/* Animação do texto da tarefa ao editar */
+
+.editAnimation {
+  animation: editAnimation 0.3s;
+}
+
+@keyframes editAnimation {
+  0% {
+    transform: translateY(5px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* Informação de agendamentos das tarefas */
+
+.taskInfo.appearTaskInfo {
+  animation: appearTaskInfo 0.2s ease-in forwards;
+  transition: none;
+}
+
+@keyframes appearTaskInfo {
+  0% {
+    transform: scale(0.9);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.taskInfo.vanishTaskInfo {
+  animation: vanishTaskInfo 0.2s ease-in forwards;
+}
+
+@keyframes vanishTaskInfo {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(0.9);
+  }
+}
+
+/* Janelas de edição, agendamento e confirmação */
+
+#editField.appearWindow,
+#scheduleField.appearWindow,
+#confirmationWindow.appearWindow {
+  animation: appearWindow 0.2s ease-in forwards;
+}
+
+@keyframes appearWindow {
+  0% {
+    transform: translate(-50%, -50%) scale(0.5);
+    opacity: 0;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 1;
+  }
+}
+
+#editField.vanishWindow,
+#scheduleField.vanishWindow,
+#confirmationWindow.vanishWindow {
+  animation: vanishWindow 0.2s ease-in forwards;
+}
+
+@keyframes vanishWindow {
+  0% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(0.5);
+    opacity: 0;
+  }
+}

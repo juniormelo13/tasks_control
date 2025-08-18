@@ -1,0 +1,273 @@
+/* Container principal */
+
+#mainContainer {
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  width: 100%;
+  height: calc(100vh - 5rem);
+  height: calc(100dvh - 5rem);
+  top: 5rem;
+  overflow-x: hidden;
+  background-color: var(--white50_dark50);
+  scrollbar-gutter: stable;
+}
+
+/* Container de tarefas */
+
+#tasksContainer {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(6, 15rem);
+  justify-content: center;
+  width: 100%;
+  max-width: 120rem;
+  padding: 3.5rem 5% 3.125rem;
+  column-gap: 30px;
+  row-gap: 40px;
+  background-color: var(--white50_dark50);
+}
+
+/* Janelas de edição e agendamento de tarefas */
+
+#editField,
+#scheduleField {
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  left: 50%;
+  top: calc(5rem + 37%);
+  background-color: var(--white100_dark100);
+  width: 20rem;
+  height: 15rem;
+  border: 2px solid var(--dark100_white100);
+  border-radius: 5px;
+  padding: 15px;
+  z-index: 1;
+}
+
+#editFieldHeader,
+#scheduleFieldHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 2px solid var(--dark100_white100);
+  padding-bottom: 10px;
+}
+
+#editFieldHeader h1,
+#scheduleFieldHeader h1 {
+  font-family: "Lato", "Sans-Serif";
+  text-transform: capitalize;
+  font-size: 1.3rem;
+  color: var(--dark100_white100);
+  user-select: none;
+}
+
+#closeEditFieldBtn,
+#scheduleFieldCloseBtn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.5rem;
+  border: none;
+  outline: none;
+  background: none;
+  color: var(--dark100_white100);
+  transition: 0.2s;
+}
+
+#closeEditFieldBtn:hover,
+#scheduleFieldCloseBtn:hover {
+  cursor: pointer;
+  color: var(--red);
+}
+
+#editFieldCenter {
+  position: relative;
+  width: 100%;
+}
+
+#scheduleFieldCenter {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+}
+
+#editInput,
+#scheduleInputDate,
+#scheduleInputTime {
+  font-family: "lato", "sans-serif";
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: var(--dark100_white100);
+  background-color: var(--white100_dark100);
+  border: 2px solid var(--grey_50);
+  border-radius: 5px;
+  outline: none;
+  transition: 0.2s;
+}
+
+#editInput {
+  width: 100%;
+  height: 100%;
+  padding: 5px 50px 5px 10px;
+}
+
+#cleanEditInputBtn {
+  width: 40px;
+}
+
+#cleanEditInputBtn:hover {
+  background-color: var(--grey_Opacity_3);
+  color: var(--grey_50);
+}
+
+#scheduleInputDate {
+  width: 60%;
+}
+
+#scheduleInputTime {
+  width: 40%;
+}
+
+#scheduleInputDate,
+#scheduleInputTime {
+  padding: 5px 10px;
+}
+
+#scheduleInputDate::-webkit-calendar-picker-indicator,
+#scheduleInputTime::-webkit-calendar-picker-indicator {
+  cursor: pointer;
+  filter: invert(0) brightness(100%) sepia(100%) saturate(100%);
+}
+
+#scheduleInputDate.darkTheme::-webkit-calendar-picker-indicator,
+#scheduleInputTime.darkTheme::-webkit-calendar-picker-indicator {
+  cursor: pointer;
+  filter: invert(1) brightness(100%) sepia(100%) saturate(100%);
+}
+
+#editFieldFooter,
+#scheduleFieldFooter {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  height: 38px;
+}
+
+/* Janela de confirmação */
+
+#confirmationWindow {
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  left: 50%;
+  top: calc(5rem + 37%);
+  background-color: var(--white100_dark100);
+  width: 20rem;
+  height: 15rem;
+  border: 2px solid var(--dark100_white100);
+  border-radius: 5px;
+  padding: 15px;
+  z-index: 1;
+}
+
+#confirmationWindowText {
+  font-family: "Lato", "Sans-Serif";
+  font-size: 1.1rem;
+  text-align: center;
+  color: var(--dark100_white100);
+  user-select: none;
+}
+
+#btnFieldToConfirm {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  width: 100%;
+  height: 38px;
+}
+
+/* Botões das janelas de edição, agendamento e confirmação */
+
+#confirmEditBtn,
+#confirmScheduleBtn,
+#btnYes,
+#cancelEditBtn,
+#cancelScheduletBtn,
+#btnNo {
+  font-family: "lato", "sans-serif";
+  font-size: 1rem;
+  border-radius: 5px;
+  border: none;
+  outline: none;
+  height: 100%;
+  text-transform: capitalize;
+  font-weight: bold;
+  background-color: var(--dark100_white100);
+  color: var(--white100_dark100);
+  transition: 0.2s;
+  line-height: 0;
+  cursor: pointer;
+}
+
+#confirmEditBtn,
+#confirmScheduleBtn,
+#cancelEditBtn,
+#cancelScheduletBtn {
+  width: 6rem;
+}
+
+#btnYes,
+#btnNo {
+  width: 5rem;
+}
+
+#confirmEditBtn,
+#confirmScheduleBtn,
+#btnYes {
+  border: 2px solid var(--dark100_white100);
+}
+
+#cancelEditBtn,
+#cancelScheduletBtn,
+#btnNo {
+  opacity: 0.6;
+}
+
+#confirmEditBtn:hover,
+#confirmScheduleBtn:hover,
+#btnYes:hover {
+  background-color: var(--white100_dark100);
+  color: var(--dark100_white100);
+  box-shadow: 0 0 10px 2px var(--dark100_white100);
+}
+
+#cancelEditBtn:hover,
+#cancelScheduletBtn:hover,
+#btnNo:hover {
+  opacity: 1;
+}
+
+/* Informação de quando não há tarefas na tela */
+
+#noTaskTextContainer {
+  position: fixed;
+  top: calc(5rem + 15%);
+  left: 50%;
+  transform: translate(-50%, -15%);
+}
+
+#noTaskText {
+  color: var(--dark100_white100);
+  text-align: center;
+  font-family: "lato", "sans-serif";
+  font-size: 2rem;
+  pointer-events: none;
+  user-select: none;
+}

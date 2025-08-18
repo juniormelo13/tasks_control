@@ -1,0 +1,431 @@
+/* Tarefas */
+
+.taskField {
+  background-color: transparent;
+  perspective: 800px;
+  position: relative;
+  height: 10rem;
+}
+
+.task {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.2s ease-in;
+  transform-style: preserve-3d;
+}
+
+/* Frente da tarefa */
+
+.taskFront {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  background-color: var(--white100_dark100);
+  border-radius: 5px;
+  padding: 14px 10px 0px 10px;
+  border: 2px solid var(--grey_50);
+  transition: border 0.3s, box-shadow 0.3s, background-color 0.3s;
+  backface-visibility: hidden;
+}
+
+.taskFront.hover:hover {
+  box-shadow: 0 0 10px 2px var(--grey_50);
+}
+
+.taskFront::after {
+  content: "";
+  position: absolute;
+  bottom: 41px;
+  background-color: var(--grey_50);
+  width: 0;
+  height: 2px;
+  transition: 0.2s;
+}
+
+.taskFront.hover:hover::after {
+  width: calc(100% - 30px);
+}
+
+/* Tarefa completa */
+
+.taskFront.completed {
+  border: 2px solid var(--green);
+  background-color: var(--greenBackground);
+}
+
+.taskFront.completed.hover:hover {
+  box-shadow: 0 0 10px 2px var(--green);
+}
+
+.taskFront.completed::after {
+  background-color: var(--green);
+}
+
+/* Tarefa agendada */
+
+.taskFront.scheduled::after {
+  background-color: var(--blue);
+}
+
+/* Tarefa agendada com alerta */
+
+.taskFront.scheduled.expireAlert::after {
+  background-color: var(--yellow);
+}
+
+/* Tarefa expirada */
+
+.taskFront.expiredTask::after {
+  background-color: var(--red);
+}
+
+/* Atrás da tarefa */
+
+.taskBehind {
+  transform: rotateY(-180deg);
+}
+
+.notePadContainer.taskBehind {
+  position: absolute;
+  backface-visibility: hidden;
+}
+
+.notePadContainer.active {
+  box-shadow: 0 0 10px 2px var(--grey_50);
+}
+
+.taskFront.scheduled {
+  border: 2px solid var(--blue);
+  background-color: var(--blueBackground);
+}
+
+.taskFront.scheduled.hover:hover {
+  box-shadow: 0 0 10px 2px var(--blue);
+}
+
+.taskFront.scheduled.expireAlert {
+  border: 2px solid var(--yellow);
+  background-color: var(--yellowBackground);
+}
+
+.taskFront.scheduled.expireAlert.hover:hover {
+  box-shadow: 0 0 10px 2px var(--yellow);
+}
+
+.taskFront.expiredTask {
+  border: 2px solid var(--red);
+  background-color: var(--redBackground);
+}
+
+.taskFront.expiredTask.hover:hover {
+  box-shadow: 0 0 10px 2px var(--red);
+}
+
+.taskFront.scheduled.hover:hover .taskInfo.scheduled {
+  box-shadow: 0 -3px 10px -1px var(--blue);
+}
+
+.taskFront.scheduled.expireAlert.hover:hover .taskInfo.scheduled.expireAlert {
+  box-shadow: 0 -3px 10px -1px var(--yellow);
+}
+
+.taskFront.expiredTask.hover:hover .taskInfo.expiredTask {
+  box-shadow: 0 -3px 10px -1px var(--red);
+}
+
+.taskFront.completed.hover:hover .taskInfo.completed {
+  box-shadow: 0 -3px 10px -1px var(--green);
+}
+
+.taskContent {
+  font-family: "lato", "sans-serif";
+  font-size: 1rem;
+  color: var(--dark100_white100);
+  cursor: default;
+  overflow-y: auto;
+  word-wrap: break-word;
+  padding: 0 5px 6px;
+  font-weight: bold;
+  width: 100%;
+  height: 100%;
+}
+
+.taskContent.completed {
+  text-decoration: line-through;
+}
+
+.taskFront.hover:hover .checkBtn,
+.taskFront.hover:hover .scheduleBtn,
+.taskFront.hover:hover .editBtn,
+.taskFront.hover:hover .removeBtn,
+.taskFront.hover:hover .notesBtn {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.taskFront.hover:hover .disabledBtn {
+  display: none;
+}
+
+.btnField {
+  position: relative;
+  height: 60px;
+  padding: 0 5px;
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 6px;
+}
+
+.checkBtn,
+.scheduleBtn,
+.editBtn,
+.removeBtn,
+.notesBtn {
+  font-size: 18px;
+  width: 25px;
+  height: 80%;
+  background: none;
+  border: none;
+  outline: none;
+  opacity: 0;
+  transition: transform 0.3s, translate 0.2s, opacity 0.3s;
+  transform: translateY(5px);
+}
+
+.removeBtn {
+  position: absolute;
+  right: 5px;
+}
+
+.notesBtn {
+  position: relative;
+}
+
+.checkBtn {
+  color: var(--green);
+}
+
+.checkBtn i.fa-rotate {
+  color: var(--grey_50);
+}
+
+.editBtn {
+  color: var(--yellow);
+}
+
+.scheduleBtn {
+  color: var(--blue);
+}
+
+.removeBtn {
+  color: var(--red);
+}
+
+.notesBtn {
+  color: var(--grey_50);
+}
+
+.checkBtn:hover,
+.scheduleBtn:hover,
+.editBtn:hover,
+.removeBtn:hover,
+.notesBtn:hover {
+  cursor: pointer;
+  translate: 0px -2px;
+}
+
+.notesBtn.active::before {
+  content: "";
+  position: absolute;
+  width: 7px;
+  height: 7px;
+  background-color: var(--greenNotification);
+  border: 1px solid var(--dark);
+  border-radius: 50%;
+  bottom: 5px;
+  right: 3px;
+  z-index: 1;
+}
+
+.taskInfo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  border-radius: 5px;
+  padding: 5px 20px 5px 20px;
+  background-color: var(--white100_dark100);
+  right: 5px;
+  top: -25px;
+  transition: box-shadow 0.3s, border 0.3s;
+}
+
+.completedTaskIcon {
+  color: var(--green);
+}
+
+.taskInfo.scheduled {
+  border: 2px solid var(--blue);
+}
+
+.taskInfo.completed {
+  border: 2px solid var(--green);
+  gap: 10px;
+}
+
+.taskInfo.completed:hover {
+  box-shadow: 0 -3px 10px -1px var(--green);
+}
+
+.taskInfo.expireAlert {
+  border: 2px solid var(--yellow);
+}
+
+.taskInfo.expiredTask {
+  border: 2px solid var(--red);
+}
+
+.infoTextContent {
+  font-size: 0.8rem;
+  color: var(--dark100_white100);
+  font-family: "lato", "sans-serif";
+  font-weight: bold;
+  user-select: none;
+}
+
+.schedulingRemoveBtn {
+  position: absolute;
+  top: -10px;
+  right: -5px;
+  background-color: var(--white100_dark100);
+  border-radius: 50%;
+  border: none;
+  font-size: 1.3rem;
+  opacity: 0;
+  transition: 0.3s;
+}
+
+.taskFront.hover:hover .schedulingRemoveBtn {
+  opacity: 1;
+}
+
+.taskInfo.scheduled .schedulingRemoveBtn {
+  color: var(--blue);
+}
+
+.taskInfo.scheduled.expireAlert .schedulingRemoveBtn {
+  color: var(--yellow);
+}
+
+.taskInfo.expiredTask .schedulingRemoveBtn {
+  color: var(--red);
+}
+
+.schedulingRemoveBtn:hover {
+  cursor: pointer;
+}
+
+.schedulingRemoveBtn:hover,
+.taskInfo.scheduled .schedulingRemoveBtn:hover {
+  color: var(--red);
+}
+
+.taskInfo.expiredTask .schedulingRemoveBtn:hover {
+  color: var(--dark100_white100);
+}
+
+/* Estilização do bloco de anotações */
+
+.notePadContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  height: calc(100% + 23px);
+  bottom: 0;
+  background-color: var(--white100_dark100);
+  border: 2px solid var(--grey_50);
+  border-radius: 5px;
+  padding: 0px 10px;
+  transition: box-shadow 0.3s;
+}
+
+.notePadTop {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  height: 20%;
+  border-bottom: 2px solid var(--dark100_white100);
+}
+
+.notePadTitle {
+  font-family: "Lato", "Sans-Serif";
+  text-transform: capitalize;
+  font-size: 1rem;
+  font-weight: bold;
+  color: var(--dark100_white100);
+  user-select: none;
+}
+
+.saveNoteBtn {
+  color: var(--dark100_white100);
+}
+
+.notePadInput {
+  width: 100%;
+  height: 60%;
+  color: var(--dark100_white100);
+  background: var(--white100_dark100);
+  padding-right: 10px;
+  margin-top: 10px;
+  outline: none;
+  border: none;
+  resize: none;
+  font-size: 0.9rem;
+  font-family: "lato", "sans-serif";
+}
+
+.saveNoteBtn:hover {
+  color: var(--green);
+}
+
+.notePadBtnField {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  width: 100%;
+  height: 20%;
+}
+
+.cleanNoteBtn,
+.saveNoteBtn {
+  border: none;
+  background: var(--white100_dark100);
+  width: 25px;
+  height: 100%;
+  margin-right: -5px;
+  transition: 0.3s;
+  cursor: pointer;
+}
+
+.saveNoteBtn {
+  font-size: 1rem;
+}
+
+.cleanNoteBtn {
+  font-size: 1rem;
+  color: var(--dark100_white100);
+}
+
+.cleanNoteBtn:hover {
+  color: var(--red);
+}

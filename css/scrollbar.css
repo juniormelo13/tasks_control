@@ -1,0 +1,47 @@
+#mainContainer::-webkit-scrollbar {
+  width: 5px;
+  background-color: var(--white100_dark100);
+}
+
+.taskContent::-webkit-scrollbar,
+#menu::-webkit-scrollbar,
+.notePadInput::-webkit-scrollbar {
+  width: 3px;
+  background-color: var(--white50_dark50);
+  border-radius: 5px;
+  cursor: default;
+}
+
+.taskContent::-webkit-scrollbar-thumb,
+#menu::-webkit-scrollbar-thumb,
+.notePadInput::-webkit-scrollbar-thumb {
+  background: var(--grey_50);
+  border-radius: 5px;
+  cursor: default;
+}
+
+.taskContent.completed::-webkit-scrollbar-thumb {
+  background: var(--green);
+}
+
+.taskFront.scheduled .taskContent::-webkit-scrollbar-thumb {
+  background: var(--blue);
+}
+
+.taskFront.scheduled.expireAlert .taskContent::-webkit-scrollbar-thumb {
+  background: var(--yellow);
+}
+
+.taskFront.expiredTask .taskContent::-webkit-scrollbar-thumb {
+  background: var(--red);
+}
+
+#mainContainer::-webkit-scrollbar-thumb {
+  background: linear-gradient(
+    45deg,
+    var(--red),
+    var(--blue),
+    var(--yellow),
+    var(--green)
+  );
+}

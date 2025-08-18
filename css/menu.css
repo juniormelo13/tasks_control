@@ -1,0 +1,418 @@
+/* menu */
+
+#menu {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  top: 6rem;
+  right: 5%;
+  background-color: var(--white100_dark100);
+  border-radius: 5px;
+  width: 12rem;
+  box-shadow: 6px 6px 10px 0px var(--dark_shadow);
+  padding: 1rem;
+  user-select: none;
+  z-index: -1;
+}
+
+#menu::before {
+  content: "";
+  position: absolute;
+  top: -10px;
+  right: 0;
+  transform: translateX(-50%);
+  border-bottom: 10px solid var(--white100_dark100);
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+}
+
+/* Caixa de informações do usuário */
+
+#accountIdentBox {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+/* Foto de perfil do usuário */
+
+#imgIdentBox {
+  position: relative;
+  background-color: var(--dark100_white100);
+  height: 5rem;
+  width: 5rem;
+  border-radius: 50%;
+  transition: 0.3s;
+}
+
+#inputFileBtnPlus,
+#inputFileBtnDel {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 0.75rem;
+  background-color: var(--whiteShadow50_darkShadow50);
+  color: var(--dark_white);
+  border: none;
+  height: 1.5rem;
+  width: 1.5rem;
+  bottom: 0;
+  right: 0;
+  border-radius: 50%;
+  transition: 0.3s;
+  opacity: 0;
+  cursor: pointer;
+}
+
+#imgIdentBox:hover {
+  cursor: pointer;
+}
+
+#imgIdentBox:hover #inputFileBtnPlus,
+#imgIdentBox:hover #inputFileBtnDel {
+  opacity: 1;
+}
+
+#uploadedImg {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: contain;
+  background-color: var(--white100_dark100);
+}
+
+#inputFileImgLabel {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  border: 2px solid var(--grey);
+  cursor: pointer;
+}
+
+#inputFileImg {
+  display: none;
+}
+
+/* Nome do usuário */
+
+#nameIdentBox {
+  position: relative;
+  display: flex;
+  gap: 5px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 5px;
+  transition: 0.3s;
+}
+
+#nameIdentBox.editing {
+  background-color: var(--yellowAlertInput);
+}
+
+#nameIdentBox::after {
+  content: "";
+  position: absolute;
+  height: 2px;
+  width: 0;
+  bottom: 0;
+  background-color: var(--yellow);
+  transition: 0.2s;
+}
+
+#nameIdentBox.active::after {
+  width: 100%;
+}
+
+#nameInput {
+  font-family: "lato", "sans-serif";
+  font-size: 0.85rem;
+  font-weight: bold;
+  width: 100%;
+  background-color: transparent;
+  color: var(--dark100_white100);
+  text-align: center;
+  padding: 5px 20px;
+  outline: none;
+  border: none;
+  border-bottom: 2px solid transparent;
+  cursor: pointer;
+  position: relative;
+}
+
+#nameInput.active {
+  cursor: auto;
+}
+
+#nameIdentIcon,
+#saveNameButton,
+#deleteNameButton,
+#recoverNameButton {
+  position: absolute;
+  border: none;
+  font-size: 0.75rem;
+  width: 1rem;
+  color: var(--dark100_white100);
+  background-color: transparent;
+  height: 100%;
+  align-content: center;
+  text-align: center;
+  transition: 0.3s;
+  cursor: pointer;
+}
+
+#nameIdentIcon,
+#saveNameButton {
+  right: 0;
+}
+
+#nameIdentIcon {
+  opacity: 0;
+}
+
+#deleteNameButton,
+#recoverNameButton {
+  left: 0;
+}
+
+#saveNameButton:hover {
+  color: var(--green);
+}
+
+#deleteNameButton:hover {
+  color: var(--red);
+}
+
+#recoverNameButton:hover {
+  color: var(--yellow);
+}
+
+#nameIdentBox:hover #nameIdentIcon {
+  opacity: 0.5;
+}
+
+/* Filtro de tarefas por conteúdo */
+
+#searchContainer {
+  position: relative;
+  width: 100%;
+}
+
+#searchTaskInput {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 5px;
+  outline: none;
+  border: 2px solid var(--grey_50);
+  background-color: var(--white100_dark100);
+  padding: 8px 23px 8px 8px;
+  font-family: "lato", "sans-serif";
+  font-size: 0.85rem;
+  font-weight: bold;
+  color: var(--dark100_white100);
+  transition: 0.2s;
+}
+
+#searchTaskInput::-webkit-search-cancel-button {
+  display: none;
+}
+
+#cleanInputSearchBtn {
+  position: absolute;
+  text-align: center;
+  right: 2px;
+  top: 50%;
+  transform: translate(0, -50%);
+  cursor: pointer;
+  border: none;
+  background: none;
+  outline: none;
+  color: var(--dark100_white100);
+  height: 100%;
+  width: 23px;
+  opacity: 0.7;
+  transition: 0.3s;
+}
+
+#cleanInputSearchBtn:hover {
+  opacity: 1;
+}
+
+/* Filtro de tarefas por status */
+
+#filterContainer {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  width: 100%;
+}
+
+#filterContainer a {
+  text-decoration: none;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  border-left: 4px solid var(--white100_dark100);
+  padding: 5px 10px;
+  transition: 0.2s;
+}
+#filterContainer a,
+#filterContainer a p span {
+  color: var(--grey);
+  font-family: "lato", "sans-serif";
+  font-size: 0.875rem;
+  text-transform: capitalize;
+  font-weight: bold;
+}
+
+#filterContainer a:hover,
+#filterContainer a.active {
+  cursor: pointer;
+  color: var(--dark100_white100);
+}
+
+#filterContainer #allTasksFilterBtn:hover,
+#allTasksFilterBtn.active {
+  border-left: 4px solid var(--dark100_white100);
+}
+
+#filterContainer #pendingTasksFilterBtn:hover,
+#pendingTasksFilterBtn.active {
+  border-left: 4px solid var(--yellow);
+}
+
+#filterContainer #completedTasksFilterBtn:hover,
+#completedTasksFilterBtn.active {
+  border-left: 4px solid var(--green);
+}
+
+#filterContainer #scheduledTasksFilterBtn:hover,
+#scheduledTasksFilterBtn.active {
+  border-left: 4px solid var(--blue);
+}
+
+#filterContainer #expiredTasksFilterBtn:hover,
+#expiredTasksFilterBtn.active {
+  border-left: 4px solid var(--red);
+}
+
+/* Tema */
+
+#themeBox {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+#themeTitle,
+#layoutConfigTitle {
+  color: var(--dark100_white100);
+  font-family: "lato", "sans-serif";
+  font-size: 0.875rem;
+  text-transform: capitalize;
+  font-weight: bold;
+}
+
+#themeCheckBox {
+  display: none;
+}
+
+#themeCheckBoxLabel {
+  background-color: var(--grey);
+  width: 3.5rem;
+  height: 1.75rem;
+  border-radius: 20px;
+  position: relative;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+#themeCheckBoxLabel:hover {
+  background-color: var(--grey_50);
+}
+
+#themeBall {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--white_dark);
+  height: 100%;
+  width: 50%;
+  border-radius: 50%;
+  color: var(--dark100_white100);
+  scale: 0.9;
+  transition: 0.2s;
+  right: 50%;
+  opacity: 0.8;
+}
+
+#themeBallMoon {
+  display: none;
+}
+
+#themeCheckBox:checked ~ #themeBall {
+  right: 0;
+}
+
+#themeCheckBox:checked ~ #themeBall #themeBallMoon {
+  display: block;
+}
+
+#themeCheckBox:checked ~ #themeBall #themeBallSun {
+  display: none;
+}
+
+/* Botões para exclusão de todas as tarefas */
+
+#removeAllTasksBox {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+#removeAllTaskBtn,
+#removeAllConfigBtn {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 7px 10px;
+  border: 2px solid var(--grey_50);
+  border-radius: 5px;
+  background-color: var(--white50_dark50);
+  transition: 0.2s;
+}
+
+#removeAllTaskBtn p,
+#removeAllConfigBtn p {
+  color: var(--dark100_white100);
+  font-family: "lato", "sans-serif";
+  font-size: 0.875rem;
+  font-weight: bold;
+}
+
+#removeAllTaskBtn i,
+#removeAllConfigBtn i {
+  color: var(--dark100_white100);
+  transition: 0.2s;
+}
+
+#removeAllTaskBtn.hover:hover,
+#removeAllConfigBtn.hover:hover {
+  cursor: pointer;
+  background-color: var(--white_dark);
+  border: 2px solid var(--red);
+}
+
+#removeAllTaskBtn.hover:hover i,
+#removeAllConfigBtn.hover:hover i {
+  color: var(--red);
+}

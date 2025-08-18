@@ -1,0 +1,108 @@
+/* Reset no estilo padrão web */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Estilo do body */
+
+body {
+  background-color: var(--white100_dark100);
+  width: 100%;
+  height: 100vh;
+  height: 100dvh;
+}
+
+/* Botões de limpar input */
+
+.cleanInputBtnStyle {
+  position: absolute;
+  height: 100%;
+  font-family: "lato", "sans-serif";
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: var(--grey);
+  border: none;
+  outline: none;
+  background-color: var(--grey_Opacity_2);
+  border-radius: 0 5px 5px 0;
+  transition: 0.2s;
+  right: 0;
+  cursor: pointer;
+}
+
+/* Erro nos inputs */
+
+#newTaskInput.inputError,
+#editInput.inputError,
+#scheduleInputDate.inputError,
+#scheduleInputTime.inputError {
+  border: 2px solid var(--red);
+  box-shadow: 0 0 10px 2px var(--red);
+}
+
+/* Foco nos inputs */
+
+#newTaskInput:focus,
+#editInput:focus,
+#scheduleInputDate:focus,
+#scheduleInputTime:focus,
+#searchTaskInput:focus {
+  border: 2px solid var(--grey_50);
+  box-shadow: 0 0 10px 2px var(--grey_50);
+}
+
+/* Estilo do placeholder dos inputs */
+
+#newTaskInput::placeholder,
+#searchTaskInput::placeholder,
+#editInput::placeholder,
+.notePadInput::placeholder,
+#nameInput::placeholder {
+  color: var(--grey);
+}
+
+/* Elementos que não podem ser clicados */
+
+#header.pointerEventsNone,
+.taskField.pointerEventsNone,
+#mainContainer.pointerEventsNone,
+.btnField.pointerEventsNone,
+#menu.pointerEventsNone,
+#filterInformationBox.pointerEventsNone,
+.taskFront.pointerEventsNone {
+  pointer-events: none;
+  user-select: none;
+}
+
+/* Elementos escondidos */
+
+#menu.hide,
+.cleanNoteBtn.hide,
+.appointmentDate.hide,
+.appointmentTime.hide,
+#confirmationWindow.hide,
+#scheduleField.hide,
+#editField.hide,
+.taskInfo.hide,
+.completedTaskIcon.hide,
+.schedulingRemoveBtn.hide,
+.notePadContainer.hide,
+.notesInfo.hide,
+.notesBtnAlert.hide,
+#noTaskTextContainer.hide,
+.taskField.hide,
+#cleanInputSearchBtn.hide,
+#inputFileBtnDel.hide,
+#inputFileBtnPlus.hide,
+#cleanNewTaskInputBtn.hide,
+#cleanEditInputBtn.hide,
+#nameIdentIcon.hide,
+#saveNameButton.hide,
+#deleteNameButton.hide,
+#recoverNameButton.hide,
+.disabledBtn {
+  display: none;
+}
