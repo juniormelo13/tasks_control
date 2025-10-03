@@ -41,7 +41,6 @@ const btnNo = document.querySelector("#btnNo");
 let dbAllTasks = [];
 
 // Variáveis dos filtros das tarefas
-
 const filterInformationBox = document.querySelector("#filterInformationBox");
 const filterInformation = document.querySelector("#filterInformation");
 const cleanFilterBtn = document.querySelector("#cleanFilterBtn");
@@ -52,10 +51,6 @@ const amountScheduledTasks = document.querySelector("#amountScheduledTasks");
 const amountExpiredTasks = document.querySelector("#amountExpiredTasks");
 const amountCompletedTasks = document.querySelector("#amountCompletedTasks");
 
-
-
-
-
 let pendingTasks = dbAllTasks.filter((infoTaskSave) => !infoTaskSave.completedTask);
 let scheduledTasks = dbAllTasks.filter((infoTaskSave) => infoTaskSave.scheduledTask);
 let expiredTasks = dbAllTasks.filter((infoTaskSave) => infoTaskSave.expiredTask);
@@ -64,10 +59,7 @@ let completedTasks = dbAllTasks.filter((infoTaskSave) => infoTaskSave.completedT
 // recuperação das tarefas e outras informações do banco de dados
 taskRecover();
 
-
-
 // Configuração para remover erros dos inputs
-
 document.addEventListener("click", (e) => {
   if (newTaskInput.classList.contains("inputError") && !newTaskBtn.contains(e.target)) {
     newTaskInput.classList.remove("inputError");
@@ -81,9 +73,6 @@ document.addEventListener("click", (e) => {
 });
 
 // Configuração dos filtros das tarefas
-
-
-
 function calculateNumberOfTasks() {
   pendingTasks = dbAllTasks.filter((infoTaskSave) => !infoTaskSave.completedTask);
   scheduledTasks = dbAllTasks.filter((infoTaskSave) => infoTaskSave.scheduledTask);  
@@ -96,8 +85,6 @@ function calculateNumberOfTasks() {
   amountCompletedTasks.innerText = completedTasks.length;
 }
 
-
-
 function checkTasksOnScreen(taskClass) {
   if (taskClass.length > 0) {
     if (!noTaskTextContainer.classList.contains("hide")) {
@@ -109,8 +96,6 @@ function checkTasksOnScreen(taskClass) {
     }
   }
 }
-
-
 
 function checkActivatedClassBtnAndFilter() {
   if (scheduledTasksFilterBtn.classList.contains("active")) {
