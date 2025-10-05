@@ -567,6 +567,7 @@ newTaskBtn.addEventListener("click", () => {
 newTaskInput.addEventListener("keypress", (e) => {
   if (e.key === "Enter") {
     if (validateInput(newTaskInput)) {
+      cleanNewTaskInputBtn.classList.add("hide");
       prepareAndInsertTask();
     }
   }
