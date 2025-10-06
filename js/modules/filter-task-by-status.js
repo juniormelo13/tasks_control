@@ -45,7 +45,7 @@ function filterTaskByClass(taskClass) {
   }
 }
 
-export function initFilterTaskByStatus() {
+export default function initFilterTaskByStatus() {
   // Torna ativo o botão que exibe todas as tarefas, logo ao iniciar a aplicação.
   allTasksFilterBtn.classList.add("active");
   // Adiciona o evento de clique em cada botão, com o objetivo de filtrar as tarefas de acordo com seus respectivos status.

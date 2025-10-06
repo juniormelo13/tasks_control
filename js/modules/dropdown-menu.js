@@ -1,9 +1,11 @@
+import { resetBtnNameInput } from "./username.js";
+
 //Configuração do botão de Menu
 const menuBtn = document.querySelector("#menuButton");
-const menu = document.querySelector("#menu");
+export const menu = document.querySelector("#menu");
 const menuBtnIcon = document.querySelector("#menuButtonIcon");
 const menuBtnIconMobile = document.querySelector("#menuButtonIconMobile");
-let menuOpen = false;
+export let menuOpen = false;
 
 function menuBtnToggle() {
   menuBtnIcon.classList.toggle("fa-angles-down");
@@ -43,7 +45,7 @@ function menuHide() {
   }, 200);
 }
 
-export function initDropdownMenu() {
+export default function initDropdownMenu() {
   menuBtn.addEventListener("click", () => {
     if (!menuOpen) {
       menuShow();

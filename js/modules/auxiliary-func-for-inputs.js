@@ -1,4 +1,4 @@
-function checkInputValue(input, cleanBtn) {
+export function checkInputValue(input, cleanBtn) {
   if (input.value.trim() != "") {
     cleanBtn.classList.remove("hide");
     return true;
@@ -8,13 +8,13 @@ function checkInputValue(input, cleanBtn) {
   }
 }
 
-function clearInput(input, cleanBtn) {
+export function clearInput(input, cleanBtn) {
   cleanBtn.classList.add("hide");
   input.value = "";
   input.focus();
 }
 
-function validateInput(input) {
+export function validateInput(input) {
   if (input.value.trim() != "") {
     return true;
   } else {
@@ -25,7 +25,7 @@ function validateInput(input) {
   }
 }
 
-function clearEmptyInput(input) {
+export function clearEmptyInput(input) {
   if (input.value.trim() == "") {
     input.value = "";
   }

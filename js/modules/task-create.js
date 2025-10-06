@@ -135,7 +135,7 @@ function createRemoveTaskBtn(taskField, taskFront, infoTaskSave, btnField, remov
   removeBtn.addEventListener("click", () => deleteClick(taskField, taskFront, infoTaskSave));
 }
 
-function taskConstructor(taskField, task, taskFront, infoTaskSave) {
+export function taskConstructor(taskField, task, taskFront, infoTaskSave) {
   // Componentes da tarefa
   const btnField = document.createElement("div");
   const taskInfo = document.createElement("div");

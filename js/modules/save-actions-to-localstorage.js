@@ -1,12 +1,12 @@
-let dbAllTasks = []; // Variáveis para guardar tarefas no banco de dados (Local Storage)
+export let dbAllTasks = []; // Variável para guardar tarefas no banco de dados (Local Storage)
 
-function saveCreatedTask(infoTaskSave) {
+export function saveCreatedTask(infoTaskSave) {
   infoTaskSave["taskContent"] = newTaskInput.value;
   dbAllTasks.unshift(infoTaskSave);
   localStorage.setItem("tasks", JSON.stringify(dbAllTasks));
 }
 
-function saveCompleteTaskAction(infoTaskSave) {
+export function saveCompleteTaskAction(infoTaskSave) {
   if (infoTaskSave.deletedInfoTask) {
     delete infoTaskSave.deletedInfoTask;
   }
@@ -19,7 +19,7 @@ function saveCompleteTaskAction(infoTaskSave) {
   localStorage.setItem("tasks", JSON.stringify(dbAllTasks));
 }
 
-function clearSavedScheduledTaskInfo(infoTaskSave) {
+export function clearSavedScheduledTaskInfo(infoTaskSave) {
   if (infoTaskSave.scheduledTask) {
     delete infoTaskSave.scheduledTask;
   }
@@ -31,7 +31,7 @@ function clearSavedScheduledTaskInfo(infoTaskSave) {
   }
 }
 
-function saveScheduledTaskAction(infoTaskSave, scheduleInputDateValue, scheduleInputTimeValue, infoTextContent, difMinutes, currentDate, difDays, difGetDayNumber) {
+export function saveScheduledTaskAction(infoTaskSave, scheduleInputDateValue, scheduleInputTimeValue, infoTextContent, difMinutes, currentDate, difDays, difGetDayNumber) {
   if (infoTaskSave.deletedInfoTask && !infoTaskSave.scheduledTask) {
     delete infoTaskSave.deletedInfoTask;
   }
@@ -44,7 +44,7 @@ function saveScheduledTaskAction(infoTaskSave, scheduleInputDateValue, scheduleI
   localStorage.setItem("tasks", JSON.stringify(dbAllTasks));
 }
 
-function saveExpiredTaskAction(infoTaskSave, scheduleInputDateValue, scheduleInputTimeValue, infoTextContent) {
+export function saveExpiredTaskAction(infoTaskSave, scheduleInputDateValue, scheduleInputTimeValue, infoTextContent) {
   if (!infoTaskSave.deletedInfoTask) {
     delete infoTaskSave.scheduledTask;
     delete infoTaskSave.expireAlert;
@@ -53,7 +53,7 @@ function saveExpiredTaskAction(infoTaskSave, scheduleInputDateValue, scheduleInp
   }
 }
 
-function saveDeleteTaskAction(infoTaskSave) {
+export function saveDeleteTaskAction(infoTaskSave) {
   infoTaskSave.deletedInfoTask = true;
   localStorage.setItem("tasks", JSON.stringify(dbAllTasks));
   setTimeout(() => {

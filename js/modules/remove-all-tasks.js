@@ -1,9 +1,14 @@
+import { dbAllTasks } from "./save-actions-to-localstorage.js";
+import { enableBtn, disableBtn } from "./auxiliary-func-for-btn.js";
+import { tasksContainer } from "./new-task-input.js";
+import { filtred, filterInformationBox, removeFilter, activateFilterBtn, cleanInputFilter, calculateNumberOfTasks, checkTasksOnScreen  } from "./auxiliary-func-for-filters.js";
+import { menu } from "./dropdown-menu.js";
+import { hideWindow, showConfirmField } from "./auxiliary-func-for-window.js";
+
 // Botão para exclusão de todas as tarefas
 const removeAllTaskBtn = document.querySelector("#removeAllTaskBtn");
 
-// Configuração do botão para exclusão de todas as tarefas
-
-function checkRemoveAllTaskBtn() {
+export function checkRemoveAllTaskBtn() {
   if (dbAllTasks.length > 0) {
     if (removeAllTaskBtn.disabled) {
       enableBtn(removeAllTaskBtn);
@@ -15,7 +20,7 @@ function checkRemoveAllTaskBtn() {
   }
 }
 
-function removeAllTasks() {
+export function removeAllTasks() {
   const taskFields = tasksContainer.childNodes;
   for (const taskField of taskFields) {
     taskField.classList.add("vanishTask");

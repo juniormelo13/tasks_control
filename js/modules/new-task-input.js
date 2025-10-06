@@ -1,3 +1,6 @@
+import { checkInputValue, clearInput, validateInput, clearEmptyInput } from "./auxiliary-func-for-inputs.js";
+
+export const tasksContainer = document.querySelector("#tasksContainer"); // Campo onde as novas tarefas serão adicionadas
 const newTaskInput = document.querySelector("#newTaskInput");
 const newTaskBtn = document.querySelector("#newTaskBtn");
 const cleanNewTaskInputBtn = document.querySelector("#cleanNewTaskInputBtn");

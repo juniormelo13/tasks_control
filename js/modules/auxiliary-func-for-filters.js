@@ -1,29 +1,31 @@
+import { dbAllTasks } from "./save-actions-to-localstorage.js";
+
 const searchTaskInput = document.querySelector("#searchTaskInput");
 const cleanInputSearchBtn = document.querySelector("#cleanInputSearchBtn");
-const filterInformationBox = document.querySelector("#filterInformationBox");
+export const filterInformationBox = document.querySelector("#filterInformationBox");
 const filterInformation = document.querySelector("#filterInformation");
-const noTaskTextContainer = document.querySelector("#noTaskTextContainer"); // Campo com texto para informar o usuário se o campo de tarefas estiver vazio.
+export const noTaskTextContainer = document.querySelector("#noTaskTextContainer"); // Campo com texto para informar o usuário se o campo de tarefas estiver vazio.
 
-let filtred = false;
+export let filtred = false;
 
-function cleanInputFilter() {
+export function cleanInputFilter() {
   searchTaskInput.value = "";
   cleanInputSearchBtn.classList.add("hide");
 }
 
-function addFilter() {
+export function addFilter() {
   filterInformationBox.classList.remove("filterInfoVanish");
   filterInformationBox.classList.add("filterInfoAppear");
   filtred = true;
 }
 
-function removeFilter() {
+export function removeFilter() {
   filterInformationBox.classList.remove("filterInfoAppear");
   filterInformationBox.classList.add("filterInfoVanish");
   filtred = false;
 }
 
-function checkTasksOnScreen(taskClass) {
+export function checkTasksOnScreen(taskClass) {
   if (taskClass.length > 0) {
     if (!noTaskTextContainer.classList.contains("hide")) {
       noTaskTextContainer.classList.add("hide");
@@ -38,7 +40,7 @@ function checkTasksOnScreen(taskClass) {
 const filterContainer = document.querySelector("#filterContainer");
 const filters = filterContainer.children;
 
-function activateFilterBtn(filterBtn) {
+export function activateFilterBtn(filterBtn) {
   for (const filter of filters) {
     if (filter.classList.contains("active")) {
       filter.classList.remove("active");
@@ -47,7 +49,7 @@ function activateFilterBtn(filterBtn) {
   filterBtn.classList.add("active");
 }
 
-function checkActivatedClassBtnAndFilter() {
+export function checkActivatedClassBtnAndFilter() {
   if (scheduledTasksFilterBtn.classList.contains("active")) {
     filterTaskByClass("scheduledTask");
   } else if (pendingTasksFilterBtn.classList.contains("active")) {
@@ -70,7 +72,7 @@ let scheduledTasks = dbAllTasks.filter((infoTaskSave) => infoTaskSave.scheduledT
 let expiredTasks = dbAllTasks.filter((infoTaskSave) => infoTaskSave.expiredTask);
 let completedTasks = dbAllTasks.filter((infoTaskSave) => infoTaskSave.completedTask);
 
-function calculateNumberOfTasks() {
+export function calculateNumberOfTasks() {
   pendingTasks = dbAllTasks.filter((infoTaskSave) => !infoTaskSave.completedTask);
   scheduledTasks = dbAllTasks.filter((infoTaskSave) => infoTaskSave.scheduledTask);  
   expiredTasks = dbAllTasks.filter((infoTaskSave) => infoTaskSave.expiredTask);

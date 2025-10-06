@@ -1,3 +1,8 @@
+import { tasksContainer } from "./new-task-input.js";
+import { menu, menuOpen } from "./dropdown-menu.js";
+import { filterInformationBox, noTaskTextContainer, filtred } from "./auxiliary-func-for-filters.js";
+
+
 const header = document.querySelector("#header"); // Cabeçalho da aplicação
 const mainContainer = document.querySelector("#mainContainer"); // Container principal do projeto
 const confirmationWindow = document.querySelector("#confirmationWindow");
@@ -5,7 +10,7 @@ const confirmationWindowText = document.querySelector("#confirmationWindowText")
 const btnYes = document.querySelector("#btnYes");
 const btnNo = document.querySelector("#btnNo");
 
-function showWindow(window) {
+export function showWindow(window) {
   header.classList.add("pointerEventsNone");
   mainContainer.classList.add("pointerEventsNone");
   tasksContainer.classList.add("tasksContainerHide");
@@ -24,7 +29,7 @@ function showWindow(window) {
   window.classList.add("appearWindow");
 }
 
-function hideWindow(window) {
+export function hideWindow(window) {
   tasksContainer.classList.remove("tasksContainerHide");
   tasksContainer.classList.add("tasksContainerAppear");
   if (!noTaskTextContainer.classList.contains("hide")) {
@@ -53,7 +58,7 @@ function hideWindow(window) {
   }, 200);
 }
 
-function showConfirmField(text, funct) {
+export function showConfirmField(text, funct) {
   showWindow(confirmationWindow);
   confirmationWindowText.innerText = text;
   btnYes.focus();

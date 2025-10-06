@@ -1,3 +1,5 @@
+import { clearEmptyInput } from "./auxiliary-func-for-inputs";
+
 // Nome do usuário
 const nameIdentBox = document.querySelector("#nameIdentBox");
 const nameInput = document.querySelector("#nameInput");
@@ -6,7 +8,7 @@ const saveNameButton = document.querySelector("#saveNameButton");
 const deleteNameButton = document.querySelector("#deleteNameButton");
 const recoverNameButton = document.querySelector("#recoverNameButton");
 
-function resetBtnNameInput() {
+export function resetBtnNameInput() {
   saveNameButton.classList.add("hide");
   deleteNameButton.classList.add("hide");
   recoverNameButton.classList.add("hide");
@@ -14,7 +16,7 @@ function resetBtnNameInput() {
   nameIdentIcon.classList.remove("hide");
 }
 
-function deleteNameDataBase() {
+export function deleteNameDataBase() {
   localStorage.removeItem("infoAccountName");
   nameInput.value = "";
   checkRemoveAllConfigBtn()

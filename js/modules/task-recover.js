@@ -1,3 +1,11 @@
+import { dbAllTasks } from "./save-actions-to-localstorage.js";
+import { checkRemoveAllTaskBtn } from "./remove-all-tasks.js";
+import { checkRemoveAllConfigBtn } from "./remove-all-config.js";
+import { checkTasksOnScreen, calculateNumberOfTasks } from "./auxiliary-func-for-filters.js";
+import { taskConstructor } from "./task-create.js";
+import { tasksContainer } from "./new-task-input.js";
+
+
 // Função responsável por recuperar as tarefas e outras informações do banco de dados
 function taskRecover() {
   if (localStorage.getItem("tasks")) {

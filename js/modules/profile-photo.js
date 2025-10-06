@@ -38,7 +38,7 @@ function loadImage(e) {
   }
 }
 
-function removeImg() {
+export function removeImg() {
   localStorage.removeItem("infoAccountImg");
   uploadedImg.src = "./img/profile-avatar.png";
   inputFileBtnToggle();

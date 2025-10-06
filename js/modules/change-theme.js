@@ -13,7 +13,7 @@ function toDarkTheme() {
   }
 }
 
-function toLightTheme() {
+export function toLightTheme() {
   html.classList.remove("darkTheme");
   scheduleInputDate.classList.remove("darkTheme");
   scheduleInputTime.classList.remove("darkTheme");

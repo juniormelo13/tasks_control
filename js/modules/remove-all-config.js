@@ -1,7 +1,16 @@
+import { enableBtn, disableBtn } from "./auxiliary-func-for-btn.js";
+import { hideWindow, showConfirmField } from "./auxiliary-func-for-window.js";
+import { filtred, removeFilter, activateFilterBtn, cleanInputFilter } from "./auxiliary-func-for-filters.js";
+import { removeAllTasks } from "./remove-all-tasks.js";
+import { removeImg } from "./profile-photo.js";
+import { deleteNameDataBase, resetBtnNameInput } from "./username.js";
+import { toLightTheme } from "./change-theme.js";
+import { menu } from "./dropdown-menu.js";
+
 // Botão para restaurar todas as configurações de fábrica
 const removeAllConfigBtn = document.querySelector("#removeAllConfigBtn");
 
-function checkRemoveAllConfigBtn() {
+export function checkRemoveAllConfigBtn() {
   if (!localStorage.getItem("tasks") && !localStorage.getItem("infoAccountImg") && !localStorage.getItem("infoAccountName") && !localStorage.getItem("theme")) {
     if (!removeAllConfigBtn.disabled) {
       disableBtn(removeAllConfigBtn);
