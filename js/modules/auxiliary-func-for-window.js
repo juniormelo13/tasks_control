@@ -5,7 +5,7 @@ import { filterInformationBox, noTaskTextContainer, filtred } from "./auxiliary-
 
 const header = document.querySelector("#header"); // Cabeçalho da aplicação
 const mainContainer = document.querySelector("#mainContainer"); // Container principal do projeto
-const confirmationWindow = document.querySelector("#confirmationWindow");
+export const confirmationWindow = document.querySelector("#confirmationWindow");
 const confirmationWindowText = document.querySelector("#confirmationWindowText");
 const btnYes = document.querySelector("#btnYes");
 const btnNo = document.querySelector("#btnNo");

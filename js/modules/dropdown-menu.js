@@ -1,4 +1,5 @@
-import { resetBtnNameInput } from "./username.js";
+import { nameInput, resetBtnNameInput } from "./username.js";
+import { confirmationWindow } from "./auxiliary-func-for-window.js";
 
 //Configuração do botão de Menu
 const menuBtn = document.querySelector("#menuButton");

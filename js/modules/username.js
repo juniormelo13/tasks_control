@@ -1,8 +1,10 @@
-import { clearEmptyInput } from "./auxiliary-func-for-inputs";
+import { clearEmptyInput } from "./auxiliary-func-for-inputs.js";
+import { removeAllConfigBtn, checkRemoveAllConfigBtn } from "./remove-all-config.js";
+import { enableBtn } from "./auxiliary-func-for-btn.js";
 
 // Nome do usuário
 const nameIdentBox = document.querySelector("#nameIdentBox");
-const nameInput = document.querySelector("#nameInput");
+export const nameInput = document.querySelector("#nameInput");
 const nameIdentIcon = document.querySelector("#nameIdentIcon");
 const saveNameButton = document.querySelector("#saveNameButton");
 const deleteNameButton = document.querySelector("#deleteNameButton");

@@ -1,3 +1,8 @@
+import { menu } from "./dropdown-menu.js";
+import { hideWindow, showConfirmField, confirmationWindow } from "./auxiliary-func-for-window.js";
+import { removeAllConfigBtn, checkRemoveAllConfigBtn } from "./remove-all-config.js";
+import { enableBtn } from "./auxiliary-func-for-btn.js";
+
 // Configuração para guardar imagem do perfil do usuário no localStorage
 const inputFileImg = document.querySelector("#inputFileImg");
 const uploadedImg = document.querySelector("#uploadedImg");

@@ -8,7 +8,7 @@ import { toLightTheme } from "./change-theme.js";
 import { menu } from "./dropdown-menu.js";
 
 // Botão para restaurar todas as configurações de fábrica
-const removeAllConfigBtn = document.querySelector("#removeAllConfigBtn");
+export const removeAllConfigBtn = document.querySelector("#removeAllConfigBtn");
 
 export function checkRemoveAllConfigBtn() {
   if (!localStorage.getItem("tasks") && !localStorage.getItem("infoAccountImg") && !localStorage.getItem("infoAccountName") && !localStorage.getItem("theme")) {
