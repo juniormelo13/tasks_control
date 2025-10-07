@@ -1,4 +1,13 @@
-function filterTaskByInput() {
+import { filterInformation, noTaskTextContainer, addFilter, removeFilter, cleanInputFilter, activateFilterBtn, filtred } from "./auxiliary-func-for-filters.js";
+import { tasksContainer } from "./new-task-input.js";
+import { clearEmptyInput, checkInputValue } from "./auxiliary-func-for-inputs.js";
+import { allTasksFilterBtn } from "./filter-task-by-status.js";
+import taskRecover from "./task-recover.js";
+
+export const searchTaskInput = document.querySelector("#searchTaskInput");
+export const cleanInputSearchBtn = document.querySelector("#cleanInputSearchBtn");
+
+export function filterTaskByInput() {
   let containsHide = [];
   for (let i = 0; i < dbAllTasks.length; i++) {
     const infoTaskSave = dbAllTasks[i];

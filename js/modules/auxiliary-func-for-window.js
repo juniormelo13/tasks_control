@@ -3,7 +3,7 @@ import { menu, menuOpen } from "./dropdown-menu.js";
 import { filterInformationBox, noTaskTextContainer, filtred } from "./auxiliary-func-for-filters.js";
 
 
-const header = document.querySelector("#header"); // Cabeçalho da aplicação
+export const header = document.querySelector("#header"); // Cabeçalho da aplicação
 const mainContainer = document.querySelector("#mainContainer"); // Container principal do projeto
 export const confirmationWindow = document.querySelector("#confirmationWindow");
 const confirmationWindowText = document.querySelector("#confirmationWindowText");
@@ -58,10 +58,10 @@ export function hideWindow(window) {
   }, 200);
 }
 
-export function showConfirmField(text, funct) {
+export function showConfirmField(text, func) {
   showWindow(confirmationWindow);
   confirmationWindowText.innerText = text;
   btnYes.focus();
-  btnYes.onclick = () => funct();
+  btnYes.onclick = () => func();
   btnNo.onclick = () => hideWindow(confirmationWindow);
 }

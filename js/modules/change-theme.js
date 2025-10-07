@@ -1,3 +1,7 @@
+import { scheduleInputDate, scheduleInputTime } from "./task-schedule.js";
+import { removeAllConfigBtn, checkRemoveAllConfigBtn } from "./remove-all-config.js";
+import { enableBtn } from "./auxiliary-func-for-btn.js";
+
 // Configuração para alternar entre dark/white mode
 const html = document.querySelector("html");
 const themeCheckBox = document.querySelector("#themeCheckBox");

@@ -1,3 +1,11 @@
+import { completeTaskClick } from "./task-complete.js";
+import { editClick } from "./task-edit.js";
+import { scheduleClick } from "./task-schedule.js";
+import { notesBtnClick, saveNoteClick } from "./task-notes-field.js";
+import { checkInputValue, clearInput } from "./auxiliary-func-for-inputs.js";
+import { schedulingRemoveClick } from "./task-schedule-remove.js";
+import { deleteClick } from "./task-delete.js";
+
 // ----- Funções auxiliares (Criação de tarefas) -----
 
 function createTask(taskField, task, taskFront) {

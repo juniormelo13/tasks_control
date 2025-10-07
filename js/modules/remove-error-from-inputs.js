@@ -1,3 +1,7 @@
+import { newTaskInput, newTaskBtn } from "./new-task-input.js";
+import { editInput, confirmEditBtn } from "./task-edit.js";
+import { scheduleInputDate, scheduleInputTime, confirmScheduleBtn } from "./task-schedule.js";
+
 export default function initRemoveErrorFromInputs() {
   // Configuração para remover erros dos inputs
   document.addEventListener("click", (e) => {

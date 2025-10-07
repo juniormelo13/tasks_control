@@ -1,5 +1,9 @@
+import { clearSavedScheduledTaskInfo } from "./save-actions-to-localstorage.js";
+import { clearTaskClass } from "./task-reset.js";
+import { checkActivatedClassBtnAndFilter, calculateNumberOfTasks } from "./auxiliary-func-for-filters.js";
+
 // Configuração do botão de remoção do agendamento
-const schedulingRemoveClick = (taskField, taskInfo, taskFront, scheduleBtn, editBtn, infoTextContent, infoTaskSave) => {
+export const schedulingRemoveClick = (taskField, taskInfo, taskFront, scheduleBtn, editBtn, infoTextContent, infoTaskSave) => {
   taskInfo.classList.add("vanishTaskInfo");
   // Salvar ação no Local Storage
   infoTaskSave.deletedInfoTask = true;

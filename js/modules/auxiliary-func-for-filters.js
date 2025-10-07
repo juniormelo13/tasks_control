@@ -1,9 +1,10 @@
-import { dbAllTasks } from "./save-actions-to-localstorage.js";
+import { dbAllTasks } from "./task-recover.js";
+import { searchTaskInput, cleanInputSearchBtn } from "./filter-task-by-input-search.js";
+import { filterTaskByClass, scheduledTasksFilterBtn, pendingTasksFilterBtn, expiredTasksFilterBtn, completedTasksFilterBtn } from "./filter-task-by-status.js";
 
-const searchTaskInput = document.querySelector("#searchTaskInput");
-const cleanInputSearchBtn = document.querySelector("#cleanInputSearchBtn");
+
 export const filterInformationBox = document.querySelector("#filterInformationBox");
-const filterInformation = document.querySelector("#filterInformation");
+export const filterInformation = document.querySelector("#filterInformation");
 export const noTaskTextContainer = document.querySelector("#noTaskTextContainer"); // Campo com texto para informar o usuário se o campo de tarefas estiver vazio.
 
 export let filtred = false;
@@ -67,10 +68,10 @@ const amountScheduledTasks = document.querySelector("#amountScheduledTasks");
 const amountExpiredTasks = document.querySelector("#amountExpiredTasks");
 const amountCompletedTasks = document.querySelector("#amountCompletedTasks");
 
-let pendingTasks = dbAllTasks.filter((infoTaskSave) => !infoTaskSave.completedTask);
-let scheduledTasks = dbAllTasks.filter((infoTaskSave) => infoTaskSave.scheduledTask);
-let expiredTasks = dbAllTasks.filter((infoTaskSave) => infoTaskSave.expiredTask);
-let completedTasks = dbAllTasks.filter((infoTaskSave) => infoTaskSave.completedTask);
+export let pendingTasks = dbAllTasks.filter((infoTaskSave) => !infoTaskSave.completedTask);
+export let scheduledTasks = dbAllTasks.filter((infoTaskSave) => infoTaskSave.scheduledTask);
+export let expiredTasks = dbAllTasks.filter((infoTaskSave) => infoTaskSave.expiredTask);
+export let completedTasks = dbAllTasks.filter((infoTaskSave) => infoTaskSave.completedTask);
 
 export function calculateNumberOfTasks() {
   pendingTasks = dbAllTasks.filter((infoTaskSave) => !infoTaskSave.completedTask);

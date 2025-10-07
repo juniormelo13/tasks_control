@@ -1,4 +1,4 @@
-export let dbAllTasks = []; // Variável para guardar tarefas no banco de dados (Local Storage)
+import { newTaskInput } from "./new-task-input.js";
 
 export function saveCreatedTask(infoTaskSave) {
   infoTaskSave["taskContent"] = newTaskInput.value;

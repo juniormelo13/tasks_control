@@ -1,10 +1,14 @@
-const allTasksFilterBtn = document.querySelector("#allTasksFilterBtn");
-const pendingTasksFilterBtn = document.querySelector("#pendingTasksFilterBtn");
-const scheduledTasksFilterBtn = document.querySelector("#scheduledTasksFilterBtn");
-const expiredTasksFilterBtn = document.querySelector("#expiredTasksFilterBtn");
-const completedTasksFilterBtn = document.querySelector("#completedTasksFilterBtn");
+import { tasksContainer } from "./new-task-input.js";
+import { filterInformation, cleanInputFilter, addFilter, removeFilter, activateFilterBtn, pendingTasks, scheduledTasks, expiredTasks, completedTasks } from "./auxiliary-func-for-filters.js";
+import taskRecover from "./task-recover.js";
 
-function filterTaskByClass(taskClass) {
+export const allTasksFilterBtn = document.querySelector("#allTasksFilterBtn");
+export const pendingTasksFilterBtn = document.querySelector("#pendingTasksFilterBtn");
+export const scheduledTasksFilterBtn = document.querySelector("#scheduledTasksFilterBtn");
+export const expiredTasksFilterBtn = document.querySelector("#expiredTasksFilterBtn");
+export const completedTasksFilterBtn = document.querySelector("#completedTasksFilterBtn");
+
+export function filterTaskByClass(taskClass) {
   for (i = 0; i < dbAllTasks.length; i++) {
     const infoTaskSave = dbAllTasks[i];
     const taskField = tasksContainer.childNodes[i];

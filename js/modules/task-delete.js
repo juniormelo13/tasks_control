@@ -1,5 +1,15 @@
 // Configuração do botão de exclusão da tarefa
-const deleteClick = (taskField, taskFront, infoTaskSave) => {
+import { dbAllTasks } from "./task-recover.js";
+import { hideWindow, showConfirmField, confirmationWindow } from "./auxiliary-func-for-window.js";
+import { transitionClickProtection } from "./auxiliary-func-for-handling-tasks.js";
+import { saveDeleteTaskAction } from "./save-actions-to-localstorage.js";
+import { calculateNumberOfTasks, checkTasksOnScreen, checkActivatedClassBtnAndFilter, filtred } from "./auxiliary-func-for-filters.js";
+import { allTasksFilterBtn } from "./filter-task-by-status.js";
+import { checkRemoveAllConfigBtn } from "./remove-all-config.js";
+import { checkRemoveAllTaskBtn } from "./remove-all-tasks.js";
+import { filterTaskByInput, searchTaskInput } from "./filter-task-by-input-search.js";
+
+export const deleteClick = (taskField, taskFront, infoTaskSave) => {
   if (taskFront.classList.contains("scheduled") || infoTaskSave.savedNote) {
     if (taskFront.classList.contains("scheduled") && infoTaskSave.savedNote) {
       showConfirmField("Esta tarefa possui agendamento e anotações. Tem certeza de que deseja removê-la?", confirmDeleteAction);

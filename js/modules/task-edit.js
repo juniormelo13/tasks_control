@@ -1,8 +1,12 @@
+import { checkInputValue, clearEmptyInput, clearInput, validateInput } from "./auxiliary-func-for-inputs.js";
+import { hideWindow, showWindow } from "./auxiliary-func-for-window.js";
+import { includePointerEventsNoneAllTasks } from "./auxiliary-func-for-handling-tasks.js";
+
 const editField = document.querySelector("#editField"); // Janela para edição das tarefas
-const editInput = document.querySelector("#editInput"); // Input de texto para edição das tarefas
+export const editInput = document.querySelector("#editInput"); // Input de texto para edição das tarefas
 const cleanEditInputBtn = document.querySelector("#cleanEditInputBtn");
 const closeEditFieldBtn = document.querySelector("#closeEditFieldBtn");
-const confirmEditBtn = document.querySelector("#confirmEditBtn"); // Botão de confirmação da edição
+export const confirmEditBtn = document.querySelector("#confirmEditBtn"); // Botão de confirmação da edição
 const cancelEditBtn = document.querySelector("#cancelEditBtn");
 
 editInput.onkeyup = () => checkInputValue(editInput, cleanEditInputBtn);
@@ -11,7 +15,7 @@ cleanEditInputBtn.onclick = () => clearInput(editInput, cleanEditInputBtn);
 closeEditFieldBtn.onclick = () => hideWindow(editField);
 cancelEditBtn.onclick = () => hideWindow(editField);
 
-function editClick(taskContent, infoTaskSave) {
+export function editClick(taskContent, infoTaskSave) {
   showWindow(editField);
   editInput.value = taskContent.innerText;
   cleanEditInputBtn.classList.remove("hide");

@@ -1,8 +1,15 @@
+import { dbAllTasks } from "./task-recover.js";
 import { checkInputValue, clearInput, validateInput, clearEmptyInput } from "./auxiliary-func-for-inputs.js";
+import { filtred, cleanInputFilter, activateFilterBtn, calculateNumberOfTasks, checkTasksOnScreen } from "./auxiliary-func-for-filters.js";
+import { filterTaskByClass } from "./filter-task-by-status.js";
+import { checkRemoveAllTaskBtn } from "./remove-all-tasks.js";
+import { checkRemoveAllConfigBtn } from "./remove-all-config.js";
+import { saveCreatedTask } from "./save-actions-to-localstorage.js";
+import { taskConstructor } from "./task-create.js";
 
 export const tasksContainer = document.querySelector("#tasksContainer"); // Campo onde as novas tarefas serão adicionadas
-const newTaskInput = document.querySelector("#newTaskInput");
-const newTaskBtn = document.querySelector("#newTaskBtn");
+export const newTaskInput = document.querySelector("#newTaskInput");
+export const newTaskBtn = document.querySelector("#newTaskBtn");
 const cleanNewTaskInputBtn = document.querySelector("#cleanNewTaskInputBtn");
 
 function prepareAndInsertTask() {

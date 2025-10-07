@@ -1,4 +1,4 @@
-function clearTaskClass(infoTextContent, taskInfo, taskFront) {
+export function clearTaskClass(infoTextContent, taskInfo, taskFront) {
   if (taskFront.classList.contains("scheduled") || taskFront.classList.contains("expiredTask")) {
     infoTextContent.innerText = "";
   }

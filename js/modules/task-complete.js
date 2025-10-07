@@ -1,3 +1,11 @@
+import { hideWindow, confirmationWindow, showConfirmField } from "./auxiliary-func-for-window.js";
+import { saveCompleteTaskAction } from "./save-actions-to-localstorage.js";
+import { transitionClickProtection } from "./auxiliary-func-for-handling-tasks.js";
+import { clearTaskClass } from "./task-reset.js";
+import { calculateNumberOfTasks, checkActivatedClassBtnAndFilter } from "./auxiliary-func-for-filters.js";
+import { allTasksFilterBtn } from "./filter-task-by-status.js";
+
+
 function completeTaskBtnToggle(taskFront, taskContent, checkIcon, checkBtn, scheduleBtn, editBtn, completedTaskIcon, schedulingRemoveBtn) {
   checkIcon.classList.toggle("fa-thumbs-up");
   checkIcon.classList.toggle("fa-rotate");
@@ -25,7 +33,7 @@ function putCompletedTask(taskFront, taskInfo, infoTextContent) {
   infoTextContent.innerText = "Tarefa concluída";
 }
 
-const completeTaskClick = (taskField, taskFront, taskContent, scheduleBtn, editBtn, checkBtn, checkIcon, taskInfo, infoTextContent, completedTaskIcon, schedulingRemoveBtn, infoTaskSave) => {
+export const completeTaskClick = (taskField, taskFront, taskContent, scheduleBtn, editBtn, checkBtn, checkIcon, taskInfo, infoTextContent, completedTaskIcon, schedulingRemoveBtn, infoTaskSave) => {
   if (taskFront.classList.contains("scheduled")) {
     showConfirmField("Esta tarefa está agendada. Tem certeza de que deseja concluí-la?", confirmCompleteTask);
     function confirmCompleteTask() {

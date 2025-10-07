@@ -1,3 +1,5 @@
+import { tasksContainer } from "./new-task-input.js";
+
 export function transitionClickProtection(option) {
   const taskFields = tasksContainer.childNodes;
   if (option == "add") {

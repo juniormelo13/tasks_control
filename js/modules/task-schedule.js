@@ -1,15 +1,19 @@
+import { hideWindow, showWindow } from "./auxiliary-func-for-window.js";
+import { saveScheduledTaskAction } from "./save-actions-to-localstorage.js";
+import { calculateNumberOfTasks } from "./auxiliary-func-for-filters.js";
+
 // Agendamento de tarefas
 const scheduleField = document.querySelector("#scheduleField");
 const scheduleFieldCloseBtn = document.querySelector("#scheduleFieldCloseBtn");
 const cancelScheduletBtn = document.querySelector("#cancelScheduletBtn");
-const scheduleInputDate = document.querySelector("#scheduleInputDate");
-const scheduleInputTime = document.querySelector("#scheduleInputTime");
-const confirmScheduleBtn = document.querySelector("#confirmScheduleBtn");
+export const scheduleInputDate = document.querySelector("#scheduleInputDate");
+export const scheduleInputTime = document.querySelector("#scheduleInputTime");
+export const confirmScheduleBtn = document.querySelector("#confirmScheduleBtn");
 
 scheduleFieldCloseBtn.onclick = () => hideWindow(scheduleField);
 cancelScheduletBtn.onclick = () => hideWindow(scheduleField);
 
-function scheduleClick(task, scheduleBtn, taskInfo, infoTextContent, schedulingRemoveBtn, infoTaskSave, btnField) {
+export function scheduleClick(task, scheduleBtn, taskInfo, infoTextContent, schedulingRemoveBtn, infoTaskSave, btnField) {
   const currentFullDate = new Date();
   const optionsForTimeInput = {
     timeStyle: "short",

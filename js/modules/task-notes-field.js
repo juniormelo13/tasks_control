@@ -1,6 +1,12 @@
+import { header } from "./auxiliary-func-for-window.js";
+import { menu, menuOpen } from "./dropdown-menu.js";
+import { filtred, filterInformationBox } from "./auxiliary-func-for-filters.js";
+import { clearEmptyInput } from "./auxiliary-func-for-inputs.js";
+import { tasksContainer } from "./new-task-input.js";
+
 let flippedTask = false
 
-function notesBtnClick(taskField, task, taskFront, notePadInput, notePadContainer, cleanNoteBtn, notesBtn, infoTaskSave) {
+export function notesBtnClick(taskField, task, taskFront, notePadInput, notePadContainer, cleanNoteBtn, notesBtn, infoTaskSave) {
   header.classList.add("pointerEventsNone");
   if(menuOpen) {
     menu.classList.add("pointerEventsNone");
@@ -31,7 +37,7 @@ function notesBtnClick(taskField, task, taskFront, notePadInput, notePadContaine
   };
 }
 
-function saveNoteClick(taskField, task, taskFront, notePadContainer, notePadInput, notesBtn, infoTaskSave) {
+export function saveNoteClick(taskField, task, taskFront, notePadContainer, notePadInput, notesBtn, infoTaskSave) {
   if (notePadInput.value.trim() != "") {
     infoTaskSave.savedNote = [true, notePadInput.value.trim()];
     localStorage.setItem("tasks", JSON.stringify(dbAllTasks));

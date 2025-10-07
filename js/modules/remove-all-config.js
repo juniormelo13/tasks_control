@@ -1,9 +1,9 @@
 import { enableBtn, disableBtn } from "./auxiliary-func-for-btn.js";
-import { hideWindow, showConfirmField } from "./auxiliary-func-for-window.js";
+import { hideWindow, showConfirmField, confirmationWindow } from "./auxiliary-func-for-window.js";
 import { filtred, removeFilter, activateFilterBtn, cleanInputFilter } from "./auxiliary-func-for-filters.js";
 import { removeAllTasks } from "./remove-all-tasks.js";
 import { removeImg } from "./profile-photo.js";
-import { deleteNameDataBase, resetBtnNameInput } from "./username.js";
+import { nameInput, deleteNameDataBase, resetBtnNameInput } from "./username.js";
 import { toLightTheme } from "./change-theme.js";
 import { menu } from "./dropdown-menu.js";
 
