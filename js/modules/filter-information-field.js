@@ -1,5 +1,5 @@
 import { cleanInputFilter, removeFilter, activateFilterBtn } from "./auxiliary-func-for-filters.js";
-import taskRecover from "./task-recover.js";
+import { allTasksFilterBtn, filterTaskByClass } from "./filter-task-by-status.js";
 
 const cleanFilterBtn = document.querySelector("#cleanFilterBtn");
 
@@ -9,7 +9,7 @@ export default function initFilterInformationField() {
     cleanInputFilter();
     removeFilter();
     activateFilterBtn(allTasksFilterBtn);
-    taskRecover();
+    filterTaskByClass("allTask");
   });
 
 }

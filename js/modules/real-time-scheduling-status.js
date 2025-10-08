@@ -1,5 +1,7 @@
-import { dbAllTasks } from "./task-recover.js";
+import { dbAllTasks, calculateNumberOfTasks, checkActivatedClassBtnAndFilter } from "./auxiliary-func-for-filters.js";
 import { tasksContainer } from "./new-task-input.js";
+import { saveExpiredTaskAction, saveScheduledTaskAction } from "./save-actions-to-localstorage.js";
+import { insertSchedulingInfo, putExpireAlertClass } from "./task-schedule.js";
 
 export default function initRealTimeSchedulingStatus() {
 

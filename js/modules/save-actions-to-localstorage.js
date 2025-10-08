@@ -1,4 +1,5 @@
 import { newTaskInput } from "./new-task-input.js";
+import { dbAllTasks } from "./auxiliary-func-for-filters.js";
 
 export function saveCreatedTask(infoTaskSave) {
   infoTaskSave["taskContent"] = newTaskInput.value;

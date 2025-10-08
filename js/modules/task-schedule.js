@@ -14,6 +14,7 @@ scheduleFieldCloseBtn.onclick = () => hideWindow(scheduleField);
 cancelScheduletBtn.onclick = () => hideWindow(scheduleField);
 
 export function scheduleClick(task, scheduleBtn, taskInfo, infoTextContent, schedulingRemoveBtn, infoTaskSave, btnField) {
+
   const currentFullDate = new Date();
   const optionsForTimeInput = {
     timeStyle: "short",
@@ -31,10 +32,12 @@ export function scheduleClick(task, scheduleBtn, taskInfo, infoTextContent, sche
       confirmSchedule(task, scheduleBtn, taskInfo, infoTextContent, schedulingRemoveBtn, infoTaskSave, btnField);
     }
   };
+
 }
 
 // Configuração de botão de confirmação de agendamento
 const confirmSchedule = (task, scheduleBtn, taskInfo, infoTextContent, schedulingRemoveBtn, infoTaskSave, btnField) => {
+
   const currentFullDate = new Date();
   const scheduleInputDateValue = scheduleInputDate.value;
   const scheduleInputTimeValue = scheduleInputTime.value;
@@ -110,8 +113,11 @@ const confirmSchedule = (task, scheduleBtn, taskInfo, infoTextContent, schedulin
     saveScheduledTaskAction(infoTaskSave, scheduleInputDateValue, scheduleInputTimeValue, infoTextContent, difMinutes, currentDate, difDays, difGetDayNumber);
     calculateNumberOfTasks();
   }
+
 };
-function insertSchedulingInfo(infoTextContent, difDays, difMinutes, difGetDayNumber, scheduleInputTimeValue, scheduleInputDateValue, currentDate) {
+
+export function insertSchedulingInfo(infoTextContent, difDays, difMinutes, difGetDayNumber, scheduleInputTimeValue, scheduleInputDateValue, currentDate) {
+
   if ((difDays < 2 && difGetDayNumber == 1 && difMinutes > 60) || (difDays < 2 && difGetDayNumber == -6 && difMinutes > 60)) {
     infoTextContent.innerText = "Amanhã, " + scheduleInputTimeValue;
   } else if ((difDays < 2 && difGetDayNumber == 1 && difMinutes > 30 && difMinutes <= 60) || (difDays < 2 && difGetDayNumber == -6 && difMinutes > 30 && difMinutes <= 60)) {
@@ -133,11 +139,14 @@ function insertSchedulingInfo(infoTextContent, difDays, difMinutes, difGetDayNum
       infoTextContent.innerText = "Hoje, " + scheduleInputTimeValue + " - Faltam " + Math.ceil(difMinutes) + " min";
     }
   }
+
 }
 
-function putExpireAlertClass(task, taskInfo, difMinutes, currentDate, difDays, difGetDayNumber, scheduleInputDateValue) {
+export function putExpireAlertClass(task, taskInfo, difMinutes, currentDate, difDays, difGetDayNumber, scheduleInputDateValue) {
+  
   if ((difMinutes > 0 && difMinutes <= 30 && currentDate === scheduleInputDateValue) || (difDays < 2 && difGetDayNumber == 1 && difMinutes > 0 && difMinutes <= 30) || (difDays < 2 && difGetDayNumber == -6 && difMinutes > 0 && difMinutes <= 30)) {
     task.classList.add("expireAlert");
     taskInfo.classList.add("expireAlert");
   }
+
 }

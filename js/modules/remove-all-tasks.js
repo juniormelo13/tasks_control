@@ -1,9 +1,9 @@
-import { dbAllTasks } from "./task-recover.js";
 import { enableBtn, disableBtn } from "./auxiliary-func-for-btn.js";
 import { tasksContainer } from "./new-task-input.js";
-import { filtred, filterInformationBox, removeFilter, activateFilterBtn, cleanInputFilter, calculateNumberOfTasks, checkTasksOnScreen  } from "./auxiliary-func-for-filters.js";
+import { filtred, filterInformationBox, removeFilter, activateFilterBtn, cleanInputFilter, calculateNumberOfTasks, checkTasksOnScreen, dbAllTasks } from "./auxiliary-func-for-filters.js";
 import { menu } from "./dropdown-menu.js";
 import { hideWindow, showConfirmField, confirmationWindow } from "./auxiliary-func-for-window.js";
+import { checkRemoveAllConfigBtn } from "./remove-all-config.js";
 
 // Botão para exclusão de todas as tarefas
 const removeAllTaskBtn = document.querySelector("#removeAllTaskBtn");

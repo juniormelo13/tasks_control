@@ -1,6 +1,5 @@
 import { tasksContainer } from "./new-task-input.js";
-import { filterInformation, cleanInputFilter, addFilter, removeFilter, activateFilterBtn, pendingTasks, scheduledTasks, expiredTasks, completedTasks } from "./auxiliary-func-for-filters.js";
-import taskRecover from "./task-recover.js";
+import {filterInformation, cleanInputFilter, addFilter, removeFilter, activateFilterBtn, pendingTasks, scheduledTasks, expiredTasks, completedTasks, dbAllTasks, checkTasksOnScreen } from "./auxiliary-func-for-filters.js";
 
 export const allTasksFilterBtn = document.querySelector("#allTasksFilterBtn");
 export const pendingTasksFilterBtn = document.querySelector("#pendingTasksFilterBtn");
@@ -9,7 +8,7 @@ export const expiredTasksFilterBtn = document.querySelector("#expiredTasksFilter
 export const completedTasksFilterBtn = document.querySelector("#completedTasksFilterBtn");
 
 export function filterTaskByClass(taskClass) {
-  for (i = 0; i < dbAllTasks.length; i++) {
+  for (let i = 0; i < dbAllTasks.length; i++) {
     const infoTaskSave = dbAllTasks[i];
     const taskField = tasksContainer.childNodes[i];
     if (taskClass == "pendingTask") {
@@ -21,6 +20,10 @@ export function filterTaskByClass(taskClass) {
         if (taskField.classList.contains("hide")) {
           taskField.classList.remove("hide");
         }
+      }
+    } else if (taskClass == "allTask") {
+      if (taskField.classList.contains("hide")) {
+        taskField.classList.remove("hide");
       }
     } else {
       if (!infoTaskSave.hasOwnProperty(taskClass)) {
@@ -46,6 +49,8 @@ export function filterTaskByClass(taskClass) {
   } else if (taskClass == "completedTask") {
     filterInformation.innerText = "Concluídas";
     checkTasksOnScreen(completedTasks);
+  } else {
+    checkTasksOnScreen(dbAllTasks);
   }
 }
 
@@ -53,35 +58,35 @@ export default function initFilterTaskByStatus() {
   // Torna ativo o botão que exibe todas as tarefas, logo ao iniciar a aplicação.
   allTasksFilterBtn.classList.add("active");
   // Adiciona o evento de clique em cada botão, com o objetivo de filtrar as tarefas de acordo com seus respectivos status.
-  // Mostra todas as tarefas. 
+  // Mostra todas as tarefas.
   allTasksFilterBtn.addEventListener("click", () => {
     cleanInputFilter();
     removeFilter();
     activateFilterBtn(allTasksFilterBtn);
-    taskRecover();
+    filterTaskByClass("allTask");
   });
-  // Mostra apenas as tarefas pendentes. 
+  // Mostra apenas as tarefas pendentes.
   pendingTasksFilterBtn.addEventListener("click", () => {
     cleanInputFilter();
     addFilter();
     activateFilterBtn(pendingTasksFilterBtn);
     filterTaskByClass("pendingTask");
   });
-  // Mostra apenas as tarefas agendadas. 
+  // Mostra apenas as tarefas agendadas.
   scheduledTasksFilterBtn.addEventListener("click", () => {
     cleanInputFilter();
     addFilter();
     activateFilterBtn(scheduledTasksFilterBtn);
     filterTaskByClass("scheduledTask");
   });
-  // Mostra apenas as tarefas expiradas. 
+  // Mostra apenas as tarefas expiradas.
   expiredTasksFilterBtn.addEventListener("click", () => {
     cleanInputFilter();
     addFilter();
     activateFilterBtn(expiredTasksFilterBtn);
     filterTaskByClass("expiredTask");
   });
-  // Mostra apenas as tarefas completas. 
+  // Mostra apenas as tarefas completas.
   completedTasksFilterBtn.addEventListener("click", () => {
     cleanInputFilter();
     addFilter();

@@ -1,12 +1,21 @@
-import { dbAllTasks } from "./task-recover.js";
 import { searchTaskInput, cleanInputSearchBtn } from "./filter-task-by-input-search.js";
 import { filterTaskByClass, scheduledTasksFilterBtn, pendingTasksFilterBtn, expiredTasksFilterBtn, completedTasksFilterBtn } from "./filter-task-by-status.js";
-
 
 export const filterInformationBox = document.querySelector("#filterInformationBox");
 export const filterInformation = document.querySelector("#filterInformation");
 export const noTaskTextContainer = document.querySelector("#noTaskTextContainer"); // Campo com texto para informar o usuário se o campo de tarefas estiver vazio.
-
+const amountAllTasks = document.querySelector("#amountAllTasks");
+const amountPendingTasks = document.querySelector("#amountPendingTasks");
+const amountScheduledTasks = document.querySelector("#amountScheduledTasks");
+const amountExpiredTasks = document.querySelector("#amountExpiredTasks");
+const amountCompletedTasks = document.querySelector("#amountCompletedTasks");
+const filterContainer = document.querySelector("#filterContainer");
+const filters = filterContainer.children;
+export let dbAllTasks = new Array; // Variável para guardar tarefas no banco de dados (Local Storage)
+export let pendingTasks = new Array;
+export let scheduledTasks = new Array;
+export let expiredTasks = new Array;
+export let completedTasks = new Array;
 export let filtred = false;
 
 export function cleanInputFilter() {
@@ -38,9 +47,6 @@ export function checkTasksOnScreen(taskClass) {
   }
 }
 
-const filterContainer = document.querySelector("#filterContainer");
-const filters = filterContainer.children;
-
 export function activateFilterBtn(filterBtn) {
   for (const filter of filters) {
     if (filter.classList.contains("active")) {
@@ -61,17 +67,6 @@ export function checkActivatedClassBtnAndFilter() {
     filterTaskByClass("completedTask");
   }
 }
-
-const amountAllTasks = document.querySelector("#amountAllTasks");
-const amountPendingTasks = document.querySelector("#amountPendingTasks");
-const amountScheduledTasks = document.querySelector("#amountScheduledTasks");
-const amountExpiredTasks = document.querySelector("#amountExpiredTasks");
-const amountCompletedTasks = document.querySelector("#amountCompletedTasks");
-
-export let pendingTasks = dbAllTasks.filter((infoTaskSave) => !infoTaskSave.completedTask);
-export let scheduledTasks = dbAllTasks.filter((infoTaskSave) => infoTaskSave.scheduledTask);
-export let expiredTasks = dbAllTasks.filter((infoTaskSave) => infoTaskSave.expiredTask);
-export let completedTasks = dbAllTasks.filter((infoTaskSave) => infoTaskSave.completedTask);
 
 export function calculateNumberOfTasks() {
   pendingTasks = dbAllTasks.filter((infoTaskSave) => !infoTaskSave.completedTask);

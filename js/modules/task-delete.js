@@ -1,9 +1,8 @@
 // Configuração do botão de exclusão da tarefa
-import { dbAllTasks } from "./task-recover.js";
-import { hideWindow, showConfirmField, confirmationWindow } from "./auxiliary-func-for-window.js";
+import { showConfirmField, confirmationWindow, hideWindow } from "./auxiliary-func-for-window.js";
 import { transitionClickProtection } from "./auxiliary-func-for-handling-tasks.js";
 import { saveDeleteTaskAction } from "./save-actions-to-localstorage.js";
-import { calculateNumberOfTasks, checkTasksOnScreen, checkActivatedClassBtnAndFilter, filtred } from "./auxiliary-func-for-filters.js";
+import { calculateNumberOfTasks, checkTasksOnScreen, checkActivatedClassBtnAndFilter, filtred, dbAllTasks } from "./auxiliary-func-for-filters.js";
 import { allTasksFilterBtn } from "./filter-task-by-status.js";
 import { checkRemoveAllConfigBtn } from "./remove-all-config.js";
 import { checkRemoveAllTaskBtn } from "./remove-all-tasks.js";

@@ -1,8 +1,7 @@
-import { filterInformation, noTaskTextContainer, addFilter, removeFilter, cleanInputFilter, activateFilterBtn, filtred } from "./auxiliary-func-for-filters.js";
+import { filterInformation, noTaskTextContainer, addFilter, removeFilter, cleanInputFilter, activateFilterBtn, filtred, dbAllTasks } from "./auxiliary-func-for-filters.js";
 import { tasksContainer } from "./new-task-input.js";
 import { clearEmptyInput, checkInputValue } from "./auxiliary-func-for-inputs.js";
-import { allTasksFilterBtn } from "./filter-task-by-status.js";
-import taskRecover from "./task-recover.js";
+import { allTasksFilterBtn, filterTaskByClass } from "./filter-task-by-status.js";
 
 export const searchTaskInput = document.querySelector("#searchTaskInput");
 export const cleanInputSearchBtn = document.querySelector("#cleanInputSearchBtn");
@@ -51,14 +50,14 @@ export default function initFilterTaskByInputSearch() {
       }
       if (!allTasksFilterBtn.classList.contains("active")) {
         activateFilterBtn(allTasksFilterBtn);
-        taskRecover();
+        filterTaskByClass("allTask");
       }
       addFilter();
       filterTaskByInput();
     } else {
       if (filtred) {
         removeFilter();
-        taskRecover();
+        filterTaskByClass("allTask");
       }
     }
   };
@@ -72,7 +71,7 @@ export default function initFilterTaskByInputSearch() {
     cleanInputFilter();
     removeFilter();
     activateFilterBtn(allTasksFilterBtn);
-    taskRecover();
+    filterTaskByClass("allTask");
   });
 
 }
