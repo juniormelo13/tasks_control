@@ -7,6 +7,7 @@ import { checkRemoveAllConfigBtn } from "./remove-all-config.js";
 
 // Botão para exclusão de todas as tarefas
 const removeAllTaskBtn = document.querySelector("#removeAllTaskBtn");
+disableBtn(removeAllTaskBtn);
 
 export function checkRemoveAllTaskBtn() {
   if (dbAllTasks.length > 0) {

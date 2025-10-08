@@ -18,6 +18,8 @@ export let expiredTasks = new Array;
 export let completedTasks = new Array;
 export let filtred = false;
 
+noTaskTextContainer.classList.remove("hide");
+
 export function cleanInputFilter() {
   searchTaskInput.value = "";
   cleanInputSearchBtn.classList.add("hide");

@@ -11,6 +11,9 @@ export default function initTaskRecover() {
     dbAllTasks.length = 0
     dbAllTasks.push(...dbAllTasksRecover)
     calculateNumberOfTasks();
+    checkRemoveAllTaskBtn();
+    checkRemoveAllConfigBtn();
+    checkTasksOnScreen(dbAllTasks);
     tasksContainer.innerHTML = "";
     for (let i = 0; i < dbAllTasks.length; i++) {
       // Recuperação dos dados de cada tarefa no array e renderização em tela
@@ -22,7 +25,4 @@ export default function initTaskRecover() {
       tasksContainer.appendChild(taskField);
     }
   }
-  checkTasksOnScreen(dbAllTasks);
-  checkRemoveAllTaskBtn();
-  checkRemoveAllConfigBtn();
 }

@@ -9,6 +9,7 @@ import { menu } from "./dropdown-menu.js";
 
 // Botão para restaurar todas as configurações de fábrica
 export const removeAllConfigBtn = document.querySelector("#removeAllConfigBtn");
+disableBtn(removeAllConfigBtn);
 
 export function checkRemoveAllConfigBtn() {
   if (!localStorage.getItem("tasks") && !localStorage.getItem("infoAccountImg") && !localStorage.getItem("infoAccountName") && !localStorage.getItem("theme")) {
