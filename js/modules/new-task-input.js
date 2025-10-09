@@ -1,5 +1,6 @@
+import { dbAllTasks } from "./auxiliary-func-for-filters.js";
 import { checkInputValue, clearInput, validateInput, clearEmptyInput } from "./auxiliary-func-for-inputs.js";
-import { filtred, cleanInputFilter, activateFilterBtn, calculateNumberOfTasks, checkTasksOnScreen, dbAllTasks } from "./auxiliary-func-for-filters.js";
+import { filtred, cleanInputFilter, activateFilterBtn, calculateNumberOfTasks, checkTasksOnScreen } from "./auxiliary-func-for-filters.js";
 import { filterTaskByClass } from "./filter-task-by-status.js";
 import { checkRemoveAllTaskBtn } from "./remove-all-tasks.js";
 import { checkRemoveAllConfigBtn } from "./remove-all-config.js";
@@ -43,7 +44,6 @@ function insertTask(taskField, task, taskFront, infoTaskSave) {
 export default function initNewTaskInput() {
 
   newTaskInput.focus();
-  
   newTaskInput.onkeyup = () => checkInputValue(newTaskInput, cleanNewTaskInputBtn);
   newTaskInput.onblur = () => clearEmptyInput(newTaskInput);
   cleanNewTaskInputBtn.onclick = () => clearInput(newTaskInput, cleanNewTaskInputBtn);
