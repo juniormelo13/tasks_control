@@ -1,11 +1,31 @@
 import { tasksContainer } from "./new-task-input.js";
-import {filterInformation, cleanInputFilter, addFilter, removeFilter, activateFilterBtn, pendingTasks, scheduledTasks, expiredTasks, completedTasks, dbAllTasks, checkTasksOnScreen } from "./auxiliary-func-for-filters.js";
+import { dbAllTasks } from "./save-actions-to-localstorage.js";
+import { filterInformation, addFilter, removeFilter, checkTasksOnScreen } from "./filter-information.js";
+import { cleanInputFilter } from "./filter-task-by-input-search.js";
 
-export const allTasksFilterBtn = document.querySelector("#allTasksFilterBtn");
-export const pendingTasksFilterBtn = document.querySelector("#pendingTasksFilterBtn");
-export const scheduledTasksFilterBtn = document.querySelector("#scheduledTasksFilterBtn");
-export const expiredTasksFilterBtn = document.querySelector("#expiredTasksFilterBtn");
-export const completedTasksFilterBtn = document.querySelector("#completedTasksFilterBtn");
+const btnFilters = document.querySelectorAll("[data-btnFilter]") // Variável para guardar todos os botões para filtros.
+export const allTasksFilterBtn = document.querySelector('[data-btnFilter="allTasksFilterBtn"]');
+export const pendingTasksFilterBtn = document.querySelector('[data-btnFilter="pendingTasksFilterBtn"]');
+export const scheduledTasksFilterBtn = document.querySelector('[data-btnFilter="scheduledTasksFilterBtn"]');
+export const expiredTasksFilterBtn = document.querySelector('[data-btnFilter="expiredTasksFilterBtn"]');
+export const completedTasksFilterBtn = document.querySelector('[data-btnFilter="completedTasksFilterBtn"]');
+const amountAllTasks = document.querySelector("#amountAllTasks"); // Campo para informar a quantidade de tarefas criadas.
+const amountPendingTasks = document.querySelector("#amountPendingTasks"); // Campo para informar a quantidade de tarefas pendentes.
+const amountScheduledTasks = document.querySelector("#amountScheduledTasks"); // Campo para informar a quantidade de tarefas agendadas.
+const amountExpiredTasks = document.querySelector("#amountExpiredTasks"); // Campo para informar a quantidade de tarefas expiradas.
+const amountCompletedTasks = document.querySelector("#amountCompletedTasks"); // Campo para informar a quantidade de tarefas concluídas.
+
+export function calculateNumberOfTasks() {
+  const pendingTasks = dbAllTasks.filter((infoTaskSave) => !infoTaskSave.completedTask);
+  const scheduledTasks = dbAllTasks.filter((infoTaskSave) => infoTaskSave.scheduledTask);
+  const expiredTasks = dbAllTasks.filter((infoTaskSave) => infoTaskSave.expiredTask);
+  const completedTasks = dbAllTasks.filter((infoTaskSave) => infoTaskSave.completedTask);
+  amountAllTasks.innerText = dbAllTasks.length;
+  amountPendingTasks.innerText = pendingTasks.length;
+  amountScheduledTasks.innerText = scheduledTasks.length;
+  amountExpiredTasks.innerText = expiredTasks.length;
+  amountCompletedTasks.innerText = completedTasks.length;
+}
 
 export function filterTaskByClass(taskClass) {
   for (let i = 0; i < dbAllTasks.length; i++) {
@@ -39,18 +59,39 @@ export function filterTaskByClass(taskClass) {
   }
   if (taskClass == "pendingTask") {
     filterInformation.innerText = "Pendentes";
-    checkTasksOnScreen(pendingTasks);
+    checkTasksOnScreen("pendingTasks");
   } else if (taskClass == "scheduledTask") {
     filterInformation.innerText = "Agendadas";
-    checkTasksOnScreen(scheduledTasks);
+    checkTasksOnScreen("scheduledTasks");
   } else if (taskClass == "expiredTask") {
     filterInformation.innerText = "Expiradas";
-    checkTasksOnScreen(expiredTasks);
+    checkTasksOnScreen("expiredTasks");
   } else if (taskClass == "completedTask") {
     filterInformation.innerText = "Concluídas";
-    checkTasksOnScreen(completedTasks);
+    checkTasksOnScreen("completedTasks");
   } else {
-    checkTasksOnScreen(dbAllTasks);
+    checkTasksOnScreen("allTasks");
+  }
+}
+
+export function activateFilterBtn(btnFilter) {
+  btnFilters.forEach((btnFilter) => {
+    if (btnFilter.classList.contains("active")) {
+      btnFilter.classList.remove("active");
+    }
+  })
+  btnFilter.classList.add("active");
+}
+
+export function checkActivatedClassBtnAndFilter() {
+  if (scheduledTasksFilterBtn.classList.contains("active")) {
+    filterTaskByClass("scheduledTask");
+  } else if (pendingTasksFilterBtn.classList.contains("active")) {
+    filterTaskByClass("pendingTask");
+  } else if (expiredTasksFilterBtn.classList.contains("active")) {
+    filterTaskByClass("expiredTask");
+  } else if (completedTasksFilterBtn.classList.contains("active")) {
+    filterTaskByClass("completedTask");
   }
 }
 

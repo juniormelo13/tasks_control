@@ -2,11 +2,13 @@ import { scheduleInputDate, scheduleInputTime } from "./task-schedule.js";
 import { removeAllConfigBtn, checkRemoveAllConfigBtn } from "./remove-all-config.js";
 import { enableBtn } from "./auxiliary-func-for-btn.js";
 
-// Configuração para alternar entre dark/white mode
-const html = document.querySelector("html");
-const themeCheckBox = document.querySelector("#themeCheckBox");
+// Funções responsáveis pela troca de tema da aplicação
 
-function toDarkTheme() {
+const html = document.querySelector("html"); // Selecão do HTML
+const themeCheckBox = document.querySelector("#themeCheckBox"); // Seleção do input checkbox, que muda o tema ao receber o clique do usuário.
+
+// Função responsável por alterar o tema para escuro.
+export function toDarkTheme() {
   html.classList.add("darkTheme");
   scheduleInputDate.classList.add("darkTheme");
   scheduleInputTime.classList.add("darkTheme");
@@ -17,6 +19,7 @@ function toDarkTheme() {
   }
 }
 
+// Função responsável por alterar o tema para claro.
 export function toLightTheme() {
   html.classList.remove("darkTheme");
   scheduleInputDate.classList.remove("darkTheme");
@@ -25,12 +28,9 @@ export function toLightTheme() {
   themeCheckBox.checked = false;
 }
 
+// Função principal responsável pela troca de temas pelo usuário.
 export default function initChangeTheme() {
-  
-  if (localStorage.getItem("theme")) {
-    toDarkTheme();
-  }
-  
+    
   themeCheckBox.addEventListener("change", () => {
     if (!html.classList.contains("darkTheme")) {
       toDarkTheme();

@@ -1,8 +1,8 @@
 import { hideWindow, confirmationWindow, showConfirmField } from "./auxiliary-func-for-window.js";
 import { saveCompleteTaskAction } from "./save-actions-to-localstorage.js";
-import { transitionClickProtection } from "./auxiliary-func-for-handling-tasks.js";
+import { transitionClickProtection } from "./auxiliary-func-for-tasks.js";
 import { clearTaskClass } from "./task-reset.js";
-import { calculateNumberOfTasks, checkActivatedClassBtnAndFilter } from "./auxiliary-func-for-filters.js";
+import { calculateNumberOfTasks, checkActivatedClassBtnAndFilter } from "./filter-task-by-status.js";
 import { allTasksFilterBtn } from "./filter-task-by-status.js";
 
 function completeTaskBtnToggle(taskFront, taskContent, checkIcon, checkBtn, scheduleBtn, editBtn, completedTaskIcon, schedulingRemoveBtn) {

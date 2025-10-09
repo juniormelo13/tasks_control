@@ -1,5 +1,8 @@
 import { tasksContainer } from "./new-task-input.js";
 
+// Funções auxiliares para as tarefas
+
+// Função responsável por proteger a aplicação de cliques extras ao manipular tarefas, evitando erros na aplicação.
 export function transitionClickProtection(option) {
   const taskFields = tasksContainer.childNodes;
   if (option == "add") {
@@ -21,6 +24,7 @@ export function transitionClickProtection(option) {
   }
 }
 
+// Função responsável por habilitar e desabilitar o clique nas tarefas durante animações. 
 export function includePointerEventsNoneAllTasks(option) {
   const taskFields = tasksContainer.childNodes;
   if (option == "add") {

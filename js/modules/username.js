@@ -108,9 +108,5 @@ export default function initUsername() {
       nameInput.blur()
     }
   };
-
-  if (localStorage.getItem("infoAccountName")) {
-    nameInput.value = localStorage.getItem("infoAccountName");
-  }
   
 }

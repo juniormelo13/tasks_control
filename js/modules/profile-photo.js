@@ -58,19 +58,21 @@ function confirmRemoveImg() {
   }, 200);
 }
 
+export function profilePhotoRecover() {
+  dbInfoAccountImg = JSON.parse(localStorage.getItem("infoAccountImg"));
+  uploadedImg.src = dbInfoAccountImg[0].img;
+  inputFileImgLabel.setAttribute("title", "Alterar foto");
+  inputFileBtnToggle();
+}
+
 export default function initProfilePhoto() {
-  if (localStorage.getItem("infoAccountImg")) {
-    dbInfoAccountImg = JSON.parse(localStorage.getItem("infoAccountImg"));
-    uploadedImg.src = dbInfoAccountImg[0].img;
-    inputFileImgLabel.setAttribute("title", "Alterar foto");
-    inputFileBtnToggle();
-  }
-  
+
   inputFileImg.addEventListener("change", loadImage);
   
   inputFileBtnDel.addEventListener("click", () => {
     showConfirmField("Tem certeza de que deseja remover a foto de perfil?", confirmRemoveImg);
     menu.classList.add("menuBlur");
   });
+  
 }
 

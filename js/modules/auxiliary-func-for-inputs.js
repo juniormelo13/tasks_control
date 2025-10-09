@@ -2,6 +2,9 @@ import { newTaskInput, newTaskBtn } from "./new-task-input.js";
 import { editInput, confirmEditBtn } from "./task-edit.js";
 import { scheduleInputDate, scheduleInputTime, confirmScheduleBtn } from "./task-schedule.js";
 
+// Funções auxiliares para os inputs
+
+// Função responsável por checar se o botão de apagar input deve está habilitado ou não.
 export function checkInputValue(input, cleanBtn) {
   if (input.value.trim() != "") {
     cleanBtn.classList.remove("hide");
@@ -12,12 +15,14 @@ export function checkInputValue(input, cleanBtn) {
   }
 }
 
+// Função responsável por apagar texto do input ao clicar no botão de apagar input
 export function clearInput(input, cleanBtn) {
   cleanBtn.classList.add("hide");
   input.value = "";
   input.focus();
 }
 
+// Função responsável por validar se input foi preenchido corretamente e inserir erro no mesmo, caso necessário.
 export function validateInput(input) {
   if (input.value.trim() != "") {
     return true;
@@ -29,13 +34,15 @@ export function validateInput(input) {
   }
 }
 
+
+// Função responsável por limpar input caso o usuário clique várias vezes na barra de espaço.
 export function clearEmptyInput(input) {
   if (input.value.trim() == "") {
     input.value = "";
   }
 }
 
-// Configuração para remover erros dos inputs
+// Configuração para remover erros dos inputs ao clicar na tela.
 document.addEventListener("click", (e) => {
   if (newTaskInput.classList.contains("inputError") && !newTaskBtn.contains(e.target)) {
     newTaskInput.classList.remove("inputError");

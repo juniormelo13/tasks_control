@@ -1,6 +1,9 @@
 import { enableBtn, disableBtn } from "./auxiliary-func-for-btn.js";
 import { tasksContainer } from "./new-task-input.js";
-import { filtred, filterInformationBox, removeFilter, activateFilterBtn, cleanInputFilter, calculateNumberOfTasks, checkTasksOnScreen, dbAllTasks } from "./auxiliary-func-for-filters.js";
+import { filtred, filterInformationBox, removeFilter, checkTasksOnScreen } from "./filter-information.js";
+import { activateFilterBtn, calculateNumberOfTasks } from "./filter-task-by-status.js";
+import { cleanInputFilter } from "./filter-task-by-input-search.js";
+import { dbAllTasks } from "./save-actions-to-localstorage.js";
 import { menu } from "./dropdown-menu.js";
 import { hideWindow, showConfirmField, confirmationWindow } from "./auxiliary-func-for-window.js";
 import { checkRemoveAllConfigBtn } from "./remove-all-config.js";
@@ -39,7 +42,7 @@ export function removeAllTasks() {
       activateFilterBtn(allTasksFilterBtn);
     }
     calculateNumberOfTasks();
-    checkTasksOnScreen(dbAllTasks);
+    checkTasksOnScreen("allTasks");
   }, 200);
 }
 

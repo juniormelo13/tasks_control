@@ -1,7 +1,7 @@
 import { checkInputValue, clearEmptyInput, clearInput, validateInput } from "./auxiliary-func-for-inputs.js";
 import { hideWindow, showWindow } from "./auxiliary-func-for-window.js";
-import { dbAllTasks } from "./auxiliary-func-for-filters.js";
-import { includePointerEventsNoneAllTasks } from "./auxiliary-func-for-handling-tasks.js";
+import { dbAllTasks } from "./save-actions-to-localstorage.js";
+import { includePointerEventsNoneAllTasks } from "./auxiliary-func-for-tasks.js";
 
 const editField = document.querySelector("#editField"); // Janela para edição das tarefas
 export const editInput = document.querySelector("#editInput"); // Input de texto para edição das tarefas

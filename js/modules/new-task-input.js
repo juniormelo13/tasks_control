@@ -1,7 +1,7 @@
-import { dbAllTasks } from "./auxiliary-func-for-filters.js";
 import { checkInputValue, clearInput, validateInput, clearEmptyInput } from "./auxiliary-func-for-inputs.js";
-import { filtred, cleanInputFilter, activateFilterBtn, calculateNumberOfTasks, checkTasksOnScreen } from "./auxiliary-func-for-filters.js";
-import { filterTaskByClass } from "./filter-task-by-status.js";
+import { filtred, checkTasksOnScreen } from "./filter-information.js";
+import { cleanInputFilter } from "./filter-task-by-input-search.js";
+import { filterTaskByClass, activateFilterBtn, calculateNumberOfTasks } from "./filter-task-by-status.js";
 import { checkRemoveAllTaskBtn } from "./remove-all-tasks.js";
 import { checkRemoveAllConfigBtn } from "./remove-all-config.js";
 import { saveCreatedTask } from "./save-actions-to-localstorage.js";
@@ -26,7 +26,7 @@ function prepareAndInsertTask() {
     insertTask(taskField, task, taskFront, infoTaskSave);
   }
   calculateNumberOfTasks();
-  checkTasksOnScreen(dbAllTasks);
+  checkTasksOnScreen("allTasks");
   checkRemoveAllTaskBtn();
   checkRemoveAllConfigBtn();
 }

@@ -1,15 +1,17 @@
 import { tasksContainer } from "./new-task-input.js";
 import { menu, menuOpen } from "./dropdown-menu.js";
-import { filterInformationBox, noTaskTextContainer, filtred } from "./auxiliary-func-for-filters.js";
+import { filterInformationBox, noTaskTextContainer, filtred } from "./filter-information.js";
 
+// Funções auxiliares para as janelas da aplicação.
 
-export const header = document.querySelector("#header"); // Cabeçalho da aplicação
-const mainContainer = document.querySelector("#mainContainer"); // Container principal do projeto
-export const confirmationWindow = document.querySelector("#confirmationWindow");
-const confirmationWindowText = document.querySelector("#confirmationWindowText");
-const btnYes = document.querySelector("#btnYes");
-const btnNo = document.querySelector("#btnNo");
+export const header = document.querySelector("#header"); // Cabeçalho da aplicação.
+const mainContainer = document.querySelector("#mainContainer"); // Container principal da aplicação.
+export const confirmationWindow = document.querySelector("#confirmationWindow"); // Janela de confirmação para alguma ação.
+const confirmationWindowText = document.querySelector("#confirmationWindowText"); // Texto da janela de confirmação.
+const btnYes = document.querySelector("#btnYes"); // Botão de "Sim" da janela de confirmação.
+const btnNo = document.querySelector("#btnNo"); // Botão de "Não" da janela de confirmação.
 
+// Função responsável por abrir janelas.
 export function showWindow(window) {
   header.classList.add("pointerEventsNone");
   mainContainer.classList.add("pointerEventsNone");
@@ -29,6 +31,7 @@ export function showWindow(window) {
   window.classList.add("appearWindow");
 }
 
+// Função responsável por fechar janelas.
 export function hideWindow(window) {
   tasksContainer.classList.remove("tasksContainerHide");
   tasksContainer.classList.add("tasksContainerAppear");
@@ -58,6 +61,7 @@ export function hideWindow(window) {
   }, 200);
 }
 
+// Função responsável por abrir a janela de confirmação com todas as informações necessárias.
 export function showConfirmField(text, func) {
   showWindow(confirmationWindow);
   confirmationWindowText.innerText = text;

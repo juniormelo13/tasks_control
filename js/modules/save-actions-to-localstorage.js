@@ -1,5 +1,6 @@
 import { newTaskInput } from "./new-task-input.js";
-import { dbAllTasks } from "./auxiliary-func-for-filters.js";
+
+export let dbAllTasks = new Array; // Variável para guardar todas as tarefas criadas no banco de dados (Local Storage).
 
 export function saveCreatedTask(infoTaskSave) {
   infoTaskSave["taskContent"] = newTaskInput.value;

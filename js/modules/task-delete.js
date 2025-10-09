@@ -1,9 +1,9 @@
 // Configuração do botão de exclusão da tarefa
 import { showConfirmField, confirmationWindow, hideWindow } from "./auxiliary-func-for-window.js";
-import { transitionClickProtection } from "./auxiliary-func-for-handling-tasks.js";
+import { transitionClickProtection } from "./auxiliary-func-for-tasks.js";
 import { saveDeleteTaskAction } from "./save-actions-to-localstorage.js";
-import { calculateNumberOfTasks, checkTasksOnScreen, checkActivatedClassBtnAndFilter, filtred, dbAllTasks } from "./auxiliary-func-for-filters.js";
-import { allTasksFilterBtn } from "./filter-task-by-status.js";
+import { checkTasksOnScreen, filtred } from "./filter-information.js";
+import { allTasksFilterBtn, calculateNumberOfTasks, checkActivatedClassBtnAndFilter } from "./filter-task-by-status.js";
 import { checkRemoveAllConfigBtn } from "./remove-all-config.js";
 import { checkRemoveAllTaskBtn } from "./remove-all-tasks.js";
 import { filterTaskByInput, searchTaskInput } from "./filter-task-by-input-search.js";
@@ -36,7 +36,7 @@ function deleteTask(taskField, infoTaskSave) {
     taskField.remove();
     calculateNumberOfTasks();
     if (allTasksFilterBtn.classList.contains("active")) {
-      checkTasksOnScreen(dbAllTasks);
+      checkTasksOnScreen("allTasks");
     } else {
       checkActivatedClassBtnAndFilter();
     }

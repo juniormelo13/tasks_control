@@ -1,6 +1,6 @@
 import { hideWindow, showWindow } from "./auxiliary-func-for-window.js";
 import { saveScheduledTaskAction } from "./save-actions-to-localstorage.js";
-import { calculateNumberOfTasks } from "./auxiliary-func-for-filters.js";
+import { calculateNumberOfTasks } from "./filter-task-by-status.js";
 
 // Agendamento de tarefas
 const scheduleField = document.querySelector("#scheduleField");

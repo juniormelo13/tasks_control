@@ -1,4 +1,5 @@
-import { dbAllTasks, calculateNumberOfTasks, checkActivatedClassBtnAndFilter } from "./auxiliary-func-for-filters.js";
+import { dbAllTasks } from "./save-actions-to-localstorage.js";
+import { calculateNumberOfTasks, checkActivatedClassBtnAndFilter } from "./filter-task-by-status.js";
 import { tasksContainer } from "./new-task-input.js";
 import { saveExpiredTaskAction, saveScheduledTaskAction } from "./save-actions-to-localstorage.js";
 import { insertSchedulingInfo, putExpireAlertClass } from "./task-schedule.js";
