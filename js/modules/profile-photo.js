@@ -1,21 +1,25 @@
-import { menu } from "./dropdown-menu.js";
+// Funções e variáveis responsáveis pelo funcionamento da inserção e remoção da foto de perfil do usuário.
+
+// importações
+import { menu } from "./menu.js";
 import { hideWindow, showConfirmField, confirmationWindow } from "./auxiliary-func-for-window.js";
 import { removeAllConfigBtn, checkRemoveAllConfigBtn } from "./remove-all-config.js";
 import { enableBtn } from "./auxiliary-func-for-btn.js";
 
-// Configuração para guardar imagem do perfil do usuário no localStorage
-const inputFileImg = document.querySelector("#inputFileImg");
-const uploadedImg = document.querySelector("#uploadedImg");
-const inputFileImgLabel = document.querySelector("#inputFileImgLabel");
-const inputFileBtnPlus = document.querySelector("#inputFileBtnPlus");
-const inputFileBtnDel = document.querySelector("#inputFileBtnDel");
-let dbInfoAccountImg = [];
+const inputFileImg = document.querySelector("#inputFileImg"); // Campo para carregar imagem ao clicar.
+const uploadedImg = document.querySelector("#uploadedImg"); // Variável para guardar a imagem escolhida.
+const inputFileImgLabel = document.querySelector("#inputFileImgLabel"); // Label que serve como extensão ao clique do input e para informações ao usuário ("remover foto", "alterar foto").
+const inputFileBtnPlus = document.querySelector("#inputFileBtnPlus"); // Botão para adicionar imagem.
+const inputFileBtnDel = document.querySelector("#inputFileBtnDel"); // Botão para remover imagem.
+let dbInfoAccountImg = []; // Variável responsável por guardar a imagem no local storage.
 
+// Função para alternar botões de adicionar e remover imagens.
 function inputFileBtnToggle() {
   inputFileBtnPlus.classList.toggle("hide");
   inputFileBtnDel.classList.toggle("hide");
 }
 
+// Função responsável por inserir/alterar a imagem.
 function loadImage(e) {
   const filePath = e.target;
   const file = filePath.files;
@@ -43,13 +47,7 @@ function loadImage(e) {
   }
 }
 
-export function removeImg() {
-  localStorage.removeItem("infoAccountImg");
-  uploadedImg.src = "./img/profile-avatar.png";
-  inputFileBtnToggle();
-  inputFileImg.setAttribute("title", "Adicionar foto");
-}
-
+// Função responsável por mostrar uma janela de confirmação para o usuário remover ou não a imagem.
 function confirmRemoveImg() {
   hideWindow(confirmationWindow);
   setTimeout(() => {
@@ -58,6 +56,15 @@ function confirmRemoveImg() {
   }, 200);
 }
 
+// Função responsável por remover imagem.
+export function removeImg() {
+  localStorage.removeItem("infoAccountImg");
+  uploadedImg.src = "./img/profile-avatar.png";
+  inputFileBtnToggle();
+  inputFileImg.setAttribute("title", "Adicionar foto");
+}
+
+// Função responsável por recuperar foto de perfil do local storage.
 export function profilePhotoRecover() {
   dbInfoAccountImg = JSON.parse(localStorage.getItem("infoAccountImg"));
   uploadedImg.src = dbInfoAccountImg[0].img;
@@ -65,10 +72,13 @@ export function profilePhotoRecover() {
   inputFileBtnToggle();
 }
 
+// Função principal responsável pelo funcionamento da inserção e remoção da foto de perfil do usuário.
 export default function initProfilePhoto() {
 
+  // Adiciona o evento que ativa a função de inserir/alterar a foto de perfil ao carregar a imagem escolhida.
   inputFileImg.addEventListener("change", loadImage);
   
+  // Remoção da foto de perfil ao clicar no botão.
   inputFileBtnDel.addEventListener("click", () => {
     showConfirmField("Tem certeza de que deseja remover a foto de perfil?", confirmRemoveImg);
     menu.classList.add("menuBlur");

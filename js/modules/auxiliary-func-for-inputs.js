@@ -1,8 +1,9 @@
+// Funções auxiliares para os inputs.
+
+// Importações.
 import { newTaskInput, newTaskBtn } from "./new-task-input.js";
 import { editInput, confirmEditBtn } from "./task-edit.js";
 import { scheduleInputDate, scheduleInputTime, confirmScheduleBtn } from "./task-schedule.js";
-
-// Funções auxiliares para os inputs
 
 // Função responsável por checar se o botão de apagar input deve está habilitado ou não.
 export function checkInputValue(input, cleanBtn) {
@@ -15,7 +16,7 @@ export function checkInputValue(input, cleanBtn) {
   }
 }
 
-// Função responsável por apagar texto do input ao clicar no botão de apagar input
+// Função responsável por apagar texto do input.
 export function clearInput(input, cleanBtn) {
   cleanBtn.classList.add("hide");
   input.value = "";
@@ -33,7 +34,6 @@ export function validateInput(input) {
     return false;
   }
 }
-
 
 // Função responsável por limpar input caso o usuário clique várias vezes na barra de espaço.
 export function clearEmptyInput(input) {

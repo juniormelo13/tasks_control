@@ -1,6 +1,7 @@
-import { tasksContainer } from "./new-task-input.js";
+// Funções auxiliares para as tarefas.
 
-// Funções auxiliares para as tarefas
+// Importações.
+import { tasksContainer } from "./new-task-input.js";
 
 // Função responsável por proteger a aplicação de cliques extras ao manipular tarefas, evitando erros na aplicação.
 export function transitionClickProtection(option) {

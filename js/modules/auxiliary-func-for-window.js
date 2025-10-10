@@ -1,8 +1,9 @@
-import { tasksContainer } from "./new-task-input.js";
-import { menu, menuOpen } from "./dropdown-menu.js";
-import { filterInformationBox, noTaskTextContainer, filtred } from "./filter-information.js";
-
 // Funções auxiliares para as janelas da aplicação.
+
+// Importações.
+import { tasksContainer } from "./new-task-input.js";
+import { menu, menuOpen } from "./menu.js";
+import { filterInformationBox, noTaskTextContainer, filtred } from "./filter-information.js";
 
 export const header = document.querySelector("#header"); // Cabeçalho da aplicação.
 const mainContainer = document.querySelector("#mainContainer"); // Container principal da aplicação.

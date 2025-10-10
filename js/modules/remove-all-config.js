@@ -6,8 +6,8 @@ import { cleanInputFilter } from "./filter-task-by-input-search.js";
 import { removeAllTasks } from "./remove-all-tasks.js";
 import { removeImg } from "./profile-photo.js";
 import { nameInput, deleteNameDataBase, resetBtnNameInput } from "./username.js";
-import { toLightTheme } from "./change-theme.js";
-import { menu } from "./dropdown-menu.js";
+import { toLightTheme } from "./theme.js";
+import { menu } from "./menu.js";
 
 // Botão para restaurar todas as configurações de fábrica
 export const removeAllConfigBtn = document.querySelector("#removeAllConfigBtn");

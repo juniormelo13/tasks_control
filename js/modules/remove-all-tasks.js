@@ -4,7 +4,7 @@ import { filtred, filterInformationBox, removeFilter, checkTasksOnScreen } from 
 import { activateFilterBtn, calculateNumberOfTasks } from "./filter-task-by-status.js";
 import { cleanInputFilter } from "./filter-task-by-input-search.js";
 import { dbAllTasks } from "./save-actions-to-localstorage.js";
-import { menu } from "./dropdown-menu.js";
+import { menu } from "./menu.js";
 import { hideWindow, showConfirmField, confirmationWindow } from "./auxiliary-func-for-window.js";
 import { checkRemoveAllConfigBtn } from "./remove-all-config.js";
 

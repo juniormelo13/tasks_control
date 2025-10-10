@@ -1,5 +1,5 @@
 import { header } from "./auxiliary-func-for-window.js";
-import { menuOpen, menu } from "./dropdown-menu.js";
+import { menuOpen, menu } from "./menu.js";
 import { filtred, filterInformationBox } from "./filter-information.js";
 import { dbAllTasks } from "./save-actions-to-localstorage.js";
 import { clearEmptyInput } from "./auxiliary-func-for-inputs.js";
