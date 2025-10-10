@@ -1,20 +1,24 @@
+// Funções e Variáveis responsáveis pelo monitoramento em tempo real das tarefas agendadas e expiradas.
+
+// importações
 import { dbAllTasks } from "./save-actions-to-localstorage.js";
 import { calculateNumberOfTasks, checkActivatedClassBtnAndFilter } from "./filter-task-by-status.js";
 import { tasksContainer } from "./new-task-input.js";
 import { saveExpiredTaskAction, saveScheduledTaskAction } from "./save-actions-to-localstorage.js";
 import { insertSchedulingInfo, putExpireAlertClass } from "./task-schedule.js";
 
+// Função principal responsável pelo monitoramento em tempo real das tarefas agendadas e expiradas.
 export default function initRealTimeSchedulingStatus() {
 
-  // Verificação do status do agendamento em tempo real
+  // Função dentro do "setInterval", para monitorar a cada 1 segundo e atualizar o status das tarefas.
   setInterval(() => {
-    const currentFullDate = new Date();
-    const currentDate = currentFullDate.toLocaleDateString("fr-CA");
-  
+    const currentFullDate = new Date(); // Variável para guardar a data atual completa.
+    const currentDate = currentFullDate.toLocaleDateString("fr-CA"); // Variável para guardar a data atual transformada no formato "ano-mês-dia"
+    
     for (let i = 0; i < dbAllTasks.length; i++) {
       const taskField = tasksContainer.childNodes[i];
       const infoTaskSave = dbAllTasks[i];
-  
+      
       if (infoTaskSave.scheduledTask || infoTaskSave.expiredTask) {
         const task = taskField.firstChild
         const taskFront = task.firstChild
