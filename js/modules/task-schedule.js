@@ -44,7 +44,7 @@ const confirmSchedule = (task, scheduleBtn, taskInfo, infoTextContent, schedulin
   
   const currentFullDate = new Date(); // Variável para guardar a data atual completa.
   const currentDate = currentFullDate.toLocaleDateString("fr-CA"); // Data atual transformada para comparação com a data do input date e/ou validações.
-  const currentTimeForValidate = currentFullDate.toLocaleString("pt-BR", {timeStyle: "short"}); // Hora atual transformada para comparação com a hora do input time e/ou validações.
+  const currentTimeForValidate = currentFullDate.toLocaleString("pt-BR", {timeStyle: "short"}); // Hora atual transformada para comparação com a hora informada no input time e validações.
   const scheduleInputDateValue = scheduleInputDate.value; // Variável para guardar a data escolhida pelo usuário no input date.
   const scheduleInputTimeValue = scheduleInputTime.value; // Variável para guardar a hora escolhida pelo usuário no input time.
 
@@ -76,14 +76,15 @@ const confirmSchedule = (task, scheduleBtn, taskInfo, infoTextContent, schedulin
   if (validateScheduleInputDate() && validateScheduleInputTime()) {
     
     const scheduledDate = new Date(scheduleInputDateValue + " " + scheduleInputTimeValue); // Recebimento dos valores colocados nos inputs e incluídos em uma nova data completa.
-    const dateForInfoTextContent = scheduledDate.toLocaleString("pt-BR", { dateStyle: "short" }); // Nova data transformada no estilo de data "dia/mês/ano".
-    const timeForInfoTextContent = scheduledDate.toLocaleString("pt-BR", { timeStyle: "short" }); // Nova data transformada no estilo de hora "--:--".
-    const dayForInfoTextContent = scheduledDate.toLocaleString("pt-BR", { weekday: "short" }).charAt(0).toUpperCase() + scheduledDate.toLocaleString("pt-BR", { weekday: "short" }).substring(1).replace(/[.]/g, ","); // Nova data trasformada no estilo de dia da semana  "Dom,", "Seg,", "Ter,", "Qua,", "Qui,", "Sex," e "Sáb,".
+    const dateForInfoTextContent = scheduledDate.toLocaleString("pt-BR", { dateStyle: "short" }); // Nova data transformada no estilo de data "dia/mês/ano", para inserção no campo de informações sobre o agendamento da tarefa.
+    const timeForInfoTextContent = scheduledDate.toLocaleString("pt-BR", { timeStyle: "short" }); // Nova data transformada no estilo de hora "--:--", para inserção no campo de informações sobre o agendamento da tarefa.
+    const dayForInfoTextContent = scheduledDate.toLocaleString("pt-BR", { weekday: "short" }).charAt(0).toUpperCase() + scheduledDate.toLocaleString("pt-BR", { weekday: "short" }).substring(1).replace(/[.]/g, ","); // Nova data trasformada no estilo de dia da semana  "Dom,", "Seg,", "Ter,", "Qua,", "Qui,", "Sex," e "Sáb,", para inserção no campo de informações sobre o agendamento da tarefa.
     const difSeconds = (scheduledDate.getTime() - currentFullDate.getTime()) / 1000; // Diferença em segundos entre a data de agendamento e a data atual.
-    const difMinutes = difSeconds / 60;
-    const difDays = difMinutes / (60 * 24);
-    const difGetDayNumber = scheduledDate.getDay() - currentFullDate.getDay();
+    const difMinutes = difSeconds / 60; // Diferença em minutos entre a data de agendamento e a data atual.
+    const difDays = difMinutes / (60 * 24); // Diferença em dias entre a data de agendamento e a data atual.
+    const difGetDayNumber = scheduledDate.getDay() - currentFullDate.getDay();  // Diferença entre os dias da semana da data de agendamento e da data atual.
 
+    // Inserção das informações coletadas no campo de informações sobre o agendamento da tarefa.
     if (difDays >= 2) {
       infoTextContent.innerText = dayForInfoTextContent + " " + dateForInfoTextContent + ", " + timeForInfoTextContent;
     } else if (difDays > 1 && difDays < 2 && difGetDayNumber >= 2) {
@@ -91,9 +92,9 @@ const confirmSchedule = (task, scheduleBtn, taskInfo, infoTextContent, schedulin
     } else if (difDays > 1 && difDays < 2 && difGetDayNumber == -5) {
       infoTextContent.innerText = dayForInfoTextContent + " " + dateForInfoTextContent + ", " + timeForInfoTextContent;
     } else {
-      insertSchedulingInfo(infoTextContent, difDays, difMinutes, difGetDayNumber, scheduleInputTimeValue, scheduleInputDateValue, currentDate);
+      insertSchedulingInfo(infoTextContent, difDays, difMinutes, difGetDayNumber, scheduleInputTimeValue, scheduleInputDateValue, currentDate); // Inserção das informações coletadas no campo de informações sobre o agendamento da tarefa.
     }
-    hideWindow(scheduleField);
+    hideWindow(scheduleField); // Função para fechar a janela de agendamento de tarefas.
     setTimeout(() => {
       scheduleBtn.classList.add("disabledBtn");
       task.classList.add("scheduled");
@@ -102,18 +103,19 @@ const confirmSchedule = (task, scheduleBtn, taskInfo, infoTextContent, schedulin
       taskInfo.classList.remove("hide");
       taskInfo.classList.add("appearTaskInfo");
       btnField.classList.add("pointerEventsNone");
-      putExpireAlertClass(task, taskInfo, difMinutes, currentDate, difDays, difGetDayNumber, scheduleInputDateValue);
+      putExpireAlertClass(task, taskInfo, difMinutes, currentDate, difDays, difGetDayNumber, scheduleInputDateValue); // Inserção do alerta para tarefas perto de expirar.
     }, 200);
     setTimeout(() => {
       taskInfo.classList.remove("appearTaskInfo");
       btnField.classList.remove("pointerEventsNone");
     }, 400);
-    saveScheduledTaskAction(infoTaskSave, scheduleInputDateValue, scheduleInputTimeValue, infoTextContent, difMinutes, currentDate, difDays, difGetDayNumber);
-    calculateNumberOfTasks();
+    saveScheduledTaskAction(infoTaskSave, scheduleInputDateValue, scheduleInputTimeValue, infoTextContent, difMinutes, currentDate, difDays, difGetDayNumber); // Salvar a ação de agendamento no local storage.
+    calculateNumberOfTasks(); // Função para calcular o número de tarefas e atualizar a quantidade de tarefas agendadas.
   }
 
 };
 
+// Inserção das informações coletadas no campo de informações sobre o agendamento da tarefa.
 export function insertSchedulingInfo(infoTextContent, difDays, difMinutes, difGetDayNumber, scheduleInputTimeValue, scheduleInputDateValue, currentDate) {
 
   if ((difDays < 2 && difGetDayNumber == 1 && difMinutes > 60) || (difDays < 2 && difGetDayNumber == -6 && difMinutes > 60)) {
@@ -140,6 +142,7 @@ export function insertSchedulingInfo(infoTextContent, difDays, difMinutes, difGe
 
 }
 
+// Inserção do alerta para tarefas perto de expirar.
 export function putExpireAlertClass(task, taskInfo, difMinutes, currentDate, difDays, difGetDayNumber, scheduleInputDateValue) {
   
   if ((difMinutes > 0 && difMinutes <= 30 && currentDate === scheduleInputDateValue) || (difDays < 2 && difGetDayNumber == 1 && difMinutes > 0 && difMinutes <= 30) || (difDays < 2 && difGetDayNumber == -6 && difMinutes > 0 && difMinutes <= 30)) {
