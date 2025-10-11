@@ -18,7 +18,7 @@ const amountScheduledTasks = document.querySelector("#amountScheduledTasks"); //
 const amountExpiredTasks = document.querySelector("#amountExpiredTasks"); // Campo para informar a quantidade de tarefas expiradas.
 const amountCompletedTasks = document.querySelector("#amountCompletedTasks"); // Campo para informar a quantidade de tarefas concluídas.
 
-// Função responsável por calcular a quantidade de tarefas para cada status.
+// Função responsável por calcular a quantidade de tarefas em cada status.
 export function calculateNumberOfTasks() {
   const pendingTasks = dbAllTasks.filter((infoTaskSave) => !infoTaskSave.completedTask);
   const scheduledTasks = dbAllTasks.filter((infoTaskSave) => infoTaskSave.scheduledTask);
@@ -89,7 +89,7 @@ export function activateFilterBtn(btnFilter) {
   btnFilter.classList.add("active");
 }
 
-// Função responsável por checar qual botão está ativo e atualizar a filtragem quando a tarefa mudar de status em tempo real.
+// Função responsável por checar qual botão está ativo e atualizar a filtragem quando a tarefa mudar de status.
 export function checkActivatedClassBtnAndFilter() {
   if (scheduledTasksFilterBtn.classList.contains("active")) {
     filterTaskByClass("scheduledTask");

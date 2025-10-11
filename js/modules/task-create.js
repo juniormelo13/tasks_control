@@ -1,3 +1,7 @@
+// Funções responsáveis pela criação de tarefas e renderização em tela.
+
+
+// Importações
 import { completeTaskClick } from "./task-complete.js";
 import { editClick } from "./task-edit.js";
 import { scheduleClick } from "./task-schedule.js";
@@ -6,28 +10,30 @@ import { checkInputValue, clearInput } from "./auxiliary-func-for-inputs.js";
 import { schedulingRemoveClick } from "./task-schedule-remove.js";
 import { deleteClick } from "./task-delete.js";
 
-// ----- Funções auxiliares (Criação de tarefas) -----
-
+// Função responsável pela criação da tarefa e renderização em tela.
 function createTask(taskField, task, taskFront) {
-  taskField.classList.add("taskField")
-  task.classList.add("task");
-  taskFront.classList.add("taskFront")
-  taskFront.classList.add("hover");
-  taskField.appendChild(task);
-  task.appendChild(taskFront);
+  taskField.classList.add("taskField") // Adiciona a classe para estilização do container da tarefa.
+  task.classList.add("task"); // Adiciona a classe para estilização da tarefa.
+  taskFront.classList.add("taskFront") // Adiciona a classe para estilização da frente da tarefa.
+  taskFront.classList.add("hover"); // Adiciona a classe para ativar o hover da tarefa.
+  taskField.appendChild(task); // Adiciona a tarefa como filho do container.
+  task.appendChild(taskFront); // Adiciona a frente da tarefa como filho da tarefa.
 }
 
+// Função responsável pela criação do texto da tarefa e renderização em tela.
 function insertTextContent(taskFront, taskContent, infoTaskSave) {
-  taskContent.innerText = infoTaskSave["taskContent"];
-  taskContent.classList.add("taskContent");
-  taskFront.appendChild(taskContent);
+  taskContent.innerText = infoTaskSave["taskContent"]; // Coleta o texto da tarefa do objeto tarefa no array.
+  taskContent.classList.add("taskContent"); // Adiciona a classe para estilização do conteúdo de texto da tarefa.
+  taskFront.appendChild(taskContent); // Adiciona o conteúdo de texto da tarefa como filho da frente da tarefa.
 }
 
+// Função responsável pela criação do campo de botões da tarefa e renderização em tela.
 function createBtnField(taskFront, btnField) {
-  taskFront.appendChild(btnField);
-  btnField.classList.add("btnField");
+  btnField.classList.add("btnField"); // Adiciona a classe para estilização do campo de botões da tarefa.
+  taskFront.appendChild(btnField); // Adiciona o campo de botões da tarefa como filho da frente da tarefa.
 }
 
+// Função responsável pela criação do campo de informações da tarefa e renderização em tela.
 function createTaskInfo(taskField, taskFront, taskInfo, infoTextContent, schedulingRemoveBtn, completedTaskIcon, infoTaskSave, editBtn, scheduleBtn) {
   const schedulingRemoveBtnIcon = document.createElement("i");
   taskInfo.classList.add("taskInfo");
@@ -48,6 +54,7 @@ function createTaskInfo(taskField, taskFront, taskInfo, infoTextContent, schedul
   schedulingRemoveBtn.addEventListener("click", () => schedulingRemoveClick(taskField, taskInfo, taskFront, scheduleBtn, editBtn, infoTextContent, infoTaskSave));
 }
 
+// Função responsável pela criação do campo de anotações da tarefa.
 function createNotPadContainer(taskField, taskFront, task, notePadContainer, notesBtn, infoTaskSave, notePadInput, cleanNoteBtn) {
   const notePadTop = document.createElement("div");
   const notePadBtnField = document.createElement("div");
