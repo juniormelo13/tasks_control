@@ -1,4 +1,6 @@
-// Configuração do botão de exclusão da tarefa
+// Funções e variáveis para funcionamento da exclusão de tarefas.
+
+// importações.
 import { showConfirmField, confirmationWindow, hideWindow } from "./auxiliary-func-for-window.js";
 import { transitionClickProtection } from "./auxiliary-func-for-tasks.js";
 import { saveDeleteTaskAction } from "./save-actions-to-localstorage.js";
@@ -8,6 +10,7 @@ import { checkRemoveAllConfigBtn } from "./remove-all-config.js";
 import { checkRemoveAllTaskBtn } from "./remove-all-tasks.js";
 import { filterTaskByInput, searchTaskInput } from "./filter-task-by-input-search.js";
 
+// Função responsável por abrir janela de confirmação de edição, caso a tarefa esteja agendada ou com anotações.
 export const deleteClick = (taskField, taskFront, infoTaskSave) => {
   if (taskFront.classList.contains("scheduled") || infoTaskSave.savedNote) {
     if (taskFront.classList.contains("scheduled") && infoTaskSave.savedNote) {
@@ -28,6 +31,7 @@ export const deleteClick = (taskField, taskFront, infoTaskSave) => {
   }
 };
 
+// Função responsável pela exclusão da tarefa.
 function deleteTask(taskField, infoTaskSave) {
   taskField.classList.add("vanishTask");
   transitionClickProtection("add");

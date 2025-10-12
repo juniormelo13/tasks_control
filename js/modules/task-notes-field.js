@@ -1,3 +1,6 @@
+// Funções e variáveis responsáveis pelo funcionamento do camop de anotações das tarefas.
+
+// Inportações
 import { header } from "./auxiliary-func-for-window.js";
 import { menuOpen, menu } from "./menu.js";
 import { filtred, filterInformationBox } from "./filter-information.js";
@@ -5,8 +8,9 @@ import { dbAllTasks } from "./save-actions-to-localstorage.js";
 import { clearEmptyInput } from "./auxiliary-func-for-inputs.js";
 import { tasksContainer } from "./new-task-input.js";
 
-let flippedTask = false
+let flippedTask = false // Variável que guarda a informação se a tarefa está flipada ou não. O campo de anotações fica na parte de trás de cada tarefa.
 
+// Função responsável por flipar a tarefa e mostrar o campo de anotações.
 export function notesBtnClick(taskField, task, taskFront, notePadInput, notePadContainer, cleanNoteBtn, notesBtn, infoTaskSave) {
   header.classList.add("pointerEventsNone");
   if(menuOpen) {
@@ -30,7 +34,7 @@ export function notesBtnClick(taskField, task, taskFront, notePadInput, notePadC
   }, 200);
   document.onmousedown = (e) => {
     if (flippedTask && !notePadContainer.contains(e.target)) {
-      saveNoteClick(taskField, task, taskFront, notePadContainer, notePadInput, notesBtn, infoTaskSave);
+      saveNoteClick(taskField, task, taskFront, notePadContainer, notePadInput, notesBtn, infoTaskSave); // Função que salva as anotações.
     }
   };
   notePadInput.onblur = () => {
@@ -38,6 +42,7 @@ export function notesBtnClick(taskField, task, taskFront, notePadInput, notePadC
   };
 }
 
+// Função responsável por salvar as anotações, tanto na própria tarefa, quanto no local storage.
 export function saveNoteClick(taskField, task, taskFront, notePadContainer, notePadInput, notesBtn, infoTaskSave) {
   if (notePadInput.value.trim() != "") {
     infoTaskSave.savedNote = [true, notePadInput.value.trim()];
@@ -61,6 +66,7 @@ export function saveNoteClick(taskField, task, taskFront, notePadContainer, note
   }, 200);
 }
 
+// Função responsável por destacar a tarefa que está flipada, as outras perdem opacidade.
 function highLight(taskField, notePadContainer, option) {
   const taskFields = tasksContainer.childNodes;
   if (option == "true") {

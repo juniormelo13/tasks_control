@@ -1,15 +1,19 @@
+// Funções e variáveis responsáveis pelo funcionamento do campo de nome do usuário.
+
+// Importações
 import { clearEmptyInput } from "./auxiliary-func-for-inputs.js";
 import { removeAllConfigBtn, checkRemoveAllConfigBtn } from "./remove-all-config.js";
 import { enableBtn } from "./auxiliary-func-for-btn.js";
 
 // Nome do usuário
-const nameIdentBox = document.querySelector("#nameIdentBox");
-export const nameInput = document.querySelector("#nameInput");
-const nameIdentIcon = document.querySelector("#nameIdentIcon");
-const saveNameButton = document.querySelector("#saveNameButton");
-const deleteNameButton = document.querySelector("#deleteNameButton");
-const recoverNameButton = document.querySelector("#recoverNameButton");
+const nameIdentBox = document.querySelector("#nameIdentBox"); // Campo com o input e botões para adicionar ou excluir nome do usuário.
+export const nameInput = document.querySelector("#nameInput"); // Input de texto para inclusão no nome do usuário.
+const nameIdentIcon = document.querySelector("#nameIdentIcon"); // ícone para indicar que o campo é editável.
+const saveNameButton = document.querySelector("#saveNameButton"); // Botão para salvar o nome do usuário.
+const deleteNameButton = document.querySelector("#deleteNameButton"); // Botão para apagar o nome do usuário do input.
+const recoverNameButton = document.querySelector("#recoverNameButton"); // Botão para recuperar o último nome do usuário.
 
+// Função para resetar o campo completo, caso o usuário não salve o nome e feche o menu.
 export function resetBtnNameInput() {
   saveNameButton.classList.add("hide");
   deleteNameButton.classList.add("hide");
@@ -18,12 +22,14 @@ export function resetBtnNameInput() {
   nameIdentIcon.classList.remove("hide");
 }
 
+// Função para deletar o nome salvo no local storage e do input.
 export function deleteNameDataBase() {
   localStorage.removeItem("infoAccountName");
   nameInput.value = "";
   checkRemoveAllConfigBtn()
 }
 
+// Função para salvar o nome no local storage.
 function saveNameDataBase() {
   localStorage.setItem("infoAccountName", nameInput.value.trim());
   if (removeAllConfigBtn.disabled) {
@@ -31,6 +37,7 @@ function saveNameDataBase() {
   }
 }
 
+// Função para salvar o nome ou remover nome (caso o input esteja em branco) ao clicar no botão de "salvar".
 function saveOrDeleteName() {
   saveNameButton.classList.add("hide")
   nameIdentBox.classList.remove("editing");
@@ -45,6 +52,7 @@ function saveOrDeleteName() {
   }
 }
 
+// Função para checar se o campo está preenchido, habilitando ou não os botões de apagar nome do input e recueração do nome.
 function checkNameValue() {
   if (nameInput.value.trim() != "") {
     deleteNameButton.classList.remove("hide")
@@ -57,6 +65,7 @@ function checkNameValue() {
   }
 }
 
+// Função principal para o funcionamento do campo de nome do usuário.
 export default function initUsername() {
 
   saveNameButton.addEventListener("click", () => {
