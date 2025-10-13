@@ -1,0 +1,24 @@
+{
+  "name": "tasks_control",
+  "version": "1.0.0",
+  "description": "Gerenciador de tarefas com agendamento e acompanhamento em tempo real.",
+  "main": "index.html",
+  "scripts": {
+    "dev": "webpack --mode development --watch --entry ./js/script.js --output-path ./js --output-filename script.min.js",
+    "build": "webpack --mode production --entry ./js/script.js --output-path ./js --output-filename script.min.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/juniormelo13/tasks_control.git"
+  },
+  "author": "Junior Melo",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/juniormelo13/tasks_control/issues"
+  },
+  "homepage": "https://github.com/juniormelo13/tasks_control#readme",
+  "devDependencies": {
+    "webpack": "^5.102.1",
+    "webpack-cli": "^6.0.1"
+  }
+}
