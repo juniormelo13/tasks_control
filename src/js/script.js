@@ -1,3 +1,10 @@
+// Arquivo principal com todas as importações principais para funcionamento do projeto.
+
+// Importação do arquivo principal de estilo (css).
+import '../css/style.css'
+
+// importações dos arquivos javascript (js).
+import initSetImageSrc from './modules/import-images.js' // Importação da função principal de importações das imagens e renderização em tela.
 import initNewTaskInput from "./modules/new-task-input.js" // Importação da função principal do input de inserção de novas tarefas.
 import initDropdownMenu from "./modules/menu.js" // Importação da função principal do menu.
 import initProfilePhoto from "./modules/profile-photo.js" // Importação da função principal da foto de perfil do usuário.
@@ -11,6 +18,7 @@ import initRemoveAllConfig from "./modules/remove-all-config.js" // Importação
 import initAppRecover from "./modules/app-recover.js" // Importação da função principal para a recuperação das configurações e tarefas salvas no local storage.
 import initRealTimeSchedulingStatus from "./modules/real-time-scheduling-status.js" // Importação da função principal para acompanhamento em tempo real das tarefas agendadas.
 
+initSetImageSrc() // Iniciar o funcionamento das importações das imagens e renderização em tela.
 initNewTaskInput() // Iniciar o funcionamento do input de inserção de novas tarefas.
 initDropdownMenu() // Iniciar o funcionamento do menu.
 initProfilePhoto() // Iniciar o funcionamento da foto de perfil do usuário.

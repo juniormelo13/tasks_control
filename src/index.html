@@ -5,13 +5,10 @@
   <meta charset="UTF-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="./css/style.min.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap" rel="stylesheet">
-  <script src="./js/script.min.js" defer></script>
-  <link rel="icon" type="image/png" href="./img/logo.png" />
   <title>TasksControl</title>
   <meta name="description" content="Gerenciador de tarefas com agendamento e acompanhamento em tempo real.">
 </head>
@@ -21,7 +18,7 @@
   <header id="headerBox">
     <div id="header">
       <!-- Logo do site -->
-      <a href="./"><img src="./img/logo.png" id="logoImg" alt="logo do site com um relógio no centro, cercado com blocos simbolizando tarefas nas cores azul, amarelo, vermelho e verde" width="50" height="50" /></a>
+      <a href="./"><img id="logoImg" alt="logo do site com um relógio no centro, cercado com blocos simbolizando tarefas nas cores azul, amarelo, vermelho e verde" width="50" height="50" /></a>
       <!-- Input onde serão informadas e enviadas as tarefas -->
       <div id="newTaskContainer">
         <div id="newTaskContainerInput">
@@ -50,7 +47,7 @@
           <div id="imgIdentBox">
             <label for="inputFileImg" id="inputFileImgLabel" title="Adicionar foto"></label>
             <input type="file" name="inputFileImg" id="inputFileImg" accept="image/*" />
-            <img src="./img/profile-avatar.png" alt="" id="uploadedImg" width="80" height="80" />
+            <img alt="Imagem padrão de um perfil sem foto" id="uploadedImg" width="80" height="80" />
             <label for="inputFileImg" id="inputFileBtnPlus" title="Adicionar foto" aria-label="adicionar foto perfil">
               <i class="fa-solid fa-plus"></i>
             </label>

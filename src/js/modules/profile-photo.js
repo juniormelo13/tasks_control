@@ -1,6 +1,10 @@
 // Funções e variáveis responsáveis pelo funcionamento da inserção e remoção da foto de perfil do usuário.
 
-// importações
+
+// Importações das imagens.
+import defaultAvatarSrc from "../../assets/images/profile-avatar.png";
+
+// importações dos arquivos javascript (js).
 import { menu } from "./menu.js";
 import { hideWindow, showConfirmField, confirmationWindow } from "./auxiliary-func-for-window.js";
 import { removeAllConfigBtn, checkRemoveAllConfigBtn } from "./remove-all-config.js";
@@ -59,7 +63,7 @@ function confirmRemoveImg() {
 // Função responsável por remover imagem.
 export function removeImg() {
   localStorage.removeItem("infoAccountImg");
-  uploadedImg.src = "./img/profile-avatar.png";
+  uploadedImg.src = defaultAvatarSrc;
   inputFileBtnToggle();
   inputFileImg.setAttribute("title", "Adicionar foto");
 }
