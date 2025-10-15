@@ -1,0 +1,76 @@
+# --- ARQUIVO DE CONFIGURAÇÃO DO FLUXO DE TRABALHO PARA DEPLOY AUTOMÁTICO NO GITHUB PAGES ---
+
+
+name: Deploy to GitHub Pages # Este é o nome que aparecerá na aba "Actions" do repositório no GitHub.
+
+# GATILHOS (TRIGGERS) - Esta seção define QUANDO a automação deve ser executada.
+
+on:
+  push: # O gatilho principal é o "push".
+    branches:
+      - main # A automação só será acionada em pushes para a branch "main".
+  workflow_dispatch: # Adiciona um botão "Run workflow" na interface do GitHub, permitindo que você execute o deploy manualmente quando quiser.
+
+# PERMISSÕES - Permissões específicas para que a automação possa publicar nosso site no GitHub Pages.
+
+permissions:
+  contents: read # Permissão para ler o conteúdo do seu repositório (baixar o código).
+  pages: write # Permissão para escrever no ambiente do GitHub Pages (publicar o site).
+  id-token: write # Permissão para se autenticar de forma segura para o deploy.
+
+# TAREFAS (JOBS) - Esta automação terá apenas uma tarefa, que chamaremos de "deploy".
+
+jobs:
+    # --- Configurações do Ambiente de Deploy ---
+  deploy:
+
+    # Garante que a automação não se cancele se você fizer push de vários commits rapidamente.
+    concurrency:
+      group: pages
+      cancel-in-progress: false
+
+    # Define que este job fará o deploy para um ambiente chamado "github-pages".
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }} # Pegará o link final do site e o exibirá no log da Action.
+
+    # --- Configurações da Máquina Virtual ---
+
+    runs-on: ubuntu-latest # Define qual sistema operacional a máquina virtual do GitHub usará para executar nosso pipeline. 'ubuntu-latest' é o padrão, rápido e confiável.
+
+    # --- PASSOS DA TAREFA ---
+
+    steps:
+      # Passo 1: Baixar o código para a máquina virtual. 
+      - name: Checkout do Repositório
+        uses: actions/checkout@v4 # indica que estamos usando uma "Action" pronta da comunidade.
+
+      # Passo 2: Instalar e configurar o ambiente Node.js na máquina para que possamos usar o npm.
+      - name: Configurar o Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22.20.0' # Versão do Node.js que o projeto usa.
+          cache: 'npm' # Habilita o cache para o npm. A instalação será muito mais rápida nas próximas execuções.
+
+      # Passo 3: Instalar as dependências com o comando 'npm install' no terminal da máquina virtual.
+      - name: Instalar Dependências
+        run: npm install # Baixa todas as dependências listadas no 'package-lock.json'.
+
+      # Passo 4: Construir o projeto executatando o script de build.      
+      - name: Construir o Projeto (Build)
+        run: npm run build # Processa os arquivos da 'src' e gera a pasta 'dist' otimizada.
+
+      # Passo 5: Preparar para o GitHub Pages para receber os arquivos que serão publicados.
+      - name: Configurar o GitHub Pages
+        uses: actions/configure-pages@v5 # Este passo usa uma Action oficial que prepara o ambiente 
+
+      # Passo 6: Fazer o Upload do Artefato - A pasta 'dist' que foi gerada no passo de build é "empacotada" e deixada pronta para envio.
+      - name: Fazer Upload do Artefato de Build
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: './dist' # O caminho para a pasta que deve ser empacotada.
+
+      # Passo 7: Publicar no GitHub Pages - É o passo final que pega a "caixa" (artefato) criada e a publica no ambiente do GitHub Pages, efetivamente colocando seu site no ar.
+      - name: Fazer Deploy no GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
