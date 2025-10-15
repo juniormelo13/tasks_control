@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="img/logo.png" alt="TasksControl Logo" height="60" />
+  <img src="./src/assets/images/logo.png" alt="TasksControl Logo" height="60" />
 </p>
 
 <h1 align="center">TasksControl</h1>
@@ -16,11 +16,14 @@
 
 <p align="center">
   <a href="https://juniormelo13.github.io/tasks_control/">
-    Acesse o projeto aqui
+    <strong>🚀 Acesse o projeto aqui 🚀</strong>
   </a>
 </p>
 
-<p align="center">Imagens aqui</p>
+<p align="center">
+  <img src="URL_DO_GIF_DESKTOP" alt="Demonstração Desktop">
+  <img src="URL_DO_GIF_MOBILE" alt="Demonstração Mobile" width="200">
+</p>
 
 ## 📌 Descrição
 
@@ -45,7 +48,45 @@ TasksControl é uma aplicação web que proporciona uma **experiência fluida, i
 
 ## 🛠️ Tecnologias e Ferramentas
 
-#### ⚙ Tecnologias principais
+* **Linguagens Base:** HTML5, CSS3, JavaScript (ES6+ Modules)
+* **Automação e Build:**
+    * **Webpack 5:** Para bundling de módulos, otimização de assets e gerenciamento do build.
+    * **Webpack Dev Server:** Para um ambiente de desenvolvimento rápido com Hot Module Replacement.
+* **CI/CD (Integração e Deploy Contínuo):**
+    * **GitHub Actions:** Para automação do processo de build e deploy no GitHub Pages.
+* **Ferramentas de Desenvolvimento:**
+    * Git & GitHub
+    * Visual Studio Code
+
+## ⚙️ Pré-requisitos
+
+Antes de começar, você vai precisar ter instalado em sua máquina as seguintes ferramentas:
+* [Git](https://git-scm.com)
+* [Node.js](https://nodejs.org/en/)
+* Além disto é bom ter um editor para trabalhar com o código como [VSCode](https://code.visualstudio.com/)
+
+## 🚀 Rodando o Projeto Localmente
+
+Siga os passos abaixo para rodar o projeto em seu ambiente de desenvolvimento:
+
+```bash
+# 1. Clone este repositório.
+$ git clone [https://github.com/juniormelo13/tasks_control.git](https://github.com/juniormelo13/tasks_control.git)
+
+# 2. Acesse a pasta do projeto no terminal/cmd.
+$ cd tasks_control
+
+# 3. Instale as dependências.
+$ npm install
+
+# 4. Inicie o servidor de desenvolvimento.
+# A aplicação abrirá automaticamente em http://localhost:3000
+$ npm start
+
+# Para gerar a versão de produção otimizada (na pasta /dist).
+$ npm run build
+```
+<!-- #### ⚙ Tecnologias principais
 
   <img src="https://img.shields.io/badge/HTML5-E34F26.svg?style=for-the-badge&logo=HTML5&logoColor=white" height="25"/>&nbsp;
   <img src="https://img.shields.io/badge/CSS-663399.svg?style=for-the-badge&logo=CSS&logoColor=white" height="25"/>&nbsp;
@@ -55,7 +96,7 @@ TasksControl é uma aplicação web que proporciona uma **experiência fluida, i
 
   <img src="https://img.shields.io/badge/Visual_Studio_Code-0078D4?style=for-the-badge&logo=visual%20studio%20code&logoColor=white" height="25"/>&nbsp;
   <img src="https://img.shields.io/badge/Git-F05032.svg?style=for-the-badge&logo=Git&logoColor=white" height="25"/>&nbsp;
-  <img src="https://img.shields.io/badge/GitHub-181717.svg?style=for-the-badge&logo=GitHub&logoColor=white" height="25"/>
+  <img src="https://img.shields.io/badge/GitHub-181717.svg?style=for-the-badge&logo=GitHub&logoColor=white" height="25"/> -->
 
 ## 📄 Licença
 
