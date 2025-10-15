@@ -1,6 +1,5 @@
 # --- ARQUIVO DE CONFIGURAÇÃO DO FLUXO DE TRABALHO PARA DEPLOY AUTOMÁTICO NO GITHUB PAGES ---
 
-
 name: Deploy to GitHub Pages # Este é o nome que aparecerá na aba "Actions" do repositório no GitHub.
 
 # GATILHOS (TRIGGERS) - Esta seção define QUANDO a automação deve ser executada.
