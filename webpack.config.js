@@ -10,7 +10,7 @@ module.exports = (_, argv) => {
     entry: './src/js/script.js',
     output: {
       path: path.resolve(__dirname, 'dist'),
-      filename: 'js/bundle.[contenthash].js',
+      filename: 'bundle.[contenthash].js',
       assetModuleFilename: 'assets/images/[name].[hash][ext]',
       clean: true,
     },
@@ -31,7 +31,7 @@ module.exports = (_, argv) => {
     },
     plugins: [
       new MiniCssExtractPlugin({
-        filename: 'css/bundle.[contenthash].css',
+        filename: 'bundle.[contenthash].css',
       }),
       new HtmlWebpackPlugin({
         template: './src/index.html',
