@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="./src/assets/images/logo.png" alt="TasksControl Logo" height="60" />
+  <img src="https://raw.githubusercontent.com/juniormelo13/tasks_control/main/src/assets/images/logo.png" alt="TasksControl Logo" height="60" />
 </p>
 
 <h1 align="center">TasksControl</h1>
@@ -7,16 +7,24 @@
 <p align="center">Gerenciador de tarefas com agendamento e acompanhamento em tempo real.</p><br>
 
 <p align="center">
-    <img src="https://img.shields.io/badge/HTML5-E34F26.svg?style=for-the-badge&logo=HTML5&logoColor=white" height="25"/>
-    <img src="https://img.shields.io/badge/CSS-663399.svg?style=for-the-badge&logo=CSS&logoColor=white" height="25"/>
-    <img src="https://img.shields.io/badge/JavaScript-F7DF1E.svg?style=for-the-badge&logo=JavaScript&logoColor=black" height="25"/>
+    <img src="https://img.shields.io/badge/HTML5-E34F26.svg?style=for-the-badge&logo=HTML5&logoColor=white" height="30" alt="HTML5"/>
+    <img src="https://img.shields.io/badge/CSS-663399.svg?style=for-the-badge&logo=CSS&logoColor=white" height="30" alt="CSS3"/>
+    <img src="https://img.shields.io/badge/JavaScript-F7DF1E.svg?style=for-the-badge&logo=JavaScript&logoColor=black" height="30" alt="JavaScript"/>
 </p><br>
+
+<p align="center">
+  <img src="https://img.shields.io/github/actions/workflow/status/juniormelo13/tasks_control/deploy.yml?branch=main&style=for-the-badge" height="22" alt="Status do Build"/>
+  <img src="https://img.shields.io/github/last-commit/juniormelo13/tasks_control?style=for-the-badge" height="22" alt="Último Commit"/>
+  <a href="./LICENSE">
+    <img src="https://img.shields.io/github/license/juniormelo13/tasks_control?style=for-the-badge" height="22" alt="Licença"/>
+  </a>
+</p>
 
 ## 📷 Demonstração
 
 <p align="center">
   <a href="https://juniormelo13.github.io/tasks_control/">
-    <strong>🚀 Acesse o projeto aqui 🚀</strong>
+    <strong>🚀 Clique aqui para acessar a aplicação 🚀</strong>
   </a>
 </p>
 
@@ -48,15 +56,29 @@ TasksControl é uma aplicação web que proporciona uma **experiência fluida, i
 
 ## 🛠️ Tecnologias e Ferramentas
 
+<p align="center">
+  <img src="https://img.shields.io/badge/HTML5-E34F26.svg?style=for-the-badge&logo=HTML5&logoColor=white" alt="HTML5" height="25"/>&nbsp;
+  <img src="https://img.shields.io/badge/CSS-663399.svg?style=for-the-badge&logo=CSS&logoColor=white" alt="CSS3" height="25"/>&nbsp;
+  <img src="https://img.shields.io/badge/JavaScript-F7DF1E.svg?style=for-the-badge&logo=JavaScript&logoColor=black" alt="Javascript" height="25"/>&nbsp;
+  <img src="https://img.shields.io/badge/Webpack-8DD6F9?style=for-the-badge&logo=webpack&logoColor=black" alt="Webpack" height="25"/>&nbsp;
+  <img src="https://img.shields.io/badge/Babel-F9DC3E?style=for-the-badge&logo=babel&logoColor=black" alt="Babel" height="25"/>&nbsp;
+  <img src="https://img.shields.io/badge/npm-CB3837?style=for-the-badge&logo=npm&logoColor=white" alt="npm" height="25"/>&nbsp;
+  <img src="https://img.shields.io/badge/Git-F05032.svg?style=for-the-badge&logo=Git&logoColor=white" alt="Git" height="25"/>&nbsp;
+  <img src="https://img.shields.io/badge/GitHub-181717.svg?style=for-the-badge&logo=GitHub&logoColor=white" alt="Github" height="25"/>&nbsp;
+  <img src="https://img.shields.io/badge/Visual_Studio_Code-0078D4?style=for-the-badge&logo=visual%20studio%20code&logoColor=white" alt="Visual Studio Code" height="25"/>
+</p>
+
 * **Linguagens Base:** HTML5, CSS3, JavaScript (ES6+ Modules)
 * **Automação e Build:**
     * **Webpack 5:** Para bundling de módulos, otimização de assets e gerenciamento do build.
     * **Webpack Dev Server:** Para um ambiente de desenvolvimento rápido com Hot Module Replacement.
+    * **Babel:** Para transpilação de código JavaScript moderno (ES6+), garantindo compatibilidade com navegadores mais antigos.
 * **CI/CD (Integração e Deploy Contínuo):**
     * **GitHub Actions:** Para automação do processo de build e deploy no GitHub Pages.
 * **Ferramentas de Desenvolvimento:**
-    * Git & GitHub
-    * Visual Studio Code
+    * **npm:** Para gerenciamento de pacotes e execução de scripts.
+    * **Git & GitHub:** Para controle de versão e hospedagem do código.
+    * **Visual Studio Code:** Como editor de código principal.
 
 ## ⚙️ Pré-requisitos
 
@@ -71,7 +93,7 @@ Siga os passos abaixo para rodar o projeto em seu ambiente de desenvolvimento:
 
 ```bash
 # 1. Clone este repositório.
-$ git clone [https://github.com/juniormelo13/tasks_control.git](https://github.com/juniormelo13/tasks_control.git)
+$ git clone https://github.com/juniormelo13/tasks_control.git
 
 # 2. Acesse a pasta do projeto no terminal/cmd.
 $ cd tasks_control
@@ -79,24 +101,12 @@ $ cd tasks_control
 # 3. Instale as dependências.
 $ npm install
 
-# 4. Inicie o servidor de desenvolvimento.
-# A aplicação abrirá automaticamente em http://localhost:3000
+# 4. Inicie o servidor de desenvolvimento (http://localhost:3000).
 $ npm start
 
-# Para gerar a versão de produção otimizada (na pasta /dist).
+# Para gerar a versão de produção otimizada (pasta /dist).
 $ npm run build
 ```
-<!-- #### ⚙ Tecnologias principais
-
-  <img src="https://img.shields.io/badge/HTML5-E34F26.svg?style=for-the-badge&logo=HTML5&logoColor=white" height="25"/>&nbsp;
-  <img src="https://img.shields.io/badge/CSS-663399.svg?style=for-the-badge&logo=CSS&logoColor=white" height="25"/>&nbsp;
-  <img src="https://img.shields.io/badge/JavaScript-F7DF1E.svg?style=for-the-badge&logo=JavaScript&logoColor=black" height="25"/>
-
-#### 🔨 Ferramentas
-
-  <img src="https://img.shields.io/badge/Visual_Studio_Code-0078D4?style=for-the-badge&logo=visual%20studio%20code&logoColor=white" height="25"/>&nbsp;
-  <img src="https://img.shields.io/badge/Git-F05032.svg?style=for-the-badge&logo=Git&logoColor=white" height="25"/>&nbsp;
-  <img src="https://img.shields.io/badge/GitHub-181717.svg?style=for-the-badge&logo=GitHub&logoColor=white" height="25"/> -->
 
 ## 📄 Licença
 
