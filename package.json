@@ -18,6 +18,9 @@
   },
   "homepage": "https://github.com/juniormelo13/tasks_control#readme",
   "devDependencies": {
+    "@babel/core": "^7.28.4",
+    "@babel/preset-env": "^7.28.3",
+    "babel-loader": "^10.0.0",
     "css-loader": "^7.1.2",
     "css-minimizer-webpack-plugin": "^7.0.2",
     "html-webpack-plugin": "^5.6.4",

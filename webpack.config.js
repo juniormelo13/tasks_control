@@ -17,6 +17,13 @@ module.exports = (_, argv) => {
     module: {
       rules: [
         {
+          test: /\.js$/, // Olha para todos os arquivos javascript. 
+          exclude: /node_modules/, // A exclusão Essencial: não queremos traduzir o código de terceiros
+          use: {
+            loader: 'babel-loader',
+          },
+        },
+        {
           test: /\.css$/i,
           use: [
             isProduction ? MiniCssExtractPlugin.loader : 'style-loader',
