@@ -7,6 +7,7 @@ module.exports = (_, argv) => {
   const isProduction = argv.mode === 'production';
   return {
     mode: isProduction ? 'production' : 'development',
+    devtool: isProduction ? 'source-map' : 'eval-source-map',
     entry: './src/js/script.js',
     output: {
       path: path.resolve(__dirname, 'dist'),
