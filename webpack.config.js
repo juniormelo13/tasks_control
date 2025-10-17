@@ -43,6 +43,10 @@ module.exports = (_, argv) => {
           }
         },
         {
+          test: /\.svg$/i, // Aplica esta regra ao tipo de arquivo svg.
+          type: 'asset/source', // Importa o conteúdo do arquivo como uma string.
+        },
+        {
           test: /\.(woff|woff2|eot|ttf|otf)$/i, // Aplica esta regra a vários tipos de arquivos de fontes.
           type: 'asset/resource', // Trata os arquivos como assets, copiando-os para a pasta de saída.
           generator: {
