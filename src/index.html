@@ -5,7 +5,6 @@
   <meta charset="UTF-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" />
   <title>TasksControl</title>
   <meta name="description" content="Gerenciador de tarefas com agendamento e acompanhamento em tempo real.">
 </head>
@@ -26,8 +25,8 @@
       </div>
       <!-- Botão de acesso ao menu/filtro -->
       <button id="menuButton" aria-label="botão menu">
-        <i id="menuButtonIcon" class="fa-solid fa-angles-down"></i>
-        <i id="menuButtonIconMobile" class="fa-solid fa-angles-left"></i>
+        <span id="menuButtonIcon" data-icon-name="angles-down"></span>
+        <span id="menuButtonIconMobile" data-icon-name="angles-left"></span>
       </button>
       <!-- Informação dos filtros de buscas das tarefas -->
       <div id="filterInformationBox">
@@ -35,7 +34,7 @@
           Filtro:<span id="filterInformation"></span>
         </p>
         <button id="cleanFilterBtn" title="Remover filtro" aria-label="botão remover filtro">
-          <i class="fa-solid fa-xmark"></i>
+          <span data-icon-name="xmark"></span>
         </button>
       </div>
       <!-- Menu/filtros de tarefas -->
@@ -46,32 +45,32 @@
             <input type="file" name="inputFileImg" id="inputFileImg" accept="image/*" />
             <img alt="Imagem padrão de um perfil sem foto" id="uploadedImg" width="80" height="80" />
             <label for="inputFileImg" id="inputFileBtnPlus" title="Adicionar foto" aria-label="adicionar foto perfil">
-              <i class="fa-solid fa-plus"></i>
+              <span data-icon-name="plus"></span>
             </label>
             <button id="inputFileBtnDel" title="Remover foto" class="hide" aria-label="apagar foto perfil">
-              <i class="fa-solid fa-trash"></i>
+              <span data-icon-name="trash"></span>
             </button>
           </div>
           <div id="nameIdentBox">
             <input type="text" name="nameInput" id="nameInput" placeholder="Qual o seu nome?" spellcheck="false" autocomplete="off" aria-label="campo adição de nome do usuário" />
             <label for="nameInput" id="nameIdentIcon" title="Editar">
-              <i class="fa-solid fa-pen"></i>
+              <span data-icon-name="pen"></span>
             </label>
             <button id="saveNameButton" class="hide" title="Salvar" aria-label="botão salvar nome usuário">
-              <i class="fa-solid fa-check"></i>
+              <span data-icon-name="check"></span>
             </button>
             <button id="deleteNameButton" class="hide" title="Limpar" aria-label="botão deletar nome usuário">
-              <i class="fa-solid fa-xmark"></i>
+              <span data-icon-name="xmark"></span>
             </button>
             <button id="recoverNameButton" class="hide" title="Recuperar" aria-label="botão recuperar nome usuário">
-              <i class="fa-solid fa-rotate"></i>
+              <span data-icon-name="rotate"></span>
             </button>
           </div>
         </div>
         <div id="searchContainer">
           <input type="search" name="searchTaskInput" id="searchTaskInput" placeholder="Pesquisar tarefa" spellcheck="false" autocomplete="off" aria-label="campo buscar tarefas" />
           <button id="cleanInputSearchBtn" class="hide" title="Limpar" aria-label="botão limpar busca de tarefas">
-            <i class="fa-solid fa-xmark"></i>
+            <span data-icon-name="xmark"></span>
           </button>
         </div>
         <div id="filterContainer">
@@ -101,19 +100,19 @@
           <label for="themeCheckBox" id="themeCheckBoxLabel">
             <input type="checkbox" name="themeCheckBox" id="themeCheckBox" />
             <span id="themeBall">
-              <i class="fa-regular fa-moon" id="themeBallMoon"></i>
-              <i class="fa-solid fa-sun" id="themeBallSun"></i>
+              <span id="themeBallMoon"  data-icon-name="moon"></span>
+              <span id="themeBallSun" data-icon-name="sun"></span>
             </span>
           </label>
         </div>
         <div id="removeAllTasksBox">
           <button id="removeAllTaskBtn" class="hover" aria-label="botão remover todas tarefas">
             <p>Excluir tarefas</p>
-            <i class="fa-solid fa-trash"></i>
+            <span data-icon-name="trash"></span>
           </button>
           <button id="removeAllConfigBtn" class="hover" aria-label="botão apagar todas tarefas e configurações">
             <p>Restaurar padrão</p>
-            <i class="fa-solid fa-wrench"></i>
+            <span data-icon-name="wrench"></span>
           </button>
         </div>
       </nav>
@@ -128,7 +127,7 @@
     <div id="editFieldHeader">
       <h1>editar tarefa?</h1>
       <button id="closeEditFieldBtn" title="Fechar" aria-label="botão fechar janela de edição">
-        <i class="fa-solid fa-xmark"></i>
+        <span data-icon-name="xmark"></span>
       </button>
     </div>
     <div id="editFieldCenter">
@@ -145,7 +144,7 @@
     <div id="scheduleFieldHeader">
       <h1>definir prazo?</h1>
       <button id="scheduleFieldCloseBtn" title="Fechar" aria-label="botão fechar janela de agendamento">
-        <i class="fa-solid fa-xmark"></i>
+        <span data-icon-name="xmark"></span>
       </button>
     </div>
     <div id="scheduleFieldCenter">
