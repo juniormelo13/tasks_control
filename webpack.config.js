@@ -16,7 +16,6 @@ module.exports = (_, argv) => {
     output: { // Define como e onde os arquivos de saída (bundles) serão salvos.
       path: path.resolve(__dirname, 'dist'), // Define a pasta de saída para os arquivos gerados (a pasta 'dist').
       filename: 'js/bundle.[contenthash].js', // Define o nome e o local do arquivo JavaScript final, com um hash para invalidação de cache.
-      assetModuleFilename: 'assets/images/[name].[hash][ext]', // Define o padrão de nome para assets (imagens, fontes).
       clean: true, // Limpa a pasta 'dist' antes de cada build para remover arquivos antigos.
     },
 
@@ -39,6 +38,16 @@ module.exports = (_, argv) => {
         {
           test: /\.(png|svg|jpg|jpeg|gif)$/i, // Aplica esta regra a vários tipos de arquivos de imagem.
           type: 'asset/resource', // Trata os arquivos como assets, copiando-os para a pasta de saída.
+          generator: {
+            filename: 'assets/images/[name].[hash][ext]' // Caminho de saída específico para imagens.
+          }
+        },
+        {
+          test: /\.(woff|woff2|eot|ttf|otf)$/i, // Aplica esta regra a vários tipos de arquivos de fontes.
+          type: 'asset/resource', // Trata os arquivos como assets, copiando-os para a pasta de saída.
+          generator: {
+            filename: 'assets/fonts/[name][ext]' // Caminho de saída específico para fontes.
+          }
         },
       ],
     },
