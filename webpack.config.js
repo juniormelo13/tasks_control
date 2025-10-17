@@ -36,7 +36,7 @@ module.exports = (_, argv) => {
           ],
         },
         {
-          test: /\.(png|svg|jpg|jpeg|gif)$/i, // Aplica esta regra a vários tipos de arquivos de imagem.
+          test: /\.(png|jpg|jpeg|gif)$/i, // Aplica esta regra a vários tipos de arquivos de imagem.
           type: 'asset/resource', // Trata os arquivos como assets, copiando-os para a pasta de saída.
           generator: {
             filename: 'assets/images/[name].[hash][ext]' // Caminho de saída específico para imagens.
