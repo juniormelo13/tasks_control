@@ -1,4 +1,6 @@
-/* lato-regular - latin */
+/* DEFINIÇÃO, CARREGAMENTO E VARIÁVEIS DAS FONTES LOCAIS */
+
+/* --- Fonte: Lato Regular --- */
 @font-face {
   font-display: swap;
   font-family: "Lato";
@@ -6,7 +8,8 @@
   font-weight: 400;
   src: url("../assets/fonts/lato-v25-latin-regular.woff2") format("woff2");
 }
-/* lato-italic - latin */
+
+/* --- Fonte: Lato Itálico --- */
 @font-face {
   font-display: swap;
   font-family: "Lato";
@@ -14,7 +17,8 @@
   font-weight: 400;
   src: url("../assets/fonts/lato-v25-latin-italic.woff2") format("woff2");
 }
-/* lato-700 - latin */
+
+/* --- Fonte: Lato Negrito (Bold) --- */
 @font-face {
   font-display: swap;
   font-family: "Lato";
@@ -23,12 +27,16 @@
   src: url("../assets/fonts/lato-v25-latin-700.woff2") format("woff2");
 }
 
+/* Variáveis globais para tipografia */
 :root {
-  --font-primary: "lato", "sans-serif";
+  /* Fonte principal (font-family) do projeto + fonte genérica de segurança. */
+  --font-primary: "Lato", sans-serif;
 
+  /* Pesos da fonte (font-weight) */
   --fw-regular: 400;
   --fw-bold: 700;
 
+  /* Escala de tamanhos de fonte (font-size) */
   --fs-xs: 0.75rem;
   --fs-sm: 0.875rem;
   --fs-base: 1rem;
@@ -38,5 +46,6 @@
   --fs-xxxl: 2rem;
   --fs-display: 3rem;
 
+  /* Estilo da fonte (font-style) */
   --fst-italic: italic;
 }
