@@ -6,7 +6,7 @@
   font-family: "Lato";
   font-style: normal;
   font-weight: 400;
-  src: url("../assets/fonts/lato-v25-latin-regular.woff2") format("woff2");
+  src: url("../../assets/fonts/lato-v25-latin-regular.woff2") format("woff2");
 }
 
 /* --- Fonte: Lato Itálico --- */
@@ -15,7 +15,7 @@
   font-family: "Lato";
   font-style: italic;
   font-weight: 400;
-  src: url("../assets/fonts/lato-v25-latin-italic.woff2") format("woff2");
+  src: url("../../assets/fonts/lato-v25-latin-italic.woff2") format("woff2");
 }
 
 /* --- Fonte: Lato Negrito (Bold) --- */
@@ -24,7 +24,7 @@
   font-family: "Lato";
   font-style: normal;
   font-weight: 700;
-  src: url("../assets/fonts/lato-v25-latin-700.woff2") format("woff2");
+  src: url("../../assets/fonts/lato-v25-latin-700.woff2") format("woff2");
 }
 
 /* Variáveis globais para tipografia */
