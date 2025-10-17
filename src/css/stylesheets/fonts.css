@@ -1,24 +1,42 @@
 /* lato-regular - latin */
 @font-face {
   font-display: swap;
-  font-family: 'Lato';
+  font-family: "Lato";
   font-style: normal;
   font-weight: 400;
-  src: url('../assets/fonts/lato-v25-latin-regular.woff2') format('woff2');
+  src: url("../assets/fonts/lato-v25-latin-regular.woff2") format("woff2");
 }
 /* lato-italic - latin */
 @font-face {
   font-display: swap;
-  font-family: 'Lato';
+  font-family: "Lato";
   font-style: italic;
   font-weight: 400;
-  src: url('../assets/fonts/lato-v25-latin-italic.woff2') format('woff2');
+  src: url("../assets/fonts/lato-v25-latin-italic.woff2") format("woff2");
 }
 /* lato-700 - latin */
 @font-face {
   font-display: swap;
-  font-family: 'Lato';
+  font-family: "Lato";
   font-style: normal;
   font-weight: 700;
-  src: url('../assets/fonts/lato-v25-latin-700.woff2') format('woff2');
+  src: url("../assets/fonts/lato-v25-latin-700.woff2") format("woff2");
+}
+
+:root {
+  --font-primary: "lato", "sans-serif";
+
+  --fw-regular: 400;
+  --fw-bold: 700;
+
+  --fs-xs: 0.75rem;
+  --fs-sm: 0.875rem;
+  --fs-base: 1rem;
+  --fs-lg: 1.125rem;
+  --fs-xl: 1.25rem;
+  --fs-xxl: 1.5rem;
+  --fs-xxxl: 2rem;
+  --fs-display: 3rem;
+
+  --fst-italic: italic;
 }
