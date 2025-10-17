@@ -59,9 +59,10 @@
 
 #editFieldHeader h1,
 #scheduleFieldHeader h1 {
-  font-family: "Lato", "Sans-Serif";
+  font-family: var(--font-primary);
+  font-weight: var(--fw-bold);
+  font-size: var(--fs-xl);
   text-transform: capitalize;
-  font-size: 1.3rem;
   color: var(--dark100_white100);
   user-select: none;
 }
@@ -71,7 +72,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 1.5rem;
+  font-size: var(--fs-xxl);
   border: none;
   outline: none;
   background: none;
@@ -100,9 +101,9 @@
 #editInput,
 #scheduleInputDate,
 #scheduleInputTime {
-  font-family: "lato", "sans-serif";
-  font-size: 1.1rem;
-  font-weight: bold;
+  font-family: var(--font-primary);
+  font-weight: var(--fw-regular);
+  font-size: var(--fs-base);
   color: var(--dark100_white100);
   background-color: var(--white100_dark100);
   border: 2px solid var(--grey_50);
@@ -178,8 +179,9 @@
 }
 
 #confirmationWindowText {
-  font-family: "Lato", "Sans-Serif";
-  font-size: 1.1rem;
+  font-family: var(--font-primary);
+  font-weight: var(--fw-regular);
+  font-size: var(--fs-lg);
   text-align: center;
   color: var(--dark100_white100);
   user-select: none;
@@ -201,14 +203,14 @@
 #cancelEditBtn,
 #cancelScheduletBtn,
 #btnNo {
-  font-family: "lato", "sans-serif";
-  font-size: 1rem;
+  font-family: var(--font-primary);
+  font-weight: var(--fw-bold);
+  font-size: var(--fs-base);
   border-radius: 5px;
   border: none;
   outline: none;
   height: 100%;
   text-transform: capitalize;
-  font-weight: bold;
   background-color: var(--dark100_white100);
   color: var(--white100_dark100);
   transition: 0.2s;
@@ -264,10 +266,11 @@
 }
 
 #noTaskText {
+  font-family: var(--font-primary);
+  font-weight: var(--fw-bold);
+  font-size: var(--fs-xxxl);
   color: var(--dark100_white100);
   text-align: center;
-  font-family: "lato", "sans-serif";
-  font-size: 2rem;
   pointer-events: none;
   user-select: none;
 }

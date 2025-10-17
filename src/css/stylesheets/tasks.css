@@ -54,14 +54,14 @@
 /* Texto da tarefa */
 
 .taskContent {
-  font-family: "lato", "sans-serif";
-  font-size: 1rem;
+  font-family: var(--font-primary);
+  font-weight: var(--fw-regular);
+  font-size: var(--fs-base);
   color: var(--dark100_white100);
   cursor: default;
   overflow-y: auto;
   word-wrap: break-word;
   padding: 0 5px 6px;
-  font-weight: bold;
   width: 100%;
   height: 100%;
 }
@@ -90,10 +90,10 @@
 /* Texto do campo de informações das tarefas */
 
 .infoTextContent {
-  font-size: 0.8rem;
+  font-family: var(--font-primary);
+  font-weight: var(--fw-regular);
+  font-size: var(--fs-sm);
   color: var(--dark100_white100);
-  font-family: "lato", "sans-serif";
-  font-weight: bold;
   user-select: none;
 }
 
@@ -106,7 +106,7 @@
   background-color: var(--white100_dark100);
   border-radius: 50%;
   border: none;
-  font-size: 1.3rem;
+  font-size: var(--fs-xl);
   opacity: 0;
   transition: 0.3s;
   cursor: pointer;
@@ -256,7 +256,7 @@
 .editBtn,
 .removeBtn,
 .notesBtn {
-  font-size: 18px;
+  font-size: var(--fs-lg);
   width: 25px;
   height: 80%;
   background: none;
@@ -365,10 +365,10 @@
 }
 
 .notePadTitle {
-  font-family: "Lato", "Sans-Serif";
+  font-family: var(--font-primary);
+  font-weight: var(--fw-bold);
+  font-size: var(--fs-base);
   text-transform: capitalize;
-  font-size: 1rem;
-  font-weight: bold;
   color: var(--dark100_white100);
   user-select: none;
 }
@@ -376,6 +376,9 @@
 /* Campo para inserção das anotações */
 
 .notePadInput {
+  font-family: var(--font-primary);
+  font-weight: var(--fw-regular);
+  font-size: var(--fs-base);
   width: 100%;
   height: 60%;
   color: var(--dark100_white100);
@@ -385,8 +388,6 @@
   outline: none;
   border: none;
   resize: none;
-  font-size: 0.9rem;
-  font-family: "lato", "sans-serif";
 }
 
 /* Botões de salvar e apagar anotações */
@@ -401,6 +402,8 @@
 
 .cleanNoteBtn,
 .saveNoteBtn {
+  font-size: var(--fs-base);
+  color: var(--dark100_white100);
   border: none;
   background: var(--white100_dark100);
   width: 25px;
@@ -410,18 +413,8 @@
   cursor: pointer;
 }
 
-.saveNoteBtn {
-  font-size: 1rem;
-  color: var(--dark100_white100);
-}
-
 .saveNoteBtn:hover {
   color: var(--green);
-}
-
-.cleanNoteBtn {
-  font-size: 1rem;
-  color: var(--dark100_white100);
 }
 
 .cleanNoteBtn:hover {

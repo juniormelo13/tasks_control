@@ -20,9 +20,9 @@ body {
 .cleanInputBtnStyle {
   position: absolute;
   height: 100%;
-  font-family: "lato", "sans-serif";
-  font-size: 1.1rem;
-  font-weight: bold;
+  font-family: var(--font-primary);
+  font-weight: var(--fw-bold);
+  font-size: var(--fs-base);
   color: var(--grey);
   border: none;
   outline: none;
