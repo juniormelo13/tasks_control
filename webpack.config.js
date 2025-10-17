@@ -29,7 +29,7 @@ module.exports = (_, argv) => {
           },
         },
         {
-          test: /\.css$/i, // Aplica esta regra a todos os arquivos que terminam com .css.
+          test: /\.css$/, // Aplica esta regra a todos os arquivos que terminam com .css.
           use: [ // Os loaders são aplicados da direita para a esquerda (de baixo para cima).
             isProduction ? MiniCssExtractPlugin.loader : 'style-loader', // Em produção, extrai o CSS para um arquivo. Em desenvolvimento, injeta no HTML.
             'css-loader', // Lê o arquivo CSS e resolve as importações (@import, url()).
