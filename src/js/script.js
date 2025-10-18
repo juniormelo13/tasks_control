@@ -5,7 +5,6 @@ import '../css/style.css'
 
 // importações dos arquivos javascript (js).
 import initSetImageSrc from './modules/import-images.js' // Importação da função principal de importações das imagens e renderização em tela.
-import initRenderIcons from './modules/import-icons.js' // Importação da função principal de importações das imagens e renderização em tela.
 import initNewTaskInput from "./modules/new-task-input.js" // Importação da função principal do input de inserção de novas tarefas.
 import initDropdownMenu from "./modules/menu.js" // Importação da função principal do menu.
 import initProfilePhoto from "./modules/profile-photo.js" // Importação da função principal da foto de perfil do usuário.
@@ -17,10 +16,10 @@ import initChangeTheme from "./modules/theme.js" // Importação da função pri
 import initRemoveAllTasks from "./modules/remove-all-tasks.js" // Importação da função principal do botão de remover todas as tarefas.
 import initRemoveAllConfig from "./modules/remove-all-config.js" // Importação da função principal do botão de reiniciar toda a aplicação para configuração de fábrica.
 import initAppRecover from "./modules/app-recover.js" // Importação da função principal para a recuperação das configurações e tarefas salvas no local storage.
+import initRenderIcons from './modules/import-icons.js' // Importação da função principal de importações dos ícones e renderização em tela.
 import initRealTimeSchedulingStatus from "./modules/real-time-scheduling-status.js" // Importação da função principal para acompanhamento em tempo real das tarefas agendadas.
 
 initSetImageSrc() // Iniciar o funcionamento das importações das imagens e renderização em tela.
-initRenderIcons() // Iniciar o funcionamento das importações das imagens e renderização em tela.
 initNewTaskInput() // Iniciar o funcionamento do input de inserção de novas tarefas.
 initDropdownMenu() // Iniciar o funcionamento do menu.
 initProfilePhoto() // Iniciar o funcionamento da foto de perfil do usuário.
@@ -32,4 +31,5 @@ initChangeTheme() // Iniciar o funcionamento do tema da aplicação (Claro ou es
 initRemoveAllTasks() // Iniciar o funcionamento do botão de remover todas as tarefas.
 initRemoveAllConfig() // Iniciar o funcionamento do botão de reiniciar toda a aplicação para configuração de fábrica.
 initAppRecover() // Iniciar a recuperação das configurações e tarefas salvas no local storage.
+initRenderIcons() // Iniciar o funcionamento das importações dos ícones e renderização em tela.
 initRealTimeSchedulingStatus() // Iniciar a função de acompanhamento em tempo real das tarefas agendadas.

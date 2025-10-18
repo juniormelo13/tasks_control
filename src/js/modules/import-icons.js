@@ -37,13 +37,13 @@ const icons = {
 };
 
 // Função principal responsável por renderizar os ícones (svg) importados em tela.
-export default function initRenderIcons() {
+export default function initRenderIcons(container = document) {
 
-  const iconBoxes = document.querySelectorAll("[data-icon-name]"); // Variável que recebe todas as "caixas" que armazenam cada ícone.
+  const iconBoxes = container.querySelectorAll("[data-icon-name]"); // Variável que recebe todas as "caixas" que armazenam cada ícone.
 
   // Loop por todas as "caixas de ícone".
   iconBoxes.forEach((iconBox) => {
-    const iconName = iconBox.dataset.iconName; // Variável que recebem os nomes do atributo dataset de cada "caixa".
+    const iconName = iconBox.dataset.iconName; // Variável que recebe o nome do atributo dataset de cada "caixa".
     if (icons[iconName]) {
       const svgString = icons[iconName]; // Pega a string do SVG importada.
       const accessibleSvgString = svgString.replace("<svg", '<svg aria-hidden="true"'); // Adiciona 'aria-hidden="true"' ao SVG para escondê-lo de leitores de tela, pois os ícones são decorativos.
