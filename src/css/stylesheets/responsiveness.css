@@ -142,11 +142,8 @@
       opacity: 0;
     }
   }
-  #menuButtonIcon {
-    display: none;
-  }
-  #menuButtonIconMobile {
-    display: block;
+  #menuBtnOpenIcon {
+    transform: rotate(90deg);
   }
   #menu.menuAppear {
     animation: menuAppearRightToLeft 0.2s forwards ease-in;
@@ -230,11 +227,8 @@
     overflow: auto;
     scrollbar-gutter: stable;
   }
-  #menuButtonIcon {
-    display: none;
-  }
-  #menuButtonIconMobile {
-    display: block;
+  #menuBtnOpenIcon {
+    transform: rotate(90deg);
   }
   #menu.menuAppear {
     animation: menuAppearRightToLeft 0.2s forwards ease-in;

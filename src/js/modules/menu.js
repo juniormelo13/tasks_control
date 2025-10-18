@@ -4,18 +4,16 @@
 import { nameInput, resetBtnNameInput } from "./username.js";
 import { confirmationWindow } from "./auxiliary-func-for-window.js";
 
-const menuBtn = document.querySelector("#menuButton"); // Botão para abrir e fechar o menu.
+const menuBtn = document.querySelector("#menuBtn"); // Botão para abrir e fechar o menu.
 export const menu = document.querySelector("#menu"); // Menu.
-const menuBtnIcon = document.querySelector("#menuButtonIcon"); // Ícone dentro do botão do menu.
-const menuBtnIconMobile = document.querySelector("#menuButtonIconMobile"); // Ícone dentro do botão do menu para celular.
+const menuBtnOpenIcon = document.querySelector("#menuBtnOpenIcon"); // Ícone dentro do botão do menu.
+const menuBtnCloseIcon = document.querySelector("#menuBtnCloseIcon"); // Ícone dentro do botão do menu.
 export let menuOpen = false; // Variável para guardar o status do menu (aberto ou fechado), a aplicação inicia com o menu fechado.
 
 // Função responsável por alternar características do botão ao abrir ou fechar menu. 
 function menuBtnToggle() {
-  menuBtnIcon.classList.toggle("fa-angles-down");
-  menuBtnIcon.classList.toggle("fa-xmark");
-  menuBtnIconMobile.classList.toggle("fa-angles-left");
-  menuBtnIconMobile.classList.toggle("fa-xmark");
+  menuBtnOpenIcon.classList.toggle("active");
+  menuBtnCloseIcon.classList.toggle("active");
   menuBtn.classList.toggle("active");
 }
 
@@ -65,7 +63,7 @@ export default function initDropdownMenu() {
 
   // Configuração para fechar o menu ao clicar em qualquer local da tela.
   document.addEventListener("mousedown", (e) => {
-    if (!menu.contains(e.target) && !menuBtn.contains(e.target) && !menuBtnIcon.contains(e.target) && !confirmationWindow.contains(e.target) && menuOpen && !confirmationWindow.classList.contains("appearWindow")) {
+    if (!menu.contains(e.target) && !menuBtn.contains(e.target) && !menuBtnOpenIcon.contains(e.target) && !confirmationWindow.contains(e.target) && menuOpen && !confirmationWindow.classList.contains("appearWindow")) {
       menuHide();
     } else if (confirmationWindow.classList.contains("appearWindow") && menuOpen && !menu.contains(e.target) && !menu.classList.contains("menuBlur")) {
       menuHide();

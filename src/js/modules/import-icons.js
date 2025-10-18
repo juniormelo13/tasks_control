@@ -2,8 +2,6 @@
 
 // Importações dos ícones (svg).
 import anglesDownSvg from "../../assets/icons/angles-down.svg";
-import anglesLeftSvg from "../../assets/icons/angles-left.svg";
-import anglesRightSvg from "../../assets/icons/angles-right.svg";
 import checkSvg from "../../assets/icons/check.svg";
 import clockSvg from "../../assets/icons/clock.svg";
 import fileLinesSvg from "../../assets/icons/file-lines.svg";
@@ -20,8 +18,6 @@ import xmarkSvg from "../../assets/icons/xmark.svg";
 // Objeto com nome dos ícones, que recebem seus respectivos códigos HTML.
 const icons = {
   "angles-down": anglesDownSvg,
-  "angles-left": anglesLeftSvg,
-  "angles-right": anglesRightSvg,
   "check": checkSvg,
   "clock": clockSvg,
   "file-lines": fileLinesSvg,
