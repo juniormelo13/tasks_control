@@ -10,6 +10,7 @@
 }
 
 #header {
+  position: relative;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -40,7 +41,7 @@
 
 #newTaskContainerInput {
   position: relative;
-  width: 100%;
+  flex-grow: 1;
   height: 3rem;
 }
 
@@ -76,7 +77,8 @@
   background-color: var(--dark100_white100);
   color: var(--white100_dark100);
   height: 48px;
-  min-width: 40px;
+  width: 48px;
+  flex-shrink: 0;
   cursor: pointer;
   transition: 0.2s;
 }
@@ -88,10 +90,8 @@
 }
 
 #newTaskBtn span {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
+  display: grid;
+  place-items: center;
   height: 100%;
 }
 
