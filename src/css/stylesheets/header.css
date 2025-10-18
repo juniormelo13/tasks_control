@@ -104,8 +104,8 @@
 #menuBtn {
   background: var(--dark100_white100);
   color: var(--white100_dark100);
-  width: 40px;
-  height: 40px;
+  min-width: 40px;
+  height: 48px;
   border: 2px solid var(--dark100_white100);
   border-radius: 5px;
   outline: none;
