@@ -69,26 +69,34 @@
 
 #closeEditFieldBtn,
 #scheduleFieldCloseBtn {
-  display: flex;
-  justify-content: center;
-  align-items: center;
   font-size: var(--fs-xxl);
   border: none;
   outline: none;
   background: none;
   color: var(--dark100_white100);
   transition: 0.2s;
+  cursor: pointer;
+}
+
+#closeEditFieldBtn span,
+#scheduleFieldCloseBtn span {
+  display: grid;
+}
+
+#closeEditFieldBtn span svg,
+#scheduleFieldCloseBtn span svg {
+  width: 1.5rem;
 }
 
 #closeEditFieldBtn:hover,
 #scheduleFieldCloseBtn:hover {
-  cursor: pointer;
   color: var(--red);
 }
 
 #editFieldCenter {
   position: relative;
   width: 100%;
+  height: 2.5rem;
 }
 
 #scheduleFieldCenter {
@@ -96,6 +104,7 @@
   justify-content: center;
   gap: 10px;
   width: 100%;
+  height: 2.5rem;
 }
 
 #editInput,
