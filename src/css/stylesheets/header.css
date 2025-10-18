@@ -97,13 +97,15 @@
 /* Botão do menu */
 
 #menuButton {
-  color: var(--white100_dark100);
+  display: flex;
+  justify-content: center;
+  align-items: center;
   background: var(--dark100_white100);
+  color: var(--white100_dark100);
   width: 40px;
   height: 40px;
   border: 2px solid var(--dark100_white100);
   border-radius: 5px;
-  font-size: var(--fs-xl);
   outline: none;
   transition: 0.2s;
   cursor: pointer;
@@ -114,6 +116,11 @@
   background-color: var(--white100_dark100);
   color: var(--dark100_white100);
   box-shadow: 0 0 10px 2px var(--dark100_white100);
+}
+
+#menuButtonIcon svg, #menuButtonIconMobile svg {
+  width: 1.5rem;
+  display: block;
 }
 
 #menuButtonIconMobile {
