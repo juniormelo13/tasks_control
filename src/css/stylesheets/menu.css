@@ -207,6 +207,7 @@
 #recoverNameButton span {
   display: grid;
   place-items: center;
+  height: 100%;
 }
 
 #nameIdentIcon span svg,
@@ -245,7 +246,6 @@
 
 #cleanInputSearchBtn {
   position: absolute;
-  text-align: center;
   right: 2px;
   top: 50%;
   transform: translate(0, -50%);
@@ -256,12 +256,21 @@
   color: var(--dark100_white100);
   height: 100%;
   width: 23px;
-  opacity: 0.7;
-  transition: 0.3s;
+  transition: 0.2s;
 }
 
 #cleanInputSearchBtn:hover {
-  opacity: 1;
+  color: var(--red);
+}
+
+#cleanInputSearchBtn span {
+  display: grid;
+  place-items: center;
+  height: 100%;
+}
+
+#cleanInputSearchBtn span svg {
+  width: 1rem;
 }
 
 /* Filtro de tarefas por status */
