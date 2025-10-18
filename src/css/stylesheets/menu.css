@@ -162,13 +162,10 @@
 #recoverNameButton {
   position: absolute;
   border: none;
-  font-size: var(--fs-xs);
   width: 1rem;
   color: var(--dark100_white100);
   background-color: transparent;
   height: 100%;
-  align-content: center;
-  text-align: center;
   transition: 0.3s;
   cursor: pointer;
 }
@@ -179,6 +176,7 @@
 }
 
 #nameIdentIcon {
+  align-content: center;
   opacity: 0;
 }
 
@@ -201,6 +199,21 @@
 
 #nameIdentBox:hover #nameIdentIcon {
   opacity: 0.5;
+}
+
+#nameIdentIcon span,
+#saveNameButton span,
+#deleteNameButton span,
+#recoverNameButton span {
+  display: grid;
+  place-items: center;
+}
+
+#nameIdentIcon span svg,
+#saveNameButton span svg,
+#deleteNameButton span svg,
+#recoverNameButton span svg {
+  width: 1rem;
 }
 
 /* Filtro de tarefas por conteúdo */
