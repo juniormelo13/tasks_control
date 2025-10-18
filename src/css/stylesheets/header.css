@@ -10,7 +10,6 @@
 }
 
 #header {
-  position: relative;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -31,33 +30,32 @@
 /* Entrada de tarefas */
 
 #newTaskContainer {
-  position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 15px;
-  height: 100%;
-}
-
-#newTaskContainerInput {
-  position: relative;
   width: 37.5rem;
   height: 3rem;
 }
 
-#newTaskInput {
+#newTaskContainerInput {
   position: relative;
   width: 100%;
-  height: 100%;
-  border-radius: 5px;
-  outline: none;
-  border: 2px solid var(--grey_50);
-  background-color: var(--white100_dark100);
-  padding: 5px 50px 5px 10px;
+  height: 100%
+}
+
+#newTaskInput {
   font-family: var(--font-primary);
   font-weight: var(--fw-regular);
   font-size: var(--fs-base);
+  background-color: var(--white100_dark100);
   color: var(--dark100_white100);
+  width: 100%;
+  height: 100%;
+  outline: none;
+  border: 2px solid var(--grey_50);
+  border-radius: 5px;
+  padding: 5px 50px 5px 10px;
   transition: 0.2s;
 }
 
@@ -70,19 +68,15 @@
 }
 
 #newTaskBtn {
-  position: relative;
-  text-align: center;
-  line-height: 0px;
   font-family: var(--font-primary);
   font-weight: var(--fw-bold);
   font-size: var(--fs-display);
-  border-radius: 5px;
-  padding: 5px 7px 7px 7px;
   border: 2px solid var(--dark100_white100);
-  height: 48px;
-  width: 40px;
+  border-radius: 5px;
   background-color: var(--dark100_white100);
   color: var(--white100_dark100);
+  height: 48px;
+  min-width: 40px;
   cursor: pointer;
   transition: 0.2s;
 }
@@ -91,6 +85,18 @@
   background-color: var(--white100_dark100);
   color: var(--dark100_white100);
   box-shadow: 0 0 10px 2px var(--dark100_white100);
+}
+
+#newTaskBtn span {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+
+#newTaskBtn span svg {
+  width: 1.5rem;
 }
 
 /* Botão do menu */
