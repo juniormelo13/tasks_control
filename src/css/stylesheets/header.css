@@ -189,9 +189,8 @@
 }
 
 #cleanFilterBtn span {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  display: grid;
+  place-items: center;
 }
 
 #cleanFilterBtn span svg {
