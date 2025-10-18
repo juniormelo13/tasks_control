@@ -65,9 +65,8 @@
   width: 50px;
 }
 
-#cleanNewTaskInputBtn:hover {
-  background-color: var(--grey_Opacity_3);
-  color: var(--grey_50);
+#cleanNewTaskInputBtn span svg {
+  width: 1.5rem;
 }
 
 #newTaskBtn {

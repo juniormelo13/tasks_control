@@ -19,7 +19,9 @@
       <div id="newTaskContainer">
         <div id="newTaskContainerInput">
           <input type="text" name="newTaskInput" id="newTaskInput" placeholder="Digite a tarefa..." spellcheck="false" autocomplete="off" aria-label="campo adicionar novas tarefas" />
-          <input type="button" value="X" id="cleanNewTaskInputBtn" class="hide cleanInputBtnStyle" title="Limpar" aria-label="botão limpar novas tarefas" />
+          <button id="cleanNewTaskInputBtn" class="hide cleanInputBtnStyle" title="Limpar" aria-label="botão limpar novas tarefas">
+            <span data-icon-name="xmark"></span>
+          </button>
         </div>
         <input type="button" value="+" id="newTaskBtn" title="Adicionar" aria-label="botão inserir nova tarefa" />
       </div>
@@ -100,7 +102,7 @@
           <label for="themeCheckBox" id="themeCheckBoxLabel">
             <input type="checkbox" name="themeCheckBox" id="themeCheckBox" />
             <span id="themeBall">
-              <span id="themeBallMoon"  data-icon-name="moon"></span>
+              <span id="themeBallMoon" data-icon-name="moon"></span>
               <span id="themeBallSun" data-icon-name="sun"></span>
             </span>
           </label>
@@ -132,7 +134,9 @@
     </div>
     <div id="editFieldCenter">
       <input type="text" name="editInput" id="editInput" placeholder="Digite a tarefa..." autocomplete="off" spellcheck="false" />
-      <input type="button" value="X" id="cleanEditInputBtn" class="hide cleanInputBtnStyle" title="Limpar" aria-label="botão limpar campo de edição" />
+      <button id="cleanEditInputBtn" class="hide cleanInputBtnStyle" title="Limpar" aria-label="botão limpar campo de edição">
+        <span data-icon-name="xmark"></span>
+      </button>
     </div>
     <div id="editFieldFooter">
       <input type="button" value="editar" id="confirmEditBtn" aria-label="botão confirmar edição" />

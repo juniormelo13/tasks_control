@@ -122,9 +122,8 @@
   width: 40px;
 }
 
-#cleanEditInputBtn:hover {
-  background-color: var(--grey_Opacity_3);
-  color: var(--grey_50);
+#cleanEditInputBtn span svg {
+  width: 1.3rem;
 }
 
 #scheduleInputDate {
