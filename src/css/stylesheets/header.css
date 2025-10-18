@@ -143,7 +143,6 @@
   border-top-left-radius: 0;
   border-top-right-radius: 0;
   padding: 2px 8px;
-  height: 1.5rem;
   z-index: -1;
 }
 
@@ -161,6 +160,9 @@
 }
 
 #cleanFilterBtn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   cursor: pointer;
   border: none;
   background: none;
@@ -168,10 +170,14 @@
   color: var(--dark100_white100);
   height: 100%;
   width: 1rem;
-  border-radius: 50%;
   transition: 0.3s;
 }
 
 #cleanFilterBtn:hover {
   color: var(--red);
+}
+
+#cleanFilterBtn svg {
+  width: 1rem;
+  display: block;
 }
