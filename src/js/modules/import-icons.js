@@ -40,16 +40,14 @@ const icons = {
 export default function initRenderIcons() {
 
   const iconBoxes = document.querySelectorAll("[data-icon-name]"); // Variável que recebe todas as "caixas" que armazenam cada ícone.
-  console.log(iconBoxes)
-  console.log(anglesDownSvg)
 
   // Loop por todas as "caixas de ícone".
-  iconBoxes.forEach((iconBoxe) => {
-    const iconName = iconBoxe.dataset.iconName; // Variável que recebem os nomes do atributo dataset de cada "caixa".
+  iconBoxes.forEach((iconBox) => {
+    const iconName = iconBox.dataset.iconName; // Variável que recebem os nomes do atributo dataset de cada "caixa".
     if (icons[iconName]) {
       const svgString = icons[iconName]; // Pega a string do SVG importada.
-      const accessibleSvgString = svgString.replace('<svg', '<svg aria-hidden="true"'); // Adiciona o atributo de acessibilidade.
-      iconBoxe.innerHTML = accessibleSvgString; // Se o svg existir, insira-o no html da sua "caixa" correspondente.
+      const accessibleSvgString = svgString.replace("<svg", '<svg aria-hidden="true"'); // Adiciona 'aria-hidden="true"' ao SVG para escondê-lo de leitores de tela, pois os ícones são decorativos.
+      iconBox.innerHTML = accessibleSvgString; // Se o svg existir, insira-o no html da sua "caixa" correspondente.
     }
   });
 
