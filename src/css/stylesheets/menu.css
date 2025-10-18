@@ -256,7 +256,7 @@
   color: var(--dark100_white100);
   height: 100%;
   width: 23px;
-  transition: 0.2s;
+  transition: 0.3s;
 }
 
 #cleanInputSearchBtn:hover {
@@ -371,9 +371,6 @@
 
 #themeBall {
   position: absolute;
-  display: flex;
-  justify-content: center;
-  align-items: center;
   background-color: var(--white_dark);
   height: 100%;
   width: 50%;
@@ -389,12 +386,26 @@
   display: none;
 }
 
+#themeBallSun {
+  display: grid;
+}
+
+#themeBallSun, #themeBallMoon {
+  place-items: center;
+  height: 100%;
+  width: 100%;
+}
+
+#themeBallSun svg, #themeBallMoon svg {
+  width: 1rem;
+}
+
 #themeCheckBox:checked ~ #themeBall {
   right: 0;
 }
 
 #themeCheckBox:checked ~ #themeBall #themeBallMoon {
-  display: block;
+  display: grid;
 }
 
 #themeCheckBox:checked ~ #themeBall #themeBallSun {
