@@ -430,26 +430,30 @@
   border: 2px solid var(--grey_50);
   border-radius: 5px;
   background-color: var(--white50_dark50);
+  color: var(--dark100_white100);
+  cursor: pointer;
   transition: 0.2s;
 }
 
 #removeAllTaskBtn p,
 #removeAllConfigBtn p {
-  color: var(--dark100_white100);
   font-family: var(--font-primary);
   font-weight: var(--fw-bold);
   font-size: var(--fs-sm);
 }
 
-#removeAllTaskBtn i,
-#removeAllConfigBtn i {
-  color: var(--dark100_white100);
-  transition: 0.2s;
+#removeAllTaskBtn span,
+#removeAllConfigBtn span {
+  display: grid;
+}
+
+#removeAllTaskBtn span svg,
+#removeAllConfigBtn span svg {
+  width: 1rem;
 }
 
 #removeAllTaskBtn.hover:hover,
 #removeAllConfigBtn.hover:hover {
-  cursor: pointer;
   background-color: var(--white_dark);
   border: 2px solid var(--red);
 }
