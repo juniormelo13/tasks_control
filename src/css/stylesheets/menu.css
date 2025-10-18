@@ -47,13 +47,15 @@
   transition: 0.3s;
 }
 
+#imgIdentBox:hover {
+  cursor: pointer;
+}
+
 #inputFileBtnPlus,
 #inputFileBtnDel {
   position: absolute;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: var(--fs-xs);
+  display: grid;
+  place-items: center;
   background-color: var(--whiteShadow50_darkShadow50);
   color: var(--dark_white);
   border: none;
@@ -67,13 +69,20 @@
   cursor: pointer;
 }
 
-#imgIdentBox:hover {
-  cursor: pointer;
-}
-
 #imgIdentBox:hover #inputFileBtnPlus,
 #imgIdentBox:hover #inputFileBtnDel {
   opacity: 1;
+}
+
+#inputFileBtnPlus span,
+#inputFileBtnDel span {
+  display: grid;
+  place-items: center;
+}
+
+#inputFileBtnPlus span svg,
+#inputFileBtnDel span svg {
+  width: 1rem;
 }
 
 #uploadedImg {
