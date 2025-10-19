@@ -39,8 +39,7 @@ function createTaskInfo(taskField, taskFront, taskInfo, infoTextContent, schedul
   taskInfo.classList.add("hide"); // Adiciona a classe para esconder o campo assim que a tarefa é criada.
   infoTextContent.classList.add("infoTextContent"); // Adiciona a classe para estilização do conteúdo de texto da informação da tarefa.
   completedTaskIcon.classList.add("completedTaskIcon"); // Adiciona a classe para estilização do ícone de tarefa concluída.
-  completedTaskIcon.classList.add("fa-solid"); // Adiciona a classe para determinar o estilo do ícone de tarefa concluída.
-  completedTaskIcon.classList.add("fa-check"); // Adiciona a classe para determinar o tipo do ícone de tarefa concluída.
+  completedTaskIcon.dataset.iconName = "check";; // Adiciona o atributo data para determinar o ícone de tarefa concluída.
   completedTaskIcon.classList.add("hide"); // Adiciona a classe para esconder o ícone.
   taskFront.appendChild(taskInfo); // Adiciona o campo de informações da tarefa como filho da frente da tarefa.
   taskInfo.appendChild(infoTextContent); // Adiciona o texto de informações da tarefa como filho do campo de informações da tarefa.
@@ -48,8 +47,7 @@ function createTaskInfo(taskField, taskFront, taskInfo, infoTextContent, schedul
   taskInfo.appendChild(completedTaskIcon); // Adiciona o ícone de tarefa concluída como filho do campo de informações da tarefa.
   schedulingRemoveBtn.classList.add("schedulingRemoveBtn"); // Adiciona a classe para estilizar o botão de remoção do agendamento ou reset.
   schedulingRemoveBtn.appendChild(schedulingRemoveBtnIcon); // Adiciona o ícone ddo botão de remoção como filho do botão de remoção.
-  schedulingRemoveBtnIcon.classList.add("fa-regular"); // Adiciona a classe para determinar o estilo do ícone do botão de remoção.
-  schedulingRemoveBtnIcon.classList.add("fa-circle-xmark"); // Adiciona a classe para determinar o tipo do ícone do botão de remoção.
+  schedulingRemoveBtnIcon.dataset.iconName = "xmark";; // Adiciona o atributo para determinar o ícone do botão de remoção.
   schedulingRemoveBtn.addEventListener("click", () => schedulingRemoveClick(taskField, taskInfo, taskFront, scheduleBtn, editBtn, infoTextContent, infoTaskSave)); // Adiciona a função de remover agendamento ou resetar tarefa ao botão de remoção.
 }
 
@@ -73,12 +71,10 @@ function createNotPadContainer(taskField, taskFront, task, notePadContainer, not
   cleanNoteBtn.classList.add("cleanNoteBtn");
   cleanNoteBtn.classList.add("hide");
   cleanNoteBtn.setAttribute("title", "Limpar Anotações");
-  cleanNoteBtnIcon.classList.add("fa-solid");
-  cleanNoteBtnIcon.classList.add("fa-xmark");
+  cleanNoteBtnIcon.dataset.iconName = "xmark";
   saveNoteBtn.classList.add("saveNoteBtn");
   saveNoteBtn.setAttribute("title", "Salvar");
-  saveNoteBtnIcon.classList.add("fa-solid");
-  saveNoteBtnIcon.classList.add("fa-angles-right");
+  saveNoteBtnIcon.dataset.iconName = "angles-down";
   notePadInput.setAttribute("spellcheck", "false");
   task.appendChild(notePadContainer);
   notePadContainer.appendChild(notePadTop);
@@ -96,60 +92,58 @@ function createNotPadContainer(taskField, taskFront, task, notePadContainer, not
 }
 
 // Função responsável por criar o botão de conclusão da tarefa.
-function createCompleteTaskBtn(taskField, taskFront, taskContent, btnField, scheduleBtn, editBtn, checkBtn, checkIcon, taskInfo, infoTextContent, completedTaskIcon, schedulingRemoveBtn, infoTaskSave) {
+function createCompleteTaskBtn(taskField, taskFront, taskContent, btnField, scheduleBtn, editBtn, checkBtn, checkIcon, recoverIcon, taskInfo, infoTextContent, completedTaskIcon, schedulingRemoveBtn, infoTaskSave) {
   btnField.appendChild(checkBtn);
   checkBtn.classList.add("checkBtn");
   checkBtn.appendChild(checkIcon);
-  checkIcon.classList.add("fa-solid");
-  checkIcon.classList.add("fa-thumbs-up");
+  checkIcon.classList.add("active");
+  checkBtn.appendChild(recoverIcon);
+  checkIcon.dataset.iconName = "thumbs-up";
+  recoverIcon.dataset.iconName = "rotate";
   checkBtn.setAttribute("title", "Concluir");
-  checkBtn.addEventListener("click", () => completeTaskClick(taskField, taskFront, taskContent, scheduleBtn, editBtn, checkBtn, checkIcon, taskInfo, infoTextContent, completedTaskIcon, schedulingRemoveBtn, infoTaskSave));
+  checkBtn.addEventListener("click", () => completeTaskClick(taskField, taskFront, taskContent, scheduleBtn, editBtn, checkBtn, checkIcon, recoverIcon, taskInfo, infoTextContent, completedTaskIcon, schedulingRemoveBtn, infoTaskSave));
 }
 
 // Função responsável por criar o botão de edição da tarefa.
 function createEditTaskBtn(btnField, editBtn, taskContent, infoTaskSave) {
-  const editIcon = document.createElement("i");
+  const editIcon = document.createElement("span");
   btnField.appendChild(editBtn);
   editBtn.classList.add("editBtn");
   editBtn.appendChild(editIcon);
-  editIcon.classList.add("fa-solid");
-  editIcon.classList.add("fa-pen");
+  editIcon.dataset.iconName = "pen";
   editBtn.setAttribute("title", "Editar");
   editBtn.addEventListener("click", () => editClick(taskContent, infoTaskSave));
 }
 
 // Função responsável por criar o botão de agendamento da tarefa.
 function createScheduleTaskBtn(taskFront, scheduleBtn, taskInfo, infoTextContent, schedulingRemoveBtn, infoTaskSave, btnField) {
-  const scheduleIcon = document.createElement("i");
+  const scheduleIcon = document.createElement("span");
   btnField.appendChild(scheduleBtn);
   scheduleBtn.classList.add("scheduleBtn");
   scheduleBtn.appendChild(scheduleIcon);
-  scheduleIcon.classList.add("fa-solid");
-  scheduleIcon.classList.add("fa-clock");
+  scheduleIcon.dataset.iconName = "clock";
   scheduleBtn.setAttribute("title", "Definir prazo");
   scheduleBtn.addEventListener("click", () => scheduleClick(taskFront, scheduleBtn, taskInfo, infoTextContent, schedulingRemoveBtn, infoTaskSave, btnField));
 }
 
 // Função responsável por criar o botão de anotações da tarefa.
 function createNotesBtn(taskField, task, taskFront, notePadInput, notePadContainer, cleanNoteBtn, notesBtn, infoTaskSave, btnField) {
-  const notesBtnIcon = document.createElement("i");
+  const notesBtnIcon = document.createElement("span");
   btnField.appendChild(notesBtn);
   notesBtn.classList.add("notesBtn");
   notesBtn.appendChild(notesBtnIcon);
-  notesBtnIcon.classList.add("fa-solid");
-  notesBtnIcon.classList.add("fa-file-lines");
+  notesBtnIcon.dataset.iconName = "file-lines";
   notesBtn.setAttribute("title", "Anotações");
   notesBtn.addEventListener("click", () => notesBtnClick(taskField, task, taskFront, notePadInput, notePadContainer, cleanNoteBtn, notesBtn, infoTaskSave));
 }
 
 // Função responsável por criar o botão de remoção da tarefa.
 function createRemoveTaskBtn(taskField, taskFront, infoTaskSave, btnField, removeBtn) {
-  const removeIcon = document.createElement("i");
+  const removeIcon = document.createElement("span");
   btnField.appendChild(removeBtn);
   removeBtn.classList.add("removeBtn");
   removeBtn.appendChild(removeIcon);
-  removeIcon.classList.add("fa-solid");
-  removeIcon.classList.add("fa-trash");
+  removeIcon.dataset.iconName = "trash";
   removeBtn.setAttribute("title", "Excluir tarefa");
   removeBtn.addEventListener("click", () => deleteClick(taskField, taskFront, infoTaskSave));
 }
@@ -163,7 +157,8 @@ export function taskConstructor(taskField, task, taskFront, infoTaskSave) {
   const schedulingRemoveBtn = document.createElement("button");
   const cleanNoteBtn = document.createElement("button");
   const checkBtn = document.createElement("button");
-  const checkIcon = document.createElement("i");
+  const checkIcon = document.createElement("span");
+  const recoverIcon = document.createElement("span");
   const editBtn = document.createElement("button");
   const scheduleBtn = document.createElement("button");
   const notesBtn = document.createElement("button");
@@ -189,7 +184,7 @@ export function taskConstructor(taskField, task, taskFront, infoTaskSave) {
   createNotPadContainer(taskField, taskFront, task, notePadContainer, notesBtn, infoTaskSave, notePadInput, cleanNoteBtn);
 
   // Botão para conclusão da tarefa
-  createCompleteTaskBtn(taskField, taskFront, taskContent, btnField, scheduleBtn, editBtn, checkBtn, checkIcon, taskInfo, infoTextContent, completedTaskIcon, schedulingRemoveBtn, infoTaskSave);
+  createCompleteTaskBtn(taskField, taskFront, taskContent, btnField, scheduleBtn, editBtn, checkBtn, checkIcon, recoverIcon, taskInfo, infoTextContent, completedTaskIcon, schedulingRemoveBtn, infoTaskSave);
 
   //Botão para edição da tarefa
   createEditTaskBtn(btnField, editBtn, taskContent, infoTaskSave);
@@ -210,9 +205,8 @@ export function taskConstructor(taskField, task, taskFront, infoTaskSave) {
       taskFront.classList.toggle("completed");
       editBtn.classList.toggle("disabledBtn");
       scheduleBtn.classList.toggle("disabledBtn");
-      checkIcon.classList.toggle("fa-thumbs-up");
-      checkIcon.classList.toggle("fa-rotate");
-      checkIcon.classList.toggle("fa-spin");
+      checkIcon.classList.toggle("active");
+      recoverIcon.classList.toggle("active");
       checkBtn.setAttribute("title", "Restaurar");
       taskInfo.classList.add("completed");
       taskInfo.classList.remove("hide");

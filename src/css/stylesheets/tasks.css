@@ -285,12 +285,18 @@
   opacity: 1;
 }
 
-.checkBtn {
+[data-icon-name="thumbs-up"] {
   color: var(--green);
+  display: none;
 }
 
-.checkBtn i.fa-rotate {
+[data-icon-name="rotate"] {
   color: var(--grey_50);
+  display: none;
+}
+
+[data-icon-name="thumbs-up"].active, [data-icon-name="rotate"].active {
+  display: grid;
 }
 
 .editBtn {
