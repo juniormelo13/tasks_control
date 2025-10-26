@@ -164,7 +164,7 @@ export function taskConstructor(taskField, task, taskFront, infoTaskSave) {
   const notesBtn = document.createElement("button");
   const removeBtn = document.createElement("button");
   const infoTextContent = document.createElement("p");
-  const completedTaskIcon = document.createElement("i");
+  const completedTaskIcon = document.createElement("span");
   const notePadInput = document.createElement("textarea");
   const taskContent = document.createElement("p");
 
