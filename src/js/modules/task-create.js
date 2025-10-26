@@ -34,7 +34,7 @@ function createBtnField(taskFront, btnField) {
 
 // Função responsável pela criação do campo de informações da tarefa e renderização em tela.
 function createTaskInfo(taskField, taskFront, taskInfo, infoTextContent, schedulingRemoveBtn, completedTaskIcon, infoTaskSave, editBtn, scheduleBtn) {
-  const schedulingRemoveBtnIcon = document.createElement("i"); // Criação do elemento HTML para ícones.
+  const schedulingRemoveBtnIcon = document.createElement("span"); // Criação do elemento HTML para ícones.
   taskInfo.classList.add("taskInfo"); // Adiciona a classe para estilização do conteúdo do campo de informações da tarefa.
   taskInfo.classList.add("hide"); // Adiciona a classe para esconder o campo assim que a tarefa é criada.
   infoTextContent.classList.add("infoTextContent"); // Adiciona a classe para estilização do conteúdo de texto da informação da tarefa.
@@ -57,8 +57,8 @@ function createNotPadContainer(taskField, taskFront, task, notePadContainer, not
   const notePadBtnField = document.createElement("div");
   const saveNoteBtn = document.createElement("button");
   const notePadTitle = document.createElement("p");
-  const cleanNoteBtnIcon = document.createElement("i");
-  const saveNoteBtnIcon = document.createElement("i");
+  const cleanNoteBtnIcon = document.createElement("span");
+  const saveNoteBtnIcon = document.createElement("span");
 
   notePadContainer.classList.add("notePadContainer");
   notePadContainer.classList.add("taskBehind");

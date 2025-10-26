@@ -9,10 +9,9 @@ import { calculateNumberOfTasks, checkActivatedClassBtnAndFilter } from "./filte
 import { allTasksFilterBtn } from "./filter-task-by-status.js";
 
 // Função responsável por alternar os botões que devem ser habilitados ao concluir ou resetar uma tarefa.
-function completeTaskBtnToggle(taskFront, taskContent, checkIcon, checkBtn, scheduleBtn, editBtn, completedTaskIcon, schedulingRemoveBtn) {
-  checkIcon.classList.toggle("fa-thumbs-up");
-  checkIcon.classList.toggle("fa-rotate");
-  checkIcon.classList.toggle("fa-spin");
+function completeTaskBtnToggle(taskFront, taskContent, checkIcon, recoverIcon, checkBtn, scheduleBtn, editBtn, completedTaskIcon, schedulingRemoveBtn) {
+  checkIcon.classList.toggle("active");
+  recoverIcon.classList.toggle("active");
   if (!taskFront.classList.contains("expiredTask")) {
     editBtn.classList.toggle("disabledBtn");
   }
@@ -38,27 +37,27 @@ function putCompletedTask(taskFront, taskInfo, infoTextContent) {
 }
 
 // Função responsável por mostrar a janela de confirmação caso a tarefa esteja agendada e chamar a função principal para concluir a tarefa.
-export const completeTaskClick = (taskField, taskFront, taskContent, scheduleBtn, editBtn, checkBtn, checkIcon, taskInfo, infoTextContent, completedTaskIcon, schedulingRemoveBtn, infoTaskSave) => {
+export const completeTaskClick = (taskField, taskFront, taskContent, scheduleBtn, editBtn, checkBtn, checkIcon, recoverIcon, taskInfo, infoTextContent, completedTaskIcon, schedulingRemoveBtn, infoTaskSave) => {
   if (taskFront.classList.contains("scheduled")) {
     showConfirmField("Esta tarefa está agendada. Tem certeza de que deseja concluí-la?", confirmCompleteTask); // Abre a janela de confirmação.
     function confirmCompleteTask() {
       hideWindow(confirmationWindow);  // Fecha a janela de confirmação.
       setTimeout(() => {
-        completeTask(taskField, taskFront, taskContent, checkBtn, checkIcon, editBtn, scheduleBtn, taskInfo, infoTextContent, schedulingRemoveBtn, completedTaskIcon, infoTaskSave);
+        completeTask(taskField, taskFront, taskContent, checkBtn, checkIcon, recoverIcon, editBtn, scheduleBtn, taskInfo, infoTextContent, schedulingRemoveBtn, completedTaskIcon, infoTaskSave);
       }, 200); // Completa a tarefa.
     }
   } else {
-    completeTask(taskField, taskFront, taskContent, checkBtn, checkIcon, editBtn, scheduleBtn, taskInfo, infoTextContent, schedulingRemoveBtn, completedTaskIcon, infoTaskSave);  // Completa a tarefa.
+    completeTask(taskField, taskFront, taskContent, checkBtn, checkIcon, recoverIcon, editBtn, scheduleBtn, taskInfo, infoTextContent, schedulingRemoveBtn, completedTaskIcon, infoTaskSave);  // Completa a tarefa.
   }
 };
 
 // Função responsável por completar ou resetar a tarefa.
-function completeTask(taskField, taskFront, taskContent, checkBtn, checkIcon, editBtn, scheduleBtn, taskInfo, infoTextContent, schedulingRemoveBtn, completedTaskIcon, infoTaskSave) {
+function completeTask(taskField, taskFront, taskContent, checkBtn, checkIcon, recoverIcon, editBtn, scheduleBtn, taskInfo, infoTextContent, schedulingRemoveBtn, completedTaskIcon, infoTaskSave) {
   saveCompleteTaskAction(infoTaskSave); // Envia as informações de "tarefa concluída" ou "tarefa resetada" ao respectivo objeto da tarefa.
   transitionClickProtection("add"); // Adiciona proteção ao clique nos botões da tarefa durante a transição/animação do status.
   taskField.classList.add("vanishTask"); // Animação da tarefa sair da tela.
   setTimeout(() => {
-    completeTaskBtnToggle(taskFront, taskContent, checkIcon, checkBtn, scheduleBtn, editBtn, completedTaskIcon, schedulingRemoveBtn);
+    completeTaskBtnToggle(taskFront, taskContent, checkIcon, recoverIcon, checkBtn, scheduleBtn, editBtn, completedTaskIcon, schedulingRemoveBtn);
     if (taskFront.classList.contains("completed")) {
       clearTaskClass(infoTextContent, taskInfo, taskFront); // Limpa todas as características de tarefas agendadas, expiradas ou concluídas.
     } else if (taskFront.classList.contains("scheduled") || taskFront.classList.contains("expiredTask")) {
