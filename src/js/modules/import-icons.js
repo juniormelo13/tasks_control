@@ -1,5 +1,9 @@
 // Funções e variáveis responsáveis por importar e renderizar ícones (svg) da aplicação.
 
+import { header } from "./auxiliary-func-for-window.js";
+import { editField } from "./task-edit.js";
+import { scheduleField } from "./task-schedule.js";
+
 // Importações dos ícones (svg).
 import anglesDownSvg from "../../assets/icons/angles-down.svg";
 import checkSvg from "../../assets/icons/check.svg";
@@ -34,11 +38,9 @@ const icons = {
   "circle-xmark": circleXmarkSvg,
 };
 
-// Função principal responsável por renderizar os ícones (svg) importados em tela.
-export default function initRenderIcons(container = document) {
-
+// Função principal responsável por renderizar os ícones (svg) importados em cada container.
+export function renderIcons(container) {
   const iconBoxes = container.querySelectorAll("[data-icon-name]"); // Variável que recebe todas as "caixas" que armazenam cada ícone.
-
   // Loop por todas as "caixas de ícone".
   iconBoxes.forEach((iconBox) => {
     const iconName = iconBox.dataset.iconName; // Variável que recebe o nome do atributo dataset de cada "caixa".
@@ -48,5 +50,13 @@ export default function initRenderIcons(container = document) {
       iconBox.innerHTML = accessibleSvgString; // Se o svg existir, insira-o no html da sua "caixa" correspondente.
     }
   });
+}
+
+// Função principal responsável por iniciar a renderização dos ícones (svg) importados em tela.
+export default function initRenderIcons() {
+
+  renderIcons(header) // Renderização dos ícones do header.
+  renderIcons(editField) // Renderização dos ícones da janela de edição.
+  renderIcons(scheduleField) // Renderização dos ícones da janela de agendamento.
 
 }

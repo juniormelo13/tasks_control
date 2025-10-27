@@ -8,6 +8,7 @@ import { notesBtnClick, saveNoteClick } from "./task-notes-field.js";
 import { checkInputValue, clearInput } from "./auxiliary-func-for-inputs.js";
 import { schedulingRemoveClick } from "./task-schedule-remove.js";
 import { deleteClick } from "./task-delete.js";
+import { renderIcons } from "./import-icons.js";
 
 // Função responsável pela criação da tarefa e renderização em tela.
 function createTask(taskField, task, taskFront) {
@@ -168,37 +169,40 @@ export function taskConstructor(taskField, task, taskFront, infoTaskSave) {
   const notePadInput = document.createElement("textarea");
   const taskContent = document.createElement("p");
 
-  // Criação da tarefa
+  // Criação da tarefa.
   createTask(taskField, task, taskFront);
 
-  // Inserção do texto da tarefa
+  // Inserção do texto da tarefa.
   insertTextContent(taskFront, taskContent, infoTaskSave);
 
-  // Campo dos botões/ícones
+  // Campo dos botões/ícones.
   createBtnField(taskFront, btnField);
 
-  // Criação do campo de informações da tarefa
+  // Criação do campo de informações da tarefa.
   createTaskInfo(taskField, taskFront, taskInfo, infoTextContent, schedulingRemoveBtn, completedTaskIcon, infoTaskSave, editBtn, scheduleBtn);
 
-  // Campo para anotações da tarefa
+  // Campo para anotações da tarefa.
   createNotPadContainer(taskField, taskFront, task, notePadContainer, notesBtn, infoTaskSave, notePadInput, cleanNoteBtn);
 
-  // Botão para conclusão da tarefa
+  // Botão para conclusão da tarefa.
   createCompleteTaskBtn(taskField, taskFront, taskContent, btnField, scheduleBtn, editBtn, checkBtn, checkIcon, recoverIcon, taskInfo, infoTextContent, completedTaskIcon, schedulingRemoveBtn, infoTaskSave);
 
-  //Botão para edição da tarefa
+  //Botão para edição da tarefa.
   createEditTaskBtn(btnField, editBtn, taskContent, infoTaskSave);
 
-  // Botão para agendamento da tarefa
+  // Botão para agendamento da tarefa.
   createScheduleTaskBtn(taskFront, scheduleBtn, taskInfo, infoTextContent, schedulingRemoveBtn, infoTaskSave, btnField);
 
-  // Botão para adicionar anotações sobre a tarefa
+  // Botão para adicionar anotações sobre a tarefa.
   createNotesBtn(taskField, task, taskFront, notePadInput, notePadContainer, cleanNoteBtn, notesBtn, infoTaskSave, btnField);
 
-  // Botão para exclusão da tarefa
+  // Botão para exclusão da tarefa.
   createRemoveTaskBtn(taskField, taskFront, infoTaskSave, btnField, removeBtn);
 
-  // Recuperação das tarefas em tela, caso seja requisitado
+  // Renderização dos ícones da tarefa.
+  renderIcons(taskField)
+
+  // Recuperação das tarefas em tela, caso seja requisitado.
   switch (infoTaskSave.completedTask) {
     case true:
       taskContent.classList.toggle("completed");

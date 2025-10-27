@@ -6,7 +6,7 @@ import { hideWindow, showWindow } from "./auxiliary-func-for-window.js";
 import { dbAllTasks } from "./save-actions-to-localstorage.js";
 import { includePointerEventsNoneAllTasks } from "./auxiliary-func-for-tasks.js";
 
-const editField = document.querySelector("#editField"); // Janela para edição das tarefas
+export const editField = document.querySelector("#editField"); // Janela para edição das tarefas
 export const editInput = document.querySelector("#editInput"); // Input de texto para edição das tarefas
 const cleanEditInputBtn = document.querySelector("#cleanEditInputBtn"); // Botão para limpar input texto do campo de edição.
 const closeEditFieldBtn = document.querySelector("#closeEditFieldBtn"); // Botão para fechar janela de edição.

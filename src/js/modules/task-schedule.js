@@ -5,7 +5,7 @@ import { hideWindow, showWindow } from "./auxiliary-func-for-window.js";
 import { saveScheduledTaskAction } from "./save-actions-to-localstorage.js";
 import { calculateNumberOfTasks } from "./filter-task-by-status.js";
 
-const scheduleField = document.querySelector("#scheduleField"); // Janela de agendamento de tarefas.
+export const scheduleField = document.querySelector("#scheduleField"); // Janela de agendamento de tarefas.
 const scheduleFieldCloseBtn = document.querySelector("#scheduleFieldCloseBtn"); // Botão de fechar a janela de agendamento de tarefas.
 const cancelScheduletBtn = document.querySelector("#cancelScheduletBtn"); // Botão de cancelar o agendamento de tarefas e fechar a janela.
 export const scheduleInputDate = document.querySelector("#scheduleInputDate"); // Campo para inclusão da data de agendamento.
