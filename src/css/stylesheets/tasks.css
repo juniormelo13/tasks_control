@@ -150,7 +150,13 @@
 }
 
 .completedTaskIcon {
+  display: grid;
+  place-items: center;
   color: var(--green);
+}
+
+.completedTaskIcon svg {
+  width: 1rem;
 }
 
 /* Tarefa agendada */
