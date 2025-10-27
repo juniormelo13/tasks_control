@@ -7,19 +7,19 @@
 <p align="center">Gerenciador de tarefas com agendamento e acompanhamento em tempo real.</p><br>
 
 <p align="center">
-    <img src="https://img.shields.io/badge/HTML5-E34F26.svg?style=for-the-badge&logo=HTML5&logoColor=white" height="30" alt="HTML5"/>&nbsp;
-    <img src="https://img.shields.io/badge/CSS-1572B6?style=for-the-badge&logo=CSS&logoColor=white" height="30" alt="CSS3"/>&nbsp;
-    <img src="https://img.shields.io/badge/JavaScript-F7DF1E.svg?style=for-the-badge&logo=JavaScript&logoColor=black" height="30" alt="JavaScript"/>&nbsp;
+    <img src="https://img.shields.io/badge/HTML5-E34F26.svg?style=for-the-badge&logo=HTML5&logoColor=white" height="30" alt="HTML5"/>
+    <img src="https://img.shields.io/badge/CSS-1572B6?style=for-the-badge&logo=CSS&logoColor=white" height="30" alt="CSS3"/>
+    <img src="https://img.shields.io/badge/JavaScript-F7DF1E.svg?style=for-the-badge&logo=JavaScript&logoColor=black" height="30" alt="JavaScript"/>
 </p><br>
 
 <p align="center">
   <a href="https://github.com/juniormelo13/tasks_control/actions/workflows/deploy.yml">
     <img src="https://img.shields.io/github/actions/workflow/status/juniormelo13/tasks_control/deploy.yml?branch=main&style=for-the-badge" height="22" alt="Status do Build"/>
-  </a>&nbsp;
-  <img src="https://img.shields.io/github/last-commit/juniormelo13/tasks_control?style=for-the-badge" height="22" alt="Último Commit"/>&nbsp;&nbsp;
+  </a>
+  <img src="https://img.shields.io/github/last-commit/juniormelo13/tasks_control?style=for-the-badge" height="22" alt="Último Commit"/>
   <a href="./LICENSE">
     <img src="https://img.shields.io/github/license/juniormelo13/tasks_control?style=for-the-badge&color=blue" height="22" alt="Licença"/>
-  </a>&nbsp;
+  </a>
 </p>
 
 ## 📷 Demonstração
@@ -56,17 +56,21 @@ TasksControl é uma aplicação web que proporciona uma **experiência fluida, i
 ✅ Interface 100% responsiva, adaptada para desktop e mobile<br>
 ✅ Armazenamento local de dados (Local Storage)
 
+## 🎓 Sobre o Desenvolvimento
+
+Este projeto foi desenvolvido integralmente por mim, desde o design inicial até a implementação final, como parte dos meus estudos em JavaScript. Por ter sido construído ao longo do meu aprendizado, algumas implementações podem não representar a abordagem mais otimizada atualmente. No entanto, ele reflete fielmente minha evolução e o conhecimento adquirido durante esse período.
+
 ## 🛠️ Ferramentas
 
 <p align="center">
-  <img src="https://img.shields.io/badge/Webpack-8DD6F9?style=for-the-badge&logo=webpack&logoColor=black" alt="Webpack" height="25"/>&nbsp;
-  <img src="https://img.shields.io/badge/Webpack_Dev_Server-52697A?style=for-the-badge&logo=webpack&logoColor=white" alt="Webpack Dev Server" height="25"/>&nbsp;
-  <img src="https://img.shields.io/badge/Babel-F9DC3E?style=for-the-badge&logo=babel&logoColor=black" alt="Babel" height="25"/>&nbsp;
-  <img src="https://img.shields.io/badge/GitHub_Actions-2088FF?style=for-the-badge&logo=github&logoColor=white" alt="GitHub Actions" height="25"/>&nbsp;
-  <img src="https://img.shields.io/badge/npm-CB3837?style=for-the-badge&logo=npm&logoColor=white" alt="npm" height="25"/>&nbsp;
-  <img src="https://img.shields.io/badge/Git-F05032.svg?style=for-the-badge&logo=Git&logoColor=white" alt="Git" height="25"/>&nbsp;
-  <img src="https://img.shields.io/badge/GitHub-181717.svg?style=for-the-badge&logo=GitHub&logoColor=white" alt="Github" height="25"/>&nbsp;
-  <img src="https://img.shields.io/badge/VS_Code-007ACC?style=for-the-badge&logo=data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0id2hpdGUiPjxwYXRoIGQ9Ik0yMy4xIDEwLjk0bC0yLjQ0LTUuNzQtMS4wNC0uMjQtMi43My42OC0uMzIgMS41MSA0LjQyIDQuNjEtLjM1IDEuNjVMMTYuMiAxMy40bC0uNzQgMy41MiAxLjQyLjc2IDIuNjctMi4yMi4zLTEuNDktNC4zNC00LjY3LjM1LTEuNjYgMy4yMS44MS4yMS45Ny4wMy40My0uNDggMS4xMkwyNCAxMi4zOHptLTkuNzkgMTIuODdsNC4zNy02LjUxLTQuMDYtMy4wOS0zLjg4IDMuMTRMLjA4IDkuNjEgMi42OS41IDI0IDEyLjM4ek03LjcyIDIyLjFsMi43LTIuNzYtLjczLTMuNTQtMS40MS0uNjktMi42OCAyLjIyLS4yOSAxLjUgNC4zOCA0LjY0LS4zNiAxLjY1LTMuMTktLjgtLjItLjk3LS4wNC0uNDMuNDctMS4xMnoiLz48L3N2Zz4=" alt="Visual Studio Code" height="25"/>&nbsp;
+  <img src="https://img.shields.io/badge/Webpack-8DD6F9?style=for-the-badge&logo=webpack&logoColor=black" alt="Webpack" height="25"/>
+  <img src="https://img.shields.io/badge/Webpack_Dev_Server-52697A?style=for-the-badge&logo=webpack&logoColor=white" alt="Webpack Dev Server" height="25"/>
+  <img src="https://img.shields.io/badge/Babel-F9DC3E?style=for-the-badge&logo=babel&logoColor=black" alt="Babel" height="25"/>
+  <img src="https://img.shields.io/badge/GitHub_Actions-2088FF?style=for-the-badge&logo=github&logoColor=white" alt="GitHub Actions" height="25"/>
+  <img src="https://img.shields.io/badge/npm-CB3837?style=for-the-badge&logo=npm&logoColor=white" alt="npm" height="25"/>
+  <img src="https://img.shields.io/badge/Git-F05032.svg?style=for-the-badge&logo=Git&logoColor=white" alt="Git" height="25"/>
+  <img src="https://img.shields.io/badge/GitHub-181717.svg?style=for-the-badge&logo=GitHub&logoColor=white" alt="Github" height="25"/>
+  <img src="https://img.shields.io/badge/VS_Code-007ACC?style=for-the-badge&logo=data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0id2hpdGUiPjxwYXRoIGQ9Ik0yMy4xIDEwLjk0bC0yLjQ0LTUuNzQtMS4wNC0uMjQtMi43My42OC0uMzIgMS41MSA0LjQyIDQuNjEtLjM1IDEuNjVMMTYuMiAxMy40bC0uNzQgMy41MiAxLjQyLjc2IDIuNjctMi4yMi4zLTEuNDktNC4zNC00LjY3LjM1LTEuNjYgMy4yMS44MS4yMS45Ny4wMy40My0uNDggMS4xMkwyNCAxMi4zOHptLTkuNzkgMTIuODdsNC4zNy02LjUxLTQuMDYtMy4wOS0zLjg4IDMuMTRMLjA4IDkuNjEgMi42OS41IDI0IDEyLjM4ek03LjcyIDIyLjFsMi43LTIuNzYtLjczLTMuNTQtMS40MS0uNjktMi42OCAyLjIyLS4yOSAxLjUgNC4zOCA0LjY0LS4zNiAxLjY1LTMuMTktLjgtLjItLjk3LS4wNC0uNDMuNDctMS4xMnoiLz48L3N2Zz4=" alt="Visual Studio Code" height="25"/>
 </p>
 
 * **Automação e Build:**
@@ -80,32 +84,47 @@ TasksControl é uma aplicação web que proporciona uma **experiência fluida, i
     * **Git & GitHub:** Para controle de versão e hospedagem do código.
     * **Visual Studio Code:** Como editor de código principal.
 
-## ⚙️ Pré-requisitos
+## 🚀 Configuração e Execução Local
 
-Antes de começar, você vai precisar ter instalado em sua máquina as seguintes ferramentas:
+Para rodar o TasksControl em seu ambiente de desenvolvimento, siga os passos abaixo:
+
+**1. Pré-requisitos:**
+
+Antes de começar, certifique-se de ter as seguintes ferramentas instaladas:
+
 * [Git](https://git-scm.com)
-* [Node.js](https://nodejs.org/en/)
+* [Node.js](https://nodejs.org/en/) (versão 22.20.0 ou superior recomendada)
 * Além disto é bom ter um editor para trabalhar com o código como [VSCode](https://code.visualstudio.com/)
 
-## 🚀 Rodando o Projeto Localmente
-
-Siga os passos abaixo para rodar o projeto em seu ambiente de desenvolvimento:
+**2. Clone este Repositório:**
 
 ```bash
-# 1. Clone este repositório.
-$ git clone https://github.com/juniormelo13/tasks_control.git
+git clone https://github.com/juniormelo13/tasks_control.git
+```
 
-# 2. Acesse a pasta do projeto no terminal/cmd.
-$ cd tasks_control
+**3. Acesse a pasta do projeto no terminal:**
 
-# 3. Instale as dependências.
-$ npm install
+```bash
+cd tasks_control
+```
 
-# 4. Inicie o servidor de desenvolvimento (http://localhost:3000).
-$ npm start
+**4. Instale as dependências:**
 
-# Para gerar a versão de produção otimizada (pasta /dist).
-$ npm run build
+```bash
+npm install
+```
+
+**5. Inicie o servidor de desenvolvimento:**
+
+```bash
+npm start
+```
+Isso iniciará o servidor (geralmente em http://localhost:3000) e abrirá a aplicação no seu navegador padrão. O servidor possui Hot Module Replacement (HMR) para atualizações automáticas durante o desenvolvimento.
+
+**6. Para gerar a versão otimizada para produção (pasta /dist), execute:**
+
+```bash
+npm run build
 ```
 
 ## 📄 Licença
