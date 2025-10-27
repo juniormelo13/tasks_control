@@ -256,7 +256,6 @@
 .editBtn,
 .removeBtn,
 .notesBtn {
-  font-size: var(--fs-lg);
   width: 25px;
   height: 80%;
   background: none;
@@ -265,6 +264,7 @@
   opacity: 0;
   transition: transform 0.3s, translate 0.2s, opacity 0.3s;
   transform: translateY(5px);
+  cursor: pointer;
 }
 
 .checkBtn:hover,
@@ -272,7 +272,6 @@
 .editBtn:hover,
 .removeBtn:hover,
 .notesBtn:hover {
-  cursor: pointer;
   translate: 0px -2px;
 }
   
@@ -283,6 +282,14 @@
 .taskFront.hover:hover .notesBtn {
   transform: translateY(0);
   opacity: 1;
+}
+
+.scheduleBtn span,
+.editBtn span,
+.removeBtn span,
+.notesBtn span {
+  display: grid;
+  place-items: center;
 }
 
 .checkBtn [data-icon-name="thumbs-up"], .checkBtn [data-icon-name="rotate"] {
@@ -302,7 +309,7 @@
   place-items: center;
 }
 
-.checkBtn [data-icon-name="thumbs-up"] svg, .checkBtn [data-icon-name="rotate"] svg {
+.checkBtn [data-icon-name="thumbs-up"] svg, .checkBtn [data-icon-name="rotate"] svg, .scheduleBtn span svg, .editBtn span svg, .removeBtn span svg, .notesBtn span svg {
   width: 1.5rem;
 }
 
