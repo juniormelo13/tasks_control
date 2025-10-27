@@ -264,3 +264,13 @@
     opacity: 0;
   }
 }
+
+[data-icon-name="rotate"] svg {
+  animation: svgRotate 2s infinite;
+}
+
+@keyframes svgRotate {
+  to {
+    rotate: 360deg;
+  }
+}

@@ -285,18 +285,25 @@
   opacity: 1;
 }
 
-[data-icon-name="thumbs-up"] {
+.checkBtn [data-icon-name="thumbs-up"], .checkBtn [data-icon-name="rotate"] {
+  display: none;
+}
+
+.checkBtn [data-icon-name="thumbs-up"] {
   color: var(--green);
-  display: none;
 }
 
-[data-icon-name="rotate"] {
+.checkBtn [data-icon-name="rotate"] {
   color: var(--grey_50);
-  display: none;
 }
 
-[data-icon-name="thumbs-up"].active, [data-icon-name="rotate"].active {
+.checkBtn [data-icon-name="thumbs-up"].active, .checkBtn [data-icon-name="rotate"].active {
   display: grid;
+  place-items: center;
+}
+
+.checkBtn [data-icon-name="thumbs-up"] svg, .checkBtn [data-icon-name="rotate"] svg {
+  width: 1.5rem;
 }
 
 .editBtn {
