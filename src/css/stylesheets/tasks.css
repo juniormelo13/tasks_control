@@ -422,7 +422,6 @@
 
 .cleanNoteBtn,
 .saveNoteBtn {
-  font-size: var(--fs-base);
   color: var(--dark100_white100);
   border: none;
   background: var(--white100_dark100);
@@ -439,4 +438,19 @@
 
 .cleanNoteBtn:hover {
   color: var(--red);
+}
+
+.cleanNoteBtn span,
+.saveNoteBtn span {
+  display: grid;
+  place-items: center;
+}
+
+.cleanNoteBtn span svg,
+.saveNoteBtn span svg {
+  width: 1.2rem;
+}
+
+.saveNoteBtn span svg {
+  rotate: -90deg;
 }
