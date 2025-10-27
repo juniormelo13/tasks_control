@@ -198,7 +198,6 @@
 
 .taskInfo.appearTaskInfo {
   animation: appearTaskInfo 0.2s ease-in forwards;
-  transition: none;
 }
 
 @keyframes appearTaskInfo {
