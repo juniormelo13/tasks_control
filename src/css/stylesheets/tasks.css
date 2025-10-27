@@ -102,18 +102,25 @@
 .schedulingRemoveBtn {
   position: absolute;
   top: -10px;
-  right: -5px;
+  right: -10px;
   background-color: var(--white100_dark100);
   border-radius: 50%;
   border: none;
-  font-size: var(--fs-xl);
   opacity: 0;
   transition: 0.3s;
   cursor: pointer;
 }
 
-.schedulingRemoveBtn:hover,
-.taskInfo.scheduled .schedulingRemoveBtn:hover {
+.schedulingRemoveBtn span {
+  display: grid;
+  place-items: center;
+}
+
+.schedulingRemoveBtn span svg {
+  width: 1.6rem;
+}
+
+.taskInfo.scheduled .schedulingRemoveBtn:hover, .taskInfo.scheduled.expireAlert .schedulingRemoveBtn:hover {
   color: var(--red);
 }
 

@@ -47,7 +47,7 @@ function createTaskInfo(taskField, taskFront, taskInfo, infoTextContent, schedul
   taskInfo.appendChild(completedTaskIcon); // Adiciona o ícone de tarefa concluída como filho do campo de informações da tarefa.
   schedulingRemoveBtn.classList.add("schedulingRemoveBtn"); // Adiciona a classe para estilizar o botão de remoção do agendamento ou reset.
   schedulingRemoveBtn.appendChild(schedulingRemoveBtnIcon); // Adiciona o ícone ddo botão de remoção como filho do botão de remoção.
-  schedulingRemoveBtnIcon.dataset.iconName = "xmark";; // Adiciona o atributo para determinar o ícone do botão de remoção.
+  schedulingRemoveBtnIcon.dataset.iconName = "circle-xmark";; // Adiciona o atributo para determinar o ícone do botão de remoção.
   schedulingRemoveBtn.addEventListener("click", () => schedulingRemoveClick(taskField, taskInfo, taskFront, scheduleBtn, editBtn, infoTextContent, infoTaskSave)); // Adiciona a função de remover agendamento ou resetar tarefa ao botão de remoção.
 }
 

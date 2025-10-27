@@ -14,6 +14,7 @@ import thumbsUpSvg from "../../assets/icons/thumbs-up.svg";
 import trashSvg from "../../assets/icons/trash.svg";
 import wrenchSvg from "../../assets/icons/wrench.svg";
 import xmarkSvg from "../../assets/icons/xmark.svg";
+import circleXmarkSvg from "../../assets/icons/circle-xmark.svg";
 
 // Objeto com nome dos ícones, que recebem seus respectivos códigos HTML.
 const icons = {
@@ -30,6 +31,7 @@ const icons = {
   "trash": trashSvg,
   "wrench": wrenchSvg,
   "xmark": xmarkSvg,
+  "circle-xmark": circleXmarkSvg,
 };
 
 // Função principal responsável por renderizar os ícones (svg) importados em tela.
