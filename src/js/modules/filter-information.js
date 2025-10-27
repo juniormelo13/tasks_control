@@ -27,9 +27,9 @@ export function noTaskTextAppear() {
 
 // Função responsável por checar a quantidade de tarefas na tela e mostrar/ocultar o texto que informa quando não há tarefas na tela.
 export function checkTasksOnScreen(taskClass) {
-  if (taskClass == "pendingtasks") {
+  if (taskClass == "pendingTasks") {
     const pendingTasks = dbAllTasks.filter((infoTaskSave) => !infoTaskSave.completedTask);
-    pendingTasks.length ? noTaskTextVanish() : noTaskTextAppear()
+    pendingTasks.length > 0 ? noTaskTextVanish() : noTaskTextAppear()
   } else if (taskClass == "scheduledTasks") {
     const scheduledTasks = dbAllTasks.filter((infoTaskSave) => infoTaskSave.scheduledTask);
     scheduledTasks.length > 0 ? noTaskTextVanish() : noTaskTextAppear()
