@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://raw.githubusercontent.com/juniormelo13/tasks_control/main/src/assets/images/logo.png" alt="Logo principal da aplicação TasksControl" height="60" />
+  <img src="./src/assets/images/logo.png" alt="Logo principal da aplicação TasksControl" height="60" />
 </p>
 
 <h1 align="center">TasksControl</h1>
@@ -25,7 +25,7 @@
 ## 📷 Demonstração
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/juniormelo13/tasks_control/main/src/assets/gifs/demo.gif" alt=" Gif de demonstração do projeto">
+  <img src="./src/assets/gifs/demo.gif" alt=" Gif de demonstração do projeto">
 </p>
 
 <p align="center">
