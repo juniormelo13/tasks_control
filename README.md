@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://raw.githubusercontent.com/juniormelo13/tasks_control/main/src/assets/images/logo.png" alt="TasksControl Logo" height="60" />
+  <img src="./src/assets/images/logo.png" alt="TasksControl Logo" height="60" />
 </p>
 
 <h1 align="center">TasksControl</h1>
@@ -25,14 +25,13 @@
 ## 📷 Demonstração
 
 <p align="center">
-  <a href="https://juniormelo13.github.io/tasks_control/">
-    <strong>🚀 Clique aqui para acessar a aplicação 🚀</strong>
-  </a>
+  <img src="./src/assets/gifs/demo.gif" alt="Demonstração Gif">
 </p>
 
 <p align="center">
-  <img src="URL_DO_GIF_DESKTOP" alt="Demonstração Desktop">
-  <img src="URL_DO_GIF_MOBILE" alt="Demonstração Mobile" width="200">
+  <a href="https://juniormelo13.github.io/tasks_control/">
+    <strong>🚀 Clique aqui para acessar a aplicação 🚀</strong>
+  </a>
 </p>
 
 ## 📌 Descrição

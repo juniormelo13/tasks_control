@@ -61,6 +61,7 @@
   cursor: default;
   overflow-y: auto;
   word-wrap: break-word;
+  caret-color: transparent;
   padding: 0 5px 6px;
   width: 100%;
   height: 100%;
