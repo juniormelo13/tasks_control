@@ -29,7 +29,7 @@
 </p>
 
 <p align="center">
-  <a href="https://juniormelo13.github.io/tasks_control/" target="_blank" rel="noopener noreferrer">
+  <a href="https://juniormelo13.github.io/tasks_control/">
     <img src="https://img.shields.io/badge/Acessar%20Aplicação-28A745?style=for-the-badge&logo=data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9IndoaXRlIiBzdHJva2Utd2lkdGg9IjIuNSIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZ29qb2luPSJyb3VuZCI+PHBhdGggZD0iTTEwIDEzYTUgNSAwIDAgMCA3LjU0LjU0bDMtM2E1IDUgMCAwIDAtNy4wNy03LjA3bC0xLjcyIDEuNzEiPjwvcGF0aD48cGF0aCBkPSJNMTQgMTFhNSA1IDAgMCAwLTcuNTQtLjU0bC0zIDNhNSA1IDAgMCAwIDcuMDcgNy4wN2wxLjcxLTEuNzEiPjwvcGF0aD48L3N2Zz4=" alt="Bagde com o link para acessar a aplicação" height="30"/>
   </a>
 </p>
@@ -140,12 +140,12 @@ Saiba mais:
 Desenvolvido por **Junior Melo.** <br><br>
 Dúvidas, sugestões ou bugs? Entre em contato:
 
-<a href="https://www.linkedin.com/in/juniormelo13/" target="_blank" rel="noopener noreferrer">
+<a href="https://www.linkedin.com/in/juniormelo13/">
   <img src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0id2hpdGUiPjxwYXRoIGQ9Ik0yMC40NDcgMjAuNDUyaC0zLjU1NHYtNS41NjljMC0xLjMyOC0uMDI3LTMuMDM3LTEuODUyLTMuMDM3LTEuODUzIDAtMi4xMzYgMS40NDUtMi4xMzYgMi45Mzl2NS42NjdIOS4zNTFWOWgzLjQxNHYxLjU2MWguMDQ2Yy40NzctLjkgMS42MzctMS44NSAzLjM3LTEuODUgMy42MDEgMCA0LjI2NyAyLjM3IDQuMjY3IDUuNDU1djYuMjg2ek01LjMzNyA3LjQzM2EyLjA2MiAyLjA2MiAwIDAgMS0yLjA2My0yLjA2NUEyLjA2NCAyLjA2NCAwIDEgMSA1LjMzNyA3LjQzM3ptMS43ODIgMTMuMDE5SDMuNTU1VjloMy41NjR2MTEuNDUyek0yMi4yMjUgMEgxLjc3MUMuNzkyIDAgMCAuNzc0IDAgMS43Mjl2MjAuNTQyQzAgMjMuMjI3Ljc5MiAyNCAxLjc3MSAyNGgyMC40NTFDMjMuMiAyNCAyNCAyMy4yMjcgMjQgMjIuMjcxVjEuNzI5QzI0IC43NzQgMjMuMiAwIDIyLjIyNSAwWiIvPjwvc3ZnPg==" alt="Linkedin" height="25"/>
 </a>
-<a href="https://www.instagram.com/jr.dev.oficial/" target="_blank" rel="noopener noreferrer">
+<a href="https://www.instagram.com/jr.dev.oficial/">
   <img src="https://img.shields.io/badge/Instagram-FF0069.svg?style=for-the-badge&logo=Instagram&logoColor=white" alt="Instagram" height="25"/>
 </a>
-<a href="mailto:jr.dev.oficial@gmail.com" target="_blank" rel="noopener noreferrer">
+<a href="mailto:jr.dev.oficial@gmail.com">
   <img src="https://img.shields.io/badge/Gmail-EA4335.svg?style=for-the-badge&logo=Gmail&logoColor=white" alt="Gmail" height="25"/>
 </a>
