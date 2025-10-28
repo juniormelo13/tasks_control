@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="./src/assets/images/logo.png" alt="TasksControl Logo" height="60" />
+  <img src="https://raw.githubusercontent.com/juniormelo13/tasks_control/main/src/assets/images/logo.png" alt="Logo principal da aplicação TasksControl" height="60" />
 </p>
 
 <h1 align="center">TasksControl</h1>
@@ -25,12 +25,12 @@
 ## 📷 Demonstração
 
 <p align="center">
-  <img src="./src/assets/gifs/demo.gif" alt="Demonstração Gif">
+  <img src="https://raw.githubusercontent.com/juniormelo13/tasks_control/main/src/assets/gifs/demo.gif" alt=" Gif de demonstração do projeto">
 </p>
 
 <p align="center">
   <a href="https://juniormelo13.github.io/tasks_control/">
-    <strong>🚀 Clique aqui para acessar a aplicação 🚀</strong>
+    <img src="https://img.shields.io/badge/Acessar%20Aplicação-28A745?style=for-the-badge&logo=data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9IndoaXRlIiBzdHJva2Utd2lkdGg9IjIuNSIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZ29qb2luPSJyb3VuZCI+PHBhdGggZD0iTTEwIDEzYTUgNSAwIDAgMCA3LjU0LjU0bDMtM2E1IDUgMCAwIDAtNy4wNy03LjA3bC0xLjcyIDEuNzEiPjwvcGF0aD48cGF0aCBkPSJNMTQgMTFhNSA1IDAgMCAwLTcuNTQtLjU0bC0zIDNhNSA1IDAgMCAwIDcuMDcgNy4wN2wxLjcxLTEuNzEiPjwvcGF0aD48L3N2Zz4=" alt="Bagde com o link para acessar a aplicação" height="30"/>
   </a>
 </p>
 
