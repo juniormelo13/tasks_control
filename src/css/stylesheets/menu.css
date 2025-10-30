@@ -7,10 +7,10 @@
   gap: 1.5rem;
   top: 6rem;
   right: 5%;
-  background-color: var(--white100_dark100);
+  background-color: var(--color-bg-surface);
   border-radius: 5px;
   width: 12rem;
-  box-shadow: 6px 6px 10px 0px var(--dark_shadow);
+  box-shadow: 6px 6px 10px 0px var(--color-shadow);
   padding: 1rem;
   user-select: none;
   z-index: -1;
@@ -22,7 +22,7 @@
   top: -10px;
   right: 0;
   transform: translateX(-50%);
-  border-bottom: 10px solid var(--white100_dark100);
+  border-bottom: 10px solid var(--color-bg-surface);
   border-left: 10px solid transparent;
   border-right: 10px solid transparent;
 }
@@ -40,7 +40,6 @@
 
 #imgIdentBox {
   position: relative;
-  background-color: var(--dark100_white100);
   height: 5rem;
   width: 5rem;
   border-radius: 50%;
@@ -56,8 +55,8 @@
   position: absolute;
   display: grid;
   place-items: center;
-  background-color: var(--whiteShadow50_darkShadow50);
-  color: var(--dark_white);
+  background-color: var(--color-btn-inputFile-fill);
+  color: var(--color-btn-inputFile-content);
   border: none;
   height: 1.5rem;
   width: 1.5rem;
@@ -90,7 +89,6 @@
   height: 100%;
   border-radius: 50%;
   object-fit: contain;
-  background-color: var(--white100_dark100);
 }
 
 #inputFileImgLabel {
@@ -98,7 +96,7 @@
   width: 100%;
   height: 100%;
   border-radius: 50%;
-  border: 2px solid var(--grey);
+  border: 2px solid var(--color-border-input);
   cursor: pointer;
 }
 
@@ -115,10 +113,11 @@
   align-items: center;
   justify-content: center;
   border-radius: 5px;
+  transition: 0.3s;
 }
 
 #nameIdentBox.editing {
-  background-color: var(--yellowAlertInput);
+  background-color: var(--color-bg-input-active);
 }
 
 #nameIdentBox::after {
@@ -127,7 +126,7 @@
   height: 2px;
   width: 0;
   bottom: 0;
-  background-color: var(--yellow);
+  background-color: var(--color-bg-input-active-after);
   transition: 0.3s;
 }
 
@@ -139,9 +138,9 @@
   font-family: var(--font-primary);
   font-weight: var(--fw-bold);
   font-size: var(--fs-sm);
+  color: var(--color-text-primary);
   width: 100%;
   background-color: transparent;
-  color: var(--dark100_white100);
   text-align: center;
   padding: 5px 20px;
   outline: none;
@@ -162,8 +161,8 @@
   position: absolute;
   border: none;
   width: 1rem;
-  color: var(--dark100_white100);
-  background-color: transparent;
+  color: var(--color-btn-default-inputName-content);
+  background-color: var(--color-btn-inputName-fill);
   height: 100%;
   transition: 0.2s;
   cursor: pointer;
@@ -185,15 +184,15 @@
 }
 
 #saveNameButton:hover {
-  color: var(--green);
+  color: var(--color-btn-save-inputName-content);
 }
 
 #deleteNameButton:hover {
-  color: var(--red);
+  color: var(--color-btn-delete-inputName-content);
 }
 
 #recoverNameButton:hover {
-  color: var(--yellow);
+  color: var(--color-btn-recover-inputName-content);
 }
 
 #nameIdentBox:hover #nameIdentIcon {
@@ -224,18 +223,18 @@
 }
 
 #searchTaskInput {
-  position: relative;
-  width: 100%;
-  height: 100%;
   font-family: var(--font-primary);
   font-weight: var(--fw-regular);
   font-size: var(--fs-sm);
+  border: 2px solid var(--color-border-input);
+  background-color: var(--color-bg-input);
+  color: var(--color-text-primary);
+  position: relative;
+  width: 100%;
+  height: 100%;
   border-radius: 5px;
   outline: none;
-  border: 2px solid var(--grey_50);
-  background-color: var(--white100_dark100);
   padding: 8px 23px 8px 8px;
-  color: var(--dark100_white100);
   transition: 0.2s;
 }
 
@@ -250,16 +249,16 @@
   transform: translate(0, -50%);
   cursor: pointer;
   border: none;
-  background: none;
+  background-color: var(--color-btn-secondary-fill);
+  color: var(--color-btn-secondary-content);
   outline: none;
-  color: var(--dark100_white100);
   height: 100%;
   width: 23px;
   transition: 0.2s;
 }
 
 #cleanInputSearchBtn:hover {
-  color: var(--red);
+  color: var(--color-on-btn-danger-hover);
 }
 
 #cleanInputSearchBtn span {
@@ -289,13 +288,15 @@
   width: 100%;
   display: flex;
   justify-content: space-between;
-  border-left: 4px solid var(--white100_dark100);
+  border-left: 4px solid transparent;
   padding: 5px 10px;
   transition: 0.2s;
+  cursor: pointer;
 }
+
 #filterContainer a,
 #filterContainer a p span {
-  color: var(--grey);
+  color: var(--color-text-secondary);
   font-family: var(--font-primary);
   font-weight: var(--fw-bold);
   font-size: var(--fs-sm);
@@ -304,33 +305,32 @@
 
 #filterContainer a:hover,
 #filterContainer a.active {
-  cursor: pointer;
-  color: var(--dark100_white100);
+  color: var(--color-text-primary);
 }
 
 #filterContainer #allTasksFilterBtn:hover,
 #allTasksFilterBtn.active {
-  border-left: 4px solid var(--dark100_white100);
+  border-left-color: var(--color-border-filter-status-all);
 }
 
 #filterContainer #pendingTasksFilterBtn:hover,
 #pendingTasksFilterBtn.active {
-  border-left: 4px solid var(--yellow);
-}
-
-#filterContainer #completedTasksFilterBtn:hover,
-#completedTasksFilterBtn.active {
-  border-left: 4px solid var(--green);
+  border-left-color: var(--color-border-filter-status-pending);
 }
 
 #filterContainer #scheduledTasksFilterBtn:hover,
 #scheduledTasksFilterBtn.active {
-  border-left: 4px solid var(--blue);
+  border-left-color: var(--color-border-filter-status-scheduled);
 }
 
 #filterContainer #expiredTasksFilterBtn:hover,
 #expiredTasksFilterBtn.active {
-  border-left: 4px solid var(--red);
+  border-left-color: var(--color-border-filter-status-expired);
+}
+
+#filterContainer #completedTasksFilterBtn:hover,
+#completedTasksFilterBtn.active {
+  border-left-color: var(--color-border-filter-status-completed);
 }
 
 /* Tema */
@@ -341,9 +341,8 @@
   justify-content: space-evenly;
 }
 
-#themeTitle,
-#layoutConfigTitle {
-  color: var(--dark100_white100);
+#themeTitle {
+  color: var(--color-text-primary);
   font-family: var(--font-primary);
   font-weight: var(--fw-bold);
   font-size: var(--fs-sm);
@@ -355,7 +354,8 @@
 }
 
 #themeCheckBoxLabel {
-  background-color: var(--grey);
+  background-color: var(--color-btn-primary-fill);
+  border: 2px solid var(--color-border-primary);
   width: 3.5rem;
   height: 1.75rem;
   border-radius: 20px;
@@ -365,20 +365,22 @@
 }
 
 #themeCheckBoxLabel:hover {
-  background-color: var(--grey_50);
+  background-color: var(--color-btn-primary-hover-fill);
+  box-shadow: 0 0 10px 2px var(--color-border-primary);
 }
 
 #themeBall {
+  color: var(--color-btn-primary-content);
   position: absolute;
-  background-color: var(--white_dark);
   height: 100%;
   width: 50%;
   border-radius: 50%;
-  color: var(--dark100_white100);
-  scale: 0.9;
   transition: 0.2s;
   right: 50%;
-  opacity: 0.8;
+}
+
+#themeCheckBoxLabel:hover #themeBall {
+  color: var(--color-btn-primary-hover-content);
 }
 
 #themeBallMoon {
@@ -426,11 +428,10 @@
   align-items: center;
   width: 100%;
   padding: 7px 10px;
-  border: 2px solid var(--grey_50);
+  background-color: var(--color-btn-primary-fill);
+  color: var(--color-btn-primary-content);
+  border: 2px solid var(--color-border-primary);
   border-radius: 5px;
-  background-color: var(--white50_dark50);
-  color: var(--dark100_white100);
-  cursor: pointer;
   transition: 0.2s;
 }
 
@@ -444,6 +445,7 @@
 #removeAllTaskBtn span,
 #removeAllConfigBtn span {
   display: grid;
+  transition: 0.2s;
 }
 
 #removeAllTaskBtn span svg,
@@ -453,11 +455,14 @@
 
 #removeAllTaskBtn.hover:hover,
 #removeAllConfigBtn.hover:hover {
-  background-color: var(--white_dark);
-  border: 2px solid var(--red);
+  background-color: var(--color-btn-primary-hover-fill);
+  color: var(--color-btn-primary-hover-content);
+  border-color: var(--color-on-btn-danger-hover);
+  box-shadow: 0 0 10px 2px var(--color-on-btn-danger-hover);
+  cursor: pointer;
 }
 
-#removeAllTaskBtn.hover:hover i,
-#removeAllConfigBtn.hover:hover i {
-  color: var(--red);
+#removeAllTaskBtn.hover:hover span,
+#removeAllConfigBtn.hover:hover span {
+  color: var(--color-on-btn-danger-hover);
 }

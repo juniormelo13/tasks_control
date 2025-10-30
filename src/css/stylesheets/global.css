@@ -9,7 +9,7 @@
 /* Estilo do body */
 
 body {
-  background-color: var(--white100_dark100);
+  background-color: var(--color-bg-base);
   width: 100%;
   height: 100vh;
   height: 100dvh;
@@ -23,10 +23,10 @@ body {
   font-family: var(--font-primary);
   font-weight: var(--fw-bold);
   font-size: var(--fs-base);
-  color: var(--grey);
+  color: var(--color-btn-tertiary-content);
+  background-color: var(--color-btn-tertiary-fill);
   border: none;
   outline: none;
-  background-color: var(--grey_Opacity_2);
   border-radius: 0 5px 5px 0;
   transition: 0.2s;
   right: 0;
@@ -43,8 +43,8 @@ body {
 }
 
 .cleanInputBtnStyle:hover {
-  background-color: var(--grey_Opacity_3);
-  color: var(--grey_50);
+  background-color: var(--color-btn-tertiary-hover-fill);
+  color: var(--color-btn-tertiary-hover-content);
 }
 
 /* Erro nos inputs */
@@ -53,8 +53,8 @@ body {
 #editInput.inputError,
 #scheduleInputDate.inputError,
 #scheduleInputTime.inputError {
-  border: 2px solid var(--red);
-  box-shadow: 0 0 10px 2px var(--red);
+  border-color: var(--color-on-border-input-danger);
+  box-shadow: 0 0 10px 2px var(--color-on-border-input-danger);
 }
 
 /* Foco nos inputs */
@@ -64,8 +64,7 @@ body {
 #scheduleInputDate:focus,
 #scheduleInputTime:focus,
 #searchTaskInput:focus {
-  border: 2px solid var(--grey_50);
-  box-shadow: 0 0 10px 2px var(--grey_50);
+  box-shadow: 0 0 10px 2px var(--color-border-input);
 }
 
 /* Estilo do placeholder dos inputs */
@@ -75,7 +74,7 @@ body {
 #editInput::placeholder,
 .notePadInput::placeholder,
 #nameInput::placeholder {
-  color: var(--grey);
+  color: var(--color-text-placeholder);
 }
 
 /* Elementos que não podem ser clicados */

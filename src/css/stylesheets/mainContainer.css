@@ -10,7 +10,7 @@
   height: calc(100dvh - 5rem);
   top: 5rem;
   overflow-x: hidden;
-  background-color: var(--white50_dark50);
+  background-color: var(--color-bg-base);
   scrollbar-gutter: stable;
 }
 
@@ -26,7 +26,7 @@
   padding: 3.5rem 5% 3.125rem;
   column-gap: 30px;
   row-gap: 40px;
-  background-color: var(--white50_dark50);
+  background-color: var(--color-bg-base);
 }
 
 /* Janelas de edição e agendamento de tarefas */
@@ -39,10 +39,10 @@
   justify-content: space-between;
   left: 50%;
   top: calc(5rem + 37%);
-  background-color: var(--white100_dark100);
+  background-color: var(--color-bg-surface);
+  border: 2px solid var(--color-border-primary);
   width: 20rem;
   height: 15rem;
-  border: 2px solid var(--dark100_white100);
   border-radius: 5px;
   padding: 15px;
   z-index: 1;
@@ -53,7 +53,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 2px solid var(--dark100_white100);
+  border-bottom: 2px solid var(--color-border-primary);
   padding-bottom: 10px;
 }
 
@@ -62,18 +62,18 @@
   font-family: var(--font-primary);
   font-weight: var(--fw-bold);
   font-size: var(--fs-xl);
+  color: var(--color-text-primary);
   text-transform: capitalize;
-  color: var(--dark100_white100);
   user-select: none;
 }
 
 #closeEditFieldBtn,
 #scheduleFieldCloseBtn {
   font-size: var(--fs-xxl);
+  background-color: var(--color-btn-secondary-fill);
+  color: var(--color-btn-secondary-content);
   border: none;
   outline: none;
-  background: none;
-  color: var(--dark100_white100);
   transition: 0.2s;
   cursor: pointer;
 }
@@ -90,7 +90,7 @@
 
 #closeEditFieldBtn:hover,
 #scheduleFieldCloseBtn:hover {
-  color: var(--red);
+  color: var(--color-on-btn-danger-hover);
 }
 
 #editFieldCenter {
@@ -113,9 +113,9 @@
   font-family: var(--font-primary);
   font-weight: var(--fw-regular);
   font-size: var(--fs-base);
-  color: var(--dark100_white100);
-  background-color: var(--white100_dark100);
-  border: 2px solid var(--grey_50);
+  color: var(--color-text-primary);
+  background-color: var(--color-bg-input);
+  border: 2px solid var(--color-border-input);
   border-radius: 5px;
   outline: none;
   transition: 0.2s;
@@ -177,10 +177,10 @@
   justify-content: space-evenly;
   left: 50%;
   top: calc(5rem + 37%);
-  background-color: var(--white100_dark100);
+  background-color: var(--color-bg-surface);
+  border: 2px solid var(--color-border-primary);
   width: 20rem;
   height: 15rem;
-  border: 2px solid var(--dark100_white100);
   border-radius: 5px;
   padding: 15px;
   z-index: 1;
@@ -190,8 +190,8 @@
   font-family: var(--font-primary);
   font-weight: var(--fw-regular);
   font-size: var(--fs-lg);
+  color: var(--color-text-primary);
   text-align: center;
-  color: var(--dark100_white100);
   user-select: none;
 }
 
@@ -214,13 +214,12 @@
   font-family: var(--font-primary);
   font-weight: var(--fw-bold);
   font-size: var(--fs-base);
+  background-color: var(--color-btn-primary-fill);
+  color: var(--color-btn-primary-content);
   border-radius: 5px;
-  border: none;
   outline: none;
   height: 100%;
   text-transform: capitalize;
-  background-color: var(--dark100_white100);
-  color: var(--white100_dark100);
   transition: 0.2s;
   line-height: 0;
   cursor: pointer;
@@ -241,21 +240,22 @@
 #confirmEditBtn,
 #confirmScheduleBtn,
 #btnYes {
-  border: 2px solid var(--dark100_white100);
+  border: 2px solid var(--color-border-primary);
 }
 
 #cancelEditBtn,
 #cancelScheduletBtn,
 #btnNo {
+  border: none;
   opacity: 0.6;
 }
 
 #confirmEditBtn:hover,
 #confirmScheduleBtn:hover,
 #btnYes:hover {
-  background-color: var(--white100_dark100);
-  color: var(--dark100_white100);
-  box-shadow: 0 0 10px 2px var(--dark100_white100);
+  background-color: var(--color-btn-primary-hover-fill);
+  color: var(--color-btn-primary-hover-content);
+  box-shadow: 0 0 10px 2px var(--color-border-primary);
 }
 
 #cancelEditBtn:hover,
@@ -277,7 +277,7 @@
   font-family: var(--font-primary);
   font-weight: var(--fw-bold);
   font-size: var(--fs-xxxl);
-  color: var(--dark100_white100);
+  color: var(--color-text-primary);
   text-align: center;
   pointer-events: none;
   user-select: none;

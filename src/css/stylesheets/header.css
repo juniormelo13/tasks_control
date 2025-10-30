@@ -3,6 +3,7 @@
 #headerBox {
   display: flex;
   position: fixed;
+  background-color: var(--color-bg-surface);
   height: 5rem;
   width: 100%;
   justify-content: center;
@@ -18,7 +19,7 @@
   max-width: 120rem;
   height: 100%;
   padding: 0 5%;
-  background-color: var(--white100_dark100);
+  background-color: var(--color-bg-surface);
 }
 
 /* Logo */
@@ -49,12 +50,12 @@
   font-family: var(--font-primary);
   font-weight: var(--fw-regular);
   font-size: var(--fs-base);
-  background-color: var(--white100_dark100);
-  color: var(--dark100_white100);
+  background-color: var(--color-bg-input);
+  color: var(--color-text-primary);
   width: 100%;
   height: 100%;
   outline: none;
-  border: 2px solid var(--grey_50);
+  border: 2px solid var(--color-border-input);
   border-radius: 5px;
   padding: 5px 50px 5px 10px;
   transition: 0.2s;
@@ -72,10 +73,10 @@
   font-family: var(--font-primary);
   font-weight: var(--fw-bold);
   font-size: var(--fs-display);
-  border: 2px solid var(--dark100_white100);
+  border: 2px solid var(--color-border-primary);
   border-radius: 5px;
-  background-color: var(--dark100_white100);
-  color: var(--white100_dark100);
+  background-color: var(--color-btn-primary-fill);
+  color: var(--color-btn-primary-content);
   height: 48px;
   width: 48px;
   flex-shrink: 0;
@@ -84,9 +85,9 @@
 }
 
 #newTaskBtn:hover {
-  background-color: var(--white100_dark100);
-  color: var(--dark100_white100);
-  box-shadow: 0 0 10px 2px var(--dark100_white100);
+  background-color: var(--color-btn-primary-hover-fill);
+  color: var(--color-btn-primary-hover-content);
+  box-shadow: 0 0 10px 2px var(--color-border-primary);
 }
 
 #newTaskBtn span {
@@ -103,12 +104,12 @@
 
 #menuBtn {
   position: relative;
-  background: var(--dark100_white100);
-  color: var(--white100_dark100);
+  background-color: var(--color-btn-primary-fill);
+  color: var(--color-btn-primary-content);
   flex-shrink: 0;
   width: 48px;
   height: 48px;
-  border: 2px solid var(--dark100_white100);
+  border: 2px solid var(--color-border-primary);
   border-radius: 5px;
   outline: none;
   transition: 0.2s;
@@ -117,9 +118,9 @@
 
 #menuBtn:hover,
 #menuBtn.active {
-  background-color: var(--white100_dark100);
-  color: var(--dark100_white100);
-  box-shadow: 0 0 10px 2px var(--dark100_white100);
+  background-color: var(--color-btn-primary-hover-fill);
+  color: var(--color-btn-primary-hover-content);
+  box-shadow: 0 0 10px 2px var(--color-border-primary);
 }
 
 .menuBtnIcon {
@@ -151,7 +152,7 @@
   gap: 5px;
   top: 3.5rem;
   left: 5%;
-  background-color: var(--white100_dark100);
+  background-color: var(--color-bg-surface);
   border-radius: 5px;
   border-top: none;
   border-top-left-radius: 0;
@@ -164,7 +165,7 @@
   font-family: var(--font-primary);
   font-weight: var(--fw-regular);
   font-size: var(--fs-sm);
-  color: var(--dark100_white100);
+  color: var(--color-text-primary);
   user-select: none;
 }
 
@@ -176,16 +177,16 @@
 #cleanFilterBtn {
   cursor: pointer;
   border: none;
-  background: none;
+  background-color: var(--color-btn-secondary-fill);
+  color: var(--color-btn-secondary-content);
   outline: none;
-  color: var(--dark100_white100);
   height: 100%;
   width: 1.5rem;
   transition: 0.2s;
 }
 
 #cleanFilterBtn:hover {
-  color: var(--red);
+  color: var(--color-on-btn-danger-hover);
 }
 
 #cleanFilterBtn span {

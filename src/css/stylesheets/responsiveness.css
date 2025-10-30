@@ -32,31 +32,31 @@
     width: 70%;
   }
   #newTaskBtn:hover {
-    background-color: var(--dark100_white100);
-    color: var(--white100_dark100);
+    background-color: var(--color-btn-primary-fill);
+    color: var(--color-btn-primary-content);
     box-shadow: none;
   }
   #menuBtn:hover {
-    background-color: var(--dark100_white100);
-    color: var(--white100_dark100);
+    background-color: var(--color-btn-primary-fill);
+    color: var(--color-btn-primary-content);
     box-shadow: none;
   }
   #menuBtn.active {
-    background-color: var(--white100_dark100);
-    color: var(--dark100_white100);
-    box-shadow: 0 0 10px 2px var(--dark100_white100);
+    background-color: var(--color-btn-primary-hover-fill);
+    color: var(--color-btn-primary-hover-content);
+    box-shadow: 0 0 10px 2px var(--color-border-primary);
   }
   #nameIdentIcon {
     opacity: 0.5;
   }
   #saveNameButton {
-    color: var(--green);
+    color: var(--color-btn-save-inputName-content);
   }
   #deleteNameButton {
-    color: var(--red);
+    color: var(--color-btn-delete-inputName-content);
   }
   #recoverNameButton {
-    color: var(--yellow);
+    color: var(--color-btn-recover-inputName-content);
   }
   #inputFileBtnPlus,
   #inputFileBtnDel {
@@ -84,14 +84,14 @@
     translate: 0;
   }
   .saveNoteBtn {
-    color: var(--green);
+    color: var(--color-btn-save-inputNote-content);
   }
   .cleanNoteBtn {
-    color: var(--red);
+    color: var(--color-btn-delete-inputNote-content);
   }
   #closeEditFieldBtn,
   #scheduleFieldCloseBtn {
-    color: var(--red);
+    color: var(--color-on-btn-danger-hover);
   }
 }
 
@@ -176,7 +176,7 @@
     height: calc(100dvh - 10rem);
   }
   #newTaskContainer {
-    background-color: var(--white100_dark100);
+    background-color: var(--color-bg-surface);
     position: absolute;
     padding: 0 5%;
     top: 5rem;
