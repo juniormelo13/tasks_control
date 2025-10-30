@@ -85,7 +85,8 @@ body {
 .btnField.pointerEventsNone,
 #menu.pointerEventsNone,
 #filterInformationBox.pointerEventsNone,
-.taskFront.pointerEventsNone {
+.taskFront.pointerEventsNone,
+.notePadContainer.pointerEventsNone {
   pointer-events: none;
   user-select: none;
 }

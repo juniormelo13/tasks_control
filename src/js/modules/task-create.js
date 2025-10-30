@@ -63,6 +63,7 @@ function createNotPadContainer(taskField, taskFront, task, notePadContainer, not
 
   notePadContainer.classList.add("notePadContainer");
   notePadContainer.classList.add("taskBehind");
+  notePadContainer.classList.add("pointerEventsNone");
   notePadTop.classList.add("notePadTop");
   notePadTitle.classList.add("notePadTitle");
   notePadInput.classList.add("notePadInput");

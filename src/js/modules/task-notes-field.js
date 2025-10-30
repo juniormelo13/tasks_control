@@ -28,6 +28,7 @@ export function notesBtnClick(taskField, task, taskFront, notePadInput, notePadC
   }
   highLight(taskField, notePadContainer, "true")
   taskFront.classList.add("pointerEventsNone")
+  notePadContainer.classList.remove("pointerEventsNone");
   task.classList.add("flipAnimate")
   setTimeout(() => {
     flippedTask = true;
@@ -58,6 +59,7 @@ export function saveNoteClick(taskField, task, taskFront, notePadContainer, note
   task.classList.remove("flipAnimate")
   highLight(taskField, notePadContainer, "false")
   taskFront.classList.remove("pointerEventsNone")
+  notePadContainer.classList.add("pointerEventsNone");
   flippedTask = false
   setTimeout(() => {
     header.classList.remove("pointerEventsNone");
