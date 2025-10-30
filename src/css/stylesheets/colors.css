@@ -6,7 +6,7 @@
 
   --color-bg-base: rgb(210, 210, 210); /* Fundo container principal */
   --color-bg-surface: rgb(230, 230, 230); /* Fundo header, menu, modais */
-  --color-bg-input: rgb(230, 230, 230); /* Fundo inputs */
+  --color-bg-input: var(--color-bg-surface); /* Fundo inputs */
   --color-bg-input-active: rgba(182, 148, 0, 0.1); /* Fundo input ativo */
   --color-bg-input-active-after: rgb(182, 148, 0); /* Fundo input ativo after */
   
@@ -15,30 +15,30 @@
   --color-text-primary: rgb(35, 35, 35); /* Texto principal */
   --color-text-secondary: rgb(100, 100, 100); /* Texto secundário/neutro */
   --color-text-placeholder: rgb(150, 150, 150); /* Texto placeholder */
-  --color-text-disabled: rgb(150, 150, 150); /* Texto elementos inativos */
   
   /* == Bordas == */
 
   --color-border-primary: rgb(35, 35, 35); /* Borda mais forte (modais, botões) */
-  --color-border-input: rgb(100, 100, 100); /* Borda inputs */
+  --color-border-secondary: rgb(100, 100, 100); /* Borda secundária */
+  --color-border-input: var(--color-border-secondary); /* Borda inputs */
   --color-border-indicator-dot-active: rgb(35, 35, 35); /* Borda ponto de notificação para tarefas com anotações */
-  --color-on-border-input-danger: rgb(190, 22, 0); /* Bordas input com erros */
+  --color-border-input-error: var(--color-task-expired-state); /* Bordas input com erros */
 
   /* == Status == */
 
-  --color-border-filter-status-all: rgb(35, 35, 35); /* Borda filtro todas as tarefas */
-  --color-border-filter-status-completed: rgb(59, 148, 0); /* Borda filtro tarefas concluídas */
-  --color-border-filter-status-scheduled: rgb(0, 90, 173); /* Borda filtro tarefas agendadas */
-  --color-border-filter-status-pending: rgb(182, 148, 0); /* Borda filtro tarefas pendentes */
-  --color-border-filter-status-expired: rgb(190, 22, 0); /* Borda filtro tarefas expiradas */
+  --color-task-default-state: var(--color-border-secondary); /* Uso geral componentes baseado na cor da tarefa inicial */
+  --color-task-completed-state: rgb(59, 148, 0); /* Uso geral componentes baseado na cor da tarefa concluída */
+  --color-task-scheduled-state: rgb(0, 90, 173); /* Uso geral componentes baseado na cor da tarefa agendada */
+  --color-task-alert-state: rgb(182, 148, 0); /* Uso geral componentes baseado na cor da tarefa com alerta */
+  --color-task-expired-state: rgb(190, 22, 0); /* Uso geral componentes baseado na cor da tarefa expirada */
 
-  --color-task-default-state: rgb(100, 100, 100); /* Uso geral componentes tarefa inicial */
-  --color-task-completed-state: rgb(59, 148, 0); /* Uso geral componentes tarefa concluída */
-  --color-task-scheduled-state: rgb(0, 90, 173); /* Uso geral componentes tarefa agendada */
-  --color-task-alert-state: rgb(182, 148, 0); /* Uso geral componentes tarefa com alerta */
-  --color-task-expired-state: rgb(190, 22, 0); /* Uso geral componentes tarefa expirada */
+  --color-border-filter-status-all: var(--color-border-primary); /* Borda filtro todas as tarefas */
+  --color-border-filter-status-completed: var(--color-task-completed-state); /* Borda filtro tarefas concluídas */
+  --color-border-filter-status-scheduled: var(--color-task-scheduled-state); /* Borda filtro tarefas agendadas */
+  --color-border-filter-status-pending: var(--color-task-alert-state); /* Borda filtro tarefas pendentes */
+  --color-border-filter-status-expired: var(--color-task-expired-state); /* Borda filtro tarefas expiradas */
 
-  --color-bg-task-default: rgb(230, 230, 230); /* Fundo inicial da tarefa */
+  --color-bg-task-default: var(--color-bg-surface); /* Fundo inicial da tarefa */
   --color-bg-task-completed: rgba(59, 148, 0, 0.1); /* Fundo tarefa concluída */
   --color-bg-task-scheduled: rgba(0, 90, 173, 0.1); /* Fundo tarefa agendada */
   --color-bg-task-alert: rgba(182, 148, 0, 0.1); /* Fundo tarefa com alerta */
@@ -59,38 +59,38 @@
   --color-btn-tertiary-fill: rgba(150, 150, 150, 0.2); /* Fundo botões 'limpar input' */
   --color-btn-tertiary-hover-fill: rgba(150, 150, 150, 0.3); /* Fundo hover botões 'limpar input' */
   --color-btn-tertiary-content: rgb(150, 150, 150); /* Conteúdo botões 'limpar input' */
-  --color-btn-tertiary-hover-content: rgb(100, 100, 100); /* Conteúdo hover botões 'limpar input' */
+  --color-btn-tertiary-hover-content: var(--color-text-secondary); /* Conteúdo hover botões 'limpar input' */
 
   --color-btn-inputFile-fill: rgba(230, 230, 230, 0.8); /* Fundo input de adicionar e remover foto perfil */
-  --color-btn-inputFile-content: rgb(35, 35, 35); /* Conteúdo input de adicionar e remover foto perfil */
+  --color-btn-inputFile-content: var(--color-btn-secondary-content); /* Conteúdo input de adicionar e remover foto perfil */
 
   --color-btn-inputName-fill: transparent; /* Fundo botões auxiliares do input de nome */
-  --color-btn-default-inputName-content: rgb(100, 100, 100); /* Conteúdo botões auxiliares do input de nome */
-  --color-btn-save-inputName-content: rgb(59, 148, 0); /* Conteúdo hover botão salvar do input de nome */
-  --color-btn-delete-inputName-content: rgb(190, 22, 0); /* Conteúdo hover botão deletar do input de nome */
-  --color-btn-recover-inputName-content: rgb(182, 148, 0); /* Conteúdo hover botão recuperar do input de nome */
+  --color-btn-default-inputName-content: var(--color-text-secondary); /* Conteúdo botões auxiliares do input de nome */
+  --color-btn-save-inputName-content: var(--color-task-completed-state); /* Conteúdo hover botão salvar do input de nome */
+  --color-btn-delete-inputName-content: var(--color-task-expired-state); /* Conteúdo hover botão deletar do input de nome */
+  --color-btn-recover-inputName-content: var(--color-task-alert-state); /* Conteúdo hover botão recuperar do input de nome */
 
-  --color-btn-save-inputNote-content: rgb(59, 148, 0); /* Conteúdo hover botão salvar do input de anotações */
-  --color-btn-delete-inputNote-content: rgb(190, 22, 0); /* Conteúdo hover botão deletar do input de anotações */
+  --color-btn-save-inputNote-content: var(--color-task-completed-state); /* Conteúdo hover botão salvar do input de anotações */
+  --color-btn-delete-inputNote-content: var(--color-task-expired-state); /* Conteúdo hover botão deletar do input de anotações */
 
-  --color-btn-schedule-remove-fill: rgb(230, 230, 230); /* Fundo botão para remover agendamento */
-  --color-btn-task-restore-expired-hover: rgb(35, 35, 35); /* Conteúdo hover botão para restaurar (tarefa expirada) */
+  --color-btn-schedule-remove-fill: var(--color-bg-surface); /* Fundo botão para remover agendamento */
+  --color-btn-task-restore-expired-hover: var(--color-btn-primary-hover-content); /* Conteúdo hover botão para restaurar (tarefa expirada) */
 
-  --color-btn-task-complete: rgb(59, 148, 0); /* Botão completar tarefa */
-  --color-btn-task-restore: rgb(100, 100, 100); /* Botão restaurar tarefa */
-  --color-btn-task-edit: rgb(182, 148, 0); /* Botão editar tarefa */
-  --color-btn-task-schedule: rgb(0, 90, 173); /* Botão agendar tarefa */
-  --color-btn-task-notes: rgb(100, 100, 100); /* Botão anotações da tarefa */
-  --color-btn-task-remove: rgb(190, 22, 0); /* Botão remover tarefa */
+  --color-btn-task-complete: var(--color-task-completed-state); /* Botão completar tarefa */
+  --color-btn-task-restore: var(--color-border-secondary); /* Botão restaurar tarefa */
+  --color-btn-task-edit: var(--color-task-alert-state); /* Botão editar tarefa */
+  --color-btn-task-schedule: var(--color-task-scheduled-state); /* Botão agendar tarefa */
+  --color-btn-task-notes: var(--color-border-secondary); /* Botão anotações da tarefa */
+  --color-btn-task-remove: var(--color-task-expired-state); /* Botão remover tarefa */
 
-  --color-on-btn-danger-hover: rgb(190, 22, 0); /* Cor hover ações perigosas (limpar filtro, fechar modal, apagar todas as tarefas, restaurar padrão de fábrica) */
+  --color-on-btn-danger-hover: var(--color-task-expired-state); /* Cor hover ações perigosas (limpar filtro, fechar modal, apagar todas as tarefas, restaurar padrão de fábrica) */
 
   /* == Outros == */
 
   --color-shadow: rgba(0, 0, 0, 0.5); /* Sombra padrão */
-  --color-scrollbar-primary-track: rgb(230, 230, 230); /* Cor track primária da scrollbar */
-  --color-scrollbar-secondary-track: rgb(210, 210, 210); /* Cor track secundária da scrollbar */
-  --color-scrollbar-base-thumb: rgb(100, 100, 100); /* Cor base thumb da scrollbar */
+  --color-scrollbar-primary-track: var(--color-bg-surface); /* Cor track primária da scrollbar */
+  --color-scrollbar-secondary-track: var(--color-bg-base); /* Cor track secundária da scrollbar */
+  --color-scrollbar-base-thumb: var(--color-border-secondary); /* Cor base thumb da scrollbar */
 }
 
 /* .darkTheme:root (Tema Escuro) */
@@ -99,7 +99,7 @@
 
   --color-bg-base: rgb(45, 45, 45); /* Fundo container principal */
   --color-bg-surface: rgb(35, 35, 35); /* Fundo header, menu, modais */
-  --color-bg-input: rgb(35, 35, 35); /* Fundo inputs */
+  --color-bg-input: var(--color-bg-surface); /* Fundo inputs */
   --color-bg-input-active: rgba(250, 190, 44, 0.1); /* Fundo input ativo */
   --color-bg-input-active-after: rgb(250, 190, 44); /* Fundo input ativo after */
   
@@ -108,30 +108,30 @@
   --color-text-primary: rgb(230, 230, 230); /* Texto principal */
   --color-text-secondary: rgb(200, 200, 200); /* Texto secundário/neutro */
   --color-text-placeholder: rgb(150, 150, 150); /* Texto placeholder */
-  --color-text-disabled: rgb(150, 150, 150); /* Texto elementos inativos */
   
   /* == Bordas == */
 
   --color-border-primary: rgb(230, 230, 230); /* Borda mais forte */
-  --color-border-input: rgb(200, 200, 200); /* Borda inputs */
+  --color-border-secondary: rgb(200, 200, 200); /* Borda secundária */
+  --color-border-input: var(--color-border-secondary); /* Borda inputs */
   --color-border-indicator-dot-active: rgb(35, 35, 35); /* Borda ponto de notificação para tarefas com anotações */
-  --color-on-border-input-danger: rgb(243, 53, 53); /* Bordas do input com erros */
+  --color-border-input-error: var(--color-task-expired-state); /* Bordas input com erros */
 
   /* == Status == */
+
+  --color-task-default-state: var(--color-border-secondary); /* Uso geral componentes baseado na cor da tarefa inicial */
+  --color-task-completed-state: rgb(127, 252, 45); /* Uso geral componentes baseado na cor da tarefa concluída */
+  --color-task-scheduled-state: rgb(125, 157, 244); /* Uso geral componentes baseado na cor da tarefa agendada */
+  --color-task-alert-state: rgb(250, 190, 44); /* Uso geral componentes baseado na cor da tarefa com alerta */
+  --color-task-expired-state: rgb(243, 53, 53); /* Uso geral componentes baseado na cor da tarefa expirada */
   
-  --color-border-filter-status-all: rgb(230, 230, 230); /* Borda filtro todas as tarefas */
-  --color-border-filter-status-completed: rgb(127, 252, 45); /* Borda filtro tarefas concluídas */
-  --color-border-filter-status-scheduled: rgb(125, 157, 244); /* Borda filtro tarefas agendadas */
-  --color-border-filter-status-pending: rgb(250, 190, 44); /* Borda filtro tarefas pendentes */
-  --color-border-filter-status-expired: rgb(243, 53, 53); /* Borda filtro tarefas expiradas */
+  --color-border-filter-status-all: var(--color-border-primary); /* Borda filtro todas as tarefas */
+  --color-border-filter-status-completed: var(--color-task-completed-state); /* Borda filtro tarefas concluídas */
+  --color-border-filter-status-scheduled: var(--color-task-scheduled-state); /* Borda filtro tarefas agendadas */
+  --color-border-filter-status-pending: var(--color-task-alert-state); /* Borda filtro tarefas pendentes */
+  --color-border-filter-status-expired: var(--color-task-expired-state); /* Borda filtro tarefas expiradas */
 
-  --color-task-default-state: rgb(200, 200, 200); /* Uso geral componentes tarefa inicial */
-  --color-task-completed-state: rgb(127, 252, 45); /* Uso geral componentes tarefa concluída */
-  --color-task-scheduled-state: rgb(125, 157, 244); /* Uso geral componentes tarefa agendada */
-  --color-task-alert-state: rgb(250, 190, 44); /* Uso geral componentes tarefa com alerta */
-  --color-task-expired-state: rgb(243, 53, 53); /* Uso geral componentes tarefa expirada */
-
-  --color-bg-task-default: rgb(35, 35, 35); /* Fundo inicial tarefa */
+  --color-bg-task-default: var(--color-bg-surface); /* Fundo inicial tarefa */
   --color-bg-task-completed: rgba(127, 252, 45, 0.1); /* Fundo tarefa concluída */
   --color-bg-task-scheduled: rgba(125, 157, 244, 0.1); /* Fundo tarefa agendada */
   --color-bg-task-alert: rgba(250, 190, 44, 0.1); /* Fundo tarefa com alerta */
@@ -152,36 +152,36 @@
   --color-btn-tertiary-fill: rgba(150, 150, 150, 0.2); /* Fundo botões 'limpar input' */
   --color-btn-tertiary-hover-fill: rgba(150, 150, 150, 0.3); /* Fundo hover botões 'limpar input' */
   --color-btn-tertiary-content: rgb(150, 150, 150); /* Conteúdo botões 'limpar input' */
-  --color-btn-tertiary-hover-content: rgb(200, 200, 200); /* Conteúdo hover botões 'limpar input' */
+  --color-btn-tertiary-hover-content: var(--color-text-secondary); /* Conteúdo hover botões 'limpar input' */
 
   --color-btn-inputFile-fill: rgba(35, 35, 35, 0.8); /* Fundo input de adicionar e remover foto perfil */
-  --color-btn-inputFile-content: rgb(230, 230, 230); /* Conteúdo do input de adicionar e remover foto perfil */
+  --color-btn-inputFile-content: var(--color-btn-secondary-content); /* Conteúdo do input de adicionar e remover foto perfil */
 
   --color-btn-inputName-fill: transparent; /* Fundo botões auxiliares do input de nome */
-  --color-btn-default-inputName-content: rgb(200, 200, 200); /* Conteúdo botões auxiliares do input de nome */
-  --color-btn-save-inputName-content: rgb(127, 252, 45); /* Conteúdo hover botão salvar do input de nome */
-  --color-btn-delete-inputName-content: rgb(243, 53, 53); /* Conteúdo hover botão deletar do input de nome */
-  --color-btn-recover-inputName-content: rgb(250, 190, 44); /* Conteúdo hover botão recuperar do input de nome */
+  --color-btn-default-inputName-content: var(--color-text-secondary); /* Conteúdo botões auxiliares do input de nome */
+  --color-btn-save-inputName-content: var(--color-task-completed-state); /* Conteúdo hover botão salvar do input de nome */
+  --color-btn-delete-inputName-content: var(--color-task-expired-state); /* Conteúdo hover botão deletar do input de nome */
+  --color-btn-recover-inputName-content: var(--color-task-alert-state); /* Conteúdo hover botão recuperar do input de nome */
 
-  --color-btn-save-inputNote-content: rgb(127, 252, 45); /* Conteúdo hover botão salvar do input de anotações */
-  --color-btn-delete-inputNote-content: rgb(243, 53, 53); /* Conteúdo hover botão deletar do input de anotações */
+  --color-btn-save-inputNote-content: var(--color-task-completed-state); /* Conteúdo hover botão salvar do input de anotações */
+  --color-btn-delete-inputNote-content: var(--color-task-expired-state); /* Conteúdo hover botão deletar do input de anotações */
   
-  --color-btn-schedule-remove-fill: rgb(35, 35, 35); /* Fundo botão para remover agendamento */
-  --color-btn-task-restore-expired-hover: rgb(230, 230, 230); /* Conteúdo hover botão para restaurar (tarefa expirada) */
+  --color-btn-schedule-remove-fill: var(--color-bg-surface); /* Fundo botão para remover agendamento */
+  --color-btn-task-restore-expired-hover: var(--color-btn-primary-hover-content); /* Conteúdo hover botão para restaurar (tarefa expirada) */
 
-  --color-btn-task-complete: rgb(127, 252, 45); /* Botão completar tarefa */
-  --color-btn-task-restore: rgb(200, 200, 200); /* Botão restaurar tarefa */
-  --color-btn-task-edit: rgb(250, 190, 44); /* Botão editar tarefa */
-  --color-btn-task-schedule: rgb(125, 157, 244); /* Botão agendar tarefa */
-  --color-btn-task-notes: rgb(200, 200, 200); /* Botão anotações da tarefa */
-  --color-btn-task-remove: rgb(243, 53, 53); /* Botão remover tarefa */
+  --color-btn-task-complete: var(--color-task-completed-state); /* Botão completar tarefa */
+  --color-btn-task-restore: var(--color-border-secondary); /* Botão restaurar tarefa */
+  --color-btn-task-edit: var(--color-task-alert-state); /* Botão editar tarefa */
+  --color-btn-task-schedule: var(--color-task-scheduled-state); /* Botão agendar tarefa */
+  --color-btn-task-notes: var(--color-border-secondary); /* Botão anotações da tarefa */
+  --color-btn-task-remove: var(--color-task-expired-state); /* Botão remover tarefa */
   
-  --color-on-btn-danger-hover: rgb(243, 53, 53); /* Cor hover para ações perigosas (limpar filtro, fechar modal, apagar todas as tarefas, restaurar padrão de fábrica) */
+  --color-on-btn-danger-hover: var(--color-task-expired-state); /* Cor hover para ações perigosas (limpar filtro, fechar modal, apagar todas as tarefas, restaurar padrão de fábrica) */
   
   /* == Outros == */
 
   --color-shadow: rgba(0, 0, 0, 0.5); /* Sombra padrão */
-  --color-scrollbar-primary-track: rgb(35, 35, 35); /* Cor track primária da scrollbar */
-  --color-scrollbar-secondary-track: rgb(45, 45, 45); /* Cor track secundária da scrollbar */
-  --color-scrollbar-base-thumb: rgb(200, 200, 200); /* Cor base thumb da scrollbar */
+  --color-scrollbar-primary-track: var(--color-bg-surface); /* Cor track primária da scrollbar */
+  --color-scrollbar-secondary-track: var(--color-bg-base); /* Cor track secundária da scrollbar */
+  --color-scrollbar-base-thumb: var(--color-border-secondary); /* Cor base thumb da scrollbar */
 }

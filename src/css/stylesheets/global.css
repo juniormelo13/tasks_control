@@ -53,8 +53,8 @@ body {
 #editInput.inputError,
 #scheduleInputDate.inputError,
 #scheduleInputTime.inputError {
-  border-color: var(--color-on-border-input-danger);
-  box-shadow: 0 0 10px 2px var(--color-on-border-input-danger);
+  border-color: var(--color-border-input-error);
+  box-shadow: 0 0 10px 2px var(--color-border-input-error);
 }
 
 /* Foco nos inputs */
