@@ -57,7 +57,7 @@ TasksControl é uma aplicação web que proporciona uma **experiência fluida, i
 
 ## 🎓 Sobre o Desenvolvimento
 
-Este projeto foi desenvolvido integralmente por mim, desde o design inicial até a implementação final, como parte dos meus estudos em JavaScript. Por ter sido construído ao longo do meu aprendizado, algumas implementações podem não representar a abordagem mais otimizada atualmente. No entanto, ele reflete fielmente minha evolução e o conhecimento adquirido durante esse período.
+Como parte dos meus estudos em **JavaScript**, este projeto foi criado do zero e desenvolvido integralmente por mim, desde o design inicial até a implementação final. Por ter sido construído ao longo do meu aprendizado, algumas implementações podem não representar a abordagem mais otimizada atualmente. No entanto, ele reflete fielmente minha evolução e o conhecimento adquirido durante esse período.
 
 ## 🛠️ Ferramentas
 
