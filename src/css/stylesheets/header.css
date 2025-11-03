@@ -153,6 +153,7 @@
   top: 3.5rem;
   left: 5%;
   background-color: var(--color-bg-surface);
+  border: 2px solid var(--color-border-secondary);
   border-radius: 5px;
   border-top: none;
   border-top-left-radius: 0;
