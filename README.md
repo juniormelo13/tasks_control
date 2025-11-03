@@ -7,9 +7,9 @@
 <p align="center">Task manager with scheduling and real-time tracking.</p><br>
 
 <p align="center">
-    <img alt="HTML Logo" title="HTML" width="50px" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/html5/html5-original.svg"/>&nbsp;&nbsp;
-  <img alt="CSS Logo" title="CSS" width="50px" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/css3/css3-original.svg"/>&nbsp;&nbsp;
-  <img alt="JavaScript Logo" title="JavaScript" width="50px" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/javascript/javascript-original.svg"/>
+    <img alt="HTML Logo" title="HTML" width="40" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/html5/html5-original.svg"/>&nbsp;&nbsp;
+  <img alt="CSS Logo" title="CSS" width="40" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/css3/css3-original.svg"/>&nbsp;&nbsp;
+  <img alt="JavaScript Logo" title="JavaScript" width="40" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/javascript/javascript-original.svg"/>
 </p><br>
 
 <p align="center">
