@@ -7,9 +7,9 @@
 <p align="center">Gerenciador de tarefas com agendamento e acompanhamento em tempo real.</p><br>
 
 <p align="center">
-    <img alt="Logo HTML" title="HTML" width="50px" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/html5/html5-original.svg"/>&nbsp;&nbsp;
-  <img alt="Logo CSS" title="CSS" width="50px" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/css3/css3-original.svg"/>&nbsp;&nbsp;
-  <img alt="Logo JavaScript" title="JavaScript" width="50px" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/javascript/javascript-original.svg"/>
+    <img alt="Logo HTML" title="HTML" width="40" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/html5/html5-original.svg"/>&nbsp;&nbsp;
+  <img alt="Logo CSS" title="CSS" width="40" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/css3/css3-original.svg"/>&nbsp;&nbsp;
+  <img alt="Logo JavaScript" title="JavaScript" width="40" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/javascript/javascript-original.svg"/>
 </p><br>
 
 <p align="center">
